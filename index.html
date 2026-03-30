@@ -1,255 +1,319 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mudae OQ + OT Solver</title><style>:root{--bg:#0a0c12;--panel:#0f1118;--panel2:#0c0e16;--line:rgba(255,255,255,.06);--text:#f0f4f8;--muted:#9ca6b6;--red:#ff1f5a}*{box-sizing:border-box;margin:0;padding:0}body{min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--text);background:var(--bg);padding:16px;font-size:14px}.app{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.4fr .95fr;gap:18px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px}.left{padding:16px;display:flex;flex-direction:column;gap:14px}.side{display:flex;flex-direction:column;gap:16px}.side .panel{padding:16px}.topbar{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.tabs{display:flex;gap:6px;margin-bottom:8px}.tab{border:1px solid var(--line);background:var(--panel2);color:var(--muted);border-radius:6px;padding:6px 10px;font-size:11px;font-weight:600;cursor:pointer}.tab.active{background:var(--red);border-color:transparent;color:#fff;box-shadow:0 0 0 1px var(--red)}.title{font-size:15px;font-weight:700;letter-spacing:.01em}.sub{margin-top:2px;color:var(--muted);font-size:12px}.reset{border:0;background:var(--red);color:#fff;border-radius:6px;padding:8px 12px;font-weight:600;font-size:11px;cursor:pointer}.reset:hover{background:#e51b50}.board-wrap{display:flex;justify-content:center;padding:4px 0}.coord-grid{display:grid;grid-template-columns:20px repeat(5,64px);grid-template-rows:20px repeat(5,64px);gap:9px;align-items:center;justify-items:center}.axis{font-size:11px;font-weight:700;color:var(--muted);user-select:none;line-height:1}.corner{width:20px;height:20px}.cell{width:64px;height:64px;border-radius:6px;border:1px solid rgba(255,255,255,.05);background:var(--panel2);position:relative;cursor:pointer;color:#fff;transition:border-color .1s,background .1s}.cell:hover{border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.02)}.cell.best{border-color:var(--red);background:rgba(255,31,90,.08)}.cell.open{background:rgba(255,255,255,.03)}.dots{position:absolute;top:6px;left:50%;transform:translateX(-50%);font-size:8px;color:rgba(255,255,255,.08)}.pct{position:absolute;top:6px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:600;color:#c0c8d6}.q{position:absolute;left:50%;top:50%;transform:translate(-50%,-34%);font-size:20px;font-weight:700;color:rgba(255,255,255,.88)}.center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:20px;font-weight:700}.c0 .center{color:#5fa8ff}.c1 .center{color:#58e6f0}.c2 .center{color:#32dc74}.c3 .center{color:#ffd54a}.c4 .center{color:#ff9c47}.cp .center{color:#c784ff}.ct .center{color:#58e6f0}.cg .center{color:#32dc74}.cy .center{color:#ffd54a}.cr .center{color:#ff7c40}.cb .center{color:#5fa8ff}.box{margin-top:12px;border:1px solid var(--line);border-radius:6px;background:var(--panel2);padding:14px;text-align:center}.h2{font-size:12px;font-weight:700;margin:0 0 1px;color:var(--muted)}.small{font-size:11px;color:var(--muted)}.big{font-size:22px;font-weight:800;letter-spacing:.01em;margin-top:4px}.gain{font-size:11px;color:#d0d9e3;margin-top:4px}.divider{height:1px;background:var(--line);margin-top:14px}.meta{text-align:center;padding-top:12px;font-size:12px;color:#c8d2e0}.list{margin-top:12px;display:flex;flex-direction:column;gap:6px}.item{display:flex;align-items:center;justify-content:space-between;gap:6px;border:1px solid var(--line);border-radius:6px;background:var(--panel2);padding:8px 10px;font-size:12px}.val{color:#ff527e;font-weight:700}.guide{border:1px solid var(--line);border-radius:6px;background:var(--panel2);padding:12px}.guide h3{margin:0 0 6px;font-size:13px}.guide p{margin:0;color:#bcc5d5;font-size:12px;line-height:1.4}.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.tag{border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.02);padding:4px 8px;font-size:10px;color:#d2dae6}.note{font-size:10px;color:#9aa6b6;margin-top:6px}@media (max-width:920px){.app{grid-template-columns:1fr}.coord-grid{grid-template-columns:18px repeat(5,minmax(52px,1fr));grid-template-rows:18px repeat(5,minmax(52px,1fr));gap:7px;width:100%}.cell{width:100%;height:auto;aspect-ratio:1/1}.axis{font-size:10px}}</style></head><body><div class="app"><section class="panel left"><div class="tabs"><button class="tab active" id="tabOQ">OQ</button><button class="tab" id="tabOT">OT</button></div><div class="topbar"><div><div class="title" id="gameTitle">OQ Solver</div><div class="sub" id="gameSub">Clicks used: 0 / 7 (Purple = Free)</div></div><button class="reset" id="resetBtn">Reset</button></div><div class="board-wrap"><div class="coord-grid" id="coordGrid"></div></div><div class="guide"><h3>Guide</h3><p id="guideText"></p><div class="tags" id="guideTags"></div><div class="note" id="guideNote"></div></div></section><aside class="side"><section class="panel"><h2 class="h2" id="recTitle">Recommendation</h2><div class="box"><div class="small" id="bestLabel">Next best move:</div><div class="big" id="bestMove">-</div><div class="gain" id="gainText">Expected Gain: 0.00</div></div><div class="divider"></div><div class="meta" id="metaLine">Possible Purple Locations: 0 / 25</div></section><section class="panel"><h2 class="h2" id="listTitle">Likely Purple Locations</h2><div class="list" id="likelyList"></div></section></aside></div><script>const SIZE = 5;
-const OQ_STATES = ['hidden', 'purple', 0, 1, 2, 3, 4];
-const OT_STATES = ['hidden', 'blue', 'teal', 'green', 'yellow', 'rare'];
-let activeGame = 'oq';
-const oqBoard = Array.from({length:SIZE},()=>Array.from({length:SIZE},()=>({state:'hidden'})));
-const otBoard = Array.from({length:SIZE},()=>Array.from({length:SIZE},()=>({state:'hidden'})));
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Mudae OQ + OT Solver</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://cdn.imgchest.com/files/a85edf0cdc88.png"
+    />
+    <style>
+      :root{--bg:#0a0c12;--panel:#0f1118;--panel2:#0c0e16;--line:rgba(255,255,255,.06);--text:#f0f4f8;--muted:#9ca6b6;--red:#ff1f5a}*{box-sizing:border-box;margin:0;padding:0}body{min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--text);background:var(--bg);padding:16px;font-size:14px}.app{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.4fr .95fr;gap:18px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px}.left{padding:16px;display:flex;flex-direction:column;gap:14px}.side{display:flex;flex-direction:column;gap:16px}.side .panel{padding:16px}.topbar{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.tabs{display:flex;gap:6px;margin-bottom:8px}.tab{border:1px solid var(--line);background:var(--panel2);color:var(--muted);border-radius:6px;padding:6px 10px;font-size:11px;font-weight:600;cursor:pointer}.tab.active{background:var(--red);border-color:transparent;color:#fff;box-shadow:0 0 0 1px var(--red)}.title{font-size:15px;font-weight:700;letter-spacing:.01em}.sub{margin-top:2px;color:var(--muted);font-size:12px}.reset{border:0;background:var(--red);color:#fff;border-radius:6px;padding:8px 12px;font-weight:600;font-size:11px;cursor:pointer}.reset:hover{background:#e51b50}.board-wrap{display:flex;justify-content:center;padding:4px 0}.coord-grid{display:grid;grid-template-columns:20px repeat(5,64px);grid-template-rows:20px repeat(5,64px);gap:9px;align-items:center;justify-items:center}.axis{font-size:11px;font-weight:700;color:var(--muted);user-select:none;line-height:1}.corner{width:20px;height:20px}.cell{width:64px;height:64px;border-radius:6px;border:1px solid rgba(255,255,255,.05);background:var(--panel2);position:relative;cursor:pointer;color:#fff;transition:border-color .1s,background .1s}.cell:hover{border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.02)}.cell.best{border-color:var(--red);background:rgba(255,31,90,.08)}.cell.open{background:rgba(255,255,255,.03)}.dots{position:absolute;top:6px;left:50%;transform:translateX(-50%);font-size:8px;color:rgba(255,255,255,.08)}.pct{position:absolute;top:6px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:600;color:#c0c8d6}.q{position:absolute;left:50%;top:50%;transform:translate(-50%,-34%);font-size:20px;font-weight:700;color:rgba(255,255,255,.88)}.center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:20px;font-weight:700}.c0 .center{color:#5fa8ff}.c1 .center{color:#58e6f0}.c2 .center{color:#32dc74}.c3 .center{color:#ffd54a}.c4 .center{color:#ff9c47}.cp .center{color:#c784ff}.ct .center{color:#58e6f0}.cg .center{color:#32dc74}.cy .center{color:#ffd54a}.cr .center{color:#ff7c40}.cb .center{color:#5fa8ff}.box{margin-top:12px;border:1px solid var(--line);border-radius:6px;background:var(--panel2);padding:14px;text-align:center}.h2{font-size:12px;font-weight:700;margin:0 0 1px;color:var(--muted)}.small{font-size:11px;color:var(--muted)}.big{font-size:22px;font-weight:800;letter-spacing:.01em;margin-top:4px}.gain{font-size:11px;color:#d0d9e3;margin-top:4px}.divider{height:1px;background:var(--line);margin-top:14px}.meta{text-align:center;padding-top:12px;font-size:12px;color:#c8d2e0}.list{margin-top:12px;display:flex;flex-direction:column;gap:6px}.item{display:flex;align-items:center;justify-content:space-between;gap:6px;border:1px solid var(--line);border-radius:6px;background:var(--panel2);padding:8px 10px;font-size:12px}.val{color:#ff527e;font-weight:700}.guide{border:1px solid var(--line);border-radius:6px;background:var(--panel2);padding:12px}.guide h3{margin:0 0 6px;font-size:13px}.guide p{margin:0;color:#bcc5d5;font-size:12px;line-height:1.4}.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.tag{border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.02);padding:4px 8px;font-size:10px;color:#d2dae6}.note{font-size:10px;color:#9aa6b6;margin-top:6px}@media (max-width:920px){.app{grid-template-columns:1fr}.coord-grid{grid-template-columns:18px repeat(5,minmax(52px,1fr));grid-template-rows:18px repeat(5,minmax(52px,1fr));gap:7px;width:100%}.cell{width:100%;height:auto;aspect-ratio:1/1}.axis{font-size:10px}}
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <section class="panel left">
+        <div class="tabs">
+          <button class="tab active" id="tabOQ">OQ</button
+          ><button class="tab" id="tabOT">OT</button>
+        </div>
+        <div class="topbar">
+          <div>
+            <div class="title" id="gameTitle">OQ Solver</div>
+            <div class="sub" id="gameSub">
+              Clicks used: 0 / 7 (Purple = Free)
+            </div>
+          </div>
+          <button class="reset" id="resetBtn">Reset</button>
+        </div>
+        <div class="board-wrap">
+          <div class="coord-grid" id="coordGrid"></div>
+        </div>
+        <div class="guide">
+          <h3>Guide</h3>
+          <p id="guideText"></p>
+          <div class="tags" id="guideTags"></div>
+          <div class="note" id="guideNote"></div>
+        </div>
+      </section>
+      <aside class="side">
+        <section class="panel">
+          <h2 class="h2" id="recTitle">Recommendation</h2>
+          <div class="box">
+            <div class="small" id="bestLabel">Next best move:</div>
+            <div class="big" id="bestMove">-</div>
+            <div class="gain" id="gainText">Expected Gain: 0.00</div>
+          </div>
+          <div class="divider"></div>
+          <div class="meta" id="metaLine">
+            Possible Purple Locations: 0 / 25
+          </div>
+        </section>
+        <section class="panel">
+          <h2 class="h2" id="listTitle">Likely Purple Locations</h2>
+          <div class="list" id="likelyList"></div>
+        </section>
+      </aside>
+    </div>
+    <script>
+      const SIZE = 5;
+      const OQ_STATES = ['hidden', 'purple', 0, 1, 2, 3, 4];
+      const OT_STATES = ['hidden', 'blue', 'teal', 'green', 'yellow', 'rare'];
+      let activeGame = 'oq';
+      const oqBoard = Array.from({length:SIZE},()=>Array.from({length:SIZE},()=>({state:'hidden'})));
+      const otBoard = Array.from({length:SIZE},()=>Array.from({length:SIZE},()=>({state:'hidden'})));
 
-function idx(r,c){ return r*SIZE+c; }
-function bit(i){ return 1<<i; }
-function neighbors(r,c){ const out=[]; for(let dr=-1;dr<=1;dr++){ for(let dc=-1;dc<=1;dc++){ if(!dr&&!dc) continue; const nr=r+dr,nc=c+dc; if(nr>=0&&nr<SIZE&&nc>=0&&nc<SIZE) out.push([nr,nc]); } } return out; }
-function hiddenCells(board){ const arr=[]; for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) if(board[r][c].state==='hidden') arr.push([r,c]); return arr; }
-function oqPaidClicks(){ return oqBoard.flat().filter(x => x.state !== 'hidden' && x.state !== 'purple').length; }
-function otBlueClicks(){ return otBoard.flat().filter(x => x.state === 'blue').length; }
+      function idx(r,c){ return r*SIZE+c; }
+      function bit(i){ return 1<<i; }
+      function neighbors(r,c){ const out=[]; for(let dr=-1;dr<=1;dr++){ for(let dc=-1;dc<=1;dc++){ if(!dr&&!dc) continue; const nr=r+dr,nc=c+dc; if(nr>=0&&nr<SIZE&&nc>=0&&nc<SIZE) out.push([nr,nc]); } } return out; }
+      function hiddenCells(board){ const arr=[]; for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) if(board[r][c].state==='hidden') arr.push([r,c]); return arr; }
+      function oqPaidClicks(){ return oqBoard.flat().filter(x => x.state !== 'hidden' && x.state !== 'purple').length; }
+      function otBlueClicks(){ return otBoard.flat().filter(x => x.state === 'blue').length; }
 
-const OQ_COMBOS = (() => {
-  const out=[];
-  const n=25;
-  for(let a=0;a<n-3;a++) for(let b=a+1;b<n-2;b++) for(let c=b+1;c<n-1;c++) for(let d=c+1;d<n;d++) out.push(bit(a)|bit(b)|bit(c)|bit(d));
-  return out;
-})();
+      const OQ_COMBOS = (() => {
+        const out=[];
+        const n=25;
+        for(let a=0;a<n-3;a++) for(let b=a+1;b<n-2;b++) for(let c=b+1;c<n-1;c++) for(let d=c+1;d<n;d++) out.push(bit(a)|bit(b)|bit(c)|bit(d));
+        return out;
+      })();
 
-function generateSegments(len){
-  const arr=[];
-  for(let r=0;r<SIZE;r++) for(let c=0;c<=SIZE-len;c++){ let m=0; for(let k=0;k<len;k++) m|=bit(idx(r,c+k)); arr.push({m}); }
-  for(let c=0;c<SIZE;c++) for(let r=0;r<=SIZE-len;r++){ let m=0; for(let k=0;k<len;k++) m|=bit(idx(r+k,c)); arr.push({m}); }
-  return arr;
-}
-const SEG_T = generateSegments(4);
-const SEG_G = generateSegments(3);
-const SEG_Y = generateSegments(3);
-const SEG_R = generateSegments(2);
-const OT_COMBOS = (() => {
-  const out=[];
-  for(const t of SEG_T){
-    for(const g of SEG_G){ if(t.m & g.m) continue;
-      for(const y of SEG_Y){ if((t.m & y.m) || (g.m & y.m)) continue;
-        for(const r of SEG_R){ if((t.m & r.m) || (g.m & r.m) || (y.m & r.m)) continue;
-          out.push({t:t.m,g:g.m,y:y.m,r:r.m,u:t.m|g.m|y.m|r.m});
+      function generateSegments(len){
+        const arr=[];
+        for(let r=0;r<SIZE;r++) for(let c=0;c<=SIZE-len;c++){ let m=0; for(let k=0;k<len;k++) m|=bit(idx(r,c+k)); arr.push({m}); }
+        for(let c=0;c<SIZE;c++) for(let r=0;r<=SIZE-len;r++){ let m=0; for(let k=0;k<len;k++) m|=bit(idx(r+k,c)); arr.push({m}); }
+        return arr;
+      }
+      const SEG_T = generateSegments(4);
+      const SEG_G = generateSegments(3);
+      const SEG_Y = generateSegments(3);
+      const SEG_R = generateSegments(2);
+      const OT_COMBOS = (() => {
+        const out=[];
+        for(const t of SEG_T){
+          for(const g of SEG_G){ if(t.m & g.m) continue;
+            for(const y of SEG_Y){ if((t.m & y.m) || (g.m & y.m)) continue;
+              for(const r of SEG_R){ if((t.m & r.m) || (g.m & r.m) || (y.m & r.m)) continue;
+                out.push({t:t.m,g:g.m,y:y.m,r:r.m,u:t.m|g.m|y.m|r.m});
+              }
+            }
+          }
+        }
+        return out;
+      })();
+
+      function solveOQ(){
+        const valid=[];
+        for(const mask of OQ_COMBOS){
+          let ok=true;
+          for(let r=0;r<SIZE&&ok;r++){
+            for(let c=0;c<SIZE&&ok;c++){
+              const s=oqBoard[r][c].state;
+              const here = (mask & bit(idx(r,c))) !== 0;
+              if(s==='hidden') continue;
+              if(s==='purple'){ if(!here) ok=false; continue; }
+              if(typeof s==='number'){
+                if(here){ ok=false; continue; }
+                let cnt=0;
+                for(const [nr,nc] of neighbors(r,c)) if(mask & bit(idx(nr,nc))) cnt++;
+                if(cnt!==s) ok=false;
+              }
+            }
+          }
+          if(ok) valid.push(mask);
+        }
+        const probs = Array.from({length:SIZE},()=>Array(SIZE).fill(0));
+        if(!valid.length) return {probs,valid:0,best:null,top:[]};
+        for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) if(oqBoard[r][c].state==='hidden'){
+          let hit=0; const b=bit(idx(r,c));
+          for(const mask of valid) if(mask & b) hit++;
+          probs[r][c]=hit/valid.length;
+        }
+        const top=[]; let best=null;
+        for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) if(oqBoard[r][c].state==='hidden'){
+          const p=probs[r][c]; top.push({r,c,p}); if(!best || p>best.p) best={r,c,p};
+        }
+        top.sort((a,b)=>b.p-a.p);
+        return {probs,valid:valid.length,best,top:top.slice(0,5)};
+      }
+
+      function solveOT(){
+        const valid=[];
+        for(const combo of OT_COMBOS){
+          let ok=true;
+          for(let r=0;r<SIZE&&ok;r++){
+            for(let c=0;c<SIZE&&ok;c++){
+              const s=otBoard[r][c].state;
+              if(s==='hidden') continue;
+              const b=bit(idx(r,c));
+              if(s==='blue'){ if(combo.u & b) ok=false; }
+              else if(s==='teal'){ if(!(combo.t & b)) ok=false; }
+              else if(s==='green'){ if(!(combo.g & b)) ok=false; }
+              else if(s==='yellow'){ if(!(combo.y & b)) ok=false; }
+              else if(s==='rare'){ if(!(combo.r & b)) ok=false; }
+            }
+          }
+          if(ok) valid.push(combo);
+        }
+        const probs = Array.from({length:SIZE},()=>Array.from({length:SIZE},()=>({blue:0,teal:0,green:0,yellow:0,rare:0,nonBlue:0,expected:0})));
+        if(!valid.length) return {probs,valid:0,best:null,top:[]};
+        const weights={teal:20,green:35,yellow:55,rare:90};
+        for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) if(otBoard[r][c].state==='hidden'){
+          const b=bit(idx(r,c));
+          let t=0,g=0,y=0,rr=0;
+          for(const combo of valid){ if(combo.t & b) t++; else if(combo.g & b) g++; else if(combo.y & b) y++; else if(combo.r & b) rr++; }
+          const total=valid.length;
+          const teal=t/total, green=g/total, yellow=y/total, rare=rr/total;
+          const nonBlue=teal+green+yellow+rare;
+          const blue=1-nonBlue;
+          const expected=teal*weights.teal + green*weights.green + yellow*weights.yellow + rare*weights.rare;
+          probs[r][c]={blue,teal,green,yellow,rare,nonBlue,expected};
+        }
+        const top=[]; let best=null;
+        for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) if(otBoard[r][c].state==='hidden'){
+          const p=probs[r][c]; top.push({r,c,p});
+          const score = p.nonBlue*100 + p.expected*0.08;
+          if(!best || score>best.score) best={r,c,score,...p};
+        }
+        top.sort((a,b)=>b.p.nonBlue-a.p.nonBlue || b.p.expected-a.p.expected);
+        return {probs,valid:valid.length,best,top:top.slice(0,5)};
+      }
+
+      function cycle(board, states, r, c, dir){
+        const cur=board[r][c].state;
+        const i=states.indexOf(cur);
+        let next=i+dir; if(next<0) next=states.length-1; if(next>=states.length) next=0;
+        board[r][c].state=states[next];
+        render();
+      }
+
+      function oqClass(state){
+        if(state==='hidden') return 'cell';
+        if(state==='purple') return 'cell open cp';
+        if(state===0) return 'cell open c0';
+        if(state===1) return 'cell open c1';
+        if(state===2) return 'cell open c2';
+        if(state===3) return 'cell open c3';
+        if(state===4) return 'cell open c4';
+        return 'cell';
+      }
+      function otClass(state){
+        if(state==='hidden') return 'cell';
+        if(state==='blue') return 'cell open cb';
+        if(state==='teal') return 'cell open ct';
+        if(state==='green') return 'cell open cg';
+        if(state==='yellow') return 'cell open cy';
+        if(state==='rare') return 'cell open cr';
+        return 'cell';
+      }
+      function oqInner(state,p){
+        if(state==='hidden') return `<div class="dots">---</div><div class="pct">${p?Math.round(p*100)+'%':'---'}</div><div class="q">?</div>`;
+        const map={'purple':'P',0:'B',1:'T',2:'G',3:'Y',4:'O'};
+        return `<div class="center">${map[state]}</div>`;
+      }
+      function otInner(state,p){
+        if(state==='hidden') return `<div class="dots">---</div><div class="pct">${p&&p.nonBlue?Math.round(p.nonBlue*100)+'%':'---'}</div><div class="q">?</div>`;
+        const map={'blue':'B','teal':'T','green':'G','yellow':'Y','rare':'R'};
+        return `<div class="center">${map[state]}</div>`;
+      }
+
+      function renderGuide(){
+        const tags=document.getElementById('guideTags'); const note=document.getElementById('guideNote'); tags.innerHTML='';
+        if(activeGame==='oq'){
+          document.getElementById('gameTitle').textContent='OQ Solver';
+          document.getElementById('gameSub').textContent=`Clicks used: ${oqPaidClicks()} / 7 ( Purple = Free )`;
+          document.getElementById('guideText').textContent='Left-click to advance OQ state: Hidden → Purple → Blue → Teal → Green → Yellow → Orange. Right-click goes backward. Purple is treated as a free move, so it is not counted in clicks.';
+          ['P = Purple (free)','Blue = 0','Teal = 1','Green = 2','Yellow = 3','Orange = 4'].forEach(t=>{ const s=document.createElement('span'); s.className='tag'; s.textContent=t; tags.appendChild(s); });
+          document.getElementById('bestLabel').textContent='Next best move:';
+          document.getElementById('listTitle').textContent='Likely Purple Locations';
+        } else {
+          document.getElementById('gameTitle').textContent='OT Solver';
+          document.getElementById('gameSub').textContent=`Blue Found: ${otBlueClicks()} / 4`;
+          document.getElementById('guideText').textContent='Left-click to advance: Hidden → Blue → Teal → Green → Yellow → Rare. Right-click goes backward. Hidden-cell percentage shows non-blue probability.';
+          ['Blue = lowest','Teal = 4 in line','Green = 3 in line','Yellow = 3 in line','Rare = 2 in line'].forEach(t=>{ const s=document.createElement('span'); s.className='tag'; s.textContent=t; tags.appendChild(s); });
+          document.getElementById('bestLabel').textContent='Safest next move:';
+          document.getElementById('listTitle').textContent='Likely Non-Blue Locations';
         }
       }
-    }
-  }
-  return out;
-})();
 
-function solveOQ(){
-  const valid=[];
-  for(const mask of OQ_COMBOS){
-    let ok=true;
-    for(let r=0;r<SIZE&&ok;r++){
-      for(let c=0;c<SIZE&&ok;c++){
-        const s=oqBoard[r][c].state;
-        const here = (mask & bit(idx(r,c))) !== 0;
-        if(s==='hidden') continue;
-        if(s==='purple'){ if(!here) ok=false; continue; }
-        if(typeof s==='number'){
-          if(here){ ok=false; continue; }
-          let cnt=0;
-          for(const [nr,nc] of neighbors(r,c)) if(mask & bit(idx(nr,nc))) cnt++;
-          if(cnt!==s) ok=false;
+      function renderSideOQ(sol){
+        const best=sol.best;
+        document.getElementById('metaLine').textContent=`Possible Purple Locations: ${sol.top.filter(x=>x.p>0).length} / ${hiddenCells(oqBoard).length}`;
+        document.getElementById('bestMove').textContent=best?`(${best.r+1}, ${best.c+1})`:'-';
+        document.getElementById('gainText').textContent=`Probability: ${best?(best.p*100).toFixed(1):'0.0'}% · Valid boards: ${sol.valid}`;
+        const list=document.getElementById('likelyList'); list.innerHTML='';
+        if(!sol.top.length){ const d=document.createElement('div'); d.className='item'; d.innerHTML='<span>No hidden cells</span><span class="val">0%</span>'; list.appendChild(d); return; }
+        sol.top.forEach(x=>{ const d=document.createElement('div'); d.className='item'; d.innerHTML=`<span>Pos: (${x.r+1}, ${x.c+1})</span><span class="val">${(x.p*100).toFixed(1)}%</span>`; list.appendChild(d); });
+      }
+      function renderSideOT(sol){
+        const best=sol.best; const hidden=hiddenCells(otBoard).length; const possible=sol.top.filter(x=>x.p.nonBlue>0.001).length;
+        document.getElementById('metaLine').textContent=`Possible Non-Blue Locations: ${possible} / ${hidden}`;
+        document.getElementById('bestMove').textContent=best?`(${best.r+1}, ${best.c+1})`:'-';
+        document.getElementById('gainText').textContent=`Safe chance: ${best?(best.nonBlue*100).toFixed(1):'0.0'}% · Expected value: ${best?best.expected.toFixed(2):'0.00'} · Valid boards: ${sol.valid}`;
+        const list=document.getElementById('likelyList'); list.innerHTML='';
+        if(!sol.top.length){ const d=document.createElement('div'); d.className='item'; d.innerHTML='<span>No hidden cells</span><span class="val">0%</span>'; list.appendChild(d); return; }
+        sol.top.forEach(x=>{ const d=document.createElement('div'); d.className='item'; d.innerHTML=`<span>Pos: (${x.r+1}, ${x.c+1})</span><span class="val">${(x.p.nonBlue*100).toFixed(1)}%</span>`; list.appendChild(d); });
+      }
+
+      function renderBoardShell(){
+        const grid = document.getElementById('coordGrid');
+        grid.innerHTML='';
+        const corner=document.createElement('div'); corner.className='corner'; grid.appendChild(corner);
+        for(let c=1;c<=SIZE;c++){ const x=document.createElement('div'); x.className='axis'; x.textContent=c; grid.appendChild(x); }
+
+        if(activeGame==='oq'){
+          const sol=solveOQ();
+          for(let r=0;r<SIZE;r++){
+            const y=document.createElement('div'); y.className='axis'; y.textContent=r+1; grid.appendChild(y);
+            for(let c=0;c<SIZE;c++){
+              const st=oqBoard[r][c].state; const b=document.createElement('button');
+              b.className=oqClass(st);
+              if(sol.best && st==='hidden' && sol.probs[r][c]===sol.best.p) b.classList.add('best');
+              b.innerHTML=oqInner(st,sol.probs[r][c]);
+              b.addEventListener('click',()=>cycle(oqBoard,OQ_STATES,r,c,1));
+              b.addEventListener('contextmenu',(e)=>{e.preventDefault();cycle(oqBoard,OQ_STATES,r,c,-1)});
+              grid.appendChild(b);
+            }
+          }
+          renderSideOQ(sol);
+        } else {
+          const sol=solveOT();
+          for(let r=0;r<SIZE;r++){
+            const y=document.createElement('div'); y.className='axis'; y.textContent=r+1; grid.appendChild(y);
+            for(let c=0;c<SIZE;c++){
+              const st=otBoard[r][c].state; const b=document.createElement('button');
+              b.className=otClass(st);
+              if(sol.best && st==='hidden'){
+                const here=sol.probs[r][c].nonBlue;
+                if(here>0 && Math.abs((sol.best.nonBlue||0)-here)<1e-12) b.classList.add('best');
+              }
+              b.innerHTML=otInner(st,sol.probs[r][c]);
+              b.addEventListener('click',()=>cycle(otBoard,OT_STATES,r,c,1));
+              b.addEventListener('contextmenu',(e)=>{e.preventDefault();cycle(otBoard,OT_STATES,r,c,-1)});
+              grid.appendChild(b);
+            }
+          }
+          renderSideOT(sol);
         }
       }
-    }
-    if(ok) valid.push(mask);
-  }
-  const probs = Array.from({length:SIZE},()=>Array(SIZE).fill(0));
-  if(!valid.length) return {probs,valid:0,best:null,top:[]};
-  for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) if(oqBoard[r][c].state==='hidden'){
-    let hit=0; const b=bit(idx(r,c));
-    for(const mask of valid) if(mask & b) hit++;
-    probs[r][c]=hit/valid.length;
-  }
-  const top=[]; let best=null;
-  for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) if(oqBoard[r][c].state==='hidden'){
-    const p=probs[r][c]; top.push({r,c,p}); if(!best || p>best.p) best={r,c,p};
-  }
-  top.sort((a,b)=>b.p-a.p);
-  return {probs,valid:valid.length,best,top:top.slice(0,5)};
-}
 
-function solveOT(){
-  const valid=[];
-  for(const combo of OT_COMBOS){
-    let ok=true;
-    for(let r=0;r<SIZE&&ok;r++){
-      for(let c=0;c<SIZE&&ok;c++){
-        const s=otBoard[r][c].state;
-        if(s==='hidden') continue;
-        const b=bit(idx(r,c));
-        if(s==='blue'){ if(combo.u & b) ok=false; }
-        else if(s==='teal'){ if(!(combo.t & b)) ok=false; }
-        else if(s==='green'){ if(!(combo.g & b)) ok=false; }
-        else if(s==='yellow'){ if(!(combo.y & b)) ok=false; }
-        else if(s==='rare'){ if(!(combo.r & b)) ok=false; }
+      function render(){
+        document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+        document.getElementById(activeGame==='oq'?'tabOQ':'tabOT').classList.add('active');
+        renderGuide();
+        renderBoardShell();
       }
-    }
-    if(ok) valid.push(combo);
-  }
-  const probs = Array.from({length:SIZE},()=>Array.from({length:SIZE},()=>({blue:0,teal:0,green:0,yellow:0,rare:0,nonBlue:0,expected:0})));
-  if(!valid.length) return {probs,valid:0,best:null,top:[]};
-  const weights={teal:20,green:35,yellow:55,rare:90};
-  for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) if(otBoard[r][c].state==='hidden'){
-    const b=bit(idx(r,c));
-    let t=0,g=0,y=0,rr=0;
-    for(const combo of valid){ if(combo.t & b) t++; else if(combo.g & b) g++; else if(combo.y & b) y++; else if(combo.r & b) rr++; }
-    const total=valid.length;
-    const teal=t/total, green=g/total, yellow=y/total, rare=rr/total;
-    const nonBlue=teal+green+yellow+rare;
-    const blue=1-nonBlue;
-    const expected=teal*weights.teal + green*weights.green + yellow*weights.yellow + rare*weights.rare;
-    probs[r][c]={blue,teal,green,yellow,rare,nonBlue,expected};
-  }
-  const top=[]; let best=null;
-  for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) if(otBoard[r][c].state==='hidden'){
-    const p=probs[r][c]; top.push({r,c,p});
-    const score = p.nonBlue*100 + p.expected*0.08;
-    if(!best || score>best.score) best={r,c,score,...p};
-  }
-  top.sort((a,b)=>b.p.nonBlue-a.p.nonBlue || b.p.expected-a.p.expected);
-  return {probs,valid:valid.length,best,top:top.slice(0,5)};
-}
 
-function cycle(board, states, r, c, dir){
-  const cur=board[r][c].state;
-  const i=states.indexOf(cur);
-  let next=i+dir; if(next<0) next=states.length-1; if(next>=states.length) next=0;
-  board[r][c].state=states[next];
-  render();
-}
-
-function oqClass(state){
-  if(state==='hidden') return 'cell';
-  if(state==='purple') return 'cell open cp';
-  if(state===0) return 'cell open c0';
-  if(state===1) return 'cell open c1';
-  if(state===2) return 'cell open c2';
-  if(state===3) return 'cell open c3';
-  if(state===4) return 'cell open c4';
-  return 'cell';
-}
-function otClass(state){
-  if(state==='hidden') return 'cell';
-  if(state==='blue') return 'cell open cb';
-  if(state==='teal') return 'cell open ct';
-  if(state==='green') return 'cell open cg';
-  if(state==='yellow') return 'cell open cy';
-  if(state==='rare') return 'cell open cr';
-  return 'cell';
-}
-function oqInner(state,p){
-  if(state==='hidden') return `<div class="dots">---</div><div class="pct">${p?Math.round(p*100)+'%':'---'}</div><div class="q">?</div>`;
-  const map={'purple':'P',0:'B',1:'T',2:'G',3:'Y',4:'O'};
-  return `<div class="center">${map[state]}</div>`;
-}
-function otInner(state,p){
-  if(state==='hidden') return `<div class="dots">---</div><div class="pct">${p&&p.nonBlue?Math.round(p.nonBlue*100)+'%':'---'}</div><div class="q">?</div>`;
-  const map={'blue':'B','teal':'T','green':'G','yellow':'Y','rare':'R'};
-  return `<div class="center">${map[state]}</div>`;
-}
-
-function renderGuide(){
-  const tags=document.getElementById('guideTags'); const note=document.getElementById('guideNote'); tags.innerHTML='';
-  if(activeGame==='oq'){
-    document.getElementById('gameTitle').textContent='OQ Solver';
-    document.getElementById('gameSub').textContent=`Clicks used: ${oqPaidClicks()} / 7 ( Purple = Free )`;
-    document.getElementById('guideText').textContent='Left-click to advance OQ state: Hidden → Purple → Blue → Teal → Green → Yellow → Orange. Right-click goes backward. Purple is treated as a free move, so it is not counted in clicks.';
-    ['P = Purple (free)','Blue = 0','Teal = 1','Green = 2','Yellow = 3','Orange = 4'].forEach(t=>{ const s=document.createElement('span'); s.className='tag'; s.textContent=t; tags.appendChild(s); });
-    document.getElementById('bestLabel').textContent='Next best move:';
-    document.getElementById('listTitle').textContent='Likely Purple Locations';
-  } else {
-    document.getElementById('gameTitle').textContent='OT Solver';
-    document.getElementById('gameSub').textContent=`Blue Found: ${otBlueClicks()} / 4`;
-    document.getElementById('guideText').textContent='Left-click to advance: Hidden → Blue → Teal → Green → Yellow → Rare. Right-click goes backward. Hidden-cell percentage shows non-blue probability.';
-    ['Blue = lowest','Teal = 4 in line','Green = 3 in line','Yellow = 3 in line','Rare = 2 in line'].forEach(t=>{ const s=document.createElement('span'); s.className='tag'; s.textContent=t; tags.appendChild(s); });
-    document.getElementById('bestLabel').textContent='Safest next move:';
-    document.getElementById('listTitle').textContent='Likely Non-Blue Locations';
-  }
-}
-
-function renderSideOQ(sol){
-  const best=sol.best;
-  document.getElementById('metaLine').textContent=`Possible Purple Locations: ${sol.top.filter(x=>x.p>0).length} / ${hiddenCells(oqBoard).length}`;
-  document.getElementById('bestMove').textContent=best?`(${best.r+1}, ${best.c+1})`:'-';
-  document.getElementById('gainText').textContent=`Probability: ${best?(best.p*100).toFixed(1):'0.0'}% · Valid boards: ${sol.valid}`;
-  const list=document.getElementById('likelyList'); list.innerHTML='';
-  if(!sol.top.length){ const d=document.createElement('div'); d.className='item'; d.innerHTML='<span>No hidden cells</span><span class="val">0%</span>'; list.appendChild(d); return; }
-  sol.top.forEach(x=>{ const d=document.createElement('div'); d.className='item'; d.innerHTML=`<span>Pos: (${x.r+1}, ${x.c+1})</span><span class="val">${(x.p*100).toFixed(1)}%</span>`; list.appendChild(d); });
-}
-function renderSideOT(sol){
-  const best=sol.best; const hidden=hiddenCells(otBoard).length; const possible=sol.top.filter(x=>x.p.nonBlue>0.001).length;
-  document.getElementById('metaLine').textContent=`Possible Non-Blue Locations: ${possible} / ${hidden}`;
-  document.getElementById('bestMove').textContent=best?`(${best.r+1}, ${best.c+1})`:'-';
-  document.getElementById('gainText').textContent=`Safe chance: ${best?(best.nonBlue*100).toFixed(1):'0.0'}% · Expected value: ${best?best.expected.toFixed(2):'0.00'} · Valid boards: ${sol.valid}`;
-  const list=document.getElementById('likelyList'); list.innerHTML='';
-  if(!sol.top.length){ const d=document.createElement('div'); d.className='item'; d.innerHTML='<span>No hidden cells</span><span class="val">0%</span>'; list.appendChild(d); return; }
-  sol.top.forEach(x=>{ const d=document.createElement('div'); d.className='item'; d.innerHTML=`<span>Pos: (${x.r+1}, ${x.c+1})</span><span class="val">${(x.p.nonBlue*100).toFixed(1)}%</span>`; list.appendChild(d); });
-}
-
-function renderBoardShell(){
-  const grid = document.getElementById('coordGrid');
-  grid.innerHTML='';
-  const corner=document.createElement('div'); corner.className='corner'; grid.appendChild(corner);
-  for(let c=1;c<=SIZE;c++){ const x=document.createElement('div'); x.className='axis'; x.textContent=c; grid.appendChild(x); }
-
-  if(activeGame==='oq'){
-    const sol=solveOQ();
-    for(let r=0;r<SIZE;r++){
-      const y=document.createElement('div'); y.className='axis'; y.textContent=r+1; grid.appendChild(y);
-      for(let c=0;c<SIZE;c++){
-        const st=oqBoard[r][c].state; const b=document.createElement('button');
-        b.className=oqClass(st);
-        if(sol.best && st==='hidden' && sol.probs[r][c]===sol.best.p) b.classList.add('best');
-        b.innerHTML=oqInner(st,sol.probs[r][c]);
-        b.addEventListener('click',()=>cycle(oqBoard,OQ_STATES,r,c,1));
-        b.addEventListener('contextmenu',(e)=>{e.preventDefault();cycle(oqBoard,OQ_STATES,r,c,-1)});
-        grid.appendChild(b);
-      }
-    }
-    renderSideOQ(sol);
-  } else {
-    const sol=solveOT();
-    for(let r=0;r<SIZE;r++){
-      const y=document.createElement('div'); y.className='axis'; y.textContent=r+1; grid.appendChild(y);
-      for(let c=0;c<SIZE;c++){
-        const st=otBoard[r][c].state; const b=document.createElement('button');
-        b.className=otClass(st);
-        if(sol.best && st==='hidden'){
-          const here=sol.probs[r][c].nonBlue;
-          if(here>0 && Math.abs((sol.best.nonBlue||0)-here)<1e-12) b.classList.add('best');
-        }
-        b.innerHTML=otInner(st,sol.probs[r][c]);
-        b.addEventListener('click',()=>cycle(otBoard,OT_STATES,r,c,1));
-        b.addEventListener('contextmenu',(e)=>{e.preventDefault();cycle(otBoard,OT_STATES,r,c,-1)});
-        grid.appendChild(b);
-      }
-    }
-    renderSideOT(sol);
-  }
-}
-
-function render(){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById(activeGame==='oq'?'tabOQ':'tabOT').classList.add('active');
-  renderGuide();
-  renderBoardShell();
-}
-
-document.getElementById('tabOQ').addEventListener('click',()=>{activeGame='oq';render()});
-document.getElementById('tabOT').addEventListener('click',()=>{activeGame='ot';render()});
-document.getElementById('resetBtn').addEventListener('click',()=>{
-  const target = activeGame==='oq'?oqBoard:otBoard;
-  for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) target[r][c]={state:'hidden'};
-  render();
-});
-render();</script></body></html>
+      document.getElementById('tabOQ').addEventListener('click',()=>{activeGame='oq';render()});
+      document.getElementById('tabOT').addEventListener('click',()=>{activeGame='ot';render()});
+      document.getElementById('resetBtn').addEventListener('click',()=>{
+        const target = activeGame==='oq'?oqBoard:otBoard;
+        for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) target[r][c]={state:'hidden'};
+        render();
+      });
+      render();
+    </script>
+  </body>
+</html>

@@ -1,3754 +1,421 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="referrer" content="no-referrer" />
-  <meta name="description" content="This is a mudae organizer compatible with $mmis, $mmsaty+ri-c+x+ko and single character entries." />
-  <title>Mudae - Harem Organizer</title>
-  <link rel="icon" type="image/png" href="https://cdn.imgchest.com/files/49zc2m59a3y.png" />
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
-      background: #0a0a0f;
-      color: #e5e7eb;
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .layout {
-      max-width: 1860px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: minmax(290px, 360px) 1fr minmax(290px, 360px);
-      gap: 20px;
-      align-items: start;
-    }
-    .layout.left-panel-collapsed {
-      grid-template-columns: 18px 1fr minmax(290px, 360px);
-    }
-    .layout.series-panel-hidden {
-      grid-template-columns: minmax(290px, 360px) 1fr 18px;
-    }
-    .layout.left-panel-collapsed.series-panel-hidden {
-      grid-template-columns: 18px 1fr 18px;
-    }
-    .panel {
-      background: #13131a;
-      border: 1px solid #1f1f2e;
-      border-radius: 16px;
-      box-shadow: 0 20px 40px rgba(0,0,0,.28);
-    }
-    .left-panel, .right-panel {
-      padding: 22px;
-      position: sticky;
-      top: 20px;
-      max-height: calc(100vh - 40px);
-      overflow: auto;
-      min-width: 0;
-      transition: width .2s ease, padding .2s ease, min-width .2s ease, opacity .2s ease;
-    }
-    .left-panel {
-      position: sticky;
-      padding-left: 34px;
-    }
-    .left-rail-toggle {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      width: 18px;
-      min-width: 18px;
-      padding: 0;
-      border: 0;
-      border-right: 1px solid rgba(167,139,250,.32);
-      background: linear-gradient(180deg, rgba(167,139,250,.16), rgba(255,255,255,.04));
-      color: #d8ccff;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 2;
-      font-size: .95rem;
-      font-weight: 900;
-      box-shadow: none;
-    }
-    .left-rail-toggle:hover {
-      background: linear-gradient(180deg, rgba(167,139,250,.24), rgba(255,255,255,.06));
-      color: #ffffff;
-    }
-    .right-panel {
-      position: sticky;
-      padding-right: 34px;
-    }
-    .right-rail-toggle {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      width: 18px;
-      min-width: 18px;
-      padding: 0;
-      border: 0;
-      border-left: 1px solid rgba(167,139,250,.32);
-      background: linear-gradient(180deg, rgba(167,139,250,.16), rgba(255,255,255,.04));
-      color: #d8ccff;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 2;
-      font-size: .95rem;
-      font-weight: 900;
-      box-shadow: none;
-    }
-    .right-rail-toggle:hover {
-      background: linear-gradient(180deg, rgba(167,139,250,.24), rgba(255,255,255,.06));
-      color: #ffffff;
-    }
-    .layout.left-panel-collapsed .left-panel,
-    .layout.series-panel-hidden .right-panel {
-      width: 18px;
-      min-width: 18px;
-      padding: 0;
-      overflow: hidden;
-      border-left: 1px solid rgba(167,139,250,.32);
-      border-right: 1px solid rgba(167,139,250,.32);
-      background: linear-gradient(180deg, rgba(167,139,250,.12), rgba(255,255,255,.03));
-      box-shadow: none;
-      min-height: calc(100vh - 40px);
-    }
-    .layout.left-panel-collapsed .left-panel > *:not(.left-rail-toggle),
-    .layout.series-panel-hidden .right-panel > *:not(.right-rail-toggle) {
-      opacity: 0 !important;
-      pointer-events: none !important;
-      visibility: hidden !important;
-      display: none !important;
-    }
-    .layout.left-panel-collapsed .left-panel {
-      padding-left: 0 !important;
-    }
-    .layout.left-panel-collapsed .left-rail-toggle {
-      width: 100%;
-      border-right: 0;
-      border-left: 0;
-      background: linear-gradient(180deg, rgba(167,139,250,.20), rgba(255,255,255,.05));
-    }
-    .layout.series-panel-hidden .right-panel {
-      padding-right: 0 !important;
-    }
-    .layout.series-panel-hidden .right-rail-toggle {
-      width: 100%;
-      border-left: 0;
-      border-right: 0;
-      background: linear-gradient(180deg, rgba(167,139,250,.20), rgba(255,255,255,.05));
-    }
-    .main-panel { padding: 28px; }
-    .sticky-summary-panel {
-      position: relative;
-      margin: 0 0 22px;
-      padding: 18px 20px;
-      background: rgba(19,19,26,.94);
-      backdrop-filter: blur(8px);
-      border: 1px solid #26263a;
-      border-radius: 16px;
-      box-shadow: 0 16px 36px rgba(0,0,0,.26);
-    }
-    .sticky-summary-title {
-      color: #a78bfa;
-      font-size: 1.05rem;
-      font-weight: 800;
-      margin-bottom: 12px;
-      text-align: center;
-    }
-    .series-list {
-      min-height: 140px;
-      background: #0a0a0f;
-      border: 2px solid #2a2a3a;
-      border-radius: 12px;
-      padding: 12px;
-      color: #d1d5db;
-      font-family: Consolas, Monaco, monospace;
-      line-height: 1.45;
-      font-size: .88rem;
-      display: grid;
-      gap: 8px;
-      align-content: start;
-    }
-    .series-panel-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-    .series-panel-toolbar {
-      display: flex;
-      justify-content: flex-end;
-      margin: -4px 0 16px;
-    }
-    .btn-small {
-      padding: 8px 12px;
-      font-size: .82rem;
-    }
-    .series-toggle-btn {
-      width: 34px;
-      min-width: 34px;
-      height: 34px;
-      min-height: 34px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-      font-size: 1rem;
-      font-weight: 900;
-      line-height: 1;
-    }
-    .series-toggle-btn.is-hidden {
-      transform: rotate(180deg);
-    }
-    .floating-corner-btn {
-      position: fixed;
-      z-index: 1300;
-      width: 46px;
-      min-width: 46px;
-      height: 46px;
-      min-height: 46px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-      box-shadow: 0 10px 24px rgba(0,0,0,.32);
-      backdrop-filter: blur(6px);
-      border: 1px solid #3b3b52;
-      background: rgba(19,19,26,.96);
-      color: #f3f4f6;
-    }
-    .jump-page-top-btn {
-      right: 16px;
-      bottom: 16px;
-      opacity: 1;
-      pointer-events: auto;
-      transform: none;
-      background: rgba(124,58,237,.96);
-      border-color: rgba(167,139,250,.55);
-      color: #ffffff;
-    }
-    .jump-page-top-btn:hover {
-      background: rgba(109,40,217,.98);
-    }
-    .series-line {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 8px;
-      align-items: center;
-      min-width: 0;
-      padding: 6px 8px;
-      border-radius: 10px;
-      background: rgba(255,255,255,.02);
-      border: 1px solid rgba(255,255,255,.04);
-      cursor: pointer;
-      transition: background .15s ease, border-color .15s ease, transform .15s ease;
-    }
-    .series-line:hover {
-      background: rgba(167,139,250,.08);
-      border-color: rgba(167,139,250,.28);
-      transform: translateY(-1px);
-    }
-    .series-line.active {
-      background: rgba(167,139,250,.14);
-      border-color: rgba(167,139,250,.45);
-      box-shadow: 0 0 0 1px rgba(167,139,250,.18) inset;
-    }
-    .series-line-name {
-      min-width: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      color: #f3f4f6;
-      font-weight: 700;
-    }
-    .series-line-count {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 34px;
-      padding: 4px 5px;
-      background: rgba(255,122,168,.14);
-      color: #ffc1d7;
-      border: 1px solid rgba(255,122,168,.35);
-      border-radius: 10px;
-      font-size: .54rem;
-      font-weight: 900;
-      line-height: 1;
-      white-space: nowrap;
-    }
-    h1, h2 { color: #a78bfa; }
-    h1 { font-size: 2rem; margin-bottom: 7px; text-align: center; }
-    h2 { font-size: 1.15rem; margin-bottom: 10px; }
-    .subtitle { text-align: center; }
-    .subtitle, .muted { color: #9ca3af; line-height: 1.5; }
-    .subtitle { margin-bottom: 18px; }
-    .section { margin-bottom: 22px; }
-    .help-list {
-      list-style: none;
-      display: grid;
-      gap: 10px;
-      color: #d1d5db;
-      font-size: .92rem;
-      line-height: 1.45;
-    }
-    .help-list strong { color: #a78bfa; }
-    textarea, input, select {
-      width: 100%;
-      background: #0a0a0f;
-      color: #e5e7eb;
-      border: 2px solid #2a2a3a;
-      border-radius: 10px;
-      padding: 12px 14px;
-      outline: none;
-      transition: border-color .2s, box-shadow .2s;
-      min-height: 44px;
-    }
-    textarea:focus, input:focus, select:focus {
-      border-color: #7c3aed;
-      box-shadow: 0 0 0 3px rgba(124,58,237,.14);
-    }
-    textarea {
-      min-height: 260px;
-      resize: vertical;
-      font-family: Consolas, Monaco, monospace;
-      font-size: .9rem;
-      line-height: 1.45;
-    }
-    .toolbar, .secondary-toolbar {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 14px;
-    }
-    .filters-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 14px;
-      margin: 20px 0;
-    }
-    .control label {
-      display: block;
-      color: #9ca3af;
-      font-size: .8rem;
-      margin-bottom: 6px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .05em;
-      text-align: center;
-    }
-    .control input,
-    .control select {
-      text-align: center;
-      text-align-last: center;
-    }
-    .btn {
-      border: none;
-      border-radius: 10px;
-      padding: 10px 16px;
-      cursor: pointer;
-      font-weight: 700;
-      transition: transform .15s ease, background .2s ease, box-shadow .2s ease;
-    }
-    .btn:hover { transform: translateY(-1px); }
-    .btn-primary { background: #7c3aed; color: white; box-shadow: 0 8px 18px rgba(124,58,237,.25); }
-    .btn-primary:hover { background: #6d28d9; }
-    .btn-secondary { background: #374151; color: white; }
-    .btn-secondary:hover { background: #4b5563; }
-    .btn-danger { background: #b91c1c; color: white; }
-    .btn-danger:hover { background: #991b1b; }
-    .btn-ghost { background: #1f1f2e; color: #d1d5db; border: 1px solid #2a2a3a; }
-    .btn-ghost:hover { background: #2a2a3a; }
-    .stats-grid, .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 14px;
-    }
-    .stats-grid { margin: 18px 0 24px; }
-    .card-box {
-      background: #1a1a24;
-      border: 1px solid #2a2a3a;
-      border-radius: 12px;
-      padding: 16px;
-    }
-    .stats-grid .card-box,
-    .sticky-summary-panel .card-box {
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    .stats-grid .stat-label,
-    .stats-grid .stat-value,
-    .sticky-summary-panel .stat-label,
-    .sticky-summary-panel .stat-value {
-      width: 100%;
-      text-align: center;
-    }
-    .harem-name-fit {
-      white-space: nowrap !important;
-      overflow: hidden;
-      text-overflow: clip;
-      display: block;
-      width: 100%;
-      max-width: 100%;
-      margin: 0 auto;
-      font-size: 1rem;
-      line-height: 1;
-      word-break: keep-all;
-      overflow-wrap: normal;
-      flex-wrap: nowrap;
-    }
-    .stat-label { color: #9ca3af; font-size: .82rem; margin-bottom: 6px; }
-    .stat-value { color: #a78bfa; font-size: 1.45rem; font-weight: 800; line-height: 1.2; }
-    .board-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
-    }
-    .board-subtitle { color: #9ca3af; font-size: .92rem; }
-    .board {
-      min-height: 420px;
-      border: 2px dashed #2a2a3a;
-      border-radius: 16px;
-      padding: 18px;
-      background: linear-gradient(180deg, rgba(26,26,36,.85), rgba(19,19,26,.95));
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(185px, 185px));
-      gap: 18px;
-      justify-content: center;
-      align-content: start;
-    }
-    .empty-board {
-      display: grid;
-      place-items: center;
-      min-height: 300px;
-      text-align: center;
-      color: #6b7280;
-      border-radius: 12px;
-      background: rgba(10,10,15,.55);
-      grid-column: 1 / -1;
-      padding: 24px;
-      line-height: 1.5;
-    }
-    .character-card {
-      background: linear-gradient(180deg, #141420 0%, #101019 100%);
-      border: 4px solid #ff7aa8;
-      border-radius: 16px;
-      overflow: hidden;
-      width: 185px;
-      box-shadow: 0 16px 30px rgba(0,0,0,.35), 0 0 0 2px rgba(255,122,168,.12) inset;
-      cursor: grab;
-      position: relative;
-      user-select: none;
-      transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
-    }
-    .character-card:hover { transform: translateY(-4px) scale(1.015); box-shadow: 0 20px 34px rgba(0,0,0,.45), 0 0 0 2px rgba(255,122,168,.18) inset; }
-    .character-card.dragging { opacity: .45; transform: scale(.98); cursor: grabbing; }
-    .character-card img {
-      width: 100%;
-      aspect-ratio: 185 / 245;
-      object-fit: cover;
-      display: block;
-      background: #0f0f17;
-    }
-    .top-series {
-      background: #11111a;
-      padding: 8px 10px;
-      border-bottom: 1px solid #2a2230;
-      min-height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-    }
-    .series-wrap {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      min-height: 30px;
-      min-width: 0;
-    }
-    .top-order-pill {
-      flex: 0 0 auto;
-      color: #ff8fb7;
-      font-size: .72rem;
-      font-weight: 900;
-      white-space: nowrap;
-      line-height: 1.1;
-      cursor: pointer;
-      user-select: none;
-    }
-    .series-pill {
-      display: block;
-      flex: 1 1 auto;
-      min-width: 0;
-      background: transparent;
-      color: #f5f5f7;
-      border-radius: 0;
-      border: none;
-      padding: 2px 0;
-      font-size: .86rem;
-      font-weight: 800;
-      line-height: 1.1;
-      text-align: center;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      min-height: 1.2em;
-    }
-    .series-pill.is-long {
-      padding-left: 2px;
-    }
-    .character-info { background: #0c0c12; padding: 10px 10px 12px; }
-    .character-name {
-      display: block;
-      color: #f5f5f7;
-      font-size: .76rem;
-      font-weight: 800;
-      line-height: 1.1;
-      text-align: center;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      min-height: 1.2em;
-      margin-bottom: 8px;
-    }
-    .owner-line {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 6px;
-    }
-    .owner-note {
-      margin: 0 0 8px;
-      padding: 4px 8px;
-      background: #161923;
-      border: 1px solid #2d3344;
-      border-radius: 8px;
-      color: #cbd5e1;
-      font-size: .68rem;
-      font-weight: 800;
-      line-height: 1.2;
-      text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      opacity: .98;
-    }
-    .owner-note.empty {
-      background: #241217;
-      border-color: #4a1f2a;
-      color: #ff5f8f;
-    }
-    .bottom-stacks {
-      margin: 10px -10px -12px;
-    }
-    .bottom-band {
-      color: #11111a;
-      font-weight: 900;
-      text-align: center;
-      font-size: clamp(.72rem, 1.8vw, .8rem);
-      padding: 6px 8px;
-      border-top: 1px solid rgba(255,255,255,.16);
-      line-height: 1.1;
-    }
-    .bottom-band.gender-waifu {
-      background: linear-gradient(180deg, #cda3ff 0%, #b986ff 100%);
-    }
-    .bottom-band.gender-husbando {
-      background: linear-gradient(180deg, #99c7ff 0%, #6ba9ff 100%);
-    }
-    .bottom-band.gender-other {
-      background: linear-gradient(180deg, #b9bfd1 0%, #939bb2 100%);
-    }
-    .bottom-band.roulette-animanga {
-      background: linear-gradient(180deg, #ff9cc0 0%, #ff78a8 100%);
-    }
-    .bottom-band.roulette-game {
-      background: linear-gradient(180deg, #ffd36f 0%, #ffbf3f 100%);
-    }
-    .bottom-band.roulette-other {
-      background: linear-gradient(180deg, #9ad4ff 0%, #76b5ff 100%);
-    }
-    .bottom-band.gender-mixed {
-      background: linear-gradient(180deg, #dcb8ff 0%, #8fd0ff 100%);
-    }
-    .bottom-band.roulette-mixed {
-      background: linear-gradient(180deg, #ffb7cf 0%, #ffd36f 100%);
-    }
-    .pill-row {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 6px;
-    }
-    .pill {
-      background: transparent;
-      border: none;
-      color: #d1d5db;
-      border-radius: 0;
-      padding: 2px 4px;
-      font-size: clamp(.62rem, 1.6vw, .68rem);
-      font-weight: 700;
-      line-height: 1.15;
-      min-width: 0;
-      text-align: center;
-      flex: 1 1 0;
-    }
-    .pill.owner { background: #101814; color: #9bf7a4; border-color: #78e08f; width: 100%; font-size: .82rem; }
-    .pill.kakera { background: transparent; color: #ffd06b; border: none; }
-    .pill.rank { background: transparent; color: #b899ff; border: none; }
-    .rank-badge, .drag-badge {
-      position: absolute;
-      z-index: 3;
-      background: rgba(10,10,15,.92);
-      border-radius: 8px;
-      padding: 4px 7px;
-      font-size: .78rem;
-      font-weight: 800;
-      border: 1px solid #7c3aed;
-      backdrop-filter: blur(5px);
-    }
-    .rank-badge { display: none; }
-    .message {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(.96);
-      z-index: 1200;
-      display: none;
-      min-width: 260px;
-      max-width: min(92vw, 460px);
-      padding: 14px 18px;
-      border-radius: 14px;
-      border: 1px solid transparent;
-      box-shadow: 0 24px 48px rgba(0,0,0,.45);
-      text-align: center;
-      font-weight: 700;
-      opacity: 0;
-      transition: opacity .18s ease, transform .18s ease;
-      pointer-events: none;
-    }
-    .message.show { display: block; opacity: 1; transform: translate(-50%, -50%) scale(1); }
-    .message.error { background: rgba(127,29,29,.96); color: #fecaca; border-color: #ef4444; }
-    .message.success { background: rgba(6,78,59,.96); color: #a7f3d0; border-color: #10b981; }
-    .order-output {
-      min-height: 140px;
-      background: #0a0a0f;
-      border: 2px solid #2a2a3a;
-      border-radius: 12px;
-      padding: 12px;
-      white-space: pre-wrap;
-      color: #d1d5db;
-      font-family: Consolas, Monaco, monospace;
-      line-height: 1.45;
-      font-size: .88rem;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mudae OQ + OT Solver</title>
+<style>
+:root{
+  --bg:#05070b;
+  --panel:#0b0e14;
+  --panel2:#090c12;
+  --line:rgba(255,255,255,.08);
+  --soft:rgba(255,255,255,.05);
+  --text:#eef2f7;
+  --muted:#98a2b3;
+  --red:#ff225f;
+  --red2:#ff004c;
+  --glow:rgba(255,34,95,.32);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--text);
+  background:radial-gradient(circle at 20% 0%,rgba(255,0,76,.08),transparent 28%), radial-gradient(circle at 100% 20%,rgba(95,98,255,.08),transparent 25%), #03050a;
+  padding:14px;
+}
+.app{
+  max-width:1120px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1.42fr .95fr;
+  gap:20px;
+}
+.panel{
+  background:linear-gradient(180deg,rgba(11,14,20,.98),rgba(7,10,16,.98));
+  border:1px solid var(--line);
+  border-radius:10px;
+  box-shadow:0 14px 38px rgba(0,0,0,.42);
+}
+.left{padding:18px 18px 16px;display:flex;flex-direction:column;gap:16px}
+.side{display:flex;flex-direction:column;gap:20px}
+.side .panel{padding:18px}
+.topbar{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+.tabs{display:flex;gap:8px;margin-bottom:10px}
+.tab{
+  border:1px solid var(--line);
+  background:#0b0e14;
+  color:#dbe2ee;
+  border-radius:8px;
+  padding:7px 11px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+}
+.tab.active{
+  background:linear-gradient(180deg,var(--red),var(--red2));
+  border-color:transparent;
+  color:white;
+  box-shadow:0 8px 24px var(--glow);
+}
+.title{font-size:16px;font-weight:800;letter-spacing:.01em}
+.sub{margin-top:4px;color:var(--muted);font-size:12px}
+.reset{
+  border:0;background:linear-gradient(180deg,var(--red),var(--red2));color:#fff;border-radius:7px;padding:10px 14px;
+  font-weight:800;font-size:12px;cursor:pointer;box-shadow:0 8px 22px var(--glow)
+}
+.board-wrap{display:flex;justify-content:center;padding:4px 0 6px}
+.board{display:grid;grid-template-columns:repeat(5,68px);gap:10px}
+.cell{
+  width:68px;height:68px;border-radius:7px;border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(180deg,#07090f,#03050a);position:relative;cursor:pointer;color:#fff;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.02);transition:transform .08s ease,border-color .12s ease,box-shadow .12s ease,filter .12s ease;
+}
+.cell:hover{transform:translateY(-1px);filter:brightness(1.05)}
+.cell.best{border-color:rgba(255,38,94,.96);box-shadow:0 0 0 1px rgba(255,38,94,.6),0 0 18px rgba(255,38,94,.32)}
+.cell.open{background:linear-gradient(180deg,#0a0d14,#05070d)}
+.dots{position:absolute;top:8px;left:50%;transform:translateX(-50%);font-size:9px;color:rgba(255,255,255,.12);letter-spacing:1px}
+.pct{position:absolute;top:8px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:700;color:#b6c0d4}
+.q{position:absolute;left:50%;top:50%;transform:translate(-50%,-36%);font-size:22px;font-weight:900;color:rgba(255,255,255,.92)}
+.unopened .pct{display:block}
+.unopened .q{display:block}
 
-    .toggle-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #d1d5db;
-      font-size: .9rem;
-      margin-bottom: 10px;
-      user-select: none;
-    }
-    .toggle-row input {
-      width: 16px;
-      height: 16px;
-      min-height: 16px;
-      accent-color: #7c3aed;
-    }
-    .small-note {
-      color: #9ca3af;
-      font-size: .8rem;
-      line-height: 1.4;
-      margin-bottom: 10px;
-    }
-    .chunk-card {
-      background: #11111a;
-      border: 1px solid #2a2a3a;
-      border-radius: 10px;
-      padding: 8px 10px;
-      margin-bottom: 8px;
-    }
-    .chunk-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 6px;
-      color: #c4b5fd;
-      font-size: .76rem;
-      font-weight: 700;
-    }
-    .chunk-copy-btn {
-      background: #1f1f2e;
-      color: #e5e7eb;
-      border: 1px solid #343447;
-      border-radius: 8px;
-      padding: 4px 8px;
-      cursor: pointer;
-      font-size: .72rem;
-      font-weight: 700;
-      flex: 0 0 auto;
-    }
-    .chunk-text {
-      white-space: nowrap;
-      overflow-x: auto;
-      overflow-y: hidden;
-      color: #d1d5db;
-      font-family: Consolas, Monaco, monospace;
-      font-size: .78rem;
-      line-height: 1.3;
-      scrollbar-width: thin;
-      padding-bottom: 2px;
-    }
-
-    .move-modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(5, 5, 10, .72);
-      backdrop-filter: blur(6px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      z-index: 999;
-    }
-    .move-modal-overlay.show {
-      display: flex;
-    }
-    .move-modal {
-      width: min(92vw, 360px);
-      background: linear-gradient(180deg, #171723 0%, #101019 100%);
-      border: 1px solid #31284a;
-      border-radius: 18px;
-      box-shadow: 0 24px 48px rgba(0,0,0,.42);
-      overflow: hidden;
-    }
-    .move-modal-head {
-      padding: 14px 16px 10px;
-      background: linear-gradient(180deg, rgba(167,139,250,.14), rgba(255,122,168,.08));
-      border-bottom: 1px solid #2a223a;
-    }
-    .move-modal-title {
-      color: #f5f3ff;
-      font-size: 1rem;
-      font-weight: 800;
-      margin-bottom: 4px;
-    }
-    .move-modal-subtitle {
-      color: #c4b5fd;
-      font-size: .82rem;
-      line-height: 1.35;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .move-modal-body {
-      padding: 16px;
-    }
-    .move-modal-label {
-      display: block;
-      color: #9ca3af;
-      font-size: .78rem;
-      font-weight: 700;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-    .move-modal-input {
-      width: 100%;
-      min-height: 48px;
-      background: #0a0a0f;
-      color: #f5f5f7;
-      border: 2px solid #3a2f58;
-      border-radius: 12px;
-      padding: 12px 14px;
-      font-size: 1rem;
-      font-weight: 700;
-      outline: none;
-    }
-    .move-modal-input:focus {
-      border-color: #a78bfa;
-      box-shadow: 0 0 0 3px rgba(167,139,250,.14);
-    }
-    .move-modal-help {
-      color: #8b90a7;
-      font-size: .8rem;
-      margin-top: 8px;
-      line-height: 1.4;
-    }
-    .move-modal-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 16px;
-    }
-    .move-modal-actions .btn {
-      flex: 1 1 0;
-    }
-    .footer {
-      margin-top: 26px;
-      padding-top: 20px;
-      border-top: 1px solid #2a2a3a;
-      color: #6b7280;
-      font-size: .84rem;
-      text-align: center;
-    }
-    code { color: #4ade80; }
-    @media (max-width: 1400px) {
-      .layout { grid-template-columns: minmax(290px, 360px) 1fr; }
-      .right-panel { grid-column: 1 / -1; position: static; max-height: none; }
-      .layout.series-panel-hidden { grid-template-columns: minmax(290px, 360px) 1fr; }
-    }
-    @media (max-width: 1020px) {
-      .layout { grid-template-columns: 1fr; }
-      .left-panel, .right-panel { position: static; max-height: none; }
-      .layout.series-panel-hidden { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 640px) {
-      body { padding: 12px; }
-      .left-panel, .right-panel, .main-panel { padding: 18px; }
-      .board { grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 12px; padding: 12px; }
-    }
-        .left-tools-section.is-collapsed .section + .section { display: none !important; }
-    .left-tools-section.is-collapsed #helpContent { display: none !important; }
-  
-    .character-card.is-selected {
-      box-shadow: 0 0 0 3px rgba(34,197,94,.95), 0 18px 40px rgba(34,197,94,.25);
-      transform: translateY(-2px);
-      cursor: grab;
-    }
-    .character-card.is-selected.dragging {
-      cursor: grabbing;
-    }
-    .character-card.multi-select-on { cursor: pointer; }
-    .multi-select-badge {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      min-width: 28px;
-      height: 28px;
-      padding: 0 8px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: .78rem;
-      font-weight: 800;
-      color: #04130a;
-      background: rgba(255,255,255,.9);
-      border: 2px solid rgba(255,255,255,.9);
-      z-index: 4;
-    }
-    .character-card.is-selected .multi-select-badge {
-      background: #22c55e;
-      border-color: #86efac;
-      color: #04130a;
-    }
-
-
-    .board.is-multi-select {
-      position: relative;
-      cursor: crosshair;
-    }
-    .board.is-multi-select .character-card {
-      cursor: pointer;
-    }
-    .board-selection-box {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 0;
-      height: 0;
-      border: 1px solid #86efac;
-      background: rgba(34, 197, 94, .18);
-      box-shadow: 0 0 0 1px rgba(187,247,208,.35) inset;
-      border-radius: 6px;
-      pointer-events: none;
-      z-index: 9999;
-      display: none;
-    }
-
-
-    .top-order-pill {
-      pointer-events: auto !important;
-    }
-    .board.is-multi-select .top-order-pill {
-      cursor: pointer !important;
-    }
-
-
-    .floating-corner-btn-group {
-      position: fixed;
-      right: 16px;
-      bottom: 72px;
-      z-index: 1300;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      backdrop-filter: blur(12px);
-      background: rgba(19,19,26,.95);
-      border: 1px solid rgba(59,59,82,.5);
-      border-radius: 16px;
-      padding: 12px;
-      box-shadow: 0 16px 40px rgba(0,0,0,.4);
-    }
-    .multi-select-btn {
-      min-width: 120px !important;
-      font-size: .85rem !important;
-      padding: 8px 12px !important;
-      white-space: nowrap;
-    }
-    .multi-select-btn:disabled {
-      opacity: .6;
-    }
-
-
-    body.modal-open { overflow: hidden; }
-    .delete-modal {
-      border-color: #4a2028;
-      box-shadow: 0 24px 48px rgba(0,0,0,.45), 0 0 0 1px rgba(239,68,68,.12) inset;
-    }
-    .delete-modal .move-modal-head {
-      background: linear-gradient(180deg, rgba(185,28,28,.20), rgba(255,122,168,.10));
-      border-bottom: 1px solid #4a2028;
-    }
-    .delete-warning-box {
-      background: linear-gradient(180deg, rgba(38,18,24,.92), rgba(24,12,16,.96));
-      border: 1px solid #5b2430;
-      border-radius: 14px;
-      padding: 14px;
-      margin-bottom: 16px;
-    }
-    .delete-warning-title {
-      color: #fca5a5;
-      font-size: .82rem;
-      font-weight: 900;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-    .delete-modal-help {
-      color: #fecaca;
-      margin-top: 0;
-    }
-
-  
-    .alias-panel {
-      margin-top: 8px;
-    }
-    .alias-panel.hidden {
-      display: none;
-    }
-
-  
-    .divider-card {
-      width: auto;
-      min-height: 54px;
-      grid-column: 1 / -1;
-      border: 1px solid rgba(167,139,250,.28);
-      background: linear-gradient(180deg, rgba(30,22,48,.96), rgba(17,14,29,.98));
-      box-shadow: 0 10px 22px rgba(0,0,0,.22), 0 0 0 1px rgba(167,139,250,.08) inset;
-      cursor: grab;
-      padding: 10px 14px;
-    }
-    .divider-card:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 26px rgba(0,0,0,.28), 0 0 0 1px rgba(167,139,250,.14) inset;
-    }
-    .divider-head {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      width: 100%;
-    }
-    .divider-title-wrap {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex: 1;
-      min-width: 0;
-    }
-    .divider-title {
-      color: #e9d5ff;
-      font-size: .95rem;
-      font-weight: 800;
-      letter-spacing: .05em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-    .divider-line {
-      flex: 1;
-      height: 1px;
-      min-width: 18px;
-      background: linear-gradient(90deg, rgba(167,139,250,.9), rgba(167,139,250,.08));
-    }
-    .divider-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-    .divider-btn {
-      border: 1px solid rgba(167,139,250,.32);
-      background: rgba(20,18,36,.9);
-      color: #ddd6fe;
-      border-radius: 999px;
-      padding: 5px 10px;
-      font-size: .74rem;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .divider-btn:hover { background: rgba(38,27,68,.95); }
-    .divider-btn.danger {
-      border-color: rgba(239,68,68,.28);
-      color: #fecaca;
-      background: rgba(44,16,24,.92);
-    }
-    .divider-btn.danger:hover { background: rgba(76,19,31,.95); }
-    .divider-modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(5, 6, 12, .76);
-      backdrop-filter: blur(8px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
-      z-index: 1400;
-    }
-    .divider-modal-overlay.show { display: flex; }
-    .divider-modal {
-      width: min(100%, 460px);
-      background: linear-gradient(180deg, rgba(24,24,36,.98), rgba(15,15,24,.99));
-      border: 1px solid rgba(167,139,250,.24);
-      border-radius: 18px;
-      box-shadow: 0 28px 70px rgba(0,0,0,.46), 0 0 0 1px rgba(167,139,250,.08) inset;
-      padding: 18px;
-    }
-    .divider-modal-header {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 14px;
-    }
-    .divider-modal-title {
-      color: #f5f3ff;
-      font-size: 1.08rem;
-      font-weight: 800;
-    }
-    .divider-modal-subtitle {
-      color: #9ca3af;
-      font-size: .9rem;
-      line-height: 1.45;
-    }
-    .divider-modal-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-top: 14px;
-      flex-wrap: wrap;
-    }
-
-
-
-    .theme-toggle {
-      left: 16px;
-      right: auto;
-      bottom: 16px;
-      opacity: 1;
-      pointer-events: auto;
-      transform: none;
-      background: rgba(19,19,26,.96);
-      border-color: #3b3b52;
-      color: #f3f4f6;
-    }
-    .theme-toggle:hover {
-      background: rgba(31,41,55,.98);
-    }
-
-    body[data-theme="light"] {
-      background: #eef2f7 !important;
-      color: #16202a !important;
-    }
-    body[data-theme="light"] .panel,
-    body[data-theme="light"] .left-panel,
-    body[data-theme="light"] .right-panel,
-    body[data-theme="light"] .main-panel,
-    body[data-theme="light"] .section,
-    body[data-theme="light"] .toolbar,
-    body[data-theme="light"] .board,
-    body[data-theme="light"] .series-list,
-    body[data-theme="light"] .character-card,
-    body[data-theme="light"] .divider-card,
-    body[data-theme="light"] .card-box,
-    body[data-theme="light"] .move-modal,
-    body[data-theme="light"] .divider-modal,
-    body[data-theme="light"] .delete-modal,
-    body[data-theme="light"] .delete-warning-box,
-    body[data-theme="light"] .alias-panel,
-    body[data-theme="light"] .floating-corner-btn-group,
-    body[data-theme="light"] .empty-board,
-    body[data-theme="light"] textarea,
-    body[data-theme="light"] input,
-    body[data-theme="light"] select {
-      background: #ffffff !important;
-      color: #16202a !important;
-      border-color: rgba(15,23,42,.12) !important;
-      box-shadow: 0 10px 24px rgba(15,23,42,.08) !important;
-    }
-    body[data-theme="light"] .section,
-    body[data-theme="light"] .toolbar {
-      box-shadow: none !important;
-    }
-    
-    body[data-theme="light"] .card-box,
-    body[data-theme="light"] .stats-grid,
-    body[data-theme="light"] .summary-grid,
-    body[data-theme="light"] .sticky-summary-panel {
-      background: #ffffff !important;
-      border-color: rgba(15,23,42,.12) !important;
-    }
-    body[data-theme="light"] .empty-board {
-      background: rgba(248,250,252,.95) !important;
-      color: #64748b !important;
-    }
-    body[data-theme="light"] .series-list,
-    body[data-theme="light"] #seriesSummary {
-      background: #f8fafc !important;
-      border-color: rgba(148,163,184,.9) !important;
-      color: #475569 !important;
-    }
-    body[data-theme="light"] .stat-label,
-    body[data-theme="light"] .subtitle,
-    body[data-theme="light"] .small-note,
-    body[data-theme="light"] .board-subtitle {
-      color: #64748b !important;
-    }
-    body[data-theme="light"] .stat-value {
-      color: #16202a !important;
-    }
-    body[data-theme="light"] .panel,
-    body[data-theme="light"] .section,
-    body[data-theme="light"] .main-panel {
-      background: #ffffff !important;
-    }
-
-    body[data-theme="light"] .subtitle,
-    body[data-theme="light"] .small-note,
-    body[data-theme="light"] .board-subtitle,
-    body[data-theme="light"] .stat-label,
-    body[data-theme="light"] .series-meta,
-    body[data-theme="light"] .meta,
-    body[data-theme="light"] .move-modal-subtitle,
-    body[data-theme="light"] .divider-modal-subtitle,
-    body[data-theme="light"] .help-list,
-    body[data-theme="light"] .footer,
-    body[data-theme="light"] .control label,
-    body[data-theme="light"] .message {
-      color: #5f6b7a !important;
-    }
-    body[data-theme="light"] .btn-ghost,
-    body[data-theme="light"] .left-rail-toggle,
-    body[data-theme="light"] .right-rail-toggle,
-    body[data-theme="light"] .floating-corner-btn,
-    body[data-theme="light"] .theme-toggle {
-      background: rgba(255,255,255,.96) !important;
-      color: #16202a !important;
-      border-color: rgba(15,23,42,.12) !important;
-      box-shadow: 0 10px 24px rgba(15,23,42,.12) !important;
-    }
-    body[data-theme="light"] .jump-page-top-btn {
-      background: rgba(124,58,237,.96) !important;
-      color: #ffffff !important;
-      border-color: rgba(124,58,237,.35) !important;
-    }
-    body[data-theme="light"] .btn-primary {
-      color: #ffffff !important;
-    }
-    body[data-theme="light"] .series-chip.active,
-
-    body[data-theme="light"] .summary-grid,
-    body[data-theme="light"] .stats-grid {
-      background: transparent !important;
-    }
-    body[data-theme="light"] .card-box {
-      background: #ffffff !important;
-      border-color: rgba(15,23,42,.12) !important;
-    }
-    body[data-theme="light"] .empty-board {
-      background: #ffffff !important;
-      color: #5f6b7a !important;
-      border: 1px dashed rgba(148,163,184,.9) !important;
-    }
-    body[data-theme="light"] .board {
-      background: #f8fafc !important;
-      border-color: rgba(148,163,184,.9) !important;
-    }
-    body[data-theme="light"] .series-list {
-      background: #ffffff !important;
-      border-color: rgba(148,163,184,.9) !important;
-      color: #16202a !important;
-    }
-
-    body[data-theme="light"] .tag.active,
-    body[data-theme="light"] .character-card.is-selected {
-      border-color: rgba(124,58,237,.45) !important;
-    }
-
-  
-
-
-    body[data-theme="light"] .btn-danger {
-      color: #ffffff !important;
-    }
-    body[data-theme="light"] .btn-ghost,
-    body[data-theme="light"] .left-rail-toggle,
-    body[data-theme="light"] .right-rail-toggle,
-    body[data-theme="light"] .floating-corner-btn,
-    body[data-theme="light"] .theme-toggle {
-      background: rgba(255,255,255,.96) !important;
-      color: #16202a !important;
-      border-color: rgba(15,23,42,.12) !important;
-    }
-    body[data-theme="light"] .board {
-      background: linear-gradient(180deg, #f8fafc, #ffffff) !important;
-      border-color: rgba(148,163,184,.9) !important;
-    }
-    body[data-theme="light"] .empty-board {
-      background: rgba(248,250,252,.9) !important;
-      color: #64748b !important;
-      border: none !important;
-    }
-    body[data-theme="light"] .card-box,
-    body[data-theme="light"] .stats-grid,
-    body[data-theme="light"] .summary-grid {
-      background: #ffffff !important;
-    }
-    body[data-theme="light"] .subtitle,
-    body[data-theme="light"] .small-note,
-    body[data-theme="light"] .stat-label {
-      color: #64748b !important;
-    }
-    body[data-theme="light"] .character-card {
-      background: linear-gradient(180deg, #ffffff, #f8fafc) !important;
-      border-color: rgba(59,130,246,.3) !important;
-    }
-    body[data-theme="light"] .divider-card {
-      background: linear-gradient(180deg, #f3e8ff, #f0e7ff) !important;
-      border-color: rgba(139,92,246,.4) !important;
-    }
-    body[data-theme="light"] .panel,
-    body[data-theme="light"] .section {
-      background: #ffffff !important;
-      box-shadow: 0 8px 24px rgba(15,23,42,.08) !important;
-    }
-    body[data-theme="light"] textarea,
-    body[data-theme="light"] input,
-    body[data-theme="light"] select {
-      background: #ffffff !important;
-      color: #16202a !important;
-      border-color: rgba(15,23,42,.16) !important;
-    }
-    body[data-theme="light"] .series-list {
-      background: #f8fafc !important;
-      border-color: rgba(148,163,184,.9) !important;
-      color: #475569 !important;
-    }
-
+.center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:22px;font-weight:900}
+.c0 .center{color:#63a7ff}
+.c1 .center{color:#5ce7ef}
+.c2 .center{color:#35dc75}
+.c3 .center{color:#ffd451}
+.c4 .center{color:#ff9f49}
+.cp .center{color:#cb86ff;text-shadow:0 0 12px rgba(203,134,255,.22)}
+.ct .center{color:#5ce7ef}
+.cg .center{color:#35dc75}
+.cy .center{color:#ffd451}
+.cr .center{color:#ff7c42}
+.cb .center{color:#63a7ff}
+.box{margin-top:14px;border:1px solid var(--line);border-radius:8px;background:linear-gradient(180deg,rgba(4,6,11,.98),rgba(2,4,8,.98));padding:18px 14px;text-align:center}
+.h2{font-size:13px;font-weight:800;margin:0 0 2px}
+.small{font-size:12px;color:var(--muted)}
+.big{font-size:24px;font-weight:900;letter-spacing:.02em;margin-top:8px}
+.gain{font-size:12px;color:#d5dbea;margin-top:5px}
+.divider{height:1px;background:var(--line);margin-top:16px}
+.meta{text-align:center;padding-top:14px;font-size:13px;color:#d1d8e6}
+.list{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.item{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid var(--line);border-radius:7px;background:linear-gradient(180deg,rgba(4,6,11,.98),rgba(2,4,8,.98));padding:10px 12px;font-size:13px}
+.val{color:#ff5a83;font-weight:800}
+.guide{border:1px solid var(--line);border-radius:7px;background:linear-gradient(180deg,rgba(5,7,12,.98),rgba(3,5,9,.98));padding:14px}
+.guide h3{margin:0 0 8px;font-size:14px}
+.guide p{margin:0;color:#bcc5d5;font-size:12px;line-height:1.52}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.tag{border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.03);padding:5px 9px;font-size:11px;color:#d3daea}
+.note{font-size:11px;color:#8f99ab;margin-top:8px}
+.is-hidden{display:none}
+@media (max-width:940px){.app{grid-template-columns:1fr}.board{grid-template-columns:repeat(5,minmax(54px,1fr))}.cell{width:100%;height:auto;aspect-ratio:1/1}}
 </style>
 </head>
 <body>
-  <div class="layout">
-    <aside class="panel left-panel">
-      <button id="leftRailToggleBtn" class="left-rail-toggle" type="button" title="Hide tools" aria-expanded="true" onclick="return toggleLeftTools()">&#9664;</button>
-      <div id="leftToolsSection" class="left-tools-section">
-      <div id="helpSection" class="section collapsible-section">
-        <div class="section-head">
-          <h2>How to use</h2>
-        </div>
-        <div id="helpContent" class="help-collapsible">
-        <ul class="help-list">
-          <li><strong>1.</strong> Paste your full <code>$mmis</code>, <code>$mmsaty+ri-c+x+ko</code>, or single character entries.</li>
-          <li><strong>2.</strong> Press <strong>Parse</strong> or <strong>Load demo</strong>.</li>
-          <li><strong>3.</strong> Drag the cards to reorder your harem.</li>
-          <li><strong>4.</strong> Filter by name, owner, or roulette.</li>
-          <li><strong>5.</strong> Save JSON or load JSON.</li>
-        </ul>
-        </div>
-      </div>
-
-      <div class="section">
-        <h2>Export for $sm</h2>
-        <label class="toggle-row"><input type="checkbox" id="nitroMode"> I have Nitro (4000 characters)</label>
-        <label class="toggle-row" style="margin-top:10px;"><input type="checkbox" id="exportAliasToggle"> Show export alias fixes</label>
-        <div id="exportAliasPanel" class="alias-panel hidden">
-          <label for="exportAliasInput" class="small-note" style="display:block;">Manual fix for wrong exported names, one per line: original=exported.</label>
-          <textarea id="exportAliasInput" placeholder="tundra3=tundra_3" style="min-height:88px;margin-top:8px;"></textarea>
-        </div>
-        <div id="chunkMeta" class="small-note">Format: first $sm, next $smp with the last name repeated</div>
-        <div id="orderOutput" class="order-output">No characters loaded yet.</div>
-        <div class="secondary-toolbar">
-          <button class="btn btn-primary" id="saveBtn">Save JSON</button>
-          <button class="btn btn-ghost" id="loadBtn">Load JSON</button>
-          <input id="loadJsonInput" type="file" accept="application/json,.json" style="display:none;" />
-        </div>
-      </div>
-      </div>
-    </aside>
-
-    <main class="panel main-panel">
-      <div class="section">
-        <h1>Mudae - Harem Organizer</h1>
-        <p class="subtitle">This is a mudae organizer compatible with $mmis, $mmsaty+ri-c+x+ko and single character entries.</p>
-        <textarea id="input" placeholder="Paste your full $mmis here..."></textarea>
-        <div class="toolbar">
-          <button class="btn btn-primary" id="parseBtn">Parse</button>
-          <button class="btn btn-secondary" id="demoBtn">Load demo</button>
-          <button class="btn btn-danger" id="clearBtn">Clear</button>
-        </div>
-        <div id="message" class="message"></div>
-      </div>
-
-      <div class="filters-grid">
-        <div class="control">
-          <label for="searchInput">Search</label>
-          <input id="searchInput" type="text" placeholder="Name, series, owner, or note..." />
-        </div>
-        <div class="control">
-          <label for="ownerFilter">Owner</label>
-          <select id="ownerFilter"><option value="">All</option></select>
-        </div>
-        <div class="control">
-          <label for="rouletteFilter">Roulette</label>
-          <select id="rouletteFilter">
-            <option value="">All</option>
-            <option value="$wa">$wa</option>
-            <option value="$ha">$ha</option>
-            <option value="$wg">$wg</option>
-            <option value="$hg">$hg</option>
-          </select>
-        </div>
-      </div>
-
-      <section class="stats-grid">
-        <div class="card-box"><div class="stat-label">Total characters</div><div class="stat-value" id="totalCount">0</div></div>
-        <div class="card-box"><div class="stat-label">Visible</div><div class="stat-value" id="visibleCount">0</div></div>
-        <div class="card-box"><div class="stat-label">Total kakera</div><div class="stat-value" id="totalKakera">0</div></div>
-        <div class="card-box"><div class="stat-label">Total keys</div><div class="stat-value" id="totalKeys">0</div></div>
-      </section>
-
-      <section class="sticky-summary-panel">
-        <div class="sticky-summary-title">Harem summary</div>
-        <div class="summary-grid">
-          <div class="card-box"><div class="stat-label">Name</div><div id="haremName" class="stat-value harem-name-fit">-</div></div>
-          <div class="card-box"><div class="stat-label">Total value</div><div class="stat-value" id="haremValue">0</div></div>
-          <div class="card-box"><div class="stat-label">$wa / $ha</div><div class="stat-value" id="wahaCount">0 / 0</div></div>
-          <div class="card-box"><div class="stat-label">$wg / $hg</div><div class="stat-value" id="wghgCount">0 / 0</div></div>
-        </div>
-      </section>
-
-      <section>
-        <div class="board-header">
-          <div>
-            <h2>Harem board</h2>
-            <p class="board-subtitle">Series, image, name, owner, rank/kakera/keys, gender and roulette.</p>
-          </div>
-        </div>
-        <div id="board" class="board"></div>
-      </section>
-
-      <div class="footer"><div class="footer">Made with GPT-5.4 Contact <strong>Kouno</strong> on Discord.</div>
-    </main>
-
-    <aside class="panel right-panel">
-      <button id="rightRailToggleBtn" class="right-rail-toggle" type="button" title="Hide series" aria-expanded="true">&#9654;</button>
-      <div class="section">
-        <div class="series-panel-head">
-          <h2>Series</h2>
-        </div>
-        <div class="small-note">Click to filter one or more series.</div>
-        <div id="seriesSummary" class="series-list">No series loaded yet.</div>
-      </div>
-    </aside>
-  </div>
-
-  <button id="jumpPageTopBtn" class="btn btn-ghost floating-corner-btn jump-page-top-btn" type="button" title="UP">UP</button>
-
-  <div id="multiSelectBar" class="floating-corner-btn-group">
-    <button id="addDividerBtn" class="btn btn-ghost multi-select-btn" title="Add divider">Add divider</button>
-    <button id="multiSelectToggleBtn" class="btn btn-ghost multi-select-btn" title="Multi-select: Off">Multi-select: Off</button>
-    <button id="moveSelectedBtn" class="btn btn-ghost multi-select-btn" disabled title="Move selected">Move (0)</button>
-    <button id="clearSelectedBtn" class="btn btn-ghost multi-select-btn" disabled title="Clear selection">Clear</button>
-  </div>
-
-
-  <div id="moveModalOverlay" class="move-modal-overlay" aria-hidden="true">
-    <div class="move-modal" role="dialog" aria-modal="true" aria-labelledby="moveModalTitle">
-      <div class="move-modal-head">
-        <div id="moveModalTitle" class="move-modal-title">Move character</div>
-        <div id="moveModalSubtitle" class="move-modal-subtitle">Select the new position.</div>
-      </div>
-      <div class="move-modal-body">
-        <label class="move-modal-label" for="moveRankInput">New position</label>
-        <input id="moveRankInput" class="move-modal-input" type="number" min="1" step="1" />
-        <div id="moveModalHelp" class="move-modal-help">Enter the target position.</div>
-        <div class="move-modal-actions">
-          <button id="moveCancelBtn" class="btn btn-ghost" type="button">Cancel</button>
-          <button id="moveConfirmBtn" class="btn btn-primary" type="button">Move</button>
-        </div>
-      </div>
+<div class="app">
+  <section class="panel left">
+    <div class="tabs">
+      <button class="tab active" id="tabOQ">$oq</button>
+      <button class="tab" id="tabOT">$ot</button>
     </div>
-  </div>
 
-  <div id="deleteModalOverlay" class="move-modal-overlay" aria-hidden="true">
-    <div class="move-modal delete-modal" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
-      <div class="move-modal-head">
-        <div id="deleteModalTitle" class="move-modal-title">Delete selected characters</div>
-        <div id="deleteModalSubtitle" class="move-modal-subtitle">This action cannot be undone.</div>
+    <div class="topbar">
+      <div>
+        <div class="title" id="gameTitle">$oq solver</div>
+        <div class="sub" id="gameSub">Clicks used: 0 / 7</div>
       </div>
-      <div class="move-modal-body">
-        <div class="delete-warning-box">
-          <div class="delete-warning-title">Warning</div>
-          <div id="deleteModalHelp" class="move-modal-help delete-modal-help">You are about to remove 0 characters from the harem.</div>
-        </div>
-        <div class="move-modal-actions">
-          <button id="deleteCancelBtn" class="btn btn-ghost" type="button">Cancel</button>
-          <button id="deleteConfirmBtn" class="btn btn-danger" type="button">Delete</button>
-        </div>
-      </div>
+      <button class="reset" id="resetBtn">Reset</button>
     </div>
-  </div>
 
-<div id="dividerModalOverlay" class="divider-modal-overlay" aria-hidden="true">
-    <div class="divider-modal" role="dialog" aria-modal="true" aria-labelledby="dividerModalTitle">
-      <div class="divider-modal-header">
-        <div id="dividerModalTitle" class="divider-modal-title">Add divider</div>
-        <div id="dividerModalSubtitle" class="divider-modal-subtitle">Create a visual separator for your harem.</div>
-      </div>
-      <div class="control">
-        <label for="dividerNameInput">Divider name</label>
-        <input id="dividerNameInput" type="text" maxlength="120" placeholder="Favorites, Top 100, Trade zone..." />
-      </div>
-      <div id="dividerPositionControl" class="control">
-        <label for="dividerInsertAfterInput">Insert after rank</label>
-        <input id="dividerInsertAfterInput" type="number" min="0" step="1" placeholder="0 = before #1" />
-        <div class="small-note">0 = before #1, 170 = between #170 and #171.</div>
-      </div>
-      <div class="divider-modal-actions">
-        <button id="dividerModalCancelBtn" class="btn btn-ghost" type="button">Cancel</button>
-        <button id="dividerModalConfirmBtn" class="btn btn-primary" type="button">Save</button>
-      </div>
+    <div class="board-wrap"><div class="board" id="board"></div></div>
+
+    <div class="guide" id="guideBox">
+      <h3>Guide</h3>
+      <p id="guideText">Click izquierdo para avanzar una casilla: oculta → azul → turquesa → verde → amarilla → naranja → morada. Click derecho para retroceder. El porcentaje de una casilla oculta es su probabilidad exacta de ser morada según las pistas que ya marcaste.</p>
+      <div class="tags" id="guideTags"></div>
+      <div class="note" id="guideNote"></div>
     </div>
-  </div>
+  </section>
 
+  <aside class="side">
+    <section class="panel">
+      <div class="h2" id="recTitle">Recommendation</div>
+      <div class="box">
+        <div class="small" id="bestLabel">Next best move:</div>
+        <div class="big" id="bestMove">-</div>
+        <div class="gain" id="gainText">Expected Gain: 0.00</div>
+      </div>
+      <div class="divider"></div>
+      <div class="meta" id="metaLine">Possible Purple Locations: 0 / 25</div>
+    </section>
 
-  <div id="sortSectionModalOverlay" class="divider-modal-overlay" aria-hidden="true">
-    <div class="divider-modal" role="dialog" aria-modal="true" aria-labelledby="sortSectionModalTitle">
-      <div class="divider-modal-header">
-        <div id="sortSectionModalTitle" class="divider-modal-title">Sort section</div>
-        <div id="sortSectionModalSubtitle" class="divider-modal-subtitle">Choose how to sort the characters under this divider.</div>
-      </div>
-      <div class="control">
-        <label for="sortSectionFieldSelect">Sort by</label>
-        <select id="sortSectionFieldSelect">
-          <option value="name">ABC</option>
-          <option value="rank">Rank</option>
-          <option value="kakera">Kakera</option>
-          <option value="keys">Keys</option>
-          <option value="series">Series</option>
-        </select>
-      </div>
-      <div class="control">
-        <label for="sortSectionDirectionSelect">Direction</label>
-        <select id="sortSectionDirectionSelect">
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
-        </select>
-      </div>
-      <div class="divider-modal-actions">
-        <button id="sortSectionCancelBtn" class="btn btn-ghost" type="button">Cancel</button>
-        <button id="sortSectionConfirmBtn" class="btn btn-primary" type="button">Sort</button>
-      </div>
-    </div>
-  </div>
-
-  <button id="themeToggleBtn" class="btn btn-ghost floating-corner-btn theme-toggle" type="button" aria-label="Switch theme" title="Light mode">☀️</button>
-
+    <section class="panel">
+      <div class="h2" id="listTitle">Likely Purple Locations</div>
+      <div class="list" id="likelyList"></div>
+    </section>
+  </aside>
+</div>
 <script>
-var STORAGE_KEY = 'mudaeHaremOrdererProCompatV1';
-    var AppState = {
-      haremName: '',
-      totalValue: 0,
-      counts: { wa: 0, ha: 0, wg: 0, hg: 0 },
-      characters: [],
-      filter: '',
-      ownerFilter: '',
-      rouletteFilter: '',
-      selectedSeries: [],
-      seriesPanelHidden: false,
-      helpHidden: false,
-      multiSelectMode: false,
-      selectedMoveIds: [],
-      exportAliasesText: 'tundra3=tundra_3',
-      persistentOrderMap: {}
-    };
-    var MoveModalState = { charId: null, mode: 'single' };
-    var DividerModalState = { mode: 'add', itemId: null };
-    var SortSectionModalState = { dividerId: null };
-    var SelectionBoxState = { active: false, started: false, additive: false, startX: 0, startY: 0, originTarget: null, boxEl: null, suppressClickUntil: 0 };
-    var DragState = { suppressClickUntil: 0 };
+const SIZE = 5;
+const OQ_STATES = ['hidden', 0, 1, 2, 3, 4, 'purple'];
+const OT_STATES = ['hidden', 'blue', 'teal', 'green', 'yellow', 'rare'];
+let activeGame = 'oq';
+const oqBoard = Array.from({length:SIZE},()=>Array.from({length:SIZE},()=>({state:'hidden'})));
+const otBoard = Array.from({length:SIZE},()=>Array.from({length:SIZE},()=>({state:'hidden'})));
 
-    var DEMO = '❄️ 🤍 White haired supremacy 🤍 ❄️\n'
-      + '645 $wa, 65 $ha, 211 $wg, 11 $hg\n\n'
-      + 'Total value: 147243:kakera:\n\n'
-      + '3-gatsu no Lion - 1/34\n'
-      + '#10524 - Hinata Kawamoto  💞 => kouno · ($wa) · :bronzekey: (1) (#ff748c) 109 ka - [https://mudae.net/uploads/7060800/mxsRGei~PTaBt37.gif](https://mudae.net/uploads/7060800/mxsRGei~PTaBt37.gif)\n\n'
-      + '5-toubun no Hanayome - 1/12\n'
-      + '#19 - Miku Nakano  💞 => kouno | :mikuok: · ($wa) · :bronzekey: (1) (#ff748c) 1886 ka - [https://mudae.net/uploads/8195644/CrlyNyr~tWSswfw.png](https://mudae.net/uploads/8195644/CrlyNyr~tWSswfw.png)\n\n'
-      + '7th Time Loop: The Villainess Enjoys a Carefree Life Married to Her Worst Enemy! - 1/4\n'
-      + '#9123 - Rishe Irmgard Weitzner  💞 => kouno · ($wa) 111 ka - [https://mudae.net/uploads/8101148/f1j2Y0C~W7tz7NC.png](https://mudae.net/uploads/8101148/f1j2Y0C~W7tz7NC.png)\n\n'
-      + '9-nine- - 3/11\n'
-      + '#47908 - Sora Niimi  💞 => kouno · ($wg) 66 ka - [https://mudae.net/uploads/9694655/yg5OO6L~ODvn4tp.png](https://mudae.net/uploads/9694655/yg5OO6L~ODvn4tp.png)\n'
-      + '#62634 - Miyako Kujou  💞 => kouno · ($wg) 62 ka - [https://mudae.net/uploads/8531662/bD0vL1U~76Loy1P.png](https://mudae.net/uploads/8531662/bD0vL1U~76Loy1P.png)\n'
-      + '#70378 - Haruka Kousaka  💞 => kouno · ($wg) 61 ka - [https://mudae.net/uploads/3907150/B5fT2YH~Zqa1teN.png](https://mudae.net/uploads/3907150/B5fT2YH~Zqa1teN.png)';
+function idx(r,c){ return r*SIZE+c; }
+function bit(i){ return 1<<i; }
+function neighbors(r,c){ const out=[]; for(let dr=-1;dr<=1;dr++){ for(let dc=-1;dc<=1;dc++){ if(!dr&&!dc) continue; const nr=r+dr,nc=c+dc; if(nr>=0&&nr<SIZE&&nc>=0&&nc<SIZE) out.push([nr,nc]); } } return out; }
+function countOpen(board){ return board.flat().filter(x=>x.state!=='hidden').length; }
+function hiddenCells(board){ const arr=[]; for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) if(board[r][c].state==='hidden') arr.push([r,c]); return arr; }
 
-    var els = {
-      input: document.getElementById('input'),
-      parseBtn: document.getElementById('parseBtn'),
-      demoBtn: document.getElementById('demoBtn'),
-      clearBtn: document.getElementById('clearBtn'),
-      addDividerBtn: document.getElementById('addDividerBtn'),
-      exportJsonBtn: document.getElementById('exportJsonBtn'),
-      copyOrderBtn: document.getElementById('copyOrderBtn'),
-      exportAliasToggle: document.getElementById('exportAliasToggle'),
-      exportAliasPanel: document.getElementById('exportAliasPanel'),
-      exportAliasInput: document.getElementById('exportAliasInput'),
-      multiSelectToggleBtn: document.getElementById('multiSelectToggleBtn'),
-      moveSelectedBtn: document.getElementById('moveSelectedBtn'),
-      clearSelectedBtn: document.getElementById('clearSelectedBtn'),
-      saveBtn: document.getElementById('saveBtn'),
-      loadBtn: document.getElementById('loadBtn'),
-      loadJsonInput: document.getElementById('loadJsonInput'),
-      nitroMode: document.getElementById('nitroMode'),
-      searchInput: document.getElementById('searchInput'),
-      ownerFilter: document.getElementById('ownerFilter'),
-      rouletteFilter: document.getElementById('rouletteFilter'),
-      seriesPanelToggleBtn: document.getElementById('seriesPanelToggleBtn'),
-      seriesPanelToggleBtnMain: document.getElementById('seriesPanelToggleBtnMain'),
-      jumpPageTopBtn: document.getElementById('jumpPageTopBtn'),
-      leftRailToggleBtn: document.getElementById('leftRailToggleBtn'),
-      rightRailToggleBtn: document.getElementById('rightRailToggleBtn'),
-      helpContent: document.getElementById('helpContent'),
-      helpSection: document.getElementById('helpSection'),
-      leftToolsSection: document.getElementById('leftToolsSection'),
-      layout: document.querySelector('.layout'),
-      rightPanel: document.querySelector('.right-panel'),
-      board: document.getElementById('board'),
-      message: document.getElementById('message'),
-      orderOutput: document.getElementById('orderOutput'),
-      chunkMeta: document.getElementById('chunkMeta'),
-      moveModalOverlay: document.getElementById('moveModalOverlay'),
-      moveModalTitle: document.getElementById('moveModalTitle'),
-      moveModalSubtitle: document.getElementById('moveModalSubtitle'),
-      moveModalHelp: document.getElementById('moveModalHelp'),
-      moveRankInput: document.getElementById('moveRankInput'),
-      moveCancelBtn: document.getElementById('moveCancelBtn'),
-      moveConfirmBtn: document.getElementById('moveConfirmBtn'),
-      dividerModalOverlay: document.getElementById('dividerModalOverlay'),
-      dividerModalTitle: document.getElementById('dividerModalTitle'),
-      dividerModalSubtitle: document.getElementById('dividerModalSubtitle'),
-      dividerNameInput: document.getElementById('dividerNameInput'),
-      dividerPositionControl: document.getElementById('dividerPositionControl'),
-      dividerInsertAfterInput: document.getElementById('dividerInsertAfterInput'),
-      dividerModalCancelBtn: document.getElementById('dividerModalCancelBtn'),
-      dividerModalConfirmBtn: document.getElementById('dividerModalConfirmBtn'),
-      sortSectionModalOverlay: document.getElementById('sortSectionModalOverlay'),
-      sortSectionModalTitle: document.getElementById('sortSectionModalTitle'),
-      sortSectionModalSubtitle: document.getElementById('sortSectionModalSubtitle'),
-      sortSectionFieldSelect: document.getElementById('sortSectionFieldSelect'),
-      sortSectionDirectionSelect: document.getElementById('sortSectionDirectionSelect'),
-      sortSectionCancelBtn: document.getElementById('sortSectionCancelBtn'),
-      sortSectionConfirmBtn: document.getElementById('sortSectionConfirmBtn'),
-      themeToggleBtn: document.getElementById('themeToggleBtn'),
+const OQ_COMBOS = (() => {
+  const out=[];
+  const n=25;
+  for(let a=0;a<n-3;a++) for(let b=a+1;b<n-2;b++) for(let c=b+1;c<n-1;c++) for(let d=c+1;d<n;d++) out.push(bit(a)|bit(b)|bit(c)|bit(d));
+  return out;
+})();
 
-      totalCount: document.getElementById('totalCount'),
-      visibleCount: document.getElementById('visibleCount'),
-      totalKakera: document.getElementById('totalKakera'),
-      totalKeys: document.getElementById('totalKeys'),
-      haremName: document.getElementById('haremName'),
-      haremValue: document.getElementById('haremValue'),
-      wahaCount: document.getElementById('wahaCount'),
-      wghgCount: document.getElementById('wghgCount'),
-      seriesSummary: document.getElementById('seriesSummary')
-    };
-    var deleteModalEls = {
-      overlay: document.getElementById('deleteModalOverlay'),
-      subtitle: document.getElementById('deleteModalSubtitle'),
-      help: document.getElementById('deleteModalHelp'),
-      cancelBtn: document.getElementById('deleteCancelBtn'),
-      confirmBtn: document.getElementById('deleteConfirmBtn')
-    };
-
-    function uid() {
-      return 'id-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
-    }
-
-
-    function syncDividerModalRefs() {
-      els.dividerModalOverlay = document.getElementById('dividerModalOverlay');
-      els.dividerModalTitle = document.getElementById('dividerModalTitle');
-      els.dividerModalSubtitle = document.getElementById('dividerModalSubtitle');
-      els.dividerNameInput = document.getElementById('dividerNameInput');
-      els.dividerPositionControl = document.getElementById('dividerPositionControl');
-      els.dividerInsertAfterInput = document.getElementById('dividerInsertAfterInput');
-      els.dividerModalCancelBtn = document.getElementById('dividerModalCancelBtn');
-      els.dividerModalConfirmBtn = document.getElementById('dividerModalConfirmBtn');
-    }
-
-
-    function syncSortSectionModalRefs() {
-      els.sortSectionModalOverlay = document.getElementById('sortSectionModalOverlay');
-      els.sortSectionModalTitle = document.getElementById('sortSectionModalTitle');
-      els.sortSectionModalSubtitle = document.getElementById('sortSectionModalSubtitle');
-      els.sortSectionFieldSelect = document.getElementById('sortSectionFieldSelect');
-      els.sortSectionDirectionSelect = document.getElementById('sortSectionDirectionSelect');
-      els.sortSectionCancelBtn = document.getElementById('sortSectionCancelBtn');
-      els.sortSectionConfirmBtn = document.getElementById('sortSectionConfirmBtn');
-    }
-
-
-    function applyTheme(theme) {
-      var nextTheme = theme === 'light' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', nextTheme);
-      document.body.setAttribute('data-theme', nextTheme);
-      if (els.themeToggleBtn) {
-        els.themeToggleBtn.textContent = nextTheme === 'light' ? '🌙' : '☀️';
-        els.themeToggleBtn.setAttribute('aria-label', nextTheme === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
-        els.themeToggleBtn.setAttribute('title', nextTheme === 'light' ? 'Dark mode' : 'Light mode');
-      }
-      try {
-        localStorage.setItem('mhp-theme', nextTheme);
-      } catch (error) {}
-    }
-
-    function loadThemePreference() {
-      var stored = 'dark';
-      try {
-        stored = localStorage.getItem('mhp-theme') || 'dark';
-      } catch (error) {}
-      applyTheme(stored);
-    }
-
-    function toggleTheme() {
-      var current = document.body.getAttribute('data-theme') || document.documentElement.getAttribute('data-theme') || 'dark';
-      applyTheme(current === 'light' ? 'dark' : 'light');
-    }
-
-
-    function isDividerItem(item) {
-      return !!(item && item.type === 'divider');
-    }
-
-    function getRealCharacters(items) {
-      return (items || []).filter(function (item) { return !isDividerItem(item); });
-    }
-
-
-    function getVisibleCharacterCount(items) {
-      return getRealCharacters(items || AppState.characters).length;
-    }
-
-    function getVisibleCharacterRankById(id) {
-      var rank = 0;
-      for (var i = 0; i < AppState.characters.length; i++) {
-        var item = AppState.characters[i];
-        if (!isDividerItem(item)) rank += 1;
-        if (item.id === id) return isDividerItem(item) ? rank : rank;
-      }
-      return 0;
-    }
-
-    function getInsertIndexAfterVisibleRank(afterRank) {
-      var target = parseInt(String(afterRank || 0).trim(), 10);
-      if (isNaN(target) || target < 0) target = 0;
-      if (target <= 0) return 0;
-      var visible = 0;
-      for (var i = 0; i < AppState.characters.length; i++) {
-        if (isDividerItem(AppState.characters[i])) continue;
-        visible += 1;
-        if (visible === target) return i + 1;
-      }
-      return AppState.characters.length;
-    }
-
-
-    function getDividerSectionRange(dividerId) {
-      var dividerIndex = AppState.characters.findIndex(function (item) { return item.id === dividerId && isDividerItem(item); });
-      if (dividerIndex === -1) return null;
-      var start = dividerIndex + 1;
-      var end = AppState.characters.length;
-      for (var i = start; i < AppState.characters.length; i++) {
-        if (isDividerItem(AppState.characters[i])) {
-          end = i;
-          break;
+function generateSegments(len){
+  const arr=[];
+  for(let r=0;r<SIZE;r++) for(let c=0;c<=SIZE-len;c++){ let m=0; const cells=[]; for(let k=0;k<len;k++){ const i=idx(r,c+k); m|=bit(i); cells.push(i); } arr.push({m,cells}); }
+  for(let c=0;c<SIZE;c++) for(let r=0;r<=SIZE-len;r++){ let m=0; const cells=[]; for(let k=0;k<len;k++){ const i=idx(r+k,c); m|=bit(i); cells.push(i); } arr.push({m,cells}); }
+  return arr;
+}
+const SEG_T = generateSegments(4);
+const SEG_G = generateSegments(3);
+const SEG_Y = generateSegments(3);
+const SEG_R = generateSegments(2);
+const OT_COMBOS = (() => {
+  const out=[];
+  for(const t of SEG_T){
+    for(const g of SEG_G){ if(t.m & g.m) continue;
+      for(const y of SEG_Y){ if((t.m & y.m) || (g.m & y.m)) continue;
+        for(const r of SEG_R){ if((t.m & r.m) || (g.m & r.m) || (y.m & r.m)) continue;
+          out.push({t:t.m,g:g.m,y:y.m,r:r.m,u:t.m|g.m|y.m|r.m});
         }
       }
-      return { dividerIndex: dividerIndex, start: start, end: end };
     }
-
-    function compareSectionItems(a, b, field, direction) {
-      var dir = direction === 'desc' ? -1 : 1;
-      var valA;
-      var valB;
-      if (field === 'name') {
-        valA = normalizeStableText(a.name || '');
-        valB = normalizeStableText(b.name || '');
-        if (valA < valB) return -1 * dir;
-        if (valA > valB) return 1 * dir;
-        return 0;
-      }
-      if (field === 'rank') {
-        valA = Number(a.globalRank || 0);
-        valB = Number(b.globalRank || 0);
-      } else if (field === 'kakera') {
-        valA = Number(a.kakera || 0);
-        valB = Number(b.kakera || 0);
-      } else if (field === 'keys') {
-        valA = Number(a.keys || 0);
-        valB = Number(b.keys || 0);
-      } else {
-        valA = normalizeStableText(a.series || '');
-        valB = normalizeStableText(b.series || '');
-        if (valA < valB) return -1 * dir;
-        if (valA > valB) return 1 * dir;
-        var seriesNameA = normalizeStableText(a.name || '');
-        var seriesNameB = normalizeStableText(b.name || '');
-        if (seriesNameA < seriesNameB) return -1;
-        if (seriesNameA > seriesNameB) return 1;
-        return 0;
-      }
-      if (valA === valB) {
-        var nameA = normalizeStableText(a.name || '');
-        var nameB = normalizeStableText(b.name || '');
-        if (nameA < nameB) return -1;
-        if (nameA > nameB) return 1;
-        return 0;
-      }
-      return (valA - valB) * dir;
-    }
-
-    function sortDividerSection(dividerId, field, direction) {
-      var range = getDividerSectionRange(dividerId);
-      if (!range) return;
-      var section = AppState.characters.slice(range.start, range.end).filter(function (item) { return !isDividerItem(item); });
-      if (!section.length) {
-        showMessage('There are no characters under this divider.', 'error');
-        return;
-      }
-      section.sort(function (a, b) {
-        return compareSectionItems(a, b, field, direction);
-      });
-      AppState.characters.splice(range.start, range.end - range.start, ...section);
-      renumberAllItems();
-      rebuildPersistentOrderMap();
-      renderBoard();
-      saveLocal(false);
-      showMessage('Section sorted by ' + field + ' (' + direction + ').');
-    }
-
-    function openSortSectionModal(dividerId) {
-      syncSortSectionModalRefs();
-      var divider = AppState.characters.find(function (item) { return item.id === dividerId && isDividerItem(item); });
-      if (!divider) return;
-      SortSectionModalState.dividerId = dividerId;
-      if (els.sortSectionModalTitle) els.sortSectionModalTitle.textContent = 'Sort section';
-      if (els.sortSectionModalSubtitle) els.sortSectionModalSubtitle.textContent = 'Sort characters under "' + (divider.title || divider.name || 'Divider') + '".';
-      if (els.sortSectionFieldSelect) els.sortSectionFieldSelect.value = 'name';
-      if (els.sortSectionDirectionSelect) els.sortSectionDirectionSelect.value = 'asc';
-      if (els.sortSectionModalOverlay) {
-        els.sortSectionModalOverlay.classList.add('show');
-        els.sortSectionModalOverlay.setAttribute('aria-hidden', 'false');
-      }
-      document.body.classList.add('modal-open');
-      setTimeout(function () {
-        if (els.sortSectionFieldSelect) els.sortSectionFieldSelect.focus();
-      }, 10);
-    }
-
-    function closeSortSectionModal() {
-      syncSortSectionModalRefs();
-      SortSectionModalState.dividerId = null;
-      if (els.sortSectionModalOverlay) {
-        els.sortSectionModalOverlay.classList.remove('show');
-        els.sortSectionModalOverlay.setAttribute('aria-hidden', 'true');
-      }
-      document.body.classList.remove('modal-open');
-    }
-
-    function submitSortSectionModal() {
-      syncSortSectionModalRefs();
-      if (!SortSectionModalState.dividerId) {
-        closeSortSectionModal();
-        return;
-      }
-      var field = String((els.sortSectionFieldSelect && els.sortSectionFieldSelect.value) || 'name');
-      var direction = String((els.sortSectionDirectionSelect && els.sortSectionDirectionSelect.value) || 'asc');
-      var dividerId = SortSectionModalState.dividerId;
-      closeSortSectionModal();
-      sortDividerSection(dividerId, field, direction);
-    }
-
-    function createDividerItem(title) {
-      var label = String(title || '').trim() || 'Divider';
-      return {
-        id: uid(),
-        type: 'divider',
-        title: label,
-        name: label,
-        currentRank: 0,
-        globalRank: 0,
-        owner: '',
-        note: '',
-        roulette: '',
-        mudaeTags: [],
-        keyType: '',
-        keys: 0,
-        color: '#8b5cf6',
-        kakera: 0,
-        series: '',
-        seriesOwned: 0,
-        seriesTotal: 0,
-        image: ''
-      };
-    }
-
-    function escapeHtml(text) {
-      return String(text == null ? '' : text)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-    }
-
-    function showMessage(text, type) {
-      type = type || 'success';
-      els.message.textContent = text;
-      els.message.className = 'message show ' + type;
-      clearTimeout(showMessage._timer);
-      showMessage._timer = setTimeout(function () {
-        els.message.className = 'message';
-        els.message.textContent = '';
-      }, 1500);
-    }
-
-    function normalizeInput(raw) {
-      return String(raw || '')
-        .replace(/\u200b/g, '')
-        .replace(/\u202f/g, ' ')
-        .replace(/\u00a0/g, ' ')
-        .replace(/[‐‑‒–—]/g, '-')
-        .replace(/\[(https?:\/\/[^\]\s]+)\]\([^)]*\)/g, '$1')
-        .replace(/[ \t]+\n/g, '\n')
-        .replace(/\n{3,}/g, '\n\n')
-        .trim();
-    }
-
-    function parseCounts(line) {
-      var counts = { wa: 0, ha: 0, wg: 0, hg: 0 };
-      var regex = /(\d+)\s+\$(wa|ha|wg|hg)/gi;
-      var match;
-      while ((match = regex.exec(line)) !== null) {
-        counts[String(match[2]).toLowerCase()] = parseInt(match[1], 10);
-      }
-      return counts;
-    }
-
-    function parseSeriesLine(line) {
-      var match = line.match(/^(.*?)\s+-\s+(\d+)\/(\d+)$/);
-      if (!match || line.charAt(0) === '#') return null;
-      return {
-        name: match[1].trim(),
-        owned: parseInt(match[2], 10),
-        total: parseInt(match[3], 10)
-      };
-    }
-
-    function parseCharacterLine(line, currentSeries) {
-      var urlRegex = /https?:\/\/\S+/g;
-      var urls = line.match(urlRegex);
-      if (!urls || !urls.length) return null;
-
-      var image = urls[urls.length - 1].trim().replace(/[)>.,]+$/, '');
-      var imageIndex = line.lastIndexOf(image);
-      if (imageIndex === -1) return null;
-      var work = line.slice(0, imageIndex).replace(/\s*-\s*$/, '').trim();
-
-      var rankMatch = work.match(/^#?([\d,]+)\s*-\s*/);
-      var globalRank = rankMatch ? parseInt(rankMatch[1].replace(/,/g, ''), 10) : 0;
-      if (rankMatch) work = work.slice(rankMatch[0].length).trim();
-
-      var name = '';
-      var owner = 'Unknown';
-      var note = '';
-      var roulette = '';
-      var mudaeTags = [];
-      var keyType = '';
-      var keys = 0;
-      var kakera = 0;
-      var color = '#7c3aed';
-
-      if (work.indexOf('=>') !== -1) {
-        var split = work.split(/\s*=>\s*/);
-        name = (split.shift() || '').replace(/💞/g, '').trim();
-        var meta = split.join(' => ').trim();
-
-        var ownerMeta = meta.split('·')[0].trim();
-        var ownerBits = ownerMeta.split('|').map(function (part) { return part.trim(); }).filter(Boolean);
-        owner = ownerBits[0] || 'Unknown';
-        if (ownerBits.length > 1) note = ownerBits.slice(1).join(' | ');
-
-        var tagMatches = meta.match(/\$?(?:wa|ha|wg|hg)\b/gi) || [];
-        var tagList = [];
-        tagMatches.forEach(function (item) {
-          var t = String(item).toLowerCase().replace(/^\$/, '');
-          if (tagList.indexOf(t) === -1) tagList.push(t);
-        });
-        var order = { wa: 1, ha: 2, wg: 3, hg: 4 };
-        tagList.sort(function (a, b) { return (order[a] || 99) - (order[b] || 99); });
-        roulette = tagList.map(function (t) { return '$' + t; }).join('/');
-        mudaeTags = tagList.slice();
-
-        var kakeraMatch = meta.match(/([\d,]+)\s*ka\b/i);
-        kakera = kakeraMatch ? parseInt(kakeraMatch[1].replace(/,/g, ''), 10) : 0;
-
-        var keyTypeMatch = meta.match(/\b(bronze|silver|gold|platinum|diamond|chaos)key\b/i);
-        keyType = keyTypeMatch ? String(keyTypeMatch[1]).toLowerCase() : '';
-        if (keyTypeMatch) {
-          var afterKey = meta.slice(keyTypeMatch.index + keyTypeMatch[0].length);
-          var paren = afterKey.match(/\((\d+)\)/);
-          var plain = afterKey.match(/^\s*(\d+)/);
-          keys = paren ? parseInt(paren[1], 10) : (plain ? parseInt(plain[1], 10) : 1);
-        }
-
-        var colorMatch = meta.match(/\b#?([0-9a-fA-F]{6})\b/);
-        color = colorMatch ? ('#' + colorMatch[1].replace(/^#/, '')) : '#7c3aed';
-      } else {
-        var simpleBits = work.split('|').map(function (part) { return part.trim(); }).filter(Boolean);
-        name = (simpleBits[0] || '').replace(/💞/g, '').trim();
-        note = simpleBits.length > 1 ? simpleBits.slice(1).join(' | ') : '';
-      }
-
-      if (!name) return null;
-
-      return {
-        id: uid(),
-        currentRank: 0,
-        globalRank: globalRank,
-        name: name,
-        owner: normalizeOwnerName(owner),
-        note: note,
-        roulette: roulette,
-        mudaeTags: mudaeTags,
-        keyType: keyType,
-        keys: keys,
-        color: color,
-        kakera: kakera,
-        series: currentSeries ? currentSeries.name : '',
-        seriesOwned: currentSeries ? currentSeries.owned : 0,
-        seriesTotal: currentSeries ? currentSeries.total : 0,
-        image: image
-      };
-    }
-
-    function normalizeStableText(value) {
-  return String(value || "").trim().toLowerCase();
-}
-
-function getAliasPairs() {
-  var text = String(AppState.exportAliasesText || "").trim();
-  if (!text) return [];
-  return text.split(/[ ,\n]+/).map(function (part) {
-    var bits = part.split("=");
-    if (bits.length < 2) return null;
-    var left = normalizeStableText(bits[0]);
-    var right = normalizeStableText(bits.slice(1).join("="));
-    if (!left || !right) return null;
-    return [left, right];
-  }).filter(Boolean);
-}
-
-function getAliasVariants(value) {
-  var normalized = normalizeStableText(value);
-  var variants = {};
-  if (normalized) variants[normalized] = true;
-  getAliasPairs().forEach(function (pair) {
-    var left = pair[0];
-    var right = pair[1];
-    if (normalized === left) variants[right] = true;
-    if (normalized === right) variants[left] = true;
-  });
-  return Object.keys(variants);
-}
-
-function getImageKey(image) {
-  if (!image) return "";
-  return normalizeStableText(image.split("/").pop().split("?")[0]);
-}
-
-function getCharacterMatchKey(char) {
-  var nameVariants = getAliasVariants(char.name);
-  var seriesVariants = getAliasVariants(char.series);
-  var imageKey = getImageKey(char.image);
-  var keys = [];
-  nameVariants.forEach(function (name) {
-    if (seriesVariants.length) {
-      seriesVariants.forEach(function (series) {
-        keys.push(series + "||" + name + "@" + imageKey);
-      });
-    } else {
-      keys.push("||" + name + "@" + imageKey);
-    }
-  });
-  return keys;
-}
-
-function rebuildPersistentOrderMap() {
-  var exactMap = {};
-  var nameMap = {};
-  AppState.characters.forEach(function (char, index) {
-    if (isDividerItem(char)) return;
-    getCharacterMatchKey(char).forEach(function (key) {
-      if (!exactMap[key]) exactMap[key] = index;
-    });
-    getAliasVariants(char.name).forEach(function (nameKey) {
-      if (!nameMap[nameKey]) nameMap[nameKey] = index;
-    });
-  });
-  AppState.persistentOrderMap = { exact: exactMap, byName: nameMap };
-  return AppState.persistentOrderMap;
-}
-
-function getPersistentOrderIndex(char, map) {
-  if (!map) return null;
-  var exactMap = map.exact || {};
-  var nameMap = map.byName || {};
-  var matchKeys = getCharacterMatchKey(char);
-  for (var i = 0; i < matchKeys.length; i++) {
-    if (exactMap[matchKeys[i]] !== undefined) return exactMap[matchKeys[i]];
   }
-  var nameKeys = getAliasVariants(char.name);
-  for (var j = 0; j < nameKeys.length; j++) {
-    if (nameMap[nameKeys[j]] !== undefined) return nameMap[nameKeys[j]];
+  return out;
+})();
+
+function solveOQ(){
+  const valid=[];
+  for(const mask of OQ_COMBOS){
+    let ok=true;
+    for(let r=0;r<SIZE&&ok;r++){
+      for(let c=0;c<SIZE&&ok;c++){
+        const s=oqBoard[r][c].state;
+        const here = (mask & bit(idx(r,c))) !== 0;
+        if(s==='hidden') continue;
+        if(s==='purple'){ if(!here) ok=false; continue; }
+        if(typeof s==='number'){
+          if(here){ ok=false; continue; }
+          let cnt=0;
+          for(const [nr,nc] of neighbors(r,c)) if(mask & bit(idx(nr,nc))) cnt++;
+          if(cnt!==s) ok=false;
+        }
+      }
+    }
+    if(ok) valid.push(mask);
   }
-  return null;
+  const probs = Array.from({length:SIZE},()=>Array(SIZE).fill(0));
+  if(!valid.length) return {probs,valid:0,best:null,top:[]};
+  for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) if(oqBoard[r][c].state==='hidden'){
+    let hit=0; const b=bit(idx(r,c));
+    for(const mask of valid) if(mask & b) hit++;
+    probs[r][c]=hit/valid.length;
+  }
+  const top=[];
+  let best=null;
+  for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) if(oqBoard[r][c].state==='hidden'){
+    const p=probs[r][c];
+    top.push({r,c,p});
+    if(!best || p>best.p) best={r,c,p};
+  }
+  top.sort((a,b)=>b.p-a.p);
+  return {probs,valid:valid.length,best,top:top.slice(0,5)};
 }
 
-function applyPersistentOrder(characters) {
-  var map = AppState.persistentOrderMap || {};
-  var dividerSlots = [];
-  var sortable = [];
-  characters.forEach(function (item, index) {
-    if (isDividerItem(item)) dividerSlots.push({ index: index, item: item });
-    else sortable.push(item);
-  });
-  sortable.sort(function (a, b) {
-    var idxA = getPersistentOrderIndex(a, map);
-    var idxB = getPersistentOrderIndex(b, map);
-    var hasA = idxA !== null && idxA !== undefined;
-    var hasB = idxB !== null && idxB !== undefined;
-    if (hasA && hasB) return idxA - idxB;
-    if (hasA) return -1;
-    if (hasB) return 1;
-    return 0;
-  });
-  var dividerMap = {};
-  dividerSlots.forEach(function (slot) { dividerMap[slot.index] = slot.item; });
-  var rebuilt = [];
-  var charIndex = 0;
-  for (var i = 0; i < characters.length; i++) {
-    if (dividerMap[i]) rebuilt.push(dividerMap[i]);
-    else rebuilt.push(sortable[charIndex++]);
+function solveOT(){
+  const valid=[];
+  for(const combo of OT_COMBOS){
+    let ok=true;
+    for(let r=0;r<SIZE&&ok;r++){
+      for(let c=0;c<SIZE&&ok;c++){
+        const s=otBoard[r][c].state;
+        if(s==='hidden') continue;
+        const b=bit(idx(r,c));
+        if(s==='blue'){ if(combo.u & b) ok=false; }
+        else if(s==='teal'){ if(!(combo.t & b)) ok=false; }
+        else if(s==='green'){ if(!(combo.g & b)) ok=false; }
+        else if(s==='yellow'){ if(!(combo.y & b)) ok=false; }
+        else if(s==='rare'){ if(!(combo.r & b)) ok=false; }
+      }
+    }
+    if(ok) valid.push(combo);
   }
-  characters.splice(0, characters.length);
-  rebuilt.forEach(function (item) { characters.push(item); });
-  return characters;
+  const probs = Array.from({length:SIZE},()=>Array.from({length:SIZE},()=>({blue:0,teal:0,green:0,yellow:0,rare:0,nonBlue:0,expected:0})));
+  if(!valid.length) return {probs,valid:0,best:null,top:[]};
+  const weights={teal:20,green:35,yellow:55,rare:90};
+  for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) if(otBoard[r][c].state==='hidden'){
+    const b=bit(idx(r,c));
+    let t=0,g=0,y=0,rr=0;
+    for(const combo of valid){ if(combo.t & b) t++; else if(combo.g & b) g++; else if(combo.y & b) y++; else if(combo.r & b) rr++; }
+    const total=valid.length;
+    const teal=t/total, green=g/total, yellow=y/total, rare=rr/total;
+    const nonBlue=teal+green+yellow+rare;
+    const blue=1-nonBlue;
+    const expected=teal*weights.teal + green*weights.green + yellow*weights.yellow + rare*weights.rare;
+    probs[r][c]={blue,teal,green,yellow,rare,nonBlue,expected};
+  }
+  const top=[];
+  let best=null;
+  for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) if(otBoard[r][c].state==='hidden'){
+    const p=probs[r][c];
+    top.push({r,c,p});
+    const score = p.nonBlue*100 + p.expected*0.08;
+    if(!best || score>best.score) best={r,c,score,...p};
+  }
+  top.sort((a,b)=>b.p.nonBlue-a.p.nonBlue || b.p.expected-a.p.expected);
+  return {probs,valid:valid.length,best,top:top.slice(0,5)};
 }
 
-function mergeCharacterData(newChar, oldChars) {
-  if (!oldChars.length) return newChar;
-  // Find best match by image + name variants
-  var bestMatch = null;
-  var bestScore = 0;
-  oldChars.forEach(function (oldChar) {
-    var matchKeysNew = getCharacterMatchKey(newChar);
-    var matchKeysOld = getCharacterMatchKey(oldChar);
-    var score = 0;
-    if (newChar.image === oldChar.image) score += 10;
-    matchKeysNew.forEach(function (keyNew) {
-      matchKeysOld.forEach(function (keyOld) {
-        if (keyNew === keyOld) score += 5;
-      });
-    });
-    if (score > bestScore) {
-      bestScore = score;
-      bestMatch = oldChar;
-    }
-  });
-  if (bestMatch && bestScore > 0) {
-    newChar.currentRank = bestMatch.currentRank;
-    newChar.id = bestMatch.id;
-    // Update with new data but preserve order/ID
-    newChar.kakera = newChar.kakera || bestMatch.kakera;
-    newChar.keys = newChar.keys || bestMatch.keys;
-    newChar.roulette = newChar.roulette || bestMatch.roulette;
-    newChar.color = newChar.color || bestMatch.color;
-    newChar.series = newChar.series || bestMatch.series;
-  }
-  return newChar;
-}
-function applyPersistentOrder(characters) {
-      var map = AppState.persistentOrderMap || {};
-      var dividerSlots = [];
-      var sortable = [];
-      characters.forEach(function (item, index) {
-        if (isDividerItem(item)) dividerSlots.push({ index: index, item: item });
-        else sortable.push(item);
-      });
-      sortable.sort(function (a, b) {
-        var idxA = getPersistentOrderIndex(a, map);
-        var idxB = getPersistentOrderIndex(b, map);
-        var hasA = idxA !== null && idxA !== undefined;
-        var hasB = idxB !== null && idxB !== undefined;
-        if (hasA && hasB) return idxA - idxB;
-        if (hasA) return -1;
-        if (hasB) return 1;
-        return 0;
-      });
-      var dividerMap = {};
-      dividerSlots.forEach(function (slot) { dividerMap[slot.index] = slot.item; });
-      var rebuilt = [];
-      var charIndex = 0;
-      for (var i = 0; i < characters.length; i++) {
-        if (dividerMap[i]) rebuilt.push(dividerMap[i]);
-        else rebuilt.push(sortable[charIndex++]);
-      }
-      characters.splice(0, characters.length);
-      rebuilt.forEach(function (item) { characters.push(item); });
-      return characters;
-    }
-
-    function parseFullMmis(raw) {
-      var text = normalizeInput(raw);
-      if (!text) return false;
-
-      var lines = text.split(/\n+/).map(function (line) { return line.trim(); }).filter(Boolean);
-      var haremName = '';
-      var totalValue = 0;
-      var counts = { wa: 0, ha: 0, wg: 0, hg: 0 };
-      var currentSeries = null;
-      var incoming = [];
-      var i;
-
-      for (i = 0; i < lines.length; i++) {
-        var line = lines[i];
-
-        if (/^\d+\s+\$wa/i.test(line)) {
-          counts = parseCounts(line);
-          continue;
-        }
-
-        var totalMatch = line.match(/Total value:\s*([\d,]+)/i);
-        if (totalMatch) {
-          totalValue = parseInt(totalMatch[1].replace(/,/g, ''), 10);
-          continue;
-        }
-
-        var compactSeriesMatch = line.match(/^(.*?)\s+-\s+(\d+)\/(\d+)\s+(.+https?:\/\/\S+)$/i);
-        if (compactSeriesMatch) {
-          currentSeries = {
-            name: compactSeriesMatch[1].trim(),
-            owned: parseInt(compactSeriesMatch[2], 10),
-            total: parseInt(compactSeriesMatch[3], 10)
-          };
-          var compactChar = parseCharacterLine(compactSeriesMatch[4].trim(), currentSeries);
-          if (compactChar) incoming.push(compactChar);
-          continue;
-        }
-
-        var series = parseSeriesLine(line);
-        if (series) {
-          currentSeries = series;
-          continue;
-        }
-
-        if (/https?:\/\/\S+/i.test(line)) {
-          var char = parseCharacterLine(line, currentSeries);
-          if (char) incoming.push(char);
-          continue;
-        }
-
-        if (!haremName) haremName = line;
-      }
-
-      if (!incoming.length) return false;
-
-      function isMeaningful(value) {
-        if (value === null || value === undefined) return false;
-        if (typeof value === 'number') return value !== 0;
-        if (Array.isArray(value)) return value.length > 0;
-        return String(value).trim() !== '' && String(value).trim() !== 'Unknown';
-      }
-
-      function imageKey(url) {
-        return getImageKey(url || '');
-      }
-
-      function findExistingIndex(char) {
-        var newImageKey = imageKey(char.image);
-        for (var idx = 0; idx < AppState.characters.length; idx++) {
-          var oldChar = AppState.characters[idx];
-          if (newImageKey && imageKey(oldChar.image) === newImageKey) return idx;
-        }
-        for (var idx2 = 0; idx2 < AppState.characters.length; idx2++) {
-          var oldChar2 = AppState.characters[idx2];
-          if (normalizeStableText(oldChar2.name) === normalizeStableText(char.name)) return idx2;
-        }
-        return -1;
-      }
-
-      function mergeInto(existing, incomingChar) {
-        existing.name = isMeaningful(existing.name) ? existing.name : incomingChar.name;
-        existing.image = isMeaningful(incomingChar.image) ? incomingChar.image : existing.image;
-        existing.series = isMeaningful(existing.series) ? existing.series : incomingChar.series;
-        existing.seriesOwned = isMeaningful(existing.seriesOwned) ? existing.seriesOwned : incomingChar.seriesOwned;
-        existing.seriesTotal = isMeaningful(existing.seriesTotal) ? existing.seriesTotal : incomingChar.seriesTotal;
-        existing.globalRank = isMeaningful(incomingChar.globalRank) ? incomingChar.globalRank : existing.globalRank;
-        existing.owner = isMeaningful(incomingChar.owner) ? incomingChar.owner : existing.owner;
-        existing.note = isMeaningful(incomingChar.note) ? incomingChar.note : existing.note;
-        existing.roulette = isMeaningful(incomingChar.roulette) ? incomingChar.roulette : existing.roulette;
-        existing.mudaeTags = isMeaningful(incomingChar.mudaeTags) ? incomingChar.mudaeTags : (existing.mudaeTags || []);
-        existing.keyType = isMeaningful(incomingChar.keyType) ? incomingChar.keyType : existing.keyType;
-        existing.keys = isMeaningful(incomingChar.keys) ? incomingChar.keys : existing.keys;
-        existing.color = isMeaningful(incomingChar.color) && incomingChar.color !== '#7c3aed' ? incomingChar.color : existing.color;
-        existing.kakera = isMeaningful(incomingChar.kakera) ? incomingChar.kakera : existing.kakera;
-        return existing;
-      }
-
-      if (!AppState.characters.length) {
-        AppState.characters = incoming;
-      } else {
-        for (i = 0; i < incoming.length; i++) {
-          var existingIndex = findExistingIndex(incoming[i]);
-          if (existingIndex >= 0) {
-            mergeInto(AppState.characters[existingIndex], incoming[i]);
-          } else {
-            AppState.characters.push(incoming[i]);
-          }
-        }
-      }
-
-      if (haremName) AppState.haremName = haremName;
-      if (totalValue) AppState.totalValue = totalValue;
-      if (counts && (counts.wa || counts.ha || counts.wg || counts.hg)) AppState.counts = counts;
-
-      applyPersistentOrder(AppState.characters);
-      for (i = 0; i < AppState.characters.length; i++) {
-        AppState.characters[i].currentRank = i + 1;
-      }
-
-      AppState.filter = '';
-      AppState.ownerFilter = '';
-      AppState.rouletteFilter = '';
-      AppState.selectedSeries = [];
-      AppState.selectedMoveIds = [];
-      AppState.multiSelectMode = false;
-      rebuildPersistentOrderMap();
-      return true;
-    }
-
-    function getFilteredCharacters() {
-      var searchTerms = String(AppState.filter || '')
-        .trim()
-        .toLowerCase()
-        .split(',')
-        .map(function (term) { return term.trim(); })
-        .filter(Boolean);
-      return AppState.characters.filter(function (item) {
-        if (isDividerItem(item)) {
-          var dividerText = String(item.title || item.name || '').toLowerCase();
-          var matchesDividerSearch = !searchTerms.length || searchTerms.some(function (term) {
-            return dividerText.indexOf(term) !== -1;
-          });
-          var noExtraFilters = !normalizeOwnerName(AppState.ownerFilter) && !AppState.rouletteFilter && !AppState.selectedSeries.length;
-          return matchesDividerSearch && noExtraFilters;
-        }
-        var haystack = [item.name, item.series, item.owner, item.note, item.roulette];
-        var matchesSearch = !searchTerms.length || searchTerms.some(function (term) {
-          return haystack.some(function (value) {
-            return String(value || '').toLowerCase().indexOf(term) !== -1;
-          });
-        });
-        var filterClean = normalizeOwnerName(AppState.ownerFilter);
-        var charClean = normalizeOwnerName(item.owner);
-        var matchesOwner = !filterClean || charClean === filterClean;
-        var matchesRoulette = !AppState.rouletteFilter || hasRouletteToken(item.roulette, AppState.rouletteFilter);
-        var matchesSeries = !AppState.selectedSeries.length || AppState.selectedSeries.indexOf(item.series || 'No series') !== -1;
-        return matchesSearch && matchesOwner && matchesRoulette && matchesSeries;
-      });
-    }
-
-    function updateOwnerFilterOptions() {
-      var ownersMap = {};
-      var owners = [];
-      getRealCharacters(AppState.characters).forEach(function (char) {
-        var normalizedOwner = normalizeOwnerName(char.owner);
-        if (normalizedOwner && !ownersMap[normalizedOwner]) {
-          ownersMap[normalizedOwner] = true;
-          owners.push(normalizedOwner);
-        }
-      });
-      owners.sort(function (a, b) { return a.localeCompare(b); });
-      var current = AppState.ownerFilter;
-      var html = '<option value="">All</option>';
-      owners.forEach(function (owner) {
-        html += '<option value="' + escapeHtml(owner) + '">' + escapeHtml(owner) + '</option>';
-      });
-      els.ownerFilter.innerHTML = html;
-      els.ownerFilter.value = current;
-    }
-
-    function toggleSeriesFilter(series) {
-      var normalized = String(series || 'No series');
-      var index = AppState.selectedSeries.indexOf(normalized);
-      if (index === -1) AppState.selectedSeries.push(normalized);
-      else AppState.selectedSeries.splice(index, 1);
-      renderBoard();
-      updateStats();
-      updateSeriesSummary();
-    }
-
-    function syncSeriesPanelState() {
-      if (!els.layout) return;
-      if (AppState.seriesPanelHidden) els.layout.classList.add('series-panel-hidden');
-      else els.layout.classList.remove('series-panel-hidden');
-      if (els.seriesPanelToggleBtn) {
-        els.seriesPanelToggleBtn.innerHTML = '&#9664;';
-        els.seriesPanelToggleBtn.classList.toggle('is-hidden', AppState.seriesPanelHidden);
-        els.seriesPanelToggleBtn.setAttribute('title', AppState.seriesPanelHidden ? 'Show series' : 'Hide series');
-      }
-      if (els.seriesPanelToggleBtnMain) {
-        els.seriesPanelToggleBtnMain.innerHTML = '&#9664;';
-        els.seriesPanelToggleBtnMain.classList.toggle('is-hidden', AppState.seriesPanelHidden);
-        els.seriesPanelToggleBtnMain.setAttribute('title', AppState.seriesPanelHidden ? 'Show series' : 'Hide series');
-      }
-      if (els.rightRailToggleBtn) {
-        els.rightRailToggleBtn.innerHTML = AppState.seriesPanelHidden ? '&#9664;' : '&#9654;';
-        els.rightRailToggleBtn.setAttribute('aria-expanded', AppState.seriesPanelHidden ? 'false' : 'true');
-        els.rightRailToggleBtn.setAttribute('title', AppState.seriesPanelHidden ? 'Show series' : 'Hide series');
-      }
-    }
-
-
-    function syncLeftPanelState() {
-      if (!els.layout) return;
-      if (AppState.helpHidden) els.layout.classList.add('left-panel-collapsed');
-      else els.layout.classList.remove('left-panel-collapsed');
-      if (els.leftRailToggleBtn) {
-        els.leftRailToggleBtn.innerHTML = AppState.helpHidden ? '&#9654;' : '&#9664;';
-        els.leftRailToggleBtn.setAttribute('aria-expanded', AppState.helpHidden ? 'false' : 'true');
-        els.leftRailToggleBtn.setAttribute('title', AppState.helpHidden ? 'Show tools' : 'Hide tools');
-      }
-    }
-
-    function syncHelpSectionState() {
-      if (els.leftToolsSection) els.leftToolsSection.classList.toggle('is-collapsed', !!AppState.helpHidden);
-      if (els.helpSection) els.helpSection.classList.toggle('is-collapsed', !!AppState.helpHidden);
-      if (els.helpContent) {
-        els.helpContent.classList.toggle('is-hidden', !!AppState.helpHidden);
-        els.helpContent.style.display = AppState.helpHidden ? 'none' : '';
-      }
-      syncLeftPanelState();
-    }
-
-    function toggleLeftTools() {
-      AppState.helpHidden = !AppState.helpHidden;
-      if (els.layout) {
-        if (AppState.helpHidden) els.layout.classList.add('left-panel-collapsed');
-        else els.layout.classList.remove('left-panel-collapsed');
-      }
-      if (els.leftToolsSection) {
-        if (AppState.helpHidden) els.leftToolsSection.classList.add('is-collapsed');
-        else els.leftToolsSection.classList.remove('is-collapsed');
-      }
-      if (els.helpSection) {
-        if (AppState.helpHidden) els.helpSection.classList.add('is-collapsed');
-        else els.helpSection.classList.remove('is-collapsed');
-      }
-      if (els.helpContent) els.helpContent.style.display = AppState.helpHidden ? 'none' : '';
-      syncLeftPanelState();
-      return false;
-    }
-
-    function toggleRightRail() {
-      AppState.seriesPanelHidden = !AppState.seriesPanelHidden;
-      syncSeriesPanelState();
-      return false;
-    }
-
-    function updateSeriesSummary() {
-      var realChars = getRealCharacters(AppState.characters);
-      if (!realChars.length) {
-        els.seriesSummary.innerHTML = '<div class="series-line"><span class="series-line-name">No series loaded yet.</span></div>';
-        return;
-      }
-
-      var map = {};
-      realChars.forEach(function (char) {
-        var key = char.series || 'No series';
-        if (!map[key]) {
-          map[key] = { count: 0, owned: char.seriesOwned || 0, total: char.seriesTotal || 0 };
-        }
-        map[key].count += 1;
-      });
-
-      var rows = Object.keys(map).sort(function (a, b) {
-        return String(a || '').toLowerCase().localeCompare(String(b || '').toLowerCase(), undefined, { sensitivity: 'base' });
-      }).map(function (series) {
-        var data = map[series];
-        var owned = data.owned || data.count || 0;
-        var total = data.total || data.count || 0;
-        var activeClass = AppState.selectedSeries.indexOf(series) !== -1 ? ' active' : '';
-        return '<button type="button" class="series-line' + activeClass + '" data-series-filter="' + escapeHtml(series) + '" title="' + escapeHtml(series + ' | ' + owned + '/' + total) + '">'
-          + '<span class="series-line-name">' + escapeHtml(series) + '</span>'
-          + '<span class="series-line-count">' + escapeHtml(String(owned) + '/' + String(total)) + '</span>'
-          + '</button>';
-      });
-
-      els.seriesSummary.innerHTML = rows.join('');
-      Array.prototype.slice.call(els.seriesSummary.querySelectorAll('[data-series-filter]')).forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          toggleSeriesFilter(btn.getAttribute('data-series-filter'));
-        });
-      });
-    }
-
-    function getMessageLimit() {
-      return els.nitroMode && els.nitroMode.checked ? 4000 : 2000;
-    }
-
-    function parseExportAliases() {
-      var lines = String((els.exportAliasInput && els.exportAliasInput.value) || AppState.exportAliasesText || '')
-        .split(/\n+/)
-        .map(function (line) { return line.trim(); })
-        .filter(Boolean);
-      var map = {};
-      lines.forEach(function (line) {
-        var parts = line.split('=');
-        if (parts.length < 2) return;
-        var from = parts.shift().trim();
-        var to = parts.join('=').trim();
-        if (!from || !to) return;
-        map[from] = to;
-      });
-      return map;
-    }
-
-    function getExportName(char) {
-      var aliases = parseExportAliases();
-      return aliases[char.name] || char.name;
-    }
-
-    function syncExportAliasPanel() {
-      if (!els.exportAliasPanel || !els.exportAliasToggle) return;
-      els.exportAliasPanel.classList.toggle('hidden', !els.exportAliasToggle.checked);
-    }
-
-    function buildSmChunks() {
-      var limit = getMessageLimit();
-      var exportable = getRealCharacters(AppState.characters);
-      var chunks = [];
-      var currentPrefix = '$sm ';
-      var current = currentPrefix;
-      var currentNames = [];
-      var count = 0;
-      var i;
-
-      for (i = 0; i < exportable.length; i++) {
-        var exportName = getExportName(exportable[i]);
-        var piece = (count === 0 ? '' : '$') + exportName;
-        if (current.length + piece.length > limit && count > 0) {
-          chunks.push({ text: current, count: count, chars: current.length });
-          var carryName = currentNames[currentNames.length - 1];
-          currentPrefix = '$smp ';
-          currentNames = carryName ? [carryName] : [];
-          current = currentPrefix + (carryName || '');
-          count = carryName ? 1 : 0;
-          piece = (count === 0 ? '' : '$') + exportName;
-        }
-        current += piece;
-        currentNames.push(exportName);
-        count += 1;
-      }
-
-      if (count > 0) chunks.push({ text: current, count: count, chars: current.length });
-      return chunks;
-    }
-
-    function attachChunkCopyEvents() {
-      Array.prototype.slice.call(document.querySelectorAll('.chunk-copy-btn')).forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var index = parseInt(btn.getAttribute('data-index'), 10);
-          var chunks = buildSmChunks();
-          if (!chunks[index]) return;
-          navigator.clipboard.writeText(chunks[index].text)
-            .then(function () { showMessage('Block ' + (index + 1) + ' copied.'); })
-            .catch(function () { showMessage('Could not copy the block.', 'error'); });
-        });
-      });
-    }
-
-    function updateOrderOutput() {
-  var limit = getMessageLimit();
-
-  if (!AppState.characters.length) {
-    els.chunkMeta.textContent =
-      'Format: first $sm, next $smp with the last name repeated · actual limit: ' +
-      limit.toLocaleString() +
-      ' characters · blocks: 0';
-
-    els.orderOutput.textContent = 'No characters loaded yet.';
-    return;
-  }
-
-  var chunks = buildSmChunks();
-
-  els.chunkMeta.textContent =
-    'Format: first $sm, next $smp with the last name repeated · actual limit: ' +
-    limit.toLocaleString() +
-    ' characters · blocks: ' +
-    chunks.length;
-
-  els.orderOutput.innerHTML = chunks.map(function (chunk, index) {
-    return ''
-      + '<div class="chunk-card">'
-      + '<div class="chunk-header"><span>Block ' + (index + 1) + ' · ' + chunk.count + ' characters · ' + chunk.chars.toLocaleString() + ' characters</span><button class="chunk-copy-btn" data-index="' + index + '">Copy</button></div>'
-      + '<div class="chunk-text">' + escapeHtml(chunk.text) + '</div>'
-      + '</div>';
-  }).join('');
-
-  attachChunkCopyEvents();
+function cycle(board, states, r, c, dir){
+  const cur=board[r][c].state;
+  const i=states.indexOf(cur);
+  let next=i+dir; if(next<0) next=states.length-1; if(next>=states.length) next=0;
+  board[r][c].state=states[next];
+  render();
 }
 
-    function fitHaremName() {
-      if (!els.haremName) return;
-      els.haremName.style.whiteSpace = 'nowrap';
-      els.haremName.style.fontSize = '1rem';
-      var min = 0.42;
-      var size = 1;
-      while (els.haremName.scrollWidth > els.haremName.clientWidth + 1 && size > min) {
-        size -= 0.02;
-        els.haremName.style.fontSize = size.toFixed(2) + 'rem';
+function oqClass(state){
+  if(state==='hidden') return 'cell unopened';
+  if(state===0) return 'cell open c0';
+  if(state===1) return 'cell open c1';
+  if(state===2) return 'cell open c2';
+  if(state===3) return 'cell open c3';
+  if(state===4) return 'cell open c4';
+  if(state==='purple') return 'cell open cp';
+  return 'cell';
+}
+function otClass(state){
+  if(state==='hidden') return 'cell unopened';
+  if(state==='blue') return 'cell open cb';
+  if(state==='teal') return 'cell open ct';
+  if(state==='green') return 'cell open cg';
+  if(state==='yellow') return 'cell open cy';
+  if(state==='rare') return 'cell open cr';
+  return 'cell';
+}
+function oqInner(state,p){
+  if(state==='hidden') return `<div class="dots">---</div><div class="pct">${p?Math.round(p*100)+'%':'---'}</div><div class="q">?</div>`;
+  const map={0:'B',1:'T',2:'G',3:'Y',4:'O','purple':'🟣'};
+  return `<div class="center">${map[state]}</div>`;
+}
+function otInner(state,p){
+  if(state==='hidden') return `<div class="dots">---</div><div class="pct">${p&&p.nonBlue?Math.round(p.nonBlue*100)+'%':'---'}</div><div class="q">?</div>`;
+  const map={'blue':'B','teal':'T','green':'G','yellow':'Y','rare':'R'};
+  return `<div class="center">${map[state]}</div>`;
+}
+
+function renderGuide(){
+  const tags=document.getElementById('guideTags');
+  const note=document.getElementById('guideNote');
+  tags.innerHTML='';
+  if(activeGame==='oq'){
+    document.getElementById('gameTitle').textContent='$oq solver';
+    document.getElementById('gameSub').textContent=`Clicks used: ${countOpen(oqBoard)} / 7`;
+    document.getElementById('guideText').textContent='Click izquierdo para avanzar una casilla: oculta → azul → turquesa → verde → amarilla → naranja → morada. Click derecho para retroceder. El porcentaje de una casilla oculta es su probabilidad exacta de ser morada según las pistas que ya marcaste.';
+    ['Azul = 0','Turquesa = 1','Verde = 2','Amarilla = 3','Naranja = 4','Morada = 🟣'].forEach(t=>{ const s=document.createElement('span'); s.className='tag'; s.textContent=t; tags.appendChild(s); });
+    note.textContent='Este solver usa búsqueda exacta de todas las configuraciones posibles de 4 moradas compatibles con tus pistas.';
+    document.getElementById('recTitle').textContent='Recommendation';
+    document.getElementById('bestLabel').textContent='Next best move:';
+    document.getElementById('listTitle').textContent='Likely Purple Locations';
+  } else {
+    document.getElementById('gameTitle').textContent='$ot solver';
+    document.getElementById('gameSub').textContent=`Blue clicks used: ${otBoard.flat().filter(x=>x.state==='blue').length} / 4`;
+    document.getElementById('guideText').textContent='Click izquierdo para avanzar: oculta → azul → teal → verde → amarilla → rare. Click derecho para retroceder. En $ot el objetivo es evitar azules: el porcentaje de una casilla oculta muestra la probabilidad de que sea no-azul.';
+    ['Blue = malo','Teal = 4 en línea','Green = 3 en línea','Yellow = 3 en línea','Rare = 2 en línea'].forEach(t=>{ const s=document.createElement('span'); s.className='tag'; s.textContent=t; tags.appendChild(s); });
+    note.textContent='Este solver enumera todas las líneas posibles compatibles con las pistas que ya revelaste y recomienda la casilla con mayor chance de no ser azul.';
+    document.getElementById('recTitle').textContent='Recommendation';
+    document.getElementById('bestLabel').textContent='Safest next move:';
+    document.getElementById('listTitle').textContent='Likely Non-Blue Locations';
+  }
+}
+
+function renderSideOQ(sol){
+  const best=sol.best;
+  document.getElementById('metaLine').textContent=`Possible Purple Locations: ${sol.top.filter(x=>x.p>0).length} / ${hiddenCells(oqBoard).length}`;
+  document.getElementById('bestMove').textContent=best?`(${best.r+1}, ${best.c+1})`:'-';
+  document.getElementById('gainText').textContent=`Probability: ${best?(best.p*100).toFixed(1):'0.0'}% · Valid boards: ${sol.valid}`;
+  const list=document.getElementById('likelyList'); list.innerHTML='';
+  if(!sol.top.length){ const d=document.createElement('div'); d.className='item'; d.innerHTML='<span>Sin casillas ocultas</span><span class="val">0%</span>'; list.appendChild(d); return; }
+  sol.top.forEach(x=>{ const d=document.createElement('div'); d.className='item'; d.innerHTML=`<span>Pos: (${x.r+1}, ${x.c+1})</span><span class="val">${(x.p*100).toFixed(1)}%</span>`; list.appendChild(d); });
+}
+function renderSideOT(sol){
+  const best=sol.best;
+  const hidden=hiddenCells(otBoard).length;
+  const possible=sol.top.filter(x=>x.p.nonBlue>0.001).length;
+  document.getElementById('metaLine').textContent=`Possible Non-Blue Locations: ${possible} / ${hidden}`;
+  document.getElementById('bestMove').textContent=best?`(${best.r+1}, ${best.c+1})`:'-';
+  document.getElementById('gainText').textContent=`Safe chance: ${best?(best.nonBlue*100).toFixed(1):'0.0'}% · Expected value: ${best?best.expected.toFixed(2):'0.00'} · Valid boards: ${sol.valid}`;
+  const list=document.getElementById('likelyList'); list.innerHTML='';
+  if(!sol.top.length){ const d=document.createElement('div'); d.className='item'; d.innerHTML='<span>Sin casillas ocultas</span><span class="val">0%</span>'; list.appendChild(d); return; }
+  sol.top.forEach(x=>{ const d=document.createElement('div'); d.className='item'; d.innerHTML=`<span>Pos: (${x.r+1}, ${x.c+1})</span><span class="val">${(x.p.nonBlue*100).toFixed(1)}%</span>`; list.appendChild(d); });
+}
+
+function render(){
+  renderGuide();
+  const boardEl=document.getElementById('board');
+  boardEl.innerHTML='';
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(activeGame==='oq'?'tabOQ':'tabOT').classList.add('active');
+
+  if(activeGame==='oq'){
+    const sol=solveOQ();
+    for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++){
+      const st=oqBoard[r][c].state;
+      const b=document.createElement('button');
+      b.className=oqClass(st);
+      if(sol.best && st==='hidden' && sol.probs[r][c]===sol.best.p) b.classList.add('best');
+      b.innerHTML=oqInner(st,sol.probs[r][c]);
+      b.addEventListener('click',()=>cycle(oqBoard,OQ_STATES,r,c,1));
+      b.addEventListener('contextmenu',(e)=>{e.preventDefault();cycle(oqBoard,OQ_STATES,r,c,-1)});
+      boardEl.appendChild(b);
+    }
+    renderSideOQ(sol);
+  } else {
+    const sol=solveOT();
+    for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++){
+      const st=otBoard[r][c].state;
+      const b=document.createElement('button');
+      b.className=otClass(st);
+      if(sol.best && st==='hidden'){
+        const here=sol.probs[r][c].nonBlue;
+        if(here>0 && Math.abs((sol.best.nonBlue||0)-here)<1e-12) b.classList.add('best');
       }
+      b.innerHTML=otInner(st,sol.probs[r][c]);
+      b.addEventListener('click',()=>cycle(otBoard,OT_STATES,r,c,1));
+      b.addEventListener('contextmenu',(e)=>{e.preventDefault();cycle(otBoard,OT_STATES,r,c,-1)});
+      boardEl.appendChild(b);
     }
-
-    function updateStats() {
-      var filtered = getRealCharacters(getFilteredCharacters());
-      var realChars = getRealCharacters(AppState.characters);
-      var totalKakera = 0;
-      var totalKeys = 0;
-      realChars.forEach(function (char) {
-        totalKakera += char.kakera || 0;
-        totalKeys += char.keys || 0;
-      });
-      els.totalCount.textContent = realChars.length.toLocaleString();
-      els.visibleCount.textContent = filtered.length.toLocaleString();
-      els.totalKakera.textContent = totalKakera.toLocaleString();
-      els.totalKeys.textContent = totalKeys.toLocaleString();
-      els.haremName.textContent = String(AppState.haremName || '-').replace(/\s+/g, ' ').trim();
-      els.haremValue.textContent = String(AppState.totalValue || totalKakera).toLocaleString();
-      els.wahaCount.textContent = (AppState.counts.wa || 0) + ' / ' + (AppState.counts.ha || 0);
-      els.wghgCount.textContent = (AppState.counts.wg || 0) + ' / ' + (AppState.counts.hg || 0);
-      fitHaremName();
-      updateSeriesSummary();
-      updateOrderOutput();
-    }
-
-    function hasRouletteToken(roulette, token) {
-      return String(roulette || '').toLowerCase().split('/').indexOf(String(token || '').toLowerCase()) !== -1;
-    }
-
-    function getGenderLabel(roulette) {
-      var value = String(roulette || '').toLowerCase();
-      if (!value) return 'No gender';
-      var hasWaifu = value.indexOf('$w') !== -1;
-      var hasHusbando = value.indexOf('$h') !== -1;
-      if (hasWaifu && hasHusbando) return 'Waifu/Husbando';
-      if (hasWaifu) return 'Waifu';
-      if (hasHusbando) return 'Husbando';
-      return 'No gender';
-    }
-
-
-    function normalizeOwnerName(value) {
-      return String(value || '')
-        .replace(/[  -​  　]/g, ' ')
-        .replace(/[🚫❌🔒]/g, '')
-        .replace(/\s+/g, ' ')
-        .trim();
-    }
-
-    function getRouletteDisplayLabel(roulette) {
-      var value = String(roulette || '').toLowerCase();
-      if (!value) return 'No roulette';
-      var hasAnimanga = value.indexOf('$wa') !== -1 || value.indexOf('$ha') !== -1 || value.indexOf('$animanga') !== -1;
-      var hasGame = value.indexOf('$wg') !== -1 || value.indexOf('$hg') !== -1 || value.indexOf('$game') !== -1;
-      if (hasAnimanga && hasGame) return 'Animanga/Game';
-      if (hasAnimanga) return 'Animanga';
-      if (hasGame) return 'Game';
-      return roulette;
-    }
-
-    function createCharacterCardHTML(char) {
-      var currentRank = getVisibleCharacterRankById(char.id);
-      var seriesName = char.series || 'No series';
-      var rouletteLabel = char.roulette || 'No roulette';
-      var genderLabel = getGenderLabel(char.roulette);
-      var validColor = /^#[0-9a-fA-F]{6}$/.test(char.color || '') ? char.color : '#7c3aed';
-      var rouletteType = 'roulette-other';
-      var genderType = 'gender-other';
-      var rouletteDisplay = getRouletteDisplayLabel(char.roulette);
-      var hasAnimanga = hasRouletteToken(char.roulette, '$wa') || hasRouletteToken(char.roulette, '$ha') || hasRouletteToken(char.roulette, '$animanga');
-      var hasGame = hasRouletteToken(char.roulette, '$wg') || hasRouletteToken(char.roulette, '$hg') || hasRouletteToken(char.roulette, '$game');
-      var isSelected = AppState.selectedMoveIds.indexOf(char.id) !== -1;
-      var selectionIndex = isSelected ? (AppState.selectedMoveIds.indexOf(char.id) + 1) : '';
-      var cardClasses = 'character-card';
-      if (AppState.multiSelectMode) cardClasses += ' multi-select-on';
-      if (isSelected) cardClasses += ' is-selected';
-
-      if (hasAnimanga && hasGame) rouletteType = 'roulette-mixed';
-      else if (hasAnimanga) rouletteType = 'roulette-animanga';
-      else if (hasGame) rouletteType = 'roulette-game';
-
-      if (genderLabel === 'Waifu') genderType = 'gender-waifu';
-      else if (genderLabel === 'Husbando') genderType = 'gender-husbando';
-      else if (genderLabel === 'Waifu/Husbando') genderType = 'gender-mixed';
-
-      return ''
-        + '<article class="' + cardClasses + '" draggable="true" data-id="' + escapeHtml(char.id) + '" style="--card-color:' + escapeHtml(validColor) + '">'
-        + '  <div class="top-series"><div class="series-wrap">'
-        + '    <span class="top-order-pill" data-move-id="' + escapeHtml(char.id) + '" title="Change order">#' + currentRank + '</span>'
-        + '    <span class="series-pill" title="' + escapeHtml(seriesName) + '">' + escapeHtml(seriesName) + '</span>'
-        + '  </div></div>'
-        + (AppState.multiSelectMode ? '  <div class="multi-select-badge" title="Selection order">' + (selectionIndex || '+') + '</div>' : '')
-        + '  <img src="' + escapeHtml(char.image) + '" alt="' + escapeHtml(char.name) + '" loading="lazy" onerror="this.style.display=\'none\'">'
-        + '  <div class="character-info">'
-        + '    <div class="character-name" title="' + escapeHtml(char.name) + '">' + escapeHtml(char.name) + '</div>'
-        + '    <div class="owner-line"><span class="pill owner">' + escapeHtml(char.owner) + '</span></div>'
-        + (char.note ? '<div class="owner-note" title="' + escapeHtml(char.note) + '">' + escapeHtml(char.note) + '</div>' : '<div class="owner-note empty">No note!</div>')
-        + '    <div class="pill-row">'
-        + '      <span class="pill rank">Rank<br>#' + (char.globalRank || 0).toLocaleString() + '</span>'
-        + '      <span class="pill kakera">Ka<br>' + (char.kakera || 0).toLocaleString() + '</span>'
-        + '      <span class="pill">Keys<br>' + escapeHtml(String(char.keys || 0)) + '</span>'
-        + '    </div>'
-        + '    <div class="bottom-stacks">'
-        + '      <div class="bottom-band ' + genderType + '">' + escapeHtml(genderLabel) + '</div>'
-        + '      <div class="bottom-band ' + rouletteType + '">' + escapeHtml(rouletteDisplay) + '</div>'
-        + '    </div>'
-        + '  </div>'
-        + '</article>';
-    }
-
-    function createDividerCardHTML(item) {
-      var title = String(item.title || item.name || 'Divider').trim() || 'Divider';
-      var isSelected = AppState.selectedMoveIds.indexOf(item.id) !== -1;
-      var cardClasses = 'character-card divider-card';
-      if (AppState.multiSelectMode) cardClasses += ' multi-select-on';
-      if (isSelected) cardClasses += ' is-selected';
-      return ''
-        + '<article class="' + cardClasses + '" draggable="true" data-id="' + escapeHtml(item.id) + '">'
-        + '  <div class="divider-head">'
-        + '    <div class="divider-title-wrap"><div class="divider-title">' + escapeHtml(title) + '</div><div class="divider-line"></div></div>'
-        + '    <div class="divider-actions">'
-        + '      <button type="button" class="divider-btn" data-divider-sort="' + escapeHtml(item.id) + '">Sort</button>'
-        + '      <button type="button" class="divider-btn" data-move-id="' + escapeHtml(item.id) + '" title="Change order">Move</button>'
-        + '      <button type="button" class="divider-btn" data-divider-edit="' + escapeHtml(item.id) + '">Rename</button>'
-        + '      <button type="button" class="divider-btn danger" data-divider-delete="' + escapeHtml(item.id) + '">Delete</button>'
-        + '    </div>'
-        + '  </div>'
-        + '</article>';
-    }
-
-    function renumberAllItems() {
-      AppState.characters.forEach(function (item, index) { item.currentRank = index + 1; });
-    }
-
-    function openDividerModal(mode, id) {
-      syncDividerModalRefs();
-      DividerModalState.mode = mode || 'add';
-      DividerModalState.itemId = id || null;
-      var item = id ? AppState.characters.find(function (entry) { return entry.id === id && isDividerItem(entry); }) : null;
-      var visibleCount = getVisibleCharacterCount(AppState.characters);
-      if (els.dividerModalTitle) els.dividerModalTitle.textContent = mode === 'edit' ? 'Rename divider' : 'Add divider';
-      if (els.dividerModalSubtitle) els.dividerModalSubtitle.textContent = mode === 'edit' ? 'Update the divider label shown in the board.' : 'Choose the divider name and where it should be inserted.';
-      if (els.dividerNameInput) els.dividerNameInput.value = item ? String(item.title || item.name || '') : '';
-      if (els.dividerPositionControl) els.dividerPositionControl.style.display = mode === 'edit' ? 'none' : '';
-      if (els.dividerInsertAfterInput) {
-        els.dividerInsertAfterInput.min = '0';
-        els.dividerInsertAfterInput.max = String(visibleCount);
-        els.dividerInsertAfterInput.value = mode === 'edit' ? '' : String(visibleCount);
-      }
-      if (els.dividerModalOverlay) {
-        els.dividerModalOverlay.classList.add('show');
-        els.dividerModalOverlay.setAttribute('aria-hidden', 'false');
-      }
-      document.body.classList.add('modal-open');
-      setTimeout(function () {
-        if (els.dividerNameInput) {
-          els.dividerNameInput.focus();
-          els.dividerNameInput.select();
-        }
-      }, 10);
-    }
-
-    function closeDividerModal() {
-      syncDividerModalRefs();
-      DividerModalState.mode = 'add';
-      DividerModalState.itemId = null;
-      if (els.dividerModalOverlay) {
-        els.dividerModalOverlay.classList.remove('show');
-        els.dividerModalOverlay.setAttribute('aria-hidden', 'true');
-      }
-      document.body.classList.remove('modal-open');
-    }
-
-    function submitDividerModal() {
-      syncDividerModalRefs();
-      var title = String((els.dividerNameInput && els.dividerNameInput.value) || '').trim();
-      if (!title) {
-        showMessage('Divider name cannot be empty.', 'error');
-        return;
-      }
-      if (DividerModalState.mode === 'edit' && DividerModalState.itemId) {
-        var item = AppState.characters.find(function (entry) { return entry.id === DividerModalState.itemId && isDividerItem(entry); });
-        if (!item) {
-          closeDividerModal();
-          return;
-        }
-        item.title = title;
-        item.name = title;
-        showMessage('Divider renamed.');
-      } else {
-        var visibleCount = getVisibleCharacterCount(AppState.characters);
-        var afterRank = parseInt(String((els.dividerInsertAfterInput && els.dividerInsertAfterInput.value) || visibleCount).trim(), 10);
-        if (isNaN(afterRank) || afterRank < 0) afterRank = 0;
-        if (afterRank > visibleCount) afterRank = visibleCount;
-        var insertIndex = getInsertIndexAfterVisibleRank(afterRank);
-        AppState.characters.splice(insertIndex, 0, createDividerItem(title));
-        showMessage(afterRank === 0 ? 'Divider added before #1.' : 'Divider added after #' + afterRank + '.');
-      }
-      renumberAllItems();
-      rebuildPersistentOrderMap();
-      renderBoard();
-      saveLocal(false);
-      closeDividerModal();
-    }
-
-    function addDivider() {
-      openDividerModal('add');
-    }
-
-    function renameDivider(id) {
-      openDividerModal('edit', id);
-    }
-
-    function deleteDivider(id) {
-      var item = AppState.characters.find(function (entry) { return entry.id === id && isDividerItem(entry); });
-      if (!item) return;
-      if (!window.confirm('Delete divider "' + (item.title || item.name || 'Divider') + '"?')) return;
-      AppState.characters = AppState.characters.filter(function (entry) { return entry.id !== id; });
-      AppState.selectedMoveIds = AppState.selectedMoveIds.filter(function (entryId) { return entryId !== id; });
-      renumberAllItems();
-      rebuildPersistentOrderMap();
-      renderBoard();
-      saveLocal(false);
-      showMessage('Divider deleted.');
-    }
-
-    function updateMultiSelectUI() {
-      if (els.multiSelectToggleBtn) {
-        els.multiSelectToggleBtn.textContent = 'Multi-select: ' + (AppState.multiSelectMode ? 'On' : 'Off');
-        els.multiSelectToggleBtn.classList.toggle('btn-primary', AppState.multiSelectMode);
-        els.multiSelectToggleBtn.classList.toggle('btn-ghost', !AppState.multiSelectMode);
-      }
-      if (els.moveSelectedBtn) {
-        els.moveSelectedBtn.textContent = 'Move selected (' + AppState.selectedMoveIds.length + ')';
-        els.moveSelectedBtn.disabled = !AppState.selectedMoveIds.length;
-      }
-      if (els.clearSelectedBtn) {
-        els.clearSelectedBtn.disabled = !AppState.selectedMoveIds.length;
-        els.clearSelectedBtn.textContent = AppState.multiSelectMode ? ('Delete selected (' + AppState.selectedMoveIds.length + ')') : 'Clear';
-        els.clearSelectedBtn.classList.toggle('btn-danger', AppState.multiSelectMode);
-        els.clearSelectedBtn.classList.toggle('btn-ghost', !AppState.multiSelectMode);
-      }
-    }
-
-    function clearMoveSelection(renderNow) {
-      AppState.selectedMoveIds = [];
-      updateMultiSelectUI();
-      if (renderNow !== false) renderBoard();
-    }
-
-    function toggleMultiSelectMode() {
-      AppState.multiSelectMode = !AppState.multiSelectMode;
-      if (!AppState.multiSelectMode) AppState.selectedMoveIds = [];
-      updateMultiSelectUI();
-      renderBoard();
-      saveLocal(false);
-    }
-
-    function toggleCharacterSelection(charId) {
-      var index = AppState.selectedMoveIds.indexOf(charId);
-      if (index === -1) AppState.selectedMoveIds.push(charId);
-      else AppState.selectedMoveIds.splice(index, 1);
-      updateMultiSelectUI();
-      renderBoard();
-      saveLocal(false);
-    }
-
-    function ensureSelectionBox() {
-      if (!SelectionBoxState.boxEl) {
-        SelectionBoxState.boxEl = document.createElement('div');
-        SelectionBoxState.boxEl.className = 'board-selection-box';
-        document.body.appendChild(SelectionBoxState.boxEl);
-      }
-      return SelectionBoxState.boxEl;
-    }
-
-    function hideSelectionBox() {
-      var box = ensureSelectionBox();
-      box.style.display = 'none';
-      box.style.width = '0px';
-      box.style.height = '0px';
-    }
-
-    function getSelectionRect(x1, y1, x2, y2) {
-      return {
-        left: Math.min(x1, x2),
-        top: Math.min(y1, y2),
-        right: Math.max(x1, x2),
-        bottom: Math.max(y1, y2)
-      };
-    }
-
-    function drawSelectionBox(rect) {
-      var box = ensureSelectionBox();
-      box.style.display = 'block';
-      box.style.left = rect.left + 'px';
-      box.style.top = rect.top + 'px';
-      box.style.width = Math.max(1, rect.right - rect.left) + 'px';
-      box.style.height = Math.max(1, rect.bottom - rect.top) + 'px';
-    }
-
-    function rectIntersects(a, b) {
-      return !(a.right < b.left || a.left > b.right || a.bottom < b.top || a.top > b.bottom);
-    }
-
-    function applySelectionRect(rect, additive) {
-      var nextIds = additive ? AppState.selectedMoveIds.slice() : [];
-      Array.prototype.slice.call(els.board.querySelectorAll('.character-card')).forEach(function (card) {
-        var cardRect = card.getBoundingClientRect();
-        if (!rectIntersects(rect, cardRect)) return;
-        var id = card.getAttribute('data-id');
-        if (nextIds.indexOf(id) === -1) nextIds.push(id);
-      });
-      AppState.selectedMoveIds = nextIds;
-      updateMultiSelectUI();
-      renderBoard();
-      saveLocal(false);
-    }
-
-    function initBoardMarqueeSelection() {
-      if (!els.board || els.board.dataset.marqueeBound === '1') return;
-      els.board.dataset.marqueeBound = '1';
-
-      els.board.addEventListener('mousedown', function (event) {
-        if (!AppState.multiSelectMode) return;
-        if (event.button !== 0) return;
-        if (!event.target.closest || !els.board.contains(event.target) || event.target.closest('[data-move-id]') || event.target.closest('.character-card')) return;
-        SelectionBoxState.active = true;
-        SelectionBoxState.started = false;
-        SelectionBoxState.additive = !!(event.ctrlKey || event.metaKey || event.shiftKey);
-        SelectionBoxState.startX = event.clientX;
-        SelectionBoxState.startY = event.clientY;
-        SelectionBoxState.originTarget = event.target;
-      });
-
-      window.addEventListener('mousemove', function (event) {
-        if (!SelectionBoxState.active || !AppState.multiSelectMode) return;
-        var rect = getSelectionRect(SelectionBoxState.startX, SelectionBoxState.startY, event.clientX, event.clientY);
-        var width = rect.right - rect.left;
-        var height = rect.bottom - rect.top;
-        if (!SelectionBoxState.started && (width > 6 || height > 6)) SelectionBoxState.started = true;
-        if (!SelectionBoxState.started) return;
-        drawSelectionBox(rect);
-        event.preventDefault();
-      });
-
-      window.addEventListener('mouseup', function (event) {
-        if (!SelectionBoxState.active) return;
-        var rect = getSelectionRect(SelectionBoxState.startX, SelectionBoxState.startY, event.clientX, event.clientY);
-        var started = SelectionBoxState.started;
-        var additive = SelectionBoxState.additive;
-        var originTarget = SelectionBoxState.originTarget;
-        SelectionBoxState.active = false;
-        SelectionBoxState.started = false;
-        SelectionBoxState.originTarget = null;
-        hideSelectionBox();
-
-        if (!AppState.multiSelectMode) return;
-        if (started) {
-          applySelectionRect(rect, additive);
-          SelectionBoxState.suppressClickUntil = Date.now() + 250;
-          return;
-        }
-
-        if (!additive && originTarget === els.board) {
-          clearMoveSelection();
-          saveLocal(false);
-        }
-      });
-
-      els.board.addEventListener('click', function (event) {
-        if (Date.now() < SelectionBoxState.suppressClickUntil) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-      }, true);
-    }
-
-    function openMoveModal(charId) {
-      var index = AppState.characters.findIndex(function (item) { return item.id === charId; });
-      if (index === -1) return;
-      var item = AppState.characters[index];
-      var itemLabel = isDividerItem(item) ? (item.title || item.name || 'Divider') : item.name;
-      MoveModalState.charId = charId;
-      MoveModalState.mode = 'single';
-      els.moveModalTitle.textContent = isDividerItem(item) ? 'Move divider' : 'Move character';
-      els.moveModalSubtitle.textContent = itemLabel + ' · current position #' + (index + 1);
-      els.moveModalHelp.textContent = 'Enter a value between 1 and ' + AppState.characters.length + '.';
-      els.moveRankInput.min = '1';
-      els.moveRankInput.max = String(AppState.characters.length);
-      els.moveRankInput.value = String(index + 1);
-      els.moveModalOverlay.classList.add('show');
-      document.body.classList.add('modal-open');
-      setTimeout(function () { els.moveRankInput.focus(); els.moveRankInput.select(); }, 10);
-    }
-
-    function openMoveSelectedModal() {
-      if (!AppState.selectedMoveIds.length) {
-        showMessage('Select one or more characters first.', 'error');
-        return;
-      }
-      MoveModalState.charId = null;
-      MoveModalState.mode = 'multiple';
-      els.moveModalTitle.textContent = 'Move selected characters';
-      els.moveModalSubtitle.textContent = AppState.selectedMoveIds.length + ' selected character(s)';
-      els.moveModalHelp.textContent = 'Enter the starting position for the selected block.';
-      els.moveRankInput.min = '1';
-      els.moveRankInput.max = String(AppState.characters.length);
-      els.moveRankInput.value = '1';
-      els.moveModalOverlay.classList.add('show');
-      document.body.classList.add('modal-open');
-      setTimeout(function () { els.moveRankInput.focus(); els.moveRankInput.select(); }, 10);
-    }
-
-    function moveCharacterBlockBeforeTarget(draggedIds, targetId) {
-      var ids = Array.isArray(draggedIds) ? draggedIds.slice() : [draggedIds];
-      ids = ids.filter(Boolean);
-      if (!ids.length || !targetId) return;
-
-      var selectedMap = {};
-      ids.forEach(function (id) { selectedMap[id] = true; });
-      if (selectedMap[targetId]) return;
-
-      var block = AppState.characters.filter(function (char) { return !!selectedMap[char.id]; });
-      if (!block.length) return;
-
-      var remaining = AppState.characters.filter(function (char) { return !selectedMap[char.id]; });
-      var targetIndex = remaining.findIndex(function (char) { return char.id === targetId; });
-      if (targetIndex === -1) return;
-
-      remaining.splice(targetIndex, 0, ...block);
-      AppState.characters = remaining;
-      AppState.characters.forEach(function (char, index) { char.currentRank = index + 1; });
-      rebuildPersistentOrderMap();
-      renderBoard();
-      saveLocal(false);
-      if (block.length > 1) showMessage(block.length + ' character(s) moved as a block.');
-    }
-
-    function moveSelectedToRank(targetRankInput) {
-      var ids = AppState.selectedMoveIds.slice();
-      if (!ids.length) {
-        showMessage('Select one or more characters first.', 'error');
-        return;
-      }
-      var targetRank = parseInt(String(targetRankInput).trim(), 10);
-      if (!targetRank || isNaN(targetRank)) {
-        showMessage('Enter a valid order number.', 'error');
-        return;
-      }
-      if (targetRank < 1) targetRank = 1;
-      var selectedMap = {};
-      ids.forEach(function (id) { selectedMap[id] = true; });
-      var selectedChars = AppState.characters.filter(function (char) { return !!selectedMap[char.id]; });
-      var remaining = AppState.characters.filter(function (char) { return !selectedMap[char.id]; });
-      if (targetRank > remaining.length + 1) targetRank = remaining.length + 1;
-      remaining.splice(targetRank - 1, 0, ...selectedChars);
-      AppState.characters = remaining;
-      AppState.characters.forEach(function (char, index) { char.currentRank = index + 1; });
-      closeMoveModal();
-      showMessage(selectedChars.length + ' character(s) moved starting at #' + targetRank + '.');
-      clearMoveSelection(false);
-      rebuildPersistentOrderMap();
-      renderBoard();
-      saveLocal(false);
-    }
-
-    function closeMoveModal() {
-      MoveModalState.charId = null;
-      els.moveModalOverlay.classList.remove('show');
-      els.moveModalOverlay.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('modal-open');
-      els.moveRankInput.value = '';
-      MoveModalState.mode = 'single';
-    }
-
-    function confirmMoveModal() {
-      if (MoveModalState.mode === 'multiple') {
-        moveSelectedToRank(els.moveRankInput.value);
-        return;
-      }
-      if (!MoveModalState.charId) return;
-      moveCharacterToRank(MoveModalState.charId, els.moveRankInput.value);
-      closeMoveModal();
-    }
-
-function attachDragEvents() {
-      var cards = Array.prototype.slice.call(els.board.querySelectorAll('.character-card'));
-      var draggedIds = [];
-      cards.forEach(function (card) {
-        card.addEventListener('dragstart', function (event) {
-          DragState.suppressClickUntil = Date.now() + 300;
-          var cardId = card.getAttribute('data-id');
-          if (AppState.multiSelectMode && AppState.selectedMoveIds.length > 1) {
-            if (AppState.selectedMoveIds.indexOf(cardId) === -1) {
-              draggedIds = [cardId];
-            } else {
-              draggedIds = AppState.selectedMoveIds.slice();
-            }
-          } else {
-            draggedIds = [cardId];
-          }
-          if (event.dataTransfer) {
-            event.dataTransfer.effectAllowed = 'move';
-            event.dataTransfer.setData('text/plain', draggedIds.join(','));
-          }
-          cards.forEach(function (item) {
-            if (draggedIds.indexOf(item.getAttribute('data-id')) !== -1) item.classList.add('dragging');
-          });
-        });
-        card.addEventListener('dragend', function () {
-          DragState.suppressClickUntil = Date.now() + 300;
-          cards.forEach(function (item) { item.classList.remove('dragging'); });
-          draggedIds = [];
-        });
-        card.addEventListener('dragover', function (event) {
-          event.preventDefault();
-          if (event.dataTransfer) event.dataTransfer.dropEffect = 'move';
-        });
-        card.addEventListener('drop', function (event) {
-          event.preventDefault();
-          var targetId = card.getAttribute('data-id');
-          if (!draggedIds.length || !targetId) return;
-          if (draggedIds.length > 1) {
-            moveCharacterBlockBeforeTarget(draggedIds, targetId);
-            return;
-          }
-          if (draggedIds[0] === targetId) return;
-          moveCharacter(draggedIds[0], targetId);
-        });
-      });
-    }
-
-    function moveCharacterToRank(charId, targetRankInput) {
-      var total = AppState.characters.length;
-      var targetRank = parseInt(String(targetRankInput).trim(), 10);
-      if (!targetRank || isNaN(targetRank)) {
-        showMessage('Enter a valid order number.', 'error');
-        return;
-      }
-      if (targetRank < 1) targetRank = 1;
-      if (targetRank > total) targetRank = total;
-      var sourceIndex = AppState.characters.findIndex(function (c) { return c.id === charId; });
-      if (sourceIndex === -1) return;
-      var moved = AppState.characters.splice(sourceIndex, 1)[0];
-      AppState.characters.splice(targetRank - 1, 0, moved);
-      AppState.characters.forEach(function (char, index) { char.currentRank = index + 1; });
-      rebuildPersistentOrderMap();
-      renderBoard();
-      saveLocal(false);
-      showMessage('Character moved to position #' + targetRank + '.');
-    }
-
-    function moveCharacter(draggedId, targetId) {
-      var sourceIndex = AppState.characters.findIndex(function (c) { return c.id === draggedId; });
-      var targetIndex = AppState.characters.findIndex(function (c) { return c.id === targetId; });
-      if (sourceIndex === -1 || targetIndex === -1) return;
-      var moved = AppState.characters.splice(sourceIndex, 1)[0];
-      AppState.characters.splice(targetIndex, 0, moved);
-      AppState.characters.forEach(function (char, index) { char.currentRank = index + 1; });
-      rebuildPersistentOrderMap();
-      renderBoard();
-      saveLocal(false);
-    }
-    function renderBoard() {
-      var filtered = getFilteredCharacters();
-      els.board.classList.toggle('is-multi-select', !!AppState.multiSelectMode);
-      if (!AppState.characters.length) {
-        els.board.innerHTML = '';
-        updateMultiSelectUI();
-        updateStats();
-        return;
-      }
-      if (!filtered.length) {
-        els.board.innerHTML = '<div class="empty-board">No items match the current filters.</div>';
-        updateMultiSelectUI();
-        updateStats();
-        return;
-      }
-      els.board.innerHTML = filtered.map(function (item) {
-        return isDividerItem(item) ? createDividerCardHTML(item) : createCharacterCardHTML(item);
-      }).join('');
-
-      Array.prototype.slice.call(els.board.querySelectorAll('[data-move-id]')).forEach(function (btn) {
-        btn.addEventListener('click', function (event) {
-          event.preventDefault();
-          event.stopPropagation();
-          event.stopImmediatePropagation();
-          openMoveModal(btn.getAttribute('data-move-id'));
-          return false;
-        }, true);
-      });
-
-      Array.prototype.slice.call(els.board.querySelectorAll('[data-divider-sort]')).forEach(function (btn) {
-        btn.addEventListener('click', function (event) {
-          event.preventDefault();
-          event.stopPropagation();
-          openSortSectionModal(btn.getAttribute('data-divider-sort'));
-        });
-      });
-
-      Array.prototype.slice.call(els.board.querySelectorAll('[data-divider-edit]')).forEach(function (btn) {
-        btn.addEventListener('click', function (event) {
-          event.preventDefault();
-          event.stopPropagation();
-          renameDivider(btn.getAttribute('data-divider-edit'));
-        });
-      });
-
-      Array.prototype.slice.call(els.board.querySelectorAll('[data-divider-delete]')).forEach(function (btn) {
-        btn.addEventListener('click', function (event) {
-          event.preventDefault();
-          event.stopPropagation();
-          deleteDivider(btn.getAttribute('data-divider-delete'));
-        });
-      });
-
-      Array.prototype.slice.call(els.board.querySelectorAll('.character-card')).forEach(function (card) {
-        card.addEventListener('click', function (event) {
-          if (!AppState.multiSelectMode) return;
-          if (Date.now() < SelectionBoxState.suppressClickUntil) return;
-          if (Date.now() < DragState.suppressClickUntil) return;
-          if (event.target.closest('[data-move-id]') || event.target.closest('[data-divider-sort]') || event.target.closest('[data-divider-edit]') || event.target.closest('[data-divider-delete]')) return true;
-          toggleCharacterSelection(card.getAttribute('data-id'));
-        }, true);
-      });
-
-      attachDragEvents();
-      updateMultiSelectUI();
-      updateStats();
-    }
-function openDeleteConfirmModal() {
-      var countToDelete = AppState.selectedMoveIds.length;
-      if (!countToDelete) {
-        showMessage('No selected characters to delete.', 'error');
-        return;
-      }
-      if (deleteModalEls.subtitle) deleteModalEls.subtitle.textContent = countToDelete + ' selected character(s)';
-      if (deleteModalEls.help) deleteModalEls.help.textContent = 'You are about to remove ' + countToDelete + ' character(s) from the harem. This action cannot be undone.';
-      if (deleteModalEls.overlay) {
-        deleteModalEls.overlay.classList.add('show');
-        deleteModalEls.overlay.setAttribute('aria-hidden', 'false');
-      }
-      document.body.classList.add('modal-open');
-    }
-
-    function closeDeleteConfirmModal() {
-      if (deleteModalEls.overlay) {
-        deleteModalEls.overlay.classList.remove('show');
-        deleteModalEls.overlay.setAttribute('aria-hidden', 'true');
-      }
-      if (!els.moveModalOverlay || !els.moveModalOverlay.classList.contains('show')) {
-        document.body.classList.remove('modal-open');
-      }
-    }
-
-    function confirmDeleteSelectedCharacters() {
-      if (!AppState.selectedMoveIds.length) {
-        closeDeleteConfirmModal();
-        showMessage('No selected characters to delete.', 'error');
-        return;
-      }
-      var countToDelete = AppState.selectedMoveIds.length;
-      AppState.characters = AppState.characters.filter(function (char) {
-        return AppState.selectedMoveIds.indexOf(char.id) === -1;
-      });
-      AppState.selectedMoveIds = [];
-      AppState.multiSelectMode = false;
-      applyPersistentOrder(AppState.characters);
-      for (var i = 0; i < AppState.characters.length; i++) AppState.characters[i].currentRank = i + 1;
-      rebuildPersistentOrderMap();
-      updateOwnerFilterOptions();
-      closeDeleteConfirmModal();
-      renderBoard();
-      saveLocal(false);
-      showMessage(countToDelete + ' characters deleted.');
-    }
-
-    function deleteSelectedCharacters() {
-      openDeleteConfirmModal();
-    }
-
-    function getManualPlaceholderImage(name) {
-      var label = String(name || '?').trim() || '?';
-      var initials = label.split(/\s+/).slice(0, 2).map(function (part) { return part.charAt(0).toUpperCase(); }).join('') || '?';
-      var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="185" height="245" viewBox="0 0 185 245">'
-        + '<defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#1b1b2a"/><stop offset="1" stop-color="#2b1852"/></linearGradient></defs>'
-        + '<rect width="185" height="245" rx="18" fill="url(#g)"/>'
-        + '<circle cx="92.5" cy="92" r="42" fill="rgba(255,255,255,0.08)"/>'
-        + '<text x="92.5" y="106" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="700" fill="#e9d5ff">' + initials + '</text>'
-        + '<text x="92.5" y="196" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#c4b5fd">Manual entry</text>'
-        + '</svg>';
-      return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
-    }
-
-    function parseManualGenderFlags(seriesLine) {
-      var value = String(seriesLine || '').toLowerCase();
-      return {
-        female: value.indexOf(':female:') !== -1,
-        male: value.indexOf(':male:') !== -1
-      };
-    }
-
-    function cleanManualSeriesLine(seriesLine) {
-      return String(seriesLine || '')
-        .replace(/:female:/gi, '')
-        .replace(/:male:/gi, '')
-        .replace(/\s{2,}/g, ' ')
-        .trim();
-    }
-
-    function parseManualRouletteToken(rouletteLine, seriesLine) {
-      var value = String(rouletteLine || '').toLowerCase();
-      var hasAnimanga = /animanga|anime|manga/.test(value);
-      var hasGame = /juego|juegos|game|games/.test(value);
-      var gender = parseManualGenderFlags(seriesLine);
-      if (hasAnimanga) {
-        if (gender.female && gender.male) return '$wa/$ha';
-        if (gender.female) return '$wa';
-        if (gender.male) return '$ha';
-        return '$animanga';
-      }
-      if (hasGame) {
-        if (gender.female && gender.male) return '$wg/$hg';
-        if (gender.female) return '$wg';
-        if (gender.male) return '$hg';
-        return '$game';
-      }
-      return '';
-    }
-    function normalizeManualImageUrl(line) {
-      var value = String(line || '').trim();
-      if (!value) return '';
-
-      var markdownMatch = value.match(/^\[(https?:\/\/[^\]\s]+)\]\((https?:\/\/[^)\s]+)\)$/i);
-      if (markdownMatch) value = markdownMatch[2] || markdownMatch[1];
-
-      var allUrls = value.match(/https?:\/\/[^\s)\]]+/gi) || [];
-      if (!allUrls.length) return '';
-
-      var preferred = allUrls[allUrls.length - 1];
-      var mudaeDirect = value.match(/https?:\/\/mudae\.net\/uploads\/[^\s)\]]+/i);
-      if (mudaeDirect) preferred = mudaeDirect[0];
-
-      var discordWrapped = preferred.match(/https?:\/\/images-ext-[^\s]+\/https\/([^\s?#)\]]+)/i);
-      if (discordWrapped) return 'https://' + discordWrapped[1];
-
-      return preferred.replace(/[)>\],]+$/, '');
-    }
-
-
-    function parseManualCharacterBlock(block) {
-      var lines = String(block || '').split(/\n+/).map(function (line) { return line.trim(); }).filter(Boolean);
-      if (lines.length < 2) return null;
-
-      var firstParts = lines[0].split(/\s*=>\s*/);
-      var name = (firstParts.shift() || '').replace(/💞/g, '').trim();
-      var owner = normalizeOwnerName((firstParts.join(' => ').split(/[·|]/)[0] || '').trim() || 'Unknown');
-      var rawSeries = lines.length > 1 ? lines[1] : '';
-      var series = cleanManualSeriesLine(rawSeries);
-      var rouletteLine = '';
-      var globalRank = 0;
-      var kakera = 0;
-      var image = '';
-      var i;
-
-      if (!name || !series) return null;
-
-      for (i = 2; i < lines.length; i++) {
-        if (/^art\s*:/i.test(lines[i])) continue;
-        if (!rouletteLine && /ruleta|roulette|game|animanga|anime|manga/i.test(lines[i])) rouletteLine = lines[i];
-        if (!globalRank && /claim\s*rank/i.test(lines[i])) {
-          var rankMatch = lines[i].match(/#?([\d,]+)/);
-          if (rankMatch) globalRank = parseInt(rankMatch[1].replace(/,/g, ''), 10) || 0;
-        }
-        if (!image) image = normalizeManualImageUrl(lines[i]);
-      }
-
-      if (rouletteLine) {
-        var kakeraMatch = rouletteLine.match(/([\d,]+)\s*:kakera:/i);
-        if (!kakeraMatch) kakeraMatch = rouletteLine.match(/(?:·|\||-|:)\s*([\d,]+)\s*$/);
-        if (!kakeraMatch) kakeraMatch = rouletteLine.match(/([\d,]+)/);
-        kakera = kakeraMatch ? parseInt(kakeraMatch[1].replace(/,/g, ''), 10) || 0 : 0;
-      }
-
-      return {
-        id: uid(),
-        currentRank: 0,
-        globalRank: globalRank,
-        name: name,
-        owner: owner,
-        note: '',
-        roulette: parseManualRouletteToken(rouletteLine, rawSeries),
-        mudaeTags: [],
-        keyType: '',
-        keys: 0,
-        color: '#7c3aed',
-        kakera: kakera,
-        series: series,
-        seriesOwned: 0,
-        seriesTotal: 0,
-        image: image || getManualPlaceholderImage(name)
-      };
-    }
-
-    function parseManualCharacters(raw) {
-      var text = normalizeInput(raw);
-      if (!text) return 0;
-
-      var blocks = text.split(/\n\s*\n+/);
-      var incoming = [];
-      var i;
-      for (i = 0; i < blocks.length; i++) {
-        var char = parseManualCharacterBlock(blocks[i]);
-        if (char) incoming.push(char);
-      }
-      if (!incoming.length) return 0;
-
-      for (i = 0; i < incoming.length; i++) AppState.characters.push(incoming[i]);
-      if (!AppState.haremName) AppState.haremName = 'Manual entries';
-      applyPersistentOrder(AppState.characters);
-      for (i = 0; i < AppState.characters.length; i++) AppState.characters[i].currentRank = i + 1;
-      rebuildPersistentOrderMap();
-      AppState.filter = '';
-      AppState.ownerFilter = '';
-      AppState.rouletteFilter = '';
-      AppState.selectedSeries = [];
-      AppState.selectedMoveIds = [];
-      AppState.multiSelectMode = false;
-      return incoming.length;
-    }
-
-    function parseInput() {
-      try {
-        var addedManual = 0;
-        var ok = parseFullMmis(els.input.value);
-        if (!ok) addedManual = parseManualCharacters(els.input.value);
-        if (!ok && !addedManual) {
-          showMessage('I could not detect valid characters in that text.', 'error');
-          return;
-        }
-        els.searchInput.value = '';
-        els.ownerFilter.value = '';
-        els.rouletteFilter.value = '';
-        var po = AppState.persistentOrderMap || {};
-        if ((!Object.keys(po.exact || {}).length && !Object.keys(po.byName || {}).length) && AppState.characters.length) rebuildPersistentOrderMap();
-        updateOwnerFilterOptions();
-        renderBoard();
-        saveLocal(false);
-        showMessage(addedManual ? (addedManual + ' manual character(s) were added.') : (AppState.characters.length + ' characters were loaded with full data.'));
-      } catch (error) {
-        console.error(error);
-        showMessage('An error occurred while parsing the text.', 'error');
-      }
-    }
-
-    function clearAll() {
-      AppState.haremName = '';
-      AppState.totalValue = 0;
-      AppState.counts = { wa: 0, ha: 0, wg: 0, hg: 0 };
-      AppState.characters = [];
-      AppState.filter = '';
-      AppState.ownerFilter = '';
-      AppState.rouletteFilter = '';
-      AppState.selectedSeries = [];
-      AppState.selectedMoveIds = [];
-      AppState.multiSelectMode = false;
-      AppState.exportAliasesText = 'tundra3=tundra_3';
-      AppState.persistentOrderMap = { exact: {}, byName: {} };
-      els.input.value = '';
-      if (els.exportAliasInput) els.exportAliasInput.value = AppState.exportAliasesText;
-      els.searchInput.value = '';
-      els.ownerFilter.innerHTML = '<option value="">All</option>';
-      els.rouletteFilter.value = '';
-      localStorage.removeItem(STORAGE_KEY);
-      renderBoard();
-      showMessage('The organizer was cleared.');
-    }
-
-    function copyOrder() {
-      if (!AppState.characters.length) {
-        showMessage('Load characters first.', 'error');
-        return;
-      }
-      var text = buildSmChunks().map(function (chunk) { return chunk.text; }).join('\n\n');
-      navigator.clipboard.writeText(text)
-        .then(function () { showMessage('All $sm blocks were copied.'); })
-        .catch(function () { showMessage('The blocks could not be copied.', 'error'); });
-    }
-
-    function exportJson() {
-      if (!AppState.characters.length) {
-        showMessage('There are no characters to save.', 'error');
-        return;
-      }
-      AppState.exportAliasesText = els.exportAliasInput ? els.exportAliasInput.value : AppState.exportAliasesText;
-      rebuildPersistentOrderMap();
-      var payload = {
-        input: els.input.value,
-        state: JSON.parse(JSON.stringify(AppState))
-      };
-      var filenameBase = normalizeStableText(AppState.haremName || 'mudae_harem').replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '') || 'mudae_harem';
-      var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-      var url = URL.createObjectURL(blob);
-      var link = document.createElement('a');
-      link.href = url;
-      link.download = filenameBase + '.json';
-      link.click();
-      URL.revokeObjectURL(url);
-      showMessage('JSON saved.');
-    }
-
-    function loadJsonFromParsed(parsed, showToast) {
-      if (showToast !== false) showToast = true;
-      els.input.value = parsed.input || '';
-      if (parsed.state) {
-        AppState.haremName = parsed.state.haremName || '';
-        AppState.totalValue = parsed.state.totalValue || 0;
-        AppState.counts = parsed.state.counts || { wa: 0, ha: 0, wg: 0, hg: 0 };
-        AppState.characters = Array.isArray(parsed.state.characters) ? parsed.state.characters : [];
-        AppState.filter = '';
-        AppState.ownerFilter = '';
-        AppState.rouletteFilter = '';
-        AppState.selectedSeries = Array.isArray(parsed.state.selectedSeries) ? parsed.state.selectedSeries : [];
-        AppState.seriesPanelHidden = !!parsed.state.seriesPanelHidden;
-        AppState.helpHidden = !!parsed.state.helpHidden;
-        AppState.multiSelectMode = !!parsed.state.multiSelectMode;
-        AppState.selectedMoveIds = Array.isArray(parsed.state.selectedMoveIds) ? parsed.state.selectedMoveIds : [];
-        AppState.exportAliasesText = parsed.state.exportAliasesText || AppState.exportAliasesText || 'tundra3=tundra_3';
-        var savedMap = parsed.state.persistentOrderMap || {};
-        if (savedMap.exact || savedMap.byName) AppState.persistentOrderMap = savedMap;
-        else AppState.persistentOrderMap = { exact: savedMap, byName: {} };
-      } else {
-        AppState.haremName = parsed.haremName || '';
-        AppState.totalValue = parsed.totalValue || 0;
-        AppState.counts = parsed.counts || { wa: 0, ha: 0, wg: 0, hg: 0 };
-        AppState.characters = Array.isArray(parsed.characters) ? parsed.characters : [];
-        AppState.filter = '';
-        AppState.ownerFilter = '';
-        AppState.rouletteFilter = '';
-        AppState.selectedSeries = [];
-        AppState.seriesPanelHidden = false;
-        AppState.helpHidden = false;
-        AppState.multiSelectMode = false;
-        AppState.selectedMoveIds = [];
-        rebuildPersistentOrderMap();
-      }
-      els.searchInput.value = '';
-      if (els.exportAliasInput) els.exportAliasInput.value = AppState.exportAliasesText || 'tundra3=tundra_3';
-      els.rouletteFilter.value = '';
-      updateOwnerFilterOptions();
-      renderBoard();
-      if (showToast) showMessage('JSON loaded.');
-    }
-
-    function loadJsonFile(file) {
-      if (!file) return;
-      var reader = new FileReader();
-      reader.onload = function () {
-        try {
-          var parsed = JSON.parse(String(reader.result || '{}'));
-          loadJsonFromParsed(parsed, true);
-        } catch (error) {
-          console.error(error);
-          showMessage('The JSON file is invalid.', 'error');
-        }
-      };
-      reader.onerror = function () {
-        showMessage('The JSON file could not be read.', 'error');
-      };
-      reader.readAsText(file, 'utf-8');
-    }
-
-    function saveLocal(showToast) {
-      if (showToast !== false) showToast = true;
-      AppState.exportAliasesText = els.exportAliasInput ? els.exportAliasInput.value : AppState.exportAliasesText;
-      rebuildPersistentOrderMap();
-      var payload = { input: els.input.value, state: AppState };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-      if (showToast) showMessage('Order saved locally.');
-    }
-
-    function loadLocal(showToast) {
-      if (showToast !== false) showToast = true;
-      var raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) {
-        if (showToast) showMessage('There is no local save.', 'error');
-        return;
-      }
-      try {
-        var parsed = JSON.parse(raw);
-        els.input.value = parsed.input || '';
-        if (parsed.state) {
-          AppState.haremName = parsed.state.haremName || '';
-          AppState.totalValue = parsed.state.totalValue || 0;
-          AppState.counts = parsed.state.counts || { wa: 0, ha: 0, wg: 0, hg: 0 };
-          AppState.characters = Array.isArray(parsed.state.characters) ? parsed.state.characters : [];
-          AppState.filter = '';
-          AppState.ownerFilter = '';
-          AppState.rouletteFilter = '';
-          AppState.selectedSeries = Array.isArray(parsed.state.selectedSeries) ? parsed.state.selectedSeries : [];
-          AppState.seriesPanelHidden = !!parsed.state.seriesPanelHidden;
-          AppState.helpHidden = !!parsed.state.helpHidden;
-          AppState.multiSelectMode = !!parsed.state.multiSelectMode;
-          AppState.selectedMoveIds = Array.isArray(parsed.state.selectedMoveIds) ? parsed.state.selectedMoveIds : [];
-          var savedMap = parsed.state.persistentOrderMap || {};
-          if (savedMap.exact || savedMap.byName) AppState.persistentOrderMap = savedMap;
-          else AppState.persistentOrderMap = { exact: savedMap, byName: {} };
-        }
-        els.searchInput.value = '';
-        if (els.exportAliasInput) els.exportAliasInput.value = AppState.exportAliasesText || 'tundra3=tundra_3';
-        els.rouletteFilter.value = '';
-        updateOwnerFilterOptions();
-        renderBoard();
-        if (showToast) showMessage('Local save loaded.');
-      } catch (error) {
-        console.error(error);
-        showMessage('The local save is corrupted.', 'error');
-      }
-    }
-
-    els.parseBtn.addEventListener('click', parseInput);
-    els.demoBtn.addEventListener('click', function () {
-      els.input.value = DEMO;
-      parseInput();
-    });
-    els.clearBtn.addEventListener('click', clearAll);
-    if (els.addDividerBtn) els.addDividerBtn.addEventListener('click', addDivider);
-    if (els.exportJsonBtn) els.exportJsonBtn.addEventListener('click', exportJson);
-    if (els.copyOrderBtn) els.copyOrderBtn.addEventListener('click', copyOrder);
-    if (els.multiSelectToggleBtn) els.multiSelectToggleBtn.addEventListener('click', toggleMultiSelectMode);
-    if (els.moveSelectedBtn) els.moveSelectedBtn.addEventListener('click', openMoveSelectedModal);
-    if (els.clearSelectedBtn) els.clearSelectedBtn.addEventListener('click', function () {
-      if (AppState.multiSelectMode) deleteSelectedCharacters();
-      else {
-        clearMoveSelection();
-        saveLocal(false);
-      }
-    });
-    els.saveBtn.addEventListener('click', exportJson);
-    els.nitroMode.addEventListener('change', updateOrderOutput);
-    if (els.exportAliasInput) {
-      els.exportAliasInput.value = AppState.exportAliasesText || 'tundra3=tundra_3';
-      els.exportAliasInput.addEventListener('input', function (event) {
-        AppState.exportAliasesText = event.target.value;
-        updateOrderOutput();
-        saveLocal(false);
-      });
-    }
-    if (els.exportAliasToggle) {
-      els.exportAliasToggle.addEventListener('change', function () {
-        syncExportAliasPanel();
-      });
-    }
-    els.loadBtn.addEventListener('click', function () {
-      if (els.loadJsonInput) els.loadJsonInput.click();
-    });
-    if (els.loadJsonInput) els.loadJsonInput.addEventListener('change', function (event) {
-      var file = event.target.files && event.target.files[0];
-      loadJsonFile(file);
-      event.target.value = '';
-    });
-    syncDividerModalRefs();
-    if (els.dividerModalCancelBtn) els.dividerModalCancelBtn.addEventListener('click', closeDividerModal);
-    if (els.dividerModalConfirmBtn) els.dividerModalConfirmBtn.addEventListener('click', submitDividerModal);
-    if (els.dividerNameInput) els.dividerNameInput.addEventListener('keydown', function (event) {
-      if (event.key === 'Enter') submitDividerModal();
-      if (event.key === 'Escape') closeDividerModal();
-    });
-    if (els.dividerInsertAfterInput) els.dividerInsertAfterInput.addEventListener('keydown', function (event) {
-      if (event.key === 'Enter') submitDividerModal();
-      if (event.key === 'Escape') closeDividerModal();
-    });
-    if (els.dividerModalOverlay) els.dividerModalOverlay.addEventListener('click', function (event) {
-      if (event.target === els.dividerModalOverlay) closeDividerModal();
-    });
-    syncSortSectionModalRefs();
-    loadThemePreference();
-    if (els.themeToggleBtn) els.themeToggleBtn.addEventListener('click', toggleTheme);
-    if (els.sortSectionCancelBtn) els.sortSectionCancelBtn.addEventListener('click', closeSortSectionModal);
-    if (els.sortSectionConfirmBtn) els.sortSectionConfirmBtn.addEventListener('click', submitSortSectionModal);
-    if (els.sortSectionFieldSelect) els.sortSectionFieldSelect.addEventListener('keydown', function (event) {
-      if (event.key === 'Enter') submitSortSectionModal();
-      if (event.key === 'Escape') closeSortSectionModal();
-    });
-    if (els.sortSectionDirectionSelect) els.sortSectionDirectionSelect.addEventListener('keydown', function (event) {
-      if (event.key === 'Enter') submitSortSectionModal();
-      if (event.key === 'Escape') closeSortSectionModal();
-    });
-    if (els.sortSectionModalOverlay) els.sortSectionModalOverlay.addEventListener('click', function (event) {
-      if (event.target === els.sortSectionModalOverlay) closeSortSectionModal();
-    });
-    els.moveCancelBtn.addEventListener('click', closeMoveModal);
-    els.moveConfirmBtn.addEventListener('click', confirmMoveModal);
-    els.moveRankInput.addEventListener('keydown', function (event) {
-      if (event.key === 'Enter') confirmMoveModal();
-      if (event.key === 'Escape') closeMoveModal();
-    });
-    els.moveModalOverlay.addEventListener('click', function (event) {
-      if (event.target === els.moveModalOverlay) closeMoveModal();
-    });
-    if (deleteModalEls.cancelBtn) deleteModalEls.cancelBtn.addEventListener('click', closeDeleteConfirmModal);
-    if (deleteModalEls.confirmBtn) deleteModalEls.confirmBtn.addEventListener('click', confirmDeleteSelectedCharacters);
-    if (deleteModalEls.overlay) deleteModalEls.overlay.addEventListener('click', function (event) {
-      if (event.target === deleteModalEls.overlay) closeDeleteConfirmModal();
-    });
-    document.addEventListener('keydown', function (event) {
-      if (event.key !== 'Escape') return;
-      if (deleteModalEls.overlay && deleteModalEls.overlay.classList.contains('show')) {
-        closeDeleteConfirmModal();
-        return;
-      }
-      if (els.sortSectionModalOverlay && els.sortSectionModalOverlay.classList.contains('show')) {
-        closeSortSectionModal();
-        return;
-      }
-      if (els.dividerModalOverlay && els.dividerModalOverlay.classList.contains('show')) {
-        closeDividerModal();
-        return;
-      }
-      if (els.moveModalOverlay.classList.contains('show')) closeMoveModal();
-    });
-    document.addEventListener('keydown', function (event) {
-      var isFindShortcut = (event.ctrlKey || event.metaKey) && String(event.key || '').toLowerCase() === 'f';
-      if (!isFindShortcut) return;
-      if (!els.searchInput) return;
-      event.preventDefault();
-      els.searchInput.focus();
-      els.searchInput.select();
-    });
-    window.addEventListener('resize', fitHaremName);
-    els.searchInput.addEventListener('input', function (event) {
-      AppState.filter = event.target.value;
-      renderBoard();
-    });
-    els.ownerFilter.addEventListener('change', function (event) {
-      AppState.ownerFilter = event.target.value;
-      renderBoard();
-    });
-    els.rouletteFilter.addEventListener('change', function (event) {
-      AppState.rouletteFilter = String(event.target.value || '').toLowerCase();
-      renderBoard();
-    });
-
-    function handleSeriesPanelToggle() {
-      AppState.seriesPanelHidden = !AppState.seriesPanelHidden;
-      syncSeriesPanelState();
-    }
-
-    if (els.seriesPanelToggleBtn) els.seriesPanelToggleBtn.addEventListener('click', handleSeriesPanelToggle);
-    if (els.seriesPanelToggleBtnMain) els.seriesPanelToggleBtnMain.addEventListener('click', handleSeriesPanelToggle);
-    if (els.leftRailToggleBtn) {
-      els.leftRailToggleBtn.addEventListener('click', function () {
-        toggleLeftTools();
-      });
-    }
-    if (els.leftRailToggleBtn) {
-      els.leftRailToggleBtn.addEventListener('click', function () {
-        toggleLeftTools();
-      });
-    }
-    if (els.rightRailToggleBtn) {
-      els.rightRailToggleBtn.addEventListener('click', function () {
-        toggleRightRail();
-      });
-    }
-    if (els.jumpPageTopBtn) {
-      els.jumpPageTopBtn.addEventListener('click', function () {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }
-
-    initBoardMarqueeSelection();
-    syncSeriesPanelState();
-    syncHelpSectionState();
-    syncExportAliasPanel();
-    updateMultiSelectUI();
-    console.log('els.moveModalOverlay:', !!els.moveModalOverlay, 'show:', els.moveModalOverlay?.classList?.contains('show'));
-    updateStats();
-    renderBoard();
-  
+    renderSideOT(sol);
+  }
+}
+
+document.getElementById('tabOQ').addEventListener('click',()=>{activeGame='oq';render()});
+document.getElementById('tabOT').addEventListener('click',()=>{activeGame='ot';render()});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  const target = activeGame==='oq'?oqBoard:otBoard;
+  for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) target[r][c]={state:'hidden'};
+  render();
+});
+render();
 </script>
-
-  
-
 </body>
 </html>

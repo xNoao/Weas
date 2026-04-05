@@ -1362,6 +1362,261 @@ if(typeof window.updateOrderOutput==='function'){try{window.updateOrderOutput();
 })();</script>
 
 
+
+<script>
+/* === DRAG FIX: free-floating multiSelectBar === */
+(function() {
+  const STORE = 'mhp-floating-toolbar-pos-v3';
+
+  function applyFix() {
+    const bar = document.getElementById('multiSelectBar');
+    const handle = document.getElementById('multiSelectDragHandle');
+    if (!bar || !handle) return;
+
+    // Force position: fixed without !important conflicts via inline style
+    function place(left, top) {
+      const w = bar.offsetWidth || 0;
+      const h = bar.offsetHeight || 0;
+      const l = Math.min(Math.max(left, 4), window.innerWidth - w - 4);
+      const t = Math.min(Math.max(top, 4), window.innerHeight - h - 4);
+      bar.style.cssText += ';position:fixed!important;left:' + l + 'px!important;top:' + t + 'px!important;bottom:auto!important;right:auto!important;transform:none!important;';
+      bar.style.left   = l + 'px';
+      bar.style.top    = t + 'px';
+      bar.style.bottom = 'auto';
+      bar.style.right  = 'auto';
+      bar.style.transform = 'none';
+      bar.classList.remove('is-docked-bottom', 'is-docked-top');
+    }
+
+    function placeCenter() {
+      const w = bar.offsetWidth || 300;
+      const h = bar.offsetHeight || 50;
+      place(Math.round((window.innerWidth - w) / 2), window.innerHeight - h - 12);
+    }
+
+    // Save/restore free position
+    function savePos() {
+      const rect = bar.getBoundingClientRect();
+      try { localStorage.setItem(STORE, JSON.stringify({mode:'free', left: rect.left, top: rect.top})); } catch(e){}
+    }
+    function loadPos() {
+      try {
+        const d = JSON.parse(localStorage.getItem(STORE) || 'null');
+        if (d && d.mode === 'free' && isFinite(d.left) && isFinite(d.top)) return d;
+      } catch(e){}
+      return null;
+    }
+
+    // Initial position
+    const saved = loadPos();
+    if (saved) place(saved.left, saved.top);
+    else placeCenter();
+
+    // Clone handle to strip old drag listeners
+    const newHandle = handle.cloneNode(true);
+    handle.parentNode.replaceChild(newHandle, handle);
+
+    let dragging = false, sx = 0, sy = 0, bl = 0, bt = 0;
+
+    newHandle.style.cursor = 'grab';
+
+    newHandle.addEventListener('pointerdown', function(e) {
+      newHandle.setPointerCapture(e.pointerId);
+      const rect = bar.getBoundingClientRect();
+      dragging = true;
+      sx = e.clientX; sy = e.clientY;
+      bl = rect.left; bt = rect.top;
+      bar.classList.add('dragging');
+      newHandle.style.cursor = 'grabbing';
+      e.preventDefault();
+    });
+
+    newHandle.addEventListener('pointermove', function(e) {
+      if (!dragging) return;
+      place(bl + e.clientX - sx, bt + e.clientY - sy);
+      e.preventDefault();
+    });
+
+    function stopDrag() {
+      if (!dragging) return;
+      dragging = false;
+      bar.classList.remove('dragging');
+      newHandle.style.cursor = 'grab';
+      savePos();
+    }
+
+    newHandle.addEventListener('pointerup', stopDrag);
+    newHandle.addEventListener('pointercancel', stopDrag);
+    window.addEventListener('pointerup', stopDrag);
+
+    // On resize, keep bar on-screen
+    window.addEventListener('resize', function() {
+      if (!dragging) {
+        const rect = bar.getBoundingClientRect();
+        place(rect.left, rect.top);
+      }
+    });
+  }
+
+  // Run after original scripts have initialized
+  if (document.readyState === 'complete') setTimeout(applyFix, 0);
+  else window.addEventListener('load', function() { setTimeout(applyFix, 0); });
+})();
+</script>
+
+
+<script>
+/* === WINDOWS-STYLE DOCKING FOR multiSelectBar === */
+(function() {
+  const STORE = 'mhp-floating-toolbar-pos-v3';
+  const BAR_ID = 'multiSelectBar';
+  const HANDLE_ID = 'multiSelectDragHandle';
+  const DOCK_TOLERANCE = 20;
+  const EDGE_TOLERANCE = 8;
+
+  let dragging = false, sx = 0, sy = 0, bl = 0, bt = 0;
+  let bar, handle;
+
+  function getBar() { return document.getElementById(BAR_ID); }
+  function getHandle() { return document.getElementById(HANDLE_ID); }
+
+  function savePos(left, top, docked = null) {
+    try {
+      localStorage.setItem(STORE, JSON.stringify({mode: docked || 'free', left: left, top: top}));
+    } catch(e) {}
+  }
+
+  function loadPos() {
+    try {
+      return JSON.parse(localStorage.getItem(STORE) || '{}');
+    } catch(e) { return {}; }
+  }
+
+  function place(left, top, docked = null) {
+    bar = getBar(); if (!bar) return;
+    const w = bar.offsetWidth || 320;
+    const h = bar.offsetHeight || 52;
+
+    // Constrain to viewport
+    left = Math.max(EDGE_TOLERANCE, Math.min(left, window.innerWidth - w - EDGE_TOLERANCE));
+    top = Math.max(EDGE_TOLERANCE, Math.min(top, window.innerHeight - h - EDGE_TOLERANCE));
+
+    bar.style.cssText += ';position:fixed!important;z-index:9999!important;';
+    bar.style.left = left + 'px';
+    bar.style.top = top + 'px';
+    bar.style.bottom = 'auto';
+    bar.style.right = 'auto';
+    bar.style.transform = 'none';
+
+    if (docked) {
+      bar.classList.add('is-docked-' + docked);
+      bar.style.boxShadow = docked === 'bottom' ? 
+        '0 10px 26px rgba(0,0,0,.24), 0 -1px 0 rgba(255,255,255,.03) inset, 0 0 0 1px rgba(167,139,250,.16) inset !important' :
+        '0 10px 26px rgba(0,0,0,.24), 0 1px 0 rgba(255,255,255,.03) inset, 0 0 0 1px rgba(167,139,250,.16) inset !important';
+      bar.style.borderRadius = docked === 'bottom' ? '18px 18px 12px 12px !important' : '12px 12px 18px 18px !important';
+    } else {
+      bar.classList.remove('is-docked-bottom', 'is-docked-top');
+      bar.style.boxShadow = '0 18px 44px rgba(0,0,0,.34), 0 0 0 1px rgba(255,255,255,.03) inset !important';
+      bar.style.borderRadius = '18px !important';
+    }
+
+    if (!dragging) savePos(left, top, docked);
+  }
+
+  function dockToEdge(x, y, w, h) {
+    const vw = window.innerWidth, vh = window.innerHeight;
+
+    if (Math.abs(y + h - vh) < DOCK_TOLERANCE) {
+      place((vw - w) / 2, vh - h - 12, 'bottom'); // Center bottom
+      return true;
+    }
+    if (Math.abs(y - EDGE_TOLERANCE) < DOCK_TOLERANCE) {
+      place((vw - w) / 2, EDGE_TOLERANCE, 'top'); // Center top
+      return true;
+    }
+    if (Math.abs(x - EDGE_TOLERANCE) < DOCK_TOLERANCE) {
+      place(EDGE_TOLERANCE, (vh - h) / 2, 'left'); // Middle left
+      return true;
+    }
+    if (Math.abs(x + w - vw) < DOCK_TOLERANCE) {
+      place(vw - w - EDGE_TOLERANCE, (vh - h) / 2, 'right'); // Middle right
+      return true;
+    }
+    return false;
+  }
+
+  function init() {
+    bar = getBar(); handle = getHandle();
+    if (!bar || !handle) return;
+
+    // Clone handle to kill old listeners
+    const newHandle = handle.cloneNode(true);
+    handle.parentNode.replaceChild(newHandle, handle);
+    handle = newHandle;
+
+    // Load or default to center-bottom
+    const saved = loadPos();
+    if (saved.mode && saved.left !== undefined && saved.top !== undefined) {
+      place(saved.left, saved.top, saved.mode);
+    } else {
+      place((window.innerWidth - 320) / 2, window.innerHeight - 64, 'bottom');
+    }
+
+    handle.style.cursor = 'grab';
+    handle.title = 'Drag to move (drop near edges to dock)';
+
+    handle.addEventListener('pointerdown', (e) => {
+      handle.setPointerCapture(e.pointerId);
+      dragging = true;
+      const rect = bar.getBoundingClientRect();
+      sx = e.clientX; sy = e.clientY;
+      bl = rect.left; bt = rect.top;
+      bar.classList.add('dragging');
+      handle.style.cursor = 'grabbing';
+      e.preventDefault();
+    });
+
+    handle.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      let nx = bl + e.clientX - sx;
+      let ny = bt + e.clientY - sy;
+      place(nx, ny);
+      e.preventDefault();
+    });
+
+    function stopDrag(e) {
+      if (!dragging) return;
+      dragging = false;
+      bar.classList.remove('dragging');
+      handle.style.cursor = 'grab';
+
+      const rect = bar.getBoundingClientRect();
+      const w = bar.offsetWidth, h = bar.offsetHeight;
+
+      // Auto-dock if near edge
+      if (!dockToEdge(rect.left, rect.top, w, h)) {
+        savePos(rect.left, rect.top, null);
+      }
+    }
+
+    handle.addEventListener('pointerup', stopDrag);
+    handle.addEventListener('pointercancel', stopDrag);
+    window.addEventListener('pointerup', stopDrag);
+
+    // Resize handling
+    window.addEventListener('resize', () => {
+      if (bar && !dragging) {
+        const rect = bar.getBoundingClientRect();
+        place(rect.left, rect.top);
+      }
+    });
+  }
+
+  if (document.readyState === 'complete') setTimeout(init, 0);
+  else window.addEventListener('load', () => setTimeout(init, 0));
+})();
+</script>
+
 </body>
 
 </html>

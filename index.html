@@ -150,6 +150,157 @@ body[data-theme="light"] .multi-toolbar-search-input::placeholder{color:#64748b!
 .secondary-toolbar.sticky-save-load{position:relative !important;left:auto !important;right:auto !important;bottom:auto !important;top:auto !important;z-index:auto !important;width:100% !important;margin-top:14px !important;padding-top:14px !important;background:linear-gradient(180deg,rgba(19,19,26,.92) 0,rgba(19,19,26,.98) 100%);backdrop-filter:blur(8px);border-top:1px solid rgba(124,58,237,.16);}
 .secondary-toolbar.sticky-save-load .btn{flex:1 1 140px !important;padding:10px 16px !important;font-size:.86rem !important;min-height:44px !important;}
 </style>
+
+<style>
+#helpSection{
+  width:-moz-fit-content!important;
+  width:fit-content!important;
+  max-width:100%!important;
+}
+#helpSection .help-header-btn{
+  width:-moz-fit-content!important;
+  width:fit-content!important;
+  max-width:100%!important;
+  min-width:0!important;
+}
+#helpSection #helpContent{
+  width:-moz-fit-content!important;
+  width:fit-content!important;
+  max-width:100%!important;
+}
+#helpSection .help-list{
+  width:-moz-fit-content!important;
+  width:fit-content!important;
+  max-width:100%!important;
+  justify-items:start!important;
+}
+#helpSection li{
+  width:auto!important;
+  max-width:100%!important;
+}
+</style>
+
+
+<style>
+.left-panel{
+  padding-left:14px!important;
+  padding-right:14px!important;
+}
+.left-panel .section,
+.left-panel #helpSection{
+  padding:12px 12px!important;
+  border-radius:12px!important;
+}
+.left-panel .section{
+  margin-bottom:14px!important;
+}
+.left-panel .section h2,
+.left-panel #helpSection .help-toggle-label{
+  margin-bottom:8px!important;
+}
+.left-panel .toggle-row,
+.left-panel .small-note{
+  margin-left:0!important;
+  margin-right:0!important;
+}
+.left-panel .secondary-toolbar.sticky-save-load{
+  margin-top:10px!important;
+  padding-top:6px!important;
+  background:transparent!important;
+  backdrop-filter:none!important;
+  border-top:0!important;
+  box-shadow:none!important;
+}
+.left-panel .secondary-toolbar.sticky-save-load .btn{
+  flex:1 1 120px!important;
+}
+body[data-theme="light"] .left-panel .secondary-toolbar.sticky-save-load{
+  background:transparent!important;
+  border-top:0!important;
+  box-shadow:none!important;
+}
+</style>
+
+
+<style>
+.left-tools-section.help-is-collapsed{
+  width:-moz-fit-content!important;
+  width:fit-content!important;
+  max-width:100%!important;
+  padding-right:0!important;
+}
+.left-tools-section.help-is-collapsed #helpSection,
+.left-tools-section.help-is-collapsed .help-header-btn{
+  width:-moz-fit-content!important;
+  width:fit-content!important;
+  max-width:100%!important;
+}
+.left-panel .secondary-toolbar.sticky-save-load,
+.left-panel .secondary-toolbar.sticky-save-load::before,
+.left-panel .secondary-toolbar.sticky-save-load::after{
+  border:0!important;
+  border-top:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+  background-image:none!important;
+}
+.left-panel .secondary-toolbar.sticky-save-load *{
+  box-shadow:none!important;
+}
+</style>
+
+
+<style>
+.left-tools-section,
+.left-tools-section.help-is-collapsed{
+  width:100%!important;
+  max-width:none!important;
+  padding-right:0!important;
+  box-sizing:border-box!important;
+}
+.left-tools-section.help-is-collapsed > .section,
+.left-tools-section.help-is-collapsed > #helpSection,
+.left-panel .section,
+.left-panel #helpSection,
+.left-panel .alias-panel,
+.left-panel .export-section,
+.left-panel .order-output,
+.left-panel #orderOutput{
+  width:100%!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  box-sizing:border-box!important;
+}
+.left-panel .section,
+.left-panel #helpSection{
+  padding-left:8px!important;
+  padding-right:8px!important;
+}
+.left-panel .order-output,
+.left-panel #orderOutput{
+  display:block!important;
+}
+.left-panel .secondary-toolbar,
+.left-panel .secondary-toolbar.sticky-save-load,
+.left-panel .secondary-toolbar.sticky-save-load::before,
+.left-panel .secondary-toolbar.sticky-save-load::after,
+body[data-theme="light"] .left-panel .secondary-toolbar,
+body[data-theme="light"] .left-panel .secondary-toolbar.sticky-save-load,
+body[data-theme="light"] .left-panel .secondary-toolbar.sticky-save-load::before,
+body[data-theme="light"] .left-panel .secondary-toolbar.sticky-save-load::after{
+  border:0!important;
+  border-top:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+  background-image:none!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+</style>
+
 </head>
 <body class="series-panel-removed tools-panel-fixed">
 <!-- APP LAYOUT -->
@@ -157,7 +308,7 @@ body[data-theme="light"] .multi-toolbar-search-input::placeholder{color:#64748b!
 <!-- LEFT TOOLS PANEL -->
 <aside class="panel left-panel"><div id=leftToolsSection class=left-tools-section><div id=helpSection class="section collapsible-section is-collapsed"><button id=helpToggleBtn class="section-head help-header-btn" type=button aria-controls=helpContent aria-expanded=false><span class=help-toggle-label>How to use</span><span id=helpToggleIndicator class=help-toggle-indicator>▸</span></button><div id=helpContent class="help-collapsible is-hidden"><ul class=help-list><li><strong>1.</strong> Paste your:<br>• <code>$mmis</code><br>• <code>$mmsaty+ri-c+x+kom+</code><br>• <code>$mmty+i-c+x+kom+</code><br>Or <strong>Load</strong> a Saved JSON</li><li><strong>2.</strong> Press <strong>Parse</strong>.</li><li><strong>3.</strong> Drag the cards to reorder your harem.</li><li><strong>4.</strong> Filter by name, owner, or roulette.</li><li><strong>5.</strong> Save your list with <strong>Save JSON.</strong></li></ul></div></div><div class=section><h2>Export for $sm</h2><label class=toggle-row><input type=checkbox id=nitroMode checked> I have Nitro (4.000 charLimit)</label><label class=toggle-row style=margin-top:10px><input type=checkbox id=exportAliasToggle> Show export alias fixes</label><div id=exportAliasPanel class="alias-panel hidden"><label for=exportAliasInput class=small-note style=display:block>Manual fix for wrong exported names, one per line: original=exported.</label><textarea id=exportAliasInput placeholder="tundra3=tundra_3" style=min-height:88px;margin-top:8px></textarea></div><div id=orderOutput class=order-output>Nothing loaded yet.</div></div></div><div class="secondary-toolbar sticky-save-load"><button class="btn btn-primary" id=saveBtn>Save JSON</button><button class="btn btn-ghost" id=loadBtn>Load JSON</button><input id=loadJsonInput type=file accept=application/json,.json style=display:none></div></aside>
 <!-- MAIN PANEL -->
-<main class="panel main-panel"><div class=section><h1>Kouno - Harem Organizer</h1><p class=subtitle>This is a mudae organizer made with GPT-5.4. v7.4.26</p><textarea id=input placeholder="Paste your full $mmis, $mmsaty+ri-c+x+kom+ or $mmty+i-c+x+kom+ here..."></textarea><div class=toolbar><button class="btn btn-primary" id=parseBtn>Parse</button><button class="btn btn-secondary" id=demoBtn>Load demo</button><button class="btn btn-danger" id=clearBtn>Clear</button></div><label class="sync-mode-wrapper" id="syncModeLabel" for="syncModeCheckbox"><input type="checkbox" id="syncModeCheckbox"><span class="sync-text"><span class="sync-label">&#128257; Sync Mode</span><span class="sync-desc">Synchronize characters with other harems you have.</span></span></label><div id=message class=message></div></div><div class=filters-grid><div class=control><label for=searchInput>Search</label><input id=searchInput type=text placeholder="Name, series, owner, or note..."></div><div class=control><label for=ownerFilter>Owner</label><select id=ownerFilter><option value>All</option></select></div><div class=control><label for=rouletteFilter>Roulette</label><select id=rouletteFilter><option value>All</option><option value=$wa>$wa</option><option value=$ha>$ha</option><option value=$wg>$wg</option><option value=$hg>$hg</option></select></div></div><div class=stats-grid><div class=card-box><div class=stat-label>Total characters</div><div class=stat-value id=totalCount>0</div></div><div class=card-box><div class=stat-label>Visible</div><div class=stat-value id=visibleCount>0</div></div><div class=card-box><div class=stat-label>Total kakera</div><div class=stat-value id=totalKakera>0</div></div><div class=card-box><div class=stat-label>Total keys</div><div class=stat-value id=totalKeys>0</div></div></div><div class=sticky-summary-panel><div class=sticky-summary-title>Harem summary</div><div class=summary-grid><div class=card-box><div class=stat-label>Name</div><div id=haremName class="stat-value harem-name-fit">-</div></div><div class=card-box><div class=stat-label>Total value</div><div class=stat-value id=haremValue>0</div></div><div class=card-box><div class=stat-label>$wa / $ha</div><div class=stat-value id=wahaCount>0 / 0</div></div><div class=card-box><div class=stat-label>$wg / $hg</div><div class=stat-value id=wghgCount>0 / 0</div></div></div></div><section><div class=board-header><div><h2>Harem board</h2><p class=board-subtitle>Image, name, owner, rank/kakera/keys, gender and roulette.</p></div></div><div id=board class=board></div></section><div class=footer>Made with GPT-5.4 Contact <strong>Kouno</strong> on Discord.</div></main></div>
+<main class="panel main-panel"><div class=section><h1>Kouno - Harem Organizer</h1><p class=subtitle>This is a mudae organizer made with GPT-5.4. v8.4.26</p><textarea id=input placeholder="Paste your full $mmis, $mmsaty+ri-c+x+kom+ or $mmty+i-c+x+kom+ here..."></textarea><div class=toolbar><button class="btn btn-primary" id=parseBtn>Parse</button><button class="btn btn-secondary" id=demoBtn>Load demo</button><button class="btn btn-danger" id=clearBtn>Clear</button></div><label class="sync-mode-wrapper" id="syncModeLabel" for="syncModeCheckbox"><input type="checkbox" id="syncModeCheckbox"><span class="sync-text"><span class="sync-label">&#128257; Sync Mode</span><span class="sync-desc">Synchronize characters with other harems you have.</span></span></label><div id=message class=message></div></div><div class=filters-grid><div class=control><label for=searchInput>Search</label><input id=searchInput type=text placeholder="Name, series, owner, or note..."></div><div class=control><label for=ownerFilter>Owner</label><select id=ownerFilter><option value>All</option></select></div><div class=control><label for=rouletteFilter>Roulette</label><select id=rouletteFilter><option value>All</option><option value=$wa>$wa</option><option value=$ha>$ha</option><option value=$wg>$wg</option><option value=$hg>$hg</option></select></div></div><div class=stats-grid><div class=card-box><div class=stat-label>Total characters</div><div class=stat-value id=totalCount>0</div></div><div class=card-box><div class=stat-label>Visible</div><div class=stat-value id=visibleCount>0</div></div><div class=card-box><div class=stat-label>Total kakera</div><div class=stat-value id=totalKakera>0</div></div><div class=card-box><div class=stat-label>Total keys</div><div class=stat-value id=totalKeys>0</div></div></div><div class=sticky-summary-panel><div class=sticky-summary-title>Harem summary</div><div class=summary-grid><div class=card-box><div class=stat-label>Name</div><div id=haremName class="stat-value harem-name-fit">-</div></div><div class=card-box><div class=stat-label>Total value</div><div class=stat-value id=haremValue>0</div></div><div class=card-box><div class=stat-label>$wa / $ha</div><div class=stat-value id=wahaCount>0 / 0</div></div><div class=card-box><div class=stat-label>$wg / $hg</div><div class=stat-value id=wghgCount>0 / 0</div></div></div></div><section><div class=board-header><div><h2>Harem board</h2><p class=board-subtitle>Image, name, owner, rank/kakera/keys, gender and roulette.</p></div></div><div id=board class=board></div></section><div class=footer>Made with GPT-5.4 Contact <strong>Kouno</strong> on Discord.</div></main></div>
 <!-- FLOATING MULTISELECT BAR -->
 <div id="multiSelectBar" class="floating-corner-btn-group"><div id="multiSelectDragHandle" class="drag-handle" title="Move toolbar" aria-label="Move toolbar" role="button" tabindex="0">⋮⋮</div><div class="multi-toolbar-search-wrap"><input id="floatingSearchInput" class="multi-toolbar-search-input" type="text" placeholder="Search..."></div><button id="editCharBtn" class="btn btn-ghost multi-select-btn" title="Edit character">✎ Edit</button><button id="addDividerBtn" class="btn btn-ghost multi-select-btn" title="Add divider">Add divider</button><button id="multiSelectToggleBtn" class="btn btn-ghost multi-select-btn" title="Multi-select: Off">Multi-select: Off</button><button id="moveSelectedBtn" class="btn btn-ghost multi-select-btn" disabled hidden title="Move selected">Move (0)</button><button id="clearSelectedBtn" class="btn btn-danger multi-select-btn" disabled hidden title="Delete selected">Delete (0)</button><button id="jumpPageTopBtn" class="btn btn-ghost multi-select-btn jump-inline-btn" type="button" title="Go up" aria-label="Go up">↑</button><button id="jumpPageBottomBtn" class="btn btn-ghost multi-select-btn jump-inline-btn" type="button" title="Go down" aria-label="Go down">↓</button></div>
 <!-- MOVE MODAL -->
@@ -1778,6 +1929,124 @@ if(typeof window.updateOrderOutput==='function'){try{window.updateOrderOutput();
       if(typeof saveLocal==='function') saveLocal(false);
     });
   }
+})();
+</script>
+
+
+<script>
+(function () {
+  if (window.__fastSmpSmartPatchApplied) return;
+  window.__fastSmpSmartPatchApplied = true;
+
+  function safeCopyText(text) {
+    var value = String(text == null ? '' : text);
+    if (!value) return Promise.reject(new Error('empty'));
+    if (window.copyTextToClipboard) return window.copyTextToClipboard(value);
+    if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(value);
+    return Promise.reject(new Error('clipboard'));
+  }
+
+  function bindDirectChunkCopy() {
+    if (window.__fastSmpDirectChunkCopyBound) return;
+    window.__fastSmpDirectChunkCopyBound = true;
+    document.addEventListener('click', function (event) {
+      var btn = event.target && event.target.closest ? event.target.closest('.chunk-copy-btn') : null;
+      var output = document.getElementById('orderOutput');
+      if (!btn || !output || !output.contains(btn)) return;
+      var card = btn.closest ? btn.closest('.chunk-card') : null;
+      var textEl = card ? card.querySelector('.chunk-text') : null;
+      var text = textEl ? textEl.textContent : '';
+      if (!text) return;
+      event.preventDefault();
+      event.stopPropagation();
+      if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+      var scope = String(btn.getAttribute('data-scope') || 'full').toLowerCase();
+      var header = card ? card.querySelector('.chunk-header span') : null;
+      var label = header ? header.textContent.replace(/\s+/g, ' ').trim() : 'Block';
+      safeCopyText(text).then(function () {
+        if (window.showMessage) {
+          if (scope === 'changed') showMessage(label + ' copied.');
+          else showMessage(label + ' copied.');
+        }
+      }).catch(function () {
+        if (window.showMessage) showMessage('Could not copy the $smp.', 'error');
+      });
+      return false;
+    }, true);
+  }
+
+  function rebuildGroupFromRange(start, end) {
+    if (!window.AppState || !Array.isArray(AppState.characters)) return null;
+    if (typeof window.getRealCharacters !== 'function' || typeof window.buildChunksFromCharacters !== 'function') return null;
+    var realChars = window.getRealCharacters(AppState.characters);
+    if (!realChars.length) return null;
+    var safeStart = Math.max(1, Math.min(parseInt(start, 10) || 1, realChars.length));
+    var safeEnd = Math.max(safeStart, Math.min(parseInt(end, 10) || safeStart, realChars.length));
+    var changedChars = realChars.slice(safeStart - 1, safeEnd);
+    if (!changedChars.length) return null;
+    var carryName = typeof window.getExportName === 'function' ? window.getExportName(changedChars[0]) : changedChars[0].name;
+    return {
+      start: safeStart,
+      end: safeEnd,
+      rawEnd: safeEnd,
+      changedCount: changedChars.length,
+      carryName: carryName,
+      chunks: window.buildChunksFromCharacters(changedChars.slice(), '$smp ')
+    };
+  }
+
+  function mergeNearbyChangedGroups(groups) {
+    if (!Array.isArray(groups) || !groups.length) return groups || [];
+    var sorted = groups.filter(Boolean).map(function (group) {
+      return {
+        start: parseInt(group.start, 10) || 1,
+        end: parseInt(group.end, 10) || parseInt(group.rawEnd, 10) || 1
+      };
+    }).sort(function (a, b) {
+      return a.start - b.start;
+    });
+    if (!sorted.length) return [];
+    var maxGap = 2;
+    var merged = [sorted[0]];
+    for (var i = 1; i < sorted.length; i += 1) {
+      var current = merged[merged.length - 1];
+      var next = sorted[i];
+      var gap = next.start - current.end - 1;
+      if (gap <= maxGap) {
+        current.end = Math.max(current.end, next.end);
+      } else {
+        merged.push(next);
+      }
+    }
+    return merged.map(function (range) {
+      return rebuildGroupFromRange(range.start, range.end);
+    }).filter(Boolean);
+  }
+
+  function wrapChangedExports() {
+    if (typeof window.buildChangedZoneExports !== 'function' || window.buildChangedZoneExports.__smartFastSmpWrapped) return;
+    var original = window.buildChangedZoneExports;
+    window.buildChangedZoneExports = function () {
+      var groups = original.apply(this, arguments);
+      return mergeNearbyChangedGroups(groups);
+    };
+    window.buildChangedZoneExports.__smartFastSmpWrapped = true;
+  }
+
+  function refreshOutput() {
+    if (typeof window.updateOrderOutput === 'function') {
+      try { window.updateOrderOutput(); } catch (e) {}
+    }
+  }
+
+  function boot() {
+    bindDirectChunkCopy();
+    wrapChangedExports();
+    refreshOutput();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();
 </script>
 

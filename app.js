@@ -574,3 +574,16 @@ function loadDroppedFile(file){if(!file)return;if(!looksLikeJsonFile(file)){if(t
 function bind(){if(document.documentElement.dataset.jsonDropBound==='1')return;document.documentElement.dataset.jsonDropBound='1';var depth=0;window.addEventListener('dragenter',function(event){if(!event.dataTransfer)return;var files=event.dataTransfer.types&&Array.prototype.indexOf.call(event.dataTransfer.types,'Files')!==-1;if(!files)return;depth++;showOverlay();},true);window.addEventListener('dragover',function(event){if(!event.dataTransfer)return;var files=event.dataTransfer.types&&Array.prototype.indexOf.call(event.dataTransfer.types,'Files')!==-1;if(!files)return;event.preventDefault();event.dataTransfer.dropEffect='copy';showOverlay();},true);window.addEventListener('dragleave',function(event){if(!event.dataTransfer)return;depth=Math.max(0,depth-1);if(depth===0)hideOverlay();},true);window.addEventListener('drop',function(event){if(!event.dataTransfer)return;event.preventDefault();depth=0;hideOverlay();var files=event.dataTransfer.files;if(!files||!files.length)return;loadDroppedFile(files[0]);},true);window.addEventListener('blur',function(){depth=0;hideOverlay();});}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind);else bind();
 })();
+
+
+/* delete-confirm-on-top-v101 */
+(function(){
+if(window.__deleteConfirmOnTopV101)return;window.__deleteConfirmOnTopV101=true;
+function q(id){return document.getElementById(id)}
+function syncModalLayers(){var del=q('deleteModalOverlay'),edit=q('editCharModalOverlay');if(edit){edit.style.zIndex='12000';edit.style.position='fixed';}
+if(del){del.style.zIndex='12050';del.style.position='fixed';}}
+function elevateDeleteModalIfOpen(){syncModalLayers();var del=q('deleteModalOverlay');if(!del)return;if(del.classList.contains('show')||del.getAttribute('aria-hidden')==='false'){del.style.zIndex='12050';}}
+function wrapOpenDelete(){if(typeof window.openDeleteConfirmModal!=='function'||window.openDeleteConfirmModal.__v101Wrapped)return;var original=window.openDeleteConfirmModal;window.openDeleteConfirmModal=function(){var result=original.apply(this,arguments);setTimeout(elevateDeleteModalIfOpen,0);return result};window.openDeleteConfirmModal.__v101Wrapped=true;}
+function install(){syncModalLayers();wrapOpenDelete();}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install);else install();
+})();

@@ -100,3 +100,7 @@ body[data-theme="light"] #editCharModalOverlay .sync-replace-actions{border-top-
 #editCharConfirmBtn{order:1}
 #editCharCancelBtn{order:2}
 #editCharDeleteBtn{order:3;margin-left:auto}
+
+#deleteModalOverlay{z-index:12050!important}
+#editCharModalOverlay{z-index:12000!important}
+#deleteModalOverlay.show{display:flex!important}

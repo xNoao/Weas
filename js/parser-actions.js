@@ -96,9 +96,57 @@ function sphereNormalizeName(value){return normalizeStableText(String(value||'')
 function sphereLevelsCost(level){var costs=[0,200,600,1200,2000,3000,5000];return costs[Math.max(0,Math.min(6,parseInt(level,10)||0))]||0;}
 function sphereTotalFromLevels(levels){var total=0;for(var i=0;i<10;i++){var n=parseInt(levels[i],10)||0;if(i<5)total+=sphereLevelsCost(n);else if(n>0)total+=1000;}return total;}
 function sphereCompactLevels(levels){var has=false;var out=[];for(var i=0;i<10;i++){var max=i<5?6:1;var n=Math.max(0,Math.min(max,parseInt(levels[i],10)||0));if(n>0)has=true;out.push(n);}return has?{levels:out}:null;}
-function inferSphereLevelsFromCostAndPerks(totalCost, perkTokens, isFull){var levels=[0,0,0,0,0,0,0,0,0,0];var cost=parseInt(String(totalCost||'').replace(/,/g,''),10)||0;if(isFull||cost>=30000){for(var f=0;f<5;f++)levels[f]=6;for(var g=5;g<10;g++)levels[g]=1;return levels;}var perks=[];(perkTokens||[]).forEach(function(p){var n=parseInt(p,10);if(n>=1&&n<=10&&perks.indexOf(n)===-1)perks.push(n);});perks.forEach(function(p){if(p>=6)levels[p-1]=1;});var fixed=0;for(var i=5;i<10;i++)if(levels[i])fixed+=1000;var low=perks.filter(function(p){return p>=1&&p<=5;});var remaining=Math.max(0,cost-fixed);if(low.length){var best=null;function walk(pos, arr, sum){if(pos>=low.length){var diff=Math.abs(sum-remaining);if(!best||diff<best.diff||(diff===best.diff&&sum>best.sum))best={levels:arr.slice(),diff:diff,sum:sum};return;}for(var lv=1;lv<=6;lv++){arr[pos]=lv;walk(pos+1,arr,sum+sphereLevelsCost(lv));}}
-walk(0,[],0);if(best){for(var j=0;j<low.length;j++)levels[low[j]-1]=best.levels[j]||1;}}
-return levels;}
+function inferSphereLevelsFromCostAndPerks(totalCost, perkTokens, isFull){
+  var levels=[0,0,0,0,0,0,0,0,0,0];
+  var cost=parseInt(String(totalCost||'').replace(/,/g,''),10)||0;
+
+  if(isFull||cost>=30000){
+    for(var f=0;f<5;f++)levels[f]=6;
+    for(var g=5;g<10;g++)levels[g]=1;
+    return levels;
+  }
+
+  var perks=[];
+  (perkTokens||[]).forEach(function(p){
+    var n=parseInt(p,10);
+    if(n>=1&&n<=10&&perks.indexOf(n)===-1)perks.push(n);
+  });
+
+  // Explicit high perks from Mudae lists like "2000 sp - 9, 10".
+  // These must always map directly to P6-P10 toggles.
+  perks.forEach(function(p){
+    if(p>=6&&p<=10) levels[p-1]=1;
+  });
+
+  var fixedHigh=0;
+  for(var i=5;i<10;i++) if(levels[i]) fixedHigh+=1000;
+
+  var low=perks.filter(function(p){return p>=1&&p<=5;});
+  var remaining=Math.max(0,cost-fixedHigh);
+
+  // If Mudae only reports cost but no explicit perk list, do not guess P6-P10.
+  // If it reports low perks, infer their levels from the remaining cost.
+  if(low.length){
+    var best=null;
+    function walk(pos, arr, sum){
+      if(pos>=low.length){
+        var diff=Math.abs(sum-remaining);
+        if(!best||diff<best.diff||(diff===best.diff&&sum>best.sum))best={levels:arr.slice(),diff:diff,sum:sum};
+        return;
+      }
+      for(var lv=1;lv<=6;lv++){
+        arr[pos]=lv;
+        walk(pos+1,arr,sum+sphereLevelsCost(lv));
+      }
+    }
+    walk(0,[],0);
+    if(best){
+      for(var j=0;j<low.length;j++) levels[low[j]-1]=best.levels[j]||1;
+    }
+  }
+
+  return levels;
+}
 function parseMudaeSphereLine(line){var raw=String(line||'').trim();if(!raw||!/\bsp\b|:sp:/i.test(raw))return null;if(/total\s+invested/i.test(raw))return null;var m=raw.match(/^(.+?)\s+([\d,]+)\s*(?:sp|:sp:)\s*(?:-\s*(.*))?$/i);if(!m)return null;var left=m[1].trim();var total=parseInt(m[2].replace(/,/g,''),10)||0;var tail=String(m[3]||'').trim();var parts=left.split(/\s*\|\s*/);var name=(parts.shift()||'').trim();var note=parts.join(' | ').trim();name=name.replace(/^[\s•*-]+/,'').trim();if(!name)return null;var full=/\bfull\b/i.test(tail);var perkTokens=[];if(!full){var matches=tail.match(/\d+/g)||[];perkTokens=matches.map(function(x){return parseInt(x,10);}).filter(function(n){return n>=1&&n<=10;});}
 var levels=inferSphereLevelsFromCostAndPerks(total, perkTokens, full);return {name:name,note:note,total:total,spheres:sphereCompactLevels(levels)};}
 function parseMudaeSpheresUpdate(raw){var text=normalizeInput(raw);if(!text||!/\bTotal\s+invested\b|\bsp\b|:sp:/i.test(text))return null;var lines=text.split(/\n+/).map(function(line){return line.trim();}).filter(Boolean);var rows=[];for(var i=0;i<lines.length;i++){var row=parseMudaeSphereLine(lines[i]);if(row&&row.spheres)rows.push(row);}if(!rows.length)return null;var chars=AppState&&Array.isArray(AppState.characters)?AppState.characters:[];var byName={};for(var c=0;c<chars.length;c++){var item=chars[c];if(!item||isDividerItem(item))continue;var key=sphereNormalizeName(item.name);if(key&&!byName[key])byName[key]=item;}

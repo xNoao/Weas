@@ -411,7 +411,7 @@ body[data-theme="light"] .mudae-image-helper-status[data-tone="warn"]{color:#924
 }
 .mudae-image-side-actions{
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:1fr 1fr 1fr;
   gap:8px;
   margin-bottom:10px;
 }
@@ -532,4 +532,1017 @@ body[data-theme="light"] .mudae-image-helper-status[data-tone="warn"]{color:#924
 
 .mudae-image-gallery{grid-template-columns:repeat(2,minmax(0,1fr));}
   .mudae-image-side-actions{grid-template-columns:1fr;}
+}
+
+/* v44: compact Mudae URL box + horizontal gallery with preserved image ratio */
+#mudaeImagePasteInput{
+  min-height:46px!important;
+  height:52px!important;
+  max-height:86px!important;
+  resize:vertical!important;
+  font-size:.76rem!important;
+  line-height:1.25!important;
+}
+.mudae-image-paste-box label{
+  margin-bottom:4px!important;
+  font-size:.72rem!important;
+}
+.mudae-image-gallery{
+  display:none!important;
+  grid-template-columns:none!important;
+  gap:10px!important;
+  max-height:none!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  padding:2px 2px 8px!important;
+  scrollbar-width:thin;
+}
+.mudae-image-gallery.has-results{
+  display:flex!important;
+  flex-wrap:nowrap!important;
+  align-items:flex-start!important;
+}
+.mudae-image-choice{
+  flex:0 0 auto!important;
+  width:138px!important;
+  min-width:138px!important;
+  aspect-ratio:auto!important;
+  height:auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:6px!important;
+  padding:6px!important;
+  overflow:visible!important;
+}
+.mudae-image-choice img{
+  width:auto!important;
+  height:auto!important;
+  max-width:100%!important;
+  max-height:188px!important;
+  object-fit:contain!important;
+  border-radius:8px!important;
+  background:rgba(0,0,0,.24)!important;
+}
+.mudae-image-choice span{
+  position:static!important;
+  left:auto!important;
+  right:auto!important;
+  bottom:auto!important;
+  width:100%!important;
+  min-height:22px!important;
+  margin:0!important;
+  box-shadow:none!important;
+}
+
+/* v45: slimmer Mudae URL area + horizontal strip with preserved image ratio */
+#mudaeImageSidePanel .mudae-image-paste-box{
+  margin-top:10px!important;
+  padding:10px!important;
+  gap:8px!important;
+}
+#mudaeImageSidePanel .mudae-image-paste-box label{
+  margin-bottom:2px!important;
+  font-size:.70rem!important;
+  letter-spacing:.06em!important;
+}
+#mudaeImagePasteInput{
+  min-height:36px!important;
+  height:42px!important;
+  max-height:58px!important;
+  resize:vertical!important;
+  padding:8px 10px!important;
+  font-size:.74rem!important;
+  line-height:1.2!important;
+}
+#mudaeImageSidePanel .mudae-image-helper-panel-actions{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:8px!important;
+}
+
+#mudaeImageGallery{
+  display:none!important;
+  grid-template-columns:none!important;
+  gap:10px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  padding:2px 2px 10px!important;
+  margin:0!important;
+  max-height:none!important;
+  scroll-snap-type:x proximity;
+  align-items:flex-start!important;
+}
+#mudaeImageGallery.has-results{
+  display:flex!important;
+  flex-wrap:nowrap!important;
+}
+#mudaeImageGallery .mudae-image-choice{
+  flex:0 0 auto!important;
+  width:132px!important;
+  min-width:132px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:8px!important;
+  padding:6px!important;
+  overflow:visible!important;
+  scroll-snap-align:start;
+  aspect-ratio:auto!important;
+  height:auto!important;
+}
+#mudaeImageGallery .mudae-image-choice img{
+  display:block!important;
+  width:auto!important;
+  height:auto!important;
+  max-width:100%!important;
+  max-height:176px!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  border-radius:10px!important;
+  background:rgba(0,0,0,.22)!important;
+}
+#mudaeImageGallery .mudae-image-choice span{
+  position:static!important;
+  width:100%!important;
+  min-height:24px!important;
+  margin:0!important;
+  box-shadow:none!important;
+}
+
+@media (max-width: 980px){
+  #mudaeImageGallery .mudae-image-choice{
+    width:118px!important;
+    min-width:118px!important;
+  }
+  #mudaeImageGallery .mudae-image-choice img{
+    max-height:158px!important;
+  }
+}
+
+
+/* v46: Mudae gallery uses available vertical space with multi-row grid */
+#mudaeImageSidePanel{
+  display:flex!important;
+  flex-direction:column!important;
+  min-height:620px!important;
+}
+
+#mudaeImageSidePanel[hidden]{
+  display:none!important;
+}
+
+#mudaeImageSidePanel .mudae-image-side-head,
+#mudaeImageSidePanel .mudae-image-side-actions,
+#mudaeImageSidePanel .mudae-image-helper-status,
+#mudaeImageSidePanel .mudae-image-side-note,
+#mudaeImageSidePanel .mudae-image-paste-box{
+  flex:0 0 auto!important;
+}
+
+#mudaeImageGallery{
+  flex:1 1 auto!important;
+  display:none!important;
+  grid-template-columns:repeat(auto-fill,minmax(116px,1fr))!important;
+  grid-auto-rows:auto!important;
+  gap:10px!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  padding:2px 2px 10px!important;
+  margin:0!important;
+  max-height:360px!important;
+  scrollbar-width:thin;
+}
+
+#mudaeImageGallery.has-results{
+  display:grid!important;
+}
+
+#mudaeImageGallery .mudae-image-choice{
+  width:100%!important;
+  min-width:0!important;
+  height:auto!important;
+  aspect-ratio:auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:6px!important;
+  padding:6px!important;
+  overflow:hidden!important;
+}
+
+#mudaeImageGallery .mudae-image-choice img{
+  display:block!important;
+  width:100%!important;
+  height:154px!important;
+  max-width:100%!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  border-radius:10px!important;
+  background:rgba(0,0,0,.22)!important;
+}
+
+#mudaeImageGallery .mudae-image-choice span{
+  position:static!important;
+  width:100%!important;
+  min-height:22px!important;
+  margin:0!important;
+  box-shadow:none!important;
+  flex:0 0 auto!important;
+}
+
+#mudaeImageSidePanel .mudae-image-paste-box{
+  margin-top:8px!important;
+  padding:8px!important;
+}
+
+#mudaeImagePasteInput{
+  min-height:32px!important;
+  height:38px!important;
+  max-height:52px!important;
+}
+
+@media (min-height: 850px){
+  #mudaeImageGallery{
+    max-height:460px!important;
+  }
+}
+
+@media (min-width: 1180px){
+  #mudaeImageGallery{
+    grid-template-columns:repeat(auto-fill,minmax(124px,1fr))!important;
+  }
+  #mudaeImageGallery .mudae-image-choice img{
+    height:166px!important;
+  }
+}
+
+@media (max-width: 980px){
+  #mudaeImageSidePanel{
+    min-height:480px!important;
+  }
+  #mudaeImageGallery{
+    max-height:300px!important;
+    grid-template-columns:repeat(auto-fill,minmax(104px,1fr))!important;
+  }
+  #mudaeImageGallery .mudae-image-choice img{
+    height:140px!important;
+  }
+}
+
+
+/* v47: tighter edit layout + larger Mudae panel + non-overlapping image cards */
+
+/* Move the Mudae search helper under the image preview instead of under Image URL */
+.edit-char-preview-wrap,
+.edit-char-preview,
+.image-preview-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+#mudaeImageHelper{
+  margin-top:8px!important;
+  width:100%!important;
+  max-width:185px!important;
+  align-self:center!important;
+}
+
+#mudaeImageHelper .mudae-image-helper-actions{
+  display:block!important;
+  width:100%!important;
+}
+
+#mudaeImageHelper .mudae-image-helper-actions .btn{
+  width:100%!important;
+  min-height:34px!important;
+}
+
+/* Try to place helper right after the preview area visually when the modal has the common preview column */
+.edit-char-image-preview-col #mudaeImageHelper,
+.edit-char-preview-col #mudaeImageHelper,
+.preview-column #mudaeImageHelper{
+  order:10;
+}
+
+/* In case the helper is still inserted below the Image URL field, make it visually compact. */
+.control + #mudaeImageHelper{
+  margin-top:6px!important;
+}
+
+/* Give the right-side Mudae panel more usable height */
+#editCharModalOverlay .edit-char-modal.mudae-side-active{
+  width:min(1280px, calc(100vw - 36px))!important;
+  max-height:calc(100vh - 32px)!important;
+}
+
+#editCharModalOverlay .edit-char-modal-body.mudae-side-active{
+  align-items:stretch!important;
+}
+
+#mudaeImageSidePanel{
+  min-height:720px!important;
+  max-height:calc(100vh - 88px)!important;
+  height:calc(100vh - 128px)!important;
+  display:flex!important;
+  flex-direction:column!important;
+}
+
+#mudaeImageSidePanel[hidden]{
+  display:none!important;
+}
+
+#mudaeImageSidePanel .mudae-image-side-head{
+  padding-bottom:8px!important;
+}
+
+#mudaeImageSidePanel .mudae-image-side-actions{
+  grid-template-columns:1fr 1fr!important;
+  gap:8px!important;
+  margin-bottom:8px!important;
+}
+
+#mudaeImageSidePanel .mudae-image-side-note{
+  padding:7px 9px!important;
+  margin-bottom:8px!important;
+  font-size:.72rem!important;
+  line-height:1.25!important;
+}
+
+#mudaeImageSidePanel .mudae-image-helper-status{
+  min-height:18px!important;
+  margin:4px 0 6px!important;
+}
+
+/* Multi-row grid, aiming for 3 rows visible on normal desktop height */
+#mudaeImageGallery{
+  flex:1 1 auto!important;
+  display:none!important;
+  grid-template-columns:repeat(auto-fill,minmax(112px,1fr))!important;
+  grid-auto-rows:auto!important;
+  gap:10px!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  padding:2px 2px 10px!important;
+  margin:0!important;
+  max-height:none!important;
+  min-height:0!important;
+  scrollbar-width:thin;
+}
+
+#mudaeImageGallery.has-results{
+  display:grid!important;
+}
+
+#mudaeImageGallery .mudae-image-choice{
+  width:100%!important;
+  min-width:0!important;
+  height:auto!important;
+  min-height:0!important;
+  aspect-ratio:auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:flex-start!important;
+  gap:6px!important;
+  padding:6px!important;
+  overflow:hidden!important;
+  box-sizing:border-box!important;
+}
+
+#mudaeImageGallery .mudae-image-choice img{
+  display:block!important;
+  width:100%!important;
+  height:138px!important;
+  min-height:138px!important;
+  max-height:138px!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  border-radius:9px!important;
+  background:rgba(0,0,0,.22)!important;
+  flex:0 0 auto!important;
+}
+
+#mudaeImageGallery .mudae-image-choice span{
+  position:static!important;
+  left:auto!important;
+  right:auto!important;
+  bottom:auto!important;
+  width:100%!important;
+  min-height:24px!important;
+  line-height:24px!important;
+  margin:0!important;
+  padding:0 8px!important;
+  box-shadow:none!important;
+  flex:0 0 24px!important;
+  transform:none!important;
+}
+
+/* Keep paste area small at the bottom */
+#mudaeImageSidePanel .mudae-image-paste-box{
+  flex:0 0 auto!important;
+  margin-top:8px!important;
+  padding:8px!important;
+}
+
+#mudaeImagePasteInput{
+  min-height:30px!important;
+  height:34px!important;
+  max-height:46px!important;
+  padding:7px 9px!important;
+  line-height:1.15!important;
+}
+
+#mudaeImageSidePanel .mudae-image-helper-panel-actions{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:8px!important;
+}
+
+@media (min-height: 860px){
+  #mudaeImageGallery .mudae-image-choice img{
+    height:150px!important;
+    min-height:150px!important;
+    max-height:150px!important;
+  }
+}
+
+@media (min-width: 1180px){
+  #mudaeImageGallery{
+    grid-template-columns:repeat(auto-fill,minmax(120px,1fr))!important;
+  }
+}
+
+@media (max-height: 760px){
+  #mudaeImageSidePanel{
+    min-height:560px!important;
+    height:calc(100vh - 96px)!important;
+  }
+  #mudaeImageGallery .mudae-image-choice img{
+    height:118px!important;
+    min-height:118px!important;
+    max-height:118px!important;
+  }
+}
+
+@media (max-width: 980px){
+  #mudaeImageSidePanel{
+    min-height:480px!important;
+    height:auto!important;
+    max-height:70vh!important;
+  }
+  #mudaeImageGallery{
+    grid-template-columns:repeat(auto-fill,minmax(104px,1fr))!important;
+  }
+}
+
+
+/* v48: rebuild Mudae gallery cards to avoid overlap and make 77+ images browsable */
+#mudaeImageSidePanel{
+  height:calc(100vh - 72px)!important;
+  max-height:calc(100vh - 72px)!important;
+  min-height:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+}
+
+#mudaeImageSidePanel[hidden]{
+  display:none!important;
+}
+
+#mudaeImageSidePanel .mudae-image-side-head{
+  flex:0 0 auto!important;
+  padding:12px 14px 6px!important;
+}
+
+#mudaeImageSidePanel .mudae-image-side-actions{
+  flex:0 0 auto!important;
+  margin:6px 0!important;
+}
+
+#mudaeImageSidePanel .mudae-image-helper-status{
+  flex:0 0 auto!important;
+  margin:4px 0 6px!important;
+  min-height:18px!important;
+}
+
+#mudaeImageSidePanel .mudae-image-side-note{
+  flex:0 0 auto!important;
+  padding:7px 9px!important;
+  margin:4px 0 8px!important;
+  font-size:.70rem!important;
+  line-height:1.25!important;
+}
+
+/* Gallery becomes the main scroll area */
+#mudaeImageGallery{
+  flex:1 1 auto!important;
+  min-height:300px!important;
+  max-height:none!important;
+  display:none!important;
+  grid-template-columns:repeat(auto-fill,minmax(112px,1fr))!important;
+  gap:10px!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  padding:4px 4px 10px!important;
+  margin:0!important;
+  scrollbar-width:thin;
+  align-content:start!important;
+}
+
+#mudaeImageGallery.has-results{
+  display:grid!important;
+}
+
+/* Neutralize old button-based gallery rules */
+#mudaeImageGallery .mudae-image-choice{
+  display:none!important;
+}
+
+/* New non-overlapping cards */
+#mudaeImageGallery .mudae-image-card{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:6px!important;
+  padding:6px!important;
+  border:1px solid rgba(255,255,255,.14)!important;
+  border-radius:12px!important;
+  background:rgba(255,255,255,.045)!important;
+  overflow:hidden!important;
+  min-width:0!important;
+  height:190px!important;
+  box-sizing:border-box!important;
+}
+
+#mudaeImageGallery .mudae-image-card img{
+  display:block!important;
+  width:100%!important;
+  height:144px!important;
+  max-height:144px!important;
+  min-height:144px!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  border-radius:9px!important;
+  background:rgba(0,0,0,.28)!important;
+  flex:0 0 auto!important;
+}
+
+#mudaeImageGallery .mudae-image-use-btn{
+  width:100%!important;
+  height:28px!important;
+  min-height:28px!important;
+  line-height:26px!important;
+  padding:0 8px!important;
+  border-radius:9px!important;
+  flex:0 0 auto!important;
+  position:static!important;
+  box-shadow:none!important;
+}
+
+/* Paste box stays compact and does not steal vertical space */
+#mudaeImageSidePanel .mudae-image-paste-box{
+  flex:0 0 auto!important;
+  margin-top:8px!important;
+  padding:8px!important;
+}
+
+#mudaeImagePasteInput{
+  min-height:28px!important;
+  height:34px!important;
+  max-height:44px!important;
+  resize:vertical!important;
+  padding:6px 9px!important;
+  font-size:.72rem!important;
+  line-height:1.15!important;
+}
+
+#mudaeImageSidePanel .mudae-image-helper-panel-actions{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:8px!important;
+}
+
+/* More columns on wide panels */
+@media (min-width:1180px){
+  #mudaeImageGallery{
+    grid-template-columns:repeat(auto-fill,minmax(120px,1fr))!important;
+  }
+  #mudaeImageGallery .mudae-image-card{
+    height:202px!important;
+  }
+  #mudaeImageGallery .mudae-image-card img{
+    height:156px!important;
+    max-height:156px!important;
+    min-height:156px!important;
+  }
+}
+
+@media (max-height:760px){
+  #mudaeImageSidePanel{
+    height:calc(100vh - 44px)!important;
+    max-height:calc(100vh - 44px)!important;
+  }
+  #mudaeImageGallery{
+    min-height:220px!important;
+  }
+  #mudaeImageGallery .mudae-image-card{
+    height:162px!important;
+  }
+  #mudaeImageGallery .mudae-image-card img{
+    height:116px!important;
+    max-height:116px!important;
+    min-height:116px!important;
+  }
+}
+
+@media (max-width:980px){
+  #mudaeImageGallery{
+    grid-template-columns:repeat(auto-fill,minmax(100px,1fr))!important;
+  }
+  #mudaeImageGallery .mudae-image-card{
+    height:170px!important;
+  }
+  #mudaeImageGallery .mudae-image-card img{
+    height:124px!important;
+    max-height:124px!important;
+    min-height:124px!important;
+  }
+}
+
+
+/* v49: simplify Mudae panel and number each image */
+#mudaeImageSidePanel .mudae-image-side-actions,
+#mudaeImageSidePanel .mudae-image-side-note{
+  display:none!important;
+}
+
+#mudaeImageSidePanel .mudae-image-side-head{
+  padding:12px 14px 4px!important;
+}
+
+#mudaeImageSidePanel .mudae-image-helper-status{
+  margin:2px 0 8px!important;
+  min-height:18px!important;
+}
+
+#mudaeImageGallery{
+  min-height:360px!important;
+}
+
+#mudaeImageGallery .mudae-image-card{
+  position:relative!important;
+  height:212px!important;
+  padding:6px!important;
+}
+
+#mudaeImageGallery .mudae-image-number{
+  position:absolute!important;
+  top:8px!important;
+  left:8px!important;
+  z-index:2!important;
+  min-width:34px!important;
+  height:22px!important;
+  padding:0 7px!important;
+  border-radius:999px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  background:rgba(0,0,0,.72)!important;
+  color:#fff!important;
+  border:1px solid rgba(255,255,255,.22)!important;
+  font-size:.72rem!important;
+  font-weight:900!important;
+  line-height:1!important;
+  pointer-events:none!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.75)!important;
+}
+
+#mudaeImageGallery .mudae-image-card img{
+  height:166px!important;
+  max-height:166px!important;
+  min-height:166px!important;
+}
+
+#mudaeImageGallery .mudae-image-use-btn{
+  height:28px!important;
+  min-height:28px!important;
+}
+
+#mudaeImageSidePanel .mudae-image-paste-box{
+  margin-top:8px!important;
+}
+
+@media (min-width:1180px){
+  #mudaeImageGallery .mudae-image-card{
+    height:222px!important;
+  }
+  #mudaeImageGallery .mudae-image-card img{
+    height:176px!important;
+    max-height:176px!important;
+    min-height:176px!important;
+  }
+}
+
+@media (max-height:760px){
+  #mudaeImageGallery{
+    min-height:260px!important;
+  }
+  #mudaeImageGallery .mudae-image-card{
+    height:174px!important;
+  }
+  #mudaeImageGallery .mudae-image-card img{
+    height:128px!important;
+    max-height:128px!important;
+    min-height:128px!important;
+  }
+}
+
+@media (max-width:980px){
+  #mudaeImageGallery .mudae-image-card{
+    height:180px!important;
+  }
+  #mudaeImageGallery .mudae-image-card img{
+    height:134px!important;
+    max-height:134px!important;
+    min-height:134px!important;
+  }
+}
+
+
+/* v50: compact edit modal spacing and keep save controls reachable */
+#editCharModalOverlay .edit-char-modal{
+  max-height:calc(100vh - 28px)!important;
+}
+
+#editCharModalOverlay .edit-char-modal-body{
+  gap:14px!important;
+}
+
+#editCharModalOverlay .edit-char-form,
+#editCharModalOverlay .edit-char-fields,
+#editCharModalOverlay .edit-char-main,
+#editCharModalOverlay .edit-char-left{
+  gap:8px!important;
+}
+
+#editCharModalOverlay .control,
+#editCharModalOverlay .field,
+#editCharModalOverlay .form-group{
+  margin-bottom:7px!important;
+}
+
+#editCharModalOverlay label,
+#editCharModalOverlay .control label,
+#editCharModalOverlay .field label,
+#editCharModalOverlay .form-label{
+  margin-bottom:3px!important;
+  line-height:1.1!important;
+  font-size:.78rem!important;
+}
+
+#editCharModalOverlay input,
+#editCharModalOverlay select,
+#editCharModalOverlay textarea{
+  min-height:32px!important;
+}
+
+#editCharModalOverlay input[type="number"],
+#editCharModalOverlay input[type="text"],
+#editCharModalOverlay input[type="url"],
+#editCharModalOverlay input:not([type]),
+#editCharModalOverlay select{
+  height:34px!important;
+  padding-top:6px!important;
+  padding-bottom:6px!important;
+}
+
+#editCharModalOverlay .edit-char-grid,
+#editCharModalOverlay .edit-char-two-col,
+#editCharModalOverlay .edit-char-row{
+  gap:8px 10px!important;
+}
+
+#editCharModalOverlay .edit-char-title,
+#editCharModalOverlay h2,
+#editCharModalOverlay h3{
+  margin-bottom:4px!important;
+}
+
+#editCharModalOverlay .edit-char-subtitle,
+#editCharModalOverlay .modal-subtitle,
+#editCharModalOverlay .help-text{
+  margin-top:0!important;
+  margin-bottom:8px!important;
+  line-height:1.25!important;
+}
+
+/* Image preview column */
+#editCharModalOverlay .edit-char-preview-wrap,
+#editCharModalOverlay .edit-char-preview,
+#editCharModalOverlay .image-preview-wrap{
+  gap:6px!important;
+}
+
+#editCharImagePreview{
+  max-height:284px!important;
+}
+
+/* Spheres block compact */
+#editCharModalOverlay .spheres-section,
+#editCharModalOverlay .edit-char-spheres,
+#editCharModalOverlay .spheres-editor{
+  margin-top:8px!important;
+  padding:10px!important;
+}
+
+#editCharModalOverlay .spheres-section label,
+#editCharModalOverlay .edit-char-spheres label,
+#editCharModalOverlay .spheres-editor label{
+  margin-bottom:2px!important;
+}
+
+#editCharModalOverlay .sphere-row,
+#editCharModalOverlay .spheres-row,
+#editCharModalOverlay .sphere-grid{
+  gap:6px!important;
+}
+
+#editCharModalOverlay [id^="editCharSphereP"]{
+  height:32px!important;
+  min-height:32px!important;
+}
+
+#editCharSpheresCost{
+  min-height:24px!important;
+  line-height:24px!important;
+  margin-bottom:6px!important;
+}
+
+#editCharModalOverlay #editCharSpheresAllBtn,
+#editCharModalOverlay #editCharSpheresClearBtn{
+  min-height:36px!important;
+}
+
+/* Mudae helper under preview compact */
+#mudaeImageHelper{
+  margin-top:6px!important;
+}
+
+#mudaeImageHelper .btn{
+  min-height:32px!important;
+}
+
+/* Footer stays easier to reach */
+#editCharModalOverlay .edit-char-modal-footer,
+#editCharModalOverlay .modal-actions,
+#editCharModalOverlay .edit-actions{
+  position:sticky!important;
+  bottom:0!important;
+  z-index:8!important;
+  background:linear-gradient(to top, rgba(17,16,27,.98), rgba(17,16,27,.92))!important;
+  padding-top:8px!important;
+  padding-bottom:4px!important;
+  margin-top:8px!important;
+}
+
+/* When the Mudae side panel is open, avoid growing taller than needed */
+#editCharModalOverlay .edit-char-modal.mudae-side-active{
+  width:min(1280px, calc(100vw - 28px))!important;
+  max-height:calc(100vh - 24px)!important;
+}
+
+#editCharModalOverlay .edit-char-modal-body.mudae-side-active{
+  gap:16px!important;
+  max-height:calc(100vh - 98px)!important;
+  overflow:hidden!important;
+}
+
+#editCharModalOverlay .edit-char-modal-body.mudae-side-active > :first-child,
+#editCharModalOverlay .edit-char-modal-body.mudae-side-active .edit-char-left,
+#editCharModalOverlay .edit-char-modal-body.mudae-side-active .edit-char-form{
+  max-height:calc(100vh - 120px)!important;
+  overflow-y:auto!important;
+  padding-right:4px!important;
+  scrollbar-width:thin;
+}
+
+/* Right Mudae panel uses modal height instead of forcing 940px */
+#mudaeImageSidePanel{
+  height:auto!important;
+  min-height:0!important;
+  max-height:calc(100vh - 112px)!important;
+  align-self:stretch!important;
+}
+
+#mudaeImageGallery{
+  min-height:280px!important;
+}
+
+/* Compact paste area a little more */
+#mudaeImageSidePanel .mudae-image-paste-box{
+  margin-top:6px!important;
+  padding:7px!important;
+}
+
+#mudaeImagePasteInput{
+  height:30px!important;
+  min-height:28px!important;
+  max-height:40px!important;
+}
+
+/* Desktop: try to keep the non-expanded modal around the current 690px height */
+@media (min-width: 900px){
+  #editCharModalOverlay .edit-char-modal:not(.mudae-side-active){
+    max-height:min(905px, calc(100vh - 28px))!important;
+  }
+}
+
+/* Expanded panel: keep height closer to viewport and avoid extra blank bottom */
+@media (min-width: 1100px){
+  #editCharModalOverlay .edit-char-modal.mudae-side-active{
+    max-height:min(905px, calc(100vh - 24px))!important;
+  }
+  #mudaeImageSidePanel{
+    max-height:min(790px, calc(100vh - 112px))!important;
+  }
+}
+
+@media (max-height: 820px){
+  #editCharModalOverlay input[type="number"],
+  #editCharModalOverlay input[type="text"],
+  #editCharModalOverlay input[type="url"],
+  #editCharModalOverlay input:not([type]),
+  #editCharModalOverlay select{
+    height:31px!important;
+    min-height:31px!important;
+  }
+
+  #editCharImagePreview{
+    max-height:245px!important;
+  }
+
+  #editCharModalOverlay .control,
+  #editCharModalOverlay .field,
+  #editCharModalOverlay .form-group{
+    margin-bottom:5px!important;
+  }
+
+  #mudaeImageGallery .mudae-image-card{
+    height:168px!important;
+  }
+
+  #mudaeImageGallery .mudae-image-card img{
+    height:122px!important;
+    min-height:122px!important;
+    max-height:122px!important;
+  }
+}
+
+
+/* v51: arrow toggle beside Search Mudae */
+#mudaeImageHelper{
+  max-width:210px!important;
+}
+
+#mudaeImageHelper .mudae-image-helper-actions{
+  display:grid!important;
+  grid-template-columns:1fr 38px!important;
+  gap:6px!important;
+  width:100%!important;
+  align-items:stretch!important;
+}
+
+#mudaeImageHelper .mudae-search-btn{
+  width:100%!important;
+}
+
+#mudaeImageHelper .mudae-expand-btn{
+  width:38px!important;
+  min-width:38px!important;
+  padding:0!important;
+  font-size:1.35rem!important;
+  line-height:1!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+
+#mudaeImageHelper .mudae-expand-btn[aria-expanded="true"]{
+  filter:brightness(1.15)!important;
+}
+
+
+/* v52: make parsed high sphere perks visibly active in Edit */
+.sphere-toggle-btn.is-active,
+.sphere-toggle-btn.active,
+#editCharModalOverlay .sphere-toggle-btn[aria-pressed="true"]{
+  background:linear-gradient(180deg, rgba(124,58,237,.95), rgba(88,28,135,.95))!important;
+  border-color:rgba(196,181,253,.75)!important;
+  color:#fff!important;
+  box-shadow:0 0 0 1px rgba(196,181,253,.18), 0 0 18px rgba(124,58,237,.28)!important;
 }

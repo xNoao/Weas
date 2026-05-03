@@ -1410,14 +1410,12 @@
   else install();
 })();
 
-/* v40: Mudae image side panel in Edit character
-   Mudae blocks direct fetches with CORS and blocks iframes with X-Frame-Options.
-   This helper avoids automatic scraping to keep the console clean: it opens Mudae
-   externally and uses the side panel to parse pasted image links. */
+/* v43: Mudae image helper in Edit character
+   Partial automation: opens the exact Mudae search and copies the character name,
+   then lets you paste image URLs into the side panel for preview/apply. */
 (function(){
-  if (window.__mudaeImageSidePanelV39) return;
-  window.__mudaeImageSidePanelV39 = true;
-
+  if (window.__mudaeImageSidePanelV43) return;
+  window.__mudaeImageSidePanelV43 = true;
 
   function q(id){ return document.getElementById(id); }
   function text(value){ return String(value == null ? '' : value); }
@@ -1448,6 +1446,34 @@
     if (!el) return;
     el.textContent = message || '';
     el.dataset.tone = tone || '';
+  }
+
+  function copyTextToClipboard(value, callback){
+    value = text(value);
+    function done(ok){ if (typeof callback === 'function') callback(!!ok); }
+    if (!value) return done(false);
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(value).then(function(){ done(true); }).catch(function(){ fallback(); });
+    } else {
+      fallback();
+    }
+
+    function fallback(){
+      var ta = document.createElement('textarea');
+      ta.value = value;
+      ta.setAttribute('readonly', 'readonly');
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      ta.style.top = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch(e) { ok = false; }
+      document.body.removeChild(ta);
+      done(ok);
+    }
   }
 
   function cleanUrl(url){
@@ -1524,11 +1550,12 @@
     var frag = document.createDocumentFragment();
 
     urls.forEach(function(url, index){
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'mudae-image-choice';
-      btn.title = 'Use image #' + (index + 1);
-      btn.dataset.imageUrl = url;
+      var card = document.createElement('div');
+      card.className = 'mudae-image-card';
+
+      var number = document.createElement('div');
+      number.className = 'mudae-image-number';
+      number.textContent = '#' + (index + 1);
 
       var img = document.createElement('img');
       img.alt = 'Mudae image option ' + (index + 1);
@@ -1536,16 +1563,21 @@
       img.decoding = 'async';
       img.src = url;
 
-      var label = document.createElement('span');
-      label.textContent = 'Use';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'mudae-image-use-btn';
+      btn.title = 'Use image #' + (index + 1);
+      btn.dataset.imageUrl = url;
+      btn.textContent = 'Use';
 
-      btn.appendChild(img);
-      btn.appendChild(label);
-      frag.appendChild(btn);
+      card.appendChild(number);
+      card.appendChild(img);
+      card.appendChild(btn);
+      frag.appendChild(card);
     });
 
     gallery.appendChild(frag);
-    setStatus(urls.length + ' image' + (urls.length === 1 ? '' : 's') + ' loaded' + (sourceLabel ? ' from ' + sourceLabel : '') + '.', 'ok');
+    setStatus(urls.length + ' numbered image' + (urls.length === 1 ? '' : 's') + ' loaded' + (sourceLabel ? ' from ' + sourceLabel : '') + '.', 'ok');
   }
 
   function setPanelOpen(open){
@@ -1557,6 +1589,11 @@
     body.classList.toggle('mudae-side-active', !!open);
     var dialog = modal ? modal.querySelector('.edit-char-modal') : null;
     if (dialog) dialog.classList.toggle('mudae-side-active', !!open);
+    var arrow = q('mudaeImageExpandBtn');
+    if (arrow) {
+      arrow.textContent = open ? '‹' : '›';
+      arrow.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
   }
 
   function resetSidePanel(){
@@ -1578,26 +1615,22 @@
   }
 
   function openMudaeSearch(){
+    var name = getCharacterName();
     var url = updateOpenLink();
-    if (!url) {
+    if (!name || !url) {
+      setPanelOpen(true);
       setStatus('Add a character name before searching.', 'warn');
       return;
     }
-    setPanelOpen(true);
-    setStatus('Mudae blocks automatic loading here. Open the search, copy image addresses, then paste them below.', 'warn');
-    try { window.open(url, '_blank', 'noopener,noreferrer'); } catch(e) {}
-  }
 
-  function loadMudaeImages(){
-    var url = updateOpenLink();
-    if (!url) {
-      setStatus('Add a character name before searching.', 'warn');
-      return;
-    }
     setPanelOpen(true);
-    var gallery = q('mudaeImageGallery');
-    if (gallery) { gallery.innerHTML = ''; gallery.classList.remove('has-results'); }
-    setStatus('Direct loading is blocked by Mudae. Use Open Mudae, copy image addresses, and paste them here.', 'warn');
+    copyTextToClipboard(name, function(copied){
+      var msg = copied
+        ? 'Opened Mudae and copied the character name. Copy image address there, then paste it here.'
+        : 'Opened Mudae. Copy an image address there, then paste it here.';
+      setStatus(msg, copied ? 'ok' : 'warn');
+    });
+    try { window.open(url, '_blank', 'noopener,noreferrer'); } catch(e) {}
   }
 
   function parsePastedImages(){
@@ -1628,7 +1661,7 @@
       wrap.innerHTML = [
         '<div class="mudae-image-helper-actions">',
           '<button class="btn btn-secondary mudae-search-btn" id="mudaeImageSearchBtn" type="button">Search Mudae</button>',
-          '<button class="btn btn-ghost mudae-paste-toggle-btn" id="mudaeImagePasteToggleBtn" type="button">Paste images</button>',
+          '<button class="btn btn-ghost mudae-expand-btn" id="mudaeImageExpandBtn" type="button" title="Toggle Mudae images panel" aria-label="Toggle Mudae images panel">›</button>',
         '</div>'
       ].join('');
       control.parentNode.insertBefore(wrap, control.nextSibling);
@@ -1645,20 +1678,15 @@
         '<div class="mudae-image-side-head">',
           '<div>',
             '<div class="mudae-image-side-title">Mudae images</div>',
-            '<div class="mudae-image-side-subtitle">Select an image to replace the current URL.</div>',
+            '<div class="mudae-image-side-subtitle">Paste image URLs and select one.</div>',
           '</div>',
           '<button class="btn btn-ghost mudae-image-side-close" id="mudaeImageSideCloseBtn" type="button" aria-label="Close Mudae image panel">×</button>',
         '</div>',
-        '<div class="mudae-image-side-actions">',
-          '<button class="btn btn-primary" id="mudaeImageLoadBtn" type="button">Open Mudae search</button>',
-          '<a class="btn btn-ghost mudae-open-link" id="mudaeImageOpenLink" target="_blank" rel="noopener noreferrer">Open in tab</a>',
-        '</div>',
         '<div class="mudae-image-helper-status" id="mudaeImageHelperStatus"></div>',
-        '<div class="mudae-image-side-note">Mudae blocks embedded loading. Copy image addresses from the opened search and paste them below.</div>',
         '<div class="mudae-image-gallery" id="mudaeImageGallery"></div>',
         '<div class="mudae-image-paste-box">',
           '<label for="mudaeImagePasteInput">Paste image links</label>',
-          '<textarea id="mudaeImagePasteInput" placeholder="Paste Mudae/Discord image links here..."></textarea>',
+          '<textarea id="mudaeImagePasteInput" placeholder="Paste one or more image URLs here..."></textarea>',
           '<div class="mudae-image-helper-panel-actions">',
             '<button class="btn btn-secondary" id="mudaeImageParseBtn" type="button">Parse pasted images</button>',
             '<button class="btn btn-ghost" id="mudaeImageClearBtn" type="button">Clear</button>',
@@ -1672,8 +1700,8 @@
   }
 
   function bindOnce(){
-    if (window.__mudaeImageSidePanelBoundV39) return;
-    window.__mudaeImageSidePanelBoundV39 = true;
+    if (window.__mudaeImageSidePanelBoundV43) return;
+    window.__mudaeImageSidePanelBoundV43 = true;
 
     document.addEventListener('click', function(e){
       var target = e.target;
@@ -1685,15 +1713,15 @@
         openMudaeSearch();
         return;
       }
-      if (target.closest('#mudaeImagePasteToggleBtn')) {
+      if (target.closest('#mudaeImageExpandBtn')) {
         e.preventDefault();
         ensureImageHelper();
-        focusPaste();
-        return;
-      }
-      if (target.closest('#mudaeImageLoadBtn')) {
-        e.preventDefault();
-        openMudaeSearch();
+        var panel = q('mudaeImageSidePanel');
+        var willOpen = !(panel && !panel.hidden);
+        setPanelOpen(willOpen);
+        updateOpenLink();
+        var arrow = q('mudaeImageExpandBtn');
+        if (arrow) arrow.textContent = willOpen ? '‹' : '›';
         return;
       }
       if (target.closest('#mudaeImageSideCloseBtn')) {
@@ -1712,7 +1740,7 @@
         return;
       }
 
-      var choice = target.closest('.mudae-image-choice');
+      var choice = target.closest('.mudae-image-choice,.mudae-image-use-btn');
       if (choice) {
         e.preventDefault();
         applyImageUrl(choice.dataset.imageUrl || '');
@@ -1745,4 +1773,117 @@
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install);
   else install();
+})();
+
+
+/* v47: relocate Mudae search helper under the preview column */
+(function(){
+  if (window.__mudaeHelperRelocateV47) return;
+  window.__mudaeHelperRelocateV47 = true;
+
+  function moveHelperUnderPreview(){
+    var helper = document.getElementById('mudaeImageHelper');
+    if (!helper) return;
+
+    var previewImg = document.getElementById('editCharImagePreview');
+    if (!previewImg) return;
+
+    var previewHost =
+      previewImg.closest('.edit-char-preview-wrap') ||
+      previewImg.closest('.edit-char-preview') ||
+      previewImg.closest('.image-preview-wrap') ||
+      previewImg.parentElement;
+
+    if (!previewHost || helper.parentElement === previewHost) return;
+    previewHost.appendChild(helper);
+  }
+
+  document.addEventListener('click', function(event){
+    var target = event.target;
+    if (!target || !target.closest) return;
+    if (target.closest('#editCharBtn,.char-edit-btn,.character-card[data-id],#mudaeImageSearchBtn')) {
+      requestAnimationFrame(moveHelperUnderPreview);
+      setTimeout(moveHelperUnderPreview, 80);
+    }
+  }, true);
+
+  document.addEventListener('DOMContentLoaded', function(){
+    requestAnimationFrame(moveHelperUnderPreview);
+  });
+})();
+
+
+/* v52: robustly sync P6-P10 sphere toggle buttons after parsed sphere imports */
+(function(){
+  if (window.__sphereHighPerkSyncV52) return;
+  window.__sphereHighPerkSyncV52 = true;
+
+  function q(id){ return document.getElementById(id); }
+
+  function normalize(value){
+    return String(parseInt(value, 10) === 1 ? 1 : 0);
+  }
+
+  function updateButton(perk){
+    var select = q('editCharSphereP' + perk);
+    var btn = q('editCharSphereToggleP' + perk);
+    if (!select || !btn) return;
+
+    var active = normalize(select.value) === '1';
+    btn.classList.toggle('is-active', active);
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    btn.textContent = active ? '1000' : '0';
+    btn.title = active ? ('P' + perk + ' active') : ('P' + perk + ' inactive');
+  }
+
+  function syncHighPerkButtons(){
+    for (var p = 6; p <= 10; p++) updateButton(p);
+  }
+
+  window.syncSphereToggleButtons = syncHighPerkButtons;
+
+  function scheduleSync(){
+    requestAnimationFrame(syncHighPerkButtons);
+    setTimeout(syncHighPerkButtons, 40);
+    setTimeout(syncHighPerkButtons, 160);
+  }
+
+  document.addEventListener('click', function(event){
+    var target = event.target;
+    if (!target || !target.closest) return;
+
+    if (target.closest('.char-edit-btn,#editCharBtn,.character-card[data-id],#editCharSpheresAllBtn,#editCharSpheresClearBtn')) {
+      scheduleSync();
+    }
+  }, true);
+
+  document.addEventListener('change', function(event){
+    var target = event.target;
+    if (target && target.id && /^editCharSphereP(6|7|8|9|10)$/.test(target.id)) {
+      scheduleSync();
+    }
+  }, true);
+
+  document.addEventListener('input', function(event){
+    var target = event.target;
+    if (target && target.id && /^editCharSphereP(6|7|8|9|10)$/.test(target.id)) {
+      scheduleSync();
+    }
+  }, true);
+
+  var observer = null;
+  function installObserver(){
+    var overlay = q('editCharModalOverlay');
+    if (!overlay || observer) return;
+    observer = new MutationObserver(function(){
+      if (overlay.classList.contains('show') || overlay.getAttribute('aria-hidden') === 'false') scheduleSync();
+    });
+    observer.observe(overlay, { attributes:true, attributeFilter:['class','aria-hidden'] });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', installObserver);
+  else installObserver();
+
+  scheduleSync();
 })();

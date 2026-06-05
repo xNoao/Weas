@@ -1,1 +1,328 @@
-body.mhp-promoted-settings{--mhp-settings-accent:var(--mhp-theme-accent-2,var(--mhp-theme-accent,var(--accent-2,#a78bfa)));--mhp-settings-accent-main:var(--mhp-theme-accent,var(--mhp-settings-accent));--mhp-settings-title:var(--mhp-theme-title,#f8fafc);--mhp-settings-panel-glass:rgba(10,15,28,var(--mhp-promoted-graphics-panel-alpha,.65));--mhp-settings-panel-min:rgba(12,18,30,.965);--mhp-settings-line:var(--mhp-theme-border,rgba(226,232,240,.14));--mhp-settings-line-soft:var(--mhp-theme-border-soft,rgba(226,232,240,.08));--mhp-settings-glow:var(--mhp-theme-glow,rgba(139,92,246,.14));--mhp-settings-control:rgba(15,23,42,calc(var(--mhp-promoted-graphics-menu-alpha,.80)* .58));--mhp-settings-control-hover:rgba(30,41,59,calc(var(--mhp-promoted-graphics-menu-alpha,.80)* .68));--mhp-settings-row:rgba(255,255,255,.045);--mhp-settings-row-min:rgba(15,23,42,.56);--mhp-settings-text:var(--mhp-promoted-text,var(--mhp-theme-title,#f8fafc));--mhp-settings-muted:var(--mhp-promoted-muted,#cbd5e1);--mhp-settings-muted-2:color-mix(in srgb,var(--mhp-settings-muted)72%,transparent);--mhp-settings-radius:18px;--mhp-settings-row-radius:14px;--mhp-settings-control-radius:12px}body.mhp-promoted-settings.mhp-theme-default,html.mhp-theme-default body.mhp-promoted-settings{--mhp-settings-accent:var(--mhp-theme-accent,#e5e7eb);--mhp-settings-accent-main:var(--mhp-theme-accent-2,#a1a1aa)}body.mhp-promoted-settings.mhp-theme-purple,html.mhp-theme-purple body.mhp-promoted-settings{--mhp-settings-accent:var(--mhp-theme-accent,#d8b4fe);--mhp-settings-accent-main:var(--mhp-theme-accent-2,#f0abfc)}body.mhp-promoted-settings.mhp-theme-blue,html.mhp-theme-blue body.mhp-promoted-settings{--mhp-settings-accent:var(--mhp-theme-accent,#7dd3fc);--mhp-settings-accent-main:var(--mhp-theme-accent-2,#67e8f9)}body.mhp-promoted-settings.visual-mode-glass,body.mhp-promoted-settings[data-visual-mode="glass"]{--mhp-settings-control:rgba(15,23,42,calc(var(--mhp-promoted-graphics-menu-alpha,.80)* .54));--mhp-settings-control-hover:rgba(30,41,59,calc(var(--mhp-promoted-graphics-menu-alpha,.80)* .62));--mhp-settings-row:rgba(255,255,255,calc(var(--mhp-promoted-graphics-menu-alpha,.80)* .055))}body.mhp-promoted-settings.visual-mode-minimalist,body.mhp-promoted-settings[data-visual-mode="minimalist"],body.mhp-promoted-settings:not(.visual-mode-glass){--mhp-settings-control:rgba(15,23,42,.62);--mhp-settings-control-hover:rgba(30,41,59,.68);--mhp-settings-row:var(--mhp-settings-row-min)}body.mhp-promoted-settings .settings-dock{position:fixed !important;right:18px !important;bottom:18px !important;z-index:1600 !important;display:flex !important;flex-direction:column-reverse !important;align-items:flex-end !important;gap:10px !important;pointer-events:none !important;background:transparent !important;border:0 !important;box-shadow:none !important}body.mhp-promoted-settings #settingsGearBtn.settings-gear-btn{pointer-events:auto !important;width:46px !important;height:46px !important;min-width:46px !important;min-height:46px !important;display:grid !important;place-items:center !important;padding:0 !important;border:1px solid var(--mhp-settings-line)!important;border-radius:14px !important;background:var(--mhp-settings-control)!important;color:var(--mhp-settings-accent)!important;font-size:22px !important;line-height:1 !important;box-shadow:0 14px 40px rgba(0,0,0,.30),0 0 0 1px color-mix(in srgb,var(--mhp-settings-line)35%,transparent)inset !important;backdrop-filter:blur(12px)saturate(1.04)!important;-webkit-backdrop-filter:blur(12px)saturate(1.04)!important;transform:none !important;filter:none !important;text-shadow:none !important;cursor:pointer !important}body.mhp-promoted-settings #settingsGearBtn.settings-gear-btn:hover{border-color:var(--mhp-settings-accent)!important;background:var(--mhp-settings-control-hover)!important;color:var(--mhp-settings-title)!important;transform:none !important}body.mhp-promoted-settings .settings-dock.is-open #settingsGearBtn.settings-gear-btn{border-color:var(--mhp-settings-line)!important;color:var(--mhp-settings-title)!important;background:var(--mhp-settings-control-hover)!important}body.mhp-promoted-settings #settingsPanel.settings-panel{pointer-events:auto !important;width:min(330px,calc(100vw - 34px))!important;display:grid !important;gap:10px !important;padding:12px !important;margin:0 !important;box-sizing:border-box !important;border-radius:var(--mhp-settings-radius)!important;color:var(--mhp-settings-text)!important;overflow:hidden !important;transform-origin:bottom right !important;background-image:none !important;box-shadow:0 22px 62px rgba(0,0,0,.34)!important}body.mhp-promoted-settings #settingsPanel.settings-panel[hidden]{display:none !important}body.mhp-promoted-settings.visual-mode-glass #settingsPanel.settings-panel,body.mhp-promoted-settings[data-visual-mode="glass"] #settingsPanel.settings-panel{background:var(--mhp-settings-panel-glass)!important;border:1px solid var(--mhp-settings-line)!important;backdrop-filter:blur(var(--mhp-glass-blur,14px))saturate(1.05)!important;-webkit-backdrop-filter:blur(var(--mhp-glass-blur,14px))saturate(1.05)!important}body.mhp-promoted-settings.visual-mode-minimalist #settingsPanel.settings-panel,body.mhp-promoted-settings[data-visual-mode="minimalist"] #settingsPanel.settings-panel,body.mhp-promoted-settings:not(.visual-mode-glass)#settingsPanel.settings-panel{background:var(--mhp-settings-panel-min)!important;border:1px solid var(--mhp-settings-line)!important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important}body.mhp-promoted-settings #settingsPanel .settings-panel-head{display:flex !important;align-items:center !important;justify-content:space-between !important;gap:10px !important;min-height:0 !important;margin:0 !important;padding:0 0 11px 0 !important;border:0 !important;border-bottom:1px solid var(--mhp-settings-line-soft)!important;border-radius:0 !important;background:transparent !important;background-image:none !important;box-shadow:none !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important}body.mhp-promoted-settings #settingsPanel .settings-title{width:auto !important;color:var(--mhp-settings-title)!important;font-size:18px !important;line-height:1.1 !important;font-weight:950 !important;letter-spacing:.01em !important;text-transform:none !important;background:transparent !important;border:0 !important;padding:0 !important}body.mhp-promoted-settings #settingsPanel #graphicsSettingsBtn.settings-section-btn{min-width:0 !important;min-height:30px !important;height:30px !important;padding:0 13px !important;border-radius:999px !important;border:1px solid var(--mhp-settings-line)!important;background:var(--mhp-settings-control)!important;color:var(--mhp-settings-text)!important;font-size:12px !important;font-weight:900 !important;line-height:1 !important;box-shadow:none !important;text-shadow:none !important}body.mhp-promoted-settings #settingsPanel #graphicsSettingsBtn.settings-section-btn:hover,body.mhp-promoted-settings #settingsPanel #graphicsSettingsBtn.settings-section-btn.is-active{background:var(--mhp-settings-control-hover)!important;border-color:var(--mhp-settings-accent)!important;color:var(--mhp-settings-title)!important}body.mhp-promoted-settings #settingsPanel:is(.settings-toggle-row,.settings-action-row){display:grid !important;grid-template-columns:minmax(0,1fr)auto !important;align-items:center !important;gap:12px !important;margin:0 !important;padding:10px 12px !important;border:0 !important;border-radius:var(--mhp-settings-row-radius)!important;background:var(--mhp-settings-row)!important;background-image:none !important;box-shadow:none !important;outline:0 !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important}body.mhp-promoted-settings.visual-mode-minimalist #settingsPanel:is(.settings-toggle-row,.settings-action-row),body.mhp-promoted-settings[data-visual-mode="minimalist"] #settingsPanel:is(.settings-toggle-row,.settings-action-row),body.mhp-promoted-settings:not(.visual-mode-glass)#settingsPanel:is(.settings-toggle-row,.settings-action-row){background:var(--mhp-settings-row-min)!important}body.mhp-promoted-settings #settingsPanel .settings-toggle-copy{min-width:0 !important;display:grid !important;gap:3px !important;padding:0 !important;border:0 !important;background:transparent !important;box-shadow:none !important}body.mhp-promoted-settings #settingsPanel .settings-toggle-copy strong{display:block !important;color:var(--mhp-settings-title)!important;font-size:12px !important;line-height:1.15 !important;font-weight:950 !important;letter-spacing:.02em !important;text-transform:none !important;padding:0 !important;margin:0 !important;background:transparent !important}body.mhp-promoted-settings #settingsPanel .settings-toggle-copy span{display:block !important;color:var(--mhp-settings-muted-2)!important;font-size:11px !important;line-height:1.25 !important;font-weight:500 !important;padding:0 !important;margin:0 !important;background:transparent !important}body.mhp-promoted-settings #settingsPanel #performanceToggleBtn.settings-toggle-btn{min-width:54px !important;width:54px !important;height:30px !important;min-height:30px !important;padding:0 10px !important;border:1px solid var(--mhp-settings-line)!important;border-radius:999px !important;background:var(--mhp-settings-control)!important;color:var(--mhp-settings-title)!important;font-size:11px !important;font-weight:950 !important;box-shadow:none !important;text-shadow:none !important;transform:none !important}body.mhp-promoted-settings #settingsPanel #performanceToggleBtn.settings-toggle-btn.is-on{border-color:var(--mhp-settings-line)!important;background:var(--mhp-settings-control)!important;color:var(--mhp-settings-title)!important}body.mhp-promoted-settings #settingsPanel #performanceToggleBtn.settings-toggle-btn.is-off{border-color:rgba(248,113,113,.30)!important;background:rgba(127,29,29,.20)!important;color:#fecaca !important}body.mhp-promoted-settings #settingsPanel .settings-action-row{grid-template-columns:1fr !important;align-items:stretch !important}body.mhp-promoted-settings #settingsPanel .settings-action-buttons{display:grid !important;grid-template-columns:1fr 1fr !important;gap:8px !important;margin:0 !important;padding:0 !important;border:0 !important;background:transparent !important;box-shadow:none !important}body.mhp-promoted-settings #settingsPanel .settings-action-btn{min-height:30px !important;height:30px !important;padding:0 10px !important;border:1px solid var(--mhp-settings-line)!important;border-radius:10px !important;background:var(--mhp-settings-control)!important;color:var(--mhp-settings-text)!important;font-size:11px !important;font-weight:900 !important;line-height:1 !important;box-shadow:none !important;text-shadow:none !important;transform:none !important}body.mhp-promoted-settings #settingsPanel .settings-action-btn:hover:not(:disabled){background:var(--mhp-settings-control-hover)!important;border-color:var(--mhp-settings-accent)!important;color:var(--mhp-settings-title)!important;transform:none !important}body.mhp-promoted-settings #settingsPanel .settings-action-btn:disabled{opacity:.38 !important;cursor:not-allowed !important;color:#94a3b8 !important;background:rgba(15,23,42,.28)!important}body.mhp-promoted-settings #settingsPanel:is(*,*::before,*::after){text-shadow:none !important}@media(max-width:420px){body.mhp-promoted-settings #settingsPanel.settings-panel{width:calc(100vw - 24px)!important}body.mhp-promoted-settings .settings-dock{right:12px !important;bottom:12px !important}}
+/* =========================================================
+   Promoted Settings menu v2.589
+   Source target: Menus LAB v5.58 settings panel parity.
+   Scope: Settings dock/panel only. Does not alter background images.
+   ========================================================= */
+
+body.mhp-promoted-settings{
+  --mhp-settings-accent:var(--mhp-theme-accent-2,var(--mhp-theme-accent,var(--accent-2,#a78bfa)));
+  --mhp-settings-accent-main:var(--mhp-theme-accent,var(--mhp-settings-accent));
+  --mhp-settings-title:var(--mhp-theme-title,#f8fafc);
+  --mhp-settings-panel-glass:rgba(10,15,28,var(--mhp-promoted-graphics-panel-alpha,.65));
+  --mhp-settings-panel-min:rgba(12,18,30,.965);
+  --mhp-settings-line:var(--mhp-theme-border,rgba(226,232,240,.14));
+  --mhp-settings-line-soft:var(--mhp-theme-border-soft,rgba(226,232,240,.08));
+  --mhp-settings-glow:var(--mhp-theme-glow,rgba(139,92,246,.14));
+  --mhp-settings-control:rgba(15,23,42,calc(var(--mhp-promoted-graphics-menu-alpha,.80) * .58));
+  --mhp-settings-control-hover:rgba(30,41,59,calc(var(--mhp-promoted-graphics-menu-alpha,.80) * .68));
+  --mhp-settings-row:rgba(255,255,255,.045);
+  --mhp-settings-row-min:rgba(15,23,42,.56);
+  --mhp-settings-text:var(--mhp-promoted-text,var(--mhp-theme-title,#f8fafc));
+  --mhp-settings-muted:var(--mhp-promoted-muted,#cbd5e1);
+  --mhp-settings-muted-2:color-mix(in srgb, var(--mhp-settings-muted) 72%, transparent);
+  --mhp-settings-radius:18px;
+  --mhp-settings-row-radius:14px;
+  --mhp-settings-control-radius:12px;
+}
+
+body.mhp-promoted-settings.mhp-theme-default,
+html.mhp-theme-default body.mhp-promoted-settings{
+  --mhp-settings-accent:var(--mhp-theme-accent,#e5e7eb);
+  --mhp-settings-accent-main:var(--mhp-theme-accent-2,#a1a1aa);
+}
+
+body.mhp-promoted-settings.mhp-theme-purple,
+html.mhp-theme-purple body.mhp-promoted-settings{
+  --mhp-settings-accent:var(--mhp-theme-accent,#d8b4fe);
+  --mhp-settings-accent-main:var(--mhp-theme-accent-2,#f0abfc);
+}
+
+body.mhp-promoted-settings.mhp-theme-blue,
+html.mhp-theme-blue body.mhp-promoted-settings{
+  --mhp-settings-accent:var(--mhp-theme-accent,#7dd3fc);
+  --mhp-settings-accent-main:var(--mhp-theme-accent-2,#67e8f9);
+}
+
+body.mhp-promoted-settings.visual-mode-glass,
+body.mhp-promoted-settings[data-visual-mode="glass"]{
+  --mhp-settings-control:rgba(15,23,42,calc(var(--mhp-promoted-graphics-menu-alpha,.80) * .54));
+  --mhp-settings-control-hover:rgba(30,41,59,calc(var(--mhp-promoted-graphics-menu-alpha,.80) * .62));
+  --mhp-settings-row:rgba(255,255,255,calc(var(--mhp-promoted-graphics-menu-alpha,.80) * .055));
+}
+
+body.mhp-promoted-settings.visual-mode-minimalist,
+body.mhp-promoted-settings[data-visual-mode="minimalist"],
+body.mhp-promoted-settings:not(.visual-mode-glass){
+  --mhp-settings-control:rgba(15,23,42,.62);
+  --mhp-settings-control-hover:rgba(30,41,59,.68);
+  --mhp-settings-row:var(--mhp-settings-row-min);
+}
+
+body.mhp-promoted-settings .settings-dock{
+  position:fixed !important;
+  right:18px !important;
+  bottom:18px !important;
+  z-index:1600 !important;
+  display:flex !important;
+  flex-direction:column-reverse !important;
+  align-items:flex-end !important;
+  gap:10px !important;
+  pointer-events:none !important;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-settings #settingsGearBtn.settings-gear-btn{
+  pointer-events:auto !important;
+  width:46px !important;
+  height:46px !important;
+  min-width:46px !important;
+  min-height:46px !important;
+  display:grid !important;
+  place-items:center !important;
+  padding:0 !important;
+  border:1px solid var(--mhp-settings-line) !important;
+  border-radius:14px !important;
+  background:var(--mhp-settings-control) !important;
+  color:var(--mhp-settings-accent) !important;
+  font-size:22px !important;
+  line-height:1 !important;
+  box-shadow:0 14px 40px rgba(0,0,0,.30), 0 0 0 1px color-mix(in srgb, var(--mhp-settings-line) 35%, transparent) inset !important;
+  backdrop-filter:blur(12px) saturate(1.04) !important;
+  -webkit-backdrop-filter:blur(12px) saturate(1.04) !important;
+  transform:none !important;
+  filter:none !important;
+  text-shadow:none !important;
+  cursor:pointer !important;
+}
+body.mhp-promoted-settings #settingsGearBtn.settings-gear-btn:hover{
+  border-color:var(--mhp-settings-accent) !important;
+  background:var(--mhp-settings-control-hover) !important;
+  color:var(--mhp-settings-title) !important;
+  transform:none !important;
+}
+body.mhp-promoted-settings .settings-dock.is-open #settingsGearBtn.settings-gear-btn{
+  border-color:var(--mhp-settings-line) !important;
+  color:var(--mhp-settings-title) !important;
+  background:var(--mhp-settings-control-hover) !important;
+}
+
+body.mhp-promoted-settings #settingsPanel.settings-panel{
+  pointer-events:auto !important;
+  width:min(330px, calc(100vw - 34px)) !important;
+  display:grid !important;
+  gap:10px !important;
+  padding:12px !important;
+  margin:0 !important;
+  box-sizing:border-box !important;
+  border-radius:var(--mhp-settings-radius) !important;
+  color:var(--mhp-settings-text) !important;
+  overflow:hidden !important;
+  transform-origin:bottom right !important;
+  background-image:none !important;
+  box-shadow:0 22px 62px rgba(0,0,0,.34) !important;
+}
+body.mhp-promoted-settings #settingsPanel.settings-panel[hidden]{display:none !important;}
+body.mhp-promoted-settings.visual-mode-glass #settingsPanel.settings-panel,
+body.mhp-promoted-settings[data-visual-mode="glass"] #settingsPanel.settings-panel{
+  background:var(--mhp-settings-panel-glass) !important;
+  border:1px solid var(--mhp-settings-line) !important;
+  backdrop-filter:blur(var(--mhp-glass-blur,14px)) saturate(1.05) !important;
+  -webkit-backdrop-filter:blur(var(--mhp-glass-blur,14px)) saturate(1.05) !important;
+}
+body.mhp-promoted-settings.visual-mode-minimalist #settingsPanel.settings-panel,
+body.mhp-promoted-settings[data-visual-mode="minimalist"] #settingsPanel.settings-panel,
+body.mhp-promoted-settings:not(.visual-mode-glass) #settingsPanel.settings-panel{
+  background:var(--mhp-settings-panel-min) !important;
+  border:1px solid var(--mhp-settings-line) !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+
+body.mhp-promoted-settings #settingsPanel .settings-panel-head{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:10px !important;
+  min-height:0 !important;
+  margin:0 !important;
+  padding:0 0 11px 0 !important;
+  border:0 !important;
+  border-bottom:1px solid var(--mhp-settings-line-soft) !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  background-image:none !important;
+  box-shadow:none !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+body.mhp-promoted-settings #settingsPanel .settings-title{
+  width:auto !important;
+  color:var(--mhp-settings-title) !important;
+  font-size:18px !important;
+  line-height:1.1 !important;
+  font-weight:950 !important;
+  letter-spacing:.01em !important;
+  text-transform:none !important;
+  background:transparent !important;
+  border:0 !important;
+  padding:0 !important;
+}
+body.mhp-promoted-settings #settingsPanel #graphicsSettingsBtn.settings-section-btn{
+  min-width:0 !important;
+  min-height:30px !important;
+  height:30px !important;
+  padding:0 13px !important;
+  border-radius:999px !important;
+  border:1px solid var(--mhp-settings-line) !important;
+  background:var(--mhp-settings-control) !important;
+  color:var(--mhp-settings-text) !important;
+  font-size:12px !important;
+  font-weight:900 !important;
+  line-height:1 !important;
+  box-shadow:none !important;
+  text-shadow:none !important;
+}
+body.mhp-promoted-settings #settingsPanel #graphicsSettingsBtn.settings-section-btn:hover,
+body.mhp-promoted-settings #settingsPanel #graphicsSettingsBtn.settings-section-btn.is-active{
+  background:var(--mhp-settings-control-hover) !important;
+  border-color:var(--mhp-settings-accent) !important;
+  color:var(--mhp-settings-title) !important;
+}
+
+body.mhp-promoted-settings #settingsPanel :is(.settings-toggle-row,.settings-action-row){
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) auto !important;
+  align-items:center !important;
+  gap:12px !important;
+  margin:0 !important;
+  padding:10px 12px !important;
+  border:0 !important;
+  border-radius:var(--mhp-settings-row-radius) !important;
+  background:var(--mhp-settings-row) !important;
+  background-image:none !important;
+  box-shadow:none !important;
+  outline:0 !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+body.mhp-promoted-settings.visual-mode-minimalist #settingsPanel :is(.settings-toggle-row,.settings-action-row),
+body.mhp-promoted-settings[data-visual-mode="minimalist"] #settingsPanel :is(.settings-toggle-row,.settings-action-row),
+body.mhp-promoted-settings:not(.visual-mode-glass) #settingsPanel :is(.settings-toggle-row,.settings-action-row){
+  background:var(--mhp-settings-row-min) !important;
+}
+body.mhp-promoted-settings #settingsPanel .settings-toggle-copy{
+  min-width:0 !important;
+  display:grid !important;
+  gap:3px !important;
+  padding:0 !important;
+  border:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+body.mhp-promoted-settings #settingsPanel .settings-toggle-copy strong{
+  display:block !important;
+  color:var(--mhp-settings-title) !important;
+  font-size:12px !important;
+  line-height:1.15 !important;
+  font-weight:950 !important;
+  letter-spacing:.02em !important;
+  text-transform:none !important;
+  padding:0 !important;
+  margin:0 !important;
+  background:transparent !important;
+}
+body.mhp-promoted-settings #settingsPanel .settings-toggle-copy span{
+  display:block !important;
+  color:var(--mhp-settings-muted-2) !important;
+  font-size:11px !important;
+  line-height:1.25 !important;
+  font-weight:500 !important;
+  padding:0 !important;
+  margin:0 !important;
+  background:transparent !important;
+}
+
+body.mhp-promoted-settings #settingsPanel #performanceToggleBtn.settings-toggle-btn{
+  min-width:54px !important;
+  width:54px !important;
+  height:30px !important;
+  min-height:30px !important;
+  padding:0 10px !important;
+  border:1px solid var(--mhp-settings-line) !important;
+  border-radius:999px !important;
+  background:var(--mhp-settings-control) !important;
+  color:var(--mhp-settings-title) !important;
+  font-size:11px !important;
+  font-weight:950 !important;
+  box-shadow:none !important;
+  text-shadow:none !important;
+  transform:none !important;
+}
+body.mhp-promoted-settings #settingsPanel #performanceToggleBtn.settings-toggle-btn.is-on{
+  border-color:var(--mhp-settings-line) !important;
+  background:var(--mhp-settings-control) !important;
+  color:var(--mhp-settings-title) !important;
+}
+body.mhp-promoted-settings #settingsPanel #performanceToggleBtn.settings-toggle-btn.is-off{
+  border-color:rgba(248,113,113,.30) !important;
+  background:rgba(127,29,29,.20) !important;
+  color:#fecaca !important;
+}
+
+body.mhp-promoted-settings #settingsPanel .settings-action-row{
+  grid-template-columns:1fr !important;
+  align-items:stretch !important;
+}
+body.mhp-promoted-settings #settingsPanel .settings-action-buttons{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:8px !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+body.mhp-promoted-settings #settingsPanel .settings-action-btn{
+  min-height:30px !important;
+  height:30px !important;
+  padding:0 10px !important;
+  border:1px solid var(--mhp-settings-line) !important;
+  border-radius:10px !important;
+  background:var(--mhp-settings-control) !important;
+  color:var(--mhp-settings-text) !important;
+  font-size:11px !important;
+  font-weight:900 !important;
+  line-height:1 !important;
+  box-shadow:none !important;
+  text-shadow:none !important;
+  transform:none !important;
+}
+body.mhp-promoted-settings #settingsPanel .settings-action-btn:hover:not(:disabled){
+  background:var(--mhp-settings-control-hover) !important;
+  border-color:var(--mhp-settings-accent) !important;
+  color:var(--mhp-settings-title) !important;
+  transform:none !important;
+}
+body.mhp-promoted-settings #settingsPanel .settings-action-btn:disabled{
+  opacity:.38 !important;
+  cursor:not-allowed !important;
+  color:#94a3b8 !important;
+  background:rgba(15,23,42,.28) !important;
+}
+
+body.mhp-promoted-settings #settingsPanel :is(*, *::before, *::after){
+  text-shadow:none !important;
+}
+
+@media (max-width:420px){
+  body.mhp-promoted-settings #settingsPanel.settings-panel{
+    width:calc(100vw - 24px) !important;
+  }
+  body.mhp-promoted-settings .settings-dock{
+    right:12px !important;
+    bottom:12px !important;
+  }
+}

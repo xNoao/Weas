@@ -1,5 +1,11 @@
+/* v2.481 Edit + Gallery Manager
+   Owns Save/Close lifecycle for the edit modal and gallery.
+   Important rule: Save updates app state + the visible card IN PLACE.
+   It must not call renderBoard(), updateEntriesFromApp(), or dispatch board-render events.
+*/
 (() => {
   'use strict';
+
   const state = {
     version: 'v2.481-clean-stable',
     suppressUntil: 0,
@@ -10,6 +16,7 @@
     lastBlockedOpen: null,
     debug: false
   };
+
   const now = () => (performance.now ? performance.now() : Date.now());
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
@@ -17,29 +24,37 @@
   const app = () => api()?.app || window.app || null;
   const els = () => api()?.els || {};
   const internals = () => api()?.__editGalleryInternals || {};
+
   function log(...args) {
     if (state.debug) console.info('[MHP edit/gallery manager]', ...args);
   }
+
   function setSuppress(ms = 1600, reason = 'close') {
     const duration = Math.max(0, Number(ms) || 0);
     if (!duration) return getSuppressUntil();
+
     const until = now() + duration;
     state.suppressUntil = Math.max(state.suppressUntil, until);
     state.lastAction = reason;
+
     window.__mhpEditClosingUntil = Math.max(Number(window.__mhpEditClosingUntil || 0), until);
     window.__mhpSuppressEditOpenUntil = Math.max(Number(window.__mhpSuppressEditOpenUntil || 0), until);
     window.__mhpPostEditRestoreBlockedUntil = Math.max(Number(window.__mhpPostEditRestoreBlockedUntil || 0), until);
+
     document.documentElement.classList.add('mhp-edit-closing', 'mhp-edit-gallery-saving');
     document.body?.classList?.add('mhp-edit-closing', 'mhp-edit-gallery-saving');
+
     setTimeout(() => {
       if (now() >= getSuppressUntil()) {
         document.documentElement.classList.remove('mhp-edit-closing', 'mhp-edit-gallery-saving');
         document.body?.classList?.remove('mhp-edit-closing', 'mhp-edit-gallery-saving');
       }
     }, duration + 120);
+
     log('suppress', { reason, duration, until });
     return until;
   }
+
   function clearSuppress(reason = 'clear') {
     state.suppressUntil = 0;
     state.saving = false;
@@ -51,6 +66,7 @@
     document.body?.classList?.remove('mhp-edit-closing', 'mhp-edit-gallery-saving');
     return 0;
   }
+
   function getSuppressUntil() {
     return Math.max(
       Number(state.suppressUntil || 0),
@@ -59,6 +75,7 @@
       Number(window.__mhpPostEditRestoreBlockedUntil || 0)
     );
   }
+
   function isSuppressed() {
     if (now() >= getSuppressUntil()) return false;
     const e = els();
@@ -67,6 +84,7 @@
       document.body?.classList?.contains('mhp-edit-closing');
     return overlayOpen || stillClosing;
   }
+
   function blockOpen(id = '', source = 'unknown', reason = 'blocked') {
     state.lastBlockedOpen = {
       id,
@@ -79,16 +97,20 @@
     log('blocked openEdit', state.lastBlockedOpen);
     return true;
   }
+
   function getCardIdFromTarget(target) {
     const host = target?.closest?.('[data-id]');
     return host?.dataset?.id || '';
   }
+
   function rememberOpenIntent(event, reason = 'user') {
     const target = event?.target;
     const opener = target?.closest?.('.card-edit-btn, .edit-btn, [data-action="edit"], [data-mhp-action="edit"], [aria-label^="Edit"]');
     if (!opener) return false;
+
     const id = getCardIdFromTarget(opener);
     if (!id) return false;
+
     state.openIntent = {
       id,
       reason,
@@ -100,6 +122,7 @@
     log('remember open intent', state.openIntent);
     return true;
   }
+
   function consumeOpenIntent(id = '') {
     const intent = state.openIntent;
     if (!intent) return false;
@@ -118,11 +141,13 @@
     state.openIntent = null;
     return true;
   }
+
   function allowProgrammaticOpen(ms = 800, id = '') {
     state.programmaticOpenUntil = Math.max(state.programmaticOpenUntil, now() + Math.max(0, Number(ms) || 0));
     state.openIntent = id ? { id, reason: 'programmatic-allow', type: 'api', trusted: true, at: now(), until: state.programmaticOpenUntil } : state.openIntent;
     return state.programmaticOpenUntil;
   }
+
   function shouldBlockOpen(id = '', source = 'unknown') {
     if (isSuppressed()) {
       const e = els();
@@ -133,17 +158,27 @@
       }
       return blockOpen(id, source, 'suppressed-after-close-or-save');
     }
+
+    // v2.637: Do not require a pre-captured pointer intent for normal openEdit().
+    // The previous strict gate made the first real click fail after Ctrl+F5 or
+    // after board refreshes because cards.js stops propagation and the intent
+    // capture could race with the open call. Suppression windows above still
+    // protect against accidental reopen while the modal is closing/saving.
     if (source === 'openEdit') {
       return false;
     }
+
     return false;
   }
+
   function normalizeUrl(url) {
     return String(url || '').trim().replace(/[.,;)]+$/g, '').replace(/\]+$/g, '').replace(/\}+$/g, '');
   }
+
   function canonicalUrl(url) {
     return normalizeUrl(url).replace(/^https?:/i, '').replace(/\?.*$/, '').toLowerCase();
   }
+
   function dedupeUrls(urls) {
     const seen = new Set();
     const out = [];
@@ -158,11 +193,16 @@
     });
     return out;
   }
+
+
+
+
   function mergeGalleryUrlsPreserveAbsoluteOrder(existingUrls = [], incomingUrls = [], fallbackImage = '') {
     const internalsMerge = internals().mergeGalleryUrlsPreserveAbsoluteOrder;
     if (typeof internalsMerge === 'function') {
       try { return internalsMerge(existingUrls, incomingUrls, fallbackImage); } catch (_) {}
     }
+
     const out = [];
     const seen = new Set();
     const add = url => {
@@ -178,6 +218,7 @@
     if (!out.length) add(fallbackImage);
     return out;
   }
+
   function effectiveGalleryCount(ch) {
     const f = internals().getEffectiveMudaeGalleryCount;
     if (typeof f === 'function') {
@@ -187,6 +228,7 @@
     const urls = gallery.length ? gallery : dedupeUrls([ch?.imageUrl, ch?.image]);
     return urls.length > 1 ? urls.length : 0;
   }
+
   function syncGalleryFlags(ch) {
     const sync = internals().syncMudaeGalleryFlags;
     if (typeof sync === 'function') {
@@ -199,19 +241,24 @@
     }
     return count;
   }
+
   function parseNumber(value) {
     const n = Number(String(value || '').replace(/[^0-9.-]/g, ''));
     return Number.isFinite(n) ? n : 0;
   }
+
   function currentId() {
     const e = els();
     return e.editIdInput?.value || app()?.activeId || $('#editIdInput')?.value || '';
   }
+
   function getCharacter(id = currentId()) {
     return internals().getCharacter?.(id) || app()?.state?.characters?.find(ch => ch?.id === id) || null;
   }
+
   function readSpheres() {
     if (typeof internals().readSpheresInputs === 'function') return internals().readSpheresInputs();
+
     const grid = els().spheresGrid || $('#spheresGrid');
     if (!grid) return null;
     const levels = $$('[data-sphere-index]', grid)
@@ -222,6 +269,7 @@
       });
     return levels.some(Boolean) ? { levels } : null;
   }
+
   function getGalleryUrlsFromDom() {
     const a = app();
     if (Array.isArray(a?.lastGalleryUrls) && a.lastGalleryUrls.length) {
@@ -230,13 +278,17 @@
     if (Array.isArray(a?.lastGalleryItems) && a.lastGalleryItems.length) {
       return dedupeUrls(a.lastGalleryItems.map(item => item?.url || item?.imageUrl || item?.src || item).filter(Boolean));
     }
+
     const grid = els().galleryGrid || $('#galleryGrid');
     const urls = [];
     if (grid) {
+      // Use only gallery card URLs. Reading every <img> can accidentally include
+      // transient/selected previews and rebuild the saved gallery as #selected,#1,#2...
       $$('[data-image-url]', grid).forEach(node => urls.push(node.dataset.imageUrl));
     }
     return dedupeUrls(urls);
   }
+
   function snapshotForm() {
     const e = els();
     const image = normalizeUrl(e.editImageInput?.value || $('#editImageInput')?.value || '');
@@ -256,35 +308,45 @@
       galleryUrls: getGalleryUrlsFromDom()
     };
   }
+
   function closeGallery(clear = false) {
     const e = els();
     const int = internals();
+
     if (e.galleryPanel) {
       e.galleryPanel.hidden = true;
       e.galleryPanel.setAttribute('hidden', '');
       e.galleryPanel.classList.remove('show', 'is-open', 'expanded');
       e.galleryPanel.setAttribute('aria-hidden', 'true');
     }
+
     document.body?.classList?.remove('gallery-open');
     e.editBody?.classList?.remove('mudae-side-active');
     e.editModal?.classList?.remove('mudae-side-active');
+
     if (e.galleryToggleBtn) {
       e.galleryToggleBtn.textContent = '›';
       e.galleryToggleBtn.setAttribute('aria-expanded', 'false');
     }
+
     if (clear) int.clearGallery?.(false);
   }
+
   function hardClose(reason = 'close', suppressMs = 1600) {
     setSuppress(suppressMs, reason);
+
     const e = els();
     const a = app();
     const int = internals();
+
     try { int.toggleEditColorPalette?.(false); } catch (_) {}
     closeGallery(false);
+
     e.editOverlay?.classList?.remove('show', 'is-fast-paint');
     e.editOverlay?.setAttribute?.('aria-hidden', 'true');
     document.body?.classList?.remove('modal-open');
     document.documentElement?.classList?.remove('modal-open');
+
     if (a) {
       a.activeId = null;
       a.selectedGalleryIndex = null;
@@ -293,10 +355,12 @@
       a.pendingJumpHighlightId = null;
       a.pendingInitialViewRestore = null;
     }
+
     window.__mhpEditSessionId = null;
     try { window.MHPClearTabVisibilitySnapshot?.(); } catch (_) {}
     try { int.unlockPageScrollIfAllowed?.(); } catch (_) {}
   }
+
   function updateCharacterData(ch, data) {
     ch.name = data.name || ch.name || 'Unnamed';
     ch.series = data.series;
@@ -312,6 +376,7 @@
     ch.keyType = internals().getKeyTypeFromCount?.(ch.keys) || ch.keyType;
     ch.note = data.note;
     ch.spheres = data.spheres;
+
     const urls = dedupeUrls(data.galleryUrls);
     ch.mudaeImages = mergeGalleryUrlsPreserveAbsoluteOrder(
       Array.isArray(ch.mudaeImages) ? ch.mudaeImages : [],
@@ -321,19 +386,26 @@
     try { internals().normalizeCharacterImageGalleryPreserveOrder?.(ch); } catch (_) {}
     syncGalleryFlags(ch);
   }
+
+
+
   const KEY_TIER_CLASSES = ['bronze', 'silver', 'gold', 'chaos'];
   const KAKERA_TIER_CLASSES = ['purple', 'blue', 'teal', 'green', 'yellow', 'orange', 'red', 'rainbow'];
+
   function model() {
     return window.MudaeRebuildModel || {};
   }
+
   function clearStatTextClasses(node) {
     if (!node) return;
     node.classList.remove('stat-text-normal', 'stat-text-long', 'stat-text-huge', 'stat-is-compacted');
   }
+
   function parseInteger(value) {
     const n = Number(String(value ?? '').replace(/[^0-9.-]/g, ''));
     return Number.isFinite(n) ? Math.max(0, Math.floor(n)) : 0;
   }
+
   function compactNumber(value, options = {}) {
     const n = parseInteger(value);
     const fullNumber = Number(n || 0).toLocaleString('en-US');
@@ -350,6 +422,7 @@
     const adjusted = mode === 'floor' ? Math.floor(scaled * factor) / factor : Number(scaled.toFixed(decimals));
     return { short: prefix + adjusted.toFixed(decimals).replace(/\.0+$|(?<=\.\d)0$/g, '') + suffix, full, compacted: true, digits: String(n).length };
   }
+
   function applyCompactStatClass(node, info) {
     if (!node || !info) return;
     node.classList.remove('stat-text-normal', 'stat-text-long', 'stat-text-huge', 'stat-is-compacted');
@@ -359,13 +432,16 @@
     else if (textLen >= 6 || info.digits >= 5) node.classList.add('stat-text-long');
     else node.classList.add('stat-text-normal');
   }
+
   function updateVisibleCard(ch) {
     if (!ch?.id) return false;
     const safe = CSS.escape(ch.id);
     const card = $(`.char-card[data-id="${safe}"], .character-card[data-id="${safe}"]`);
     if (!card) return false;
+
     card.dataset.name = ch.name || '';
     card.dataset.series = ch.series || '';
+
     const setText = (sel, text) => $$(sel, card).forEach(node => { node.textContent = text; node.title = text; });
     setText('.char-name, .character-name, [data-field="name"]', ch.name || 'Unnamed');
     setText('.card-series, .char-series, .character-series, [data-field="series"]', ch.series || 'No series');
@@ -407,6 +483,7 @@
       node.append(kakeraIcon, kakeraValue);
     });
     $$('[data-field="kakera"]:not(.kakera-pill)', card).forEach(node => { node.textContent = kakeraText; node.title = kakeraFullText; });
+
     const keysInfo = compactNumber(ch.keys, { compactAt: 1000, rounding: 'floor' });
     const keyType = model().getDisplayKeyType?.(ch) || internals().getKeyTypeFromCount?.(ch.keys) || '';
     $$('.keys-pill', card).forEach(node => {
@@ -437,6 +514,7 @@
       applyCompactStatClass(node, keyType ? keysInfo : { short: '0', full: '0', compacted: false, digits: 1 });
     });
     $$('[data-field="keys"]:not(.keys-pill)', card).forEach(node => { node.textContent = keysInfo.short; node.title = `Keys: ${keysInfo.full}`; });
+
     const noteText = ch.note && String(ch.note).trim() ? String(ch.note).trim() : 'no note';
     $$('.card-note, .character-note, [data-field="note"]', card).forEach(node => {
       node.hidden = false;
@@ -444,12 +522,14 @@
       node.title = noteText;
       node.classList.toggle('is-empty-note', noteText === 'no note');
     });
+
     const img = $('img.char-img, img.character-img, .card-image img, img', card);
     if (img && ch.image) {
       img.src = ch.image;
       if (img.dataset) img.dataset.src = ch.image;
       img.alt = ch.name || '';
     }
+
     const galleryCount = syncGalleryFlags(ch);
     const badge = $('.gallery-badge', card);
     if (badge) {
@@ -458,20 +538,25 @@
     }
     card.classList.toggle('has-gallery-count', galleryCount > 0);
     card.classList.toggle('no-gallery-count', galleryCount <= 0);
+
     card.classList.add('mhp-card-just-updated');
     setTimeout(() => card.classList.remove('mhp-card-just-updated'), 700);
     return true;
   }
+
   function saveEditFromManager() {
     if (state.saving) return false;
     const data = snapshotForm();
     const ch = getCharacter(data.id);
+
     if (!ch) {
       hardClose('save-without-character', 220);
       return false;
     }
+
     state.saving = true;
     setSuppress(220, 'save');
+
     try {
       updateCharacterData(ch, data);
       internals().assignBoardCounters?.();
@@ -490,12 +575,16 @@
       setTimeout(() => { state.saving = false; }, 180);
     }
   }
+
   function handleOpenIntentEvent(event) {
     rememberOpenIntent(event, 'trusted-card-edit-' + event.type);
   }
+
   function handleDocumentClick(event) {
     rememberOpenIntent(event, 'trusted-card-edit-click');
+
     const target = event.target;
+
     const saveBtn = target?.closest?.('#saveEditBtn');
     if (saveBtn) {
       event.preventDefault();
@@ -504,6 +593,7 @@
       saveEditFromManager();
       return;
     }
+
     const closeBtn = target?.closest?.('#editCloseBtn, #cancelEditBtn');
     if (closeBtn) {
       event.preventDefault();
@@ -512,6 +602,7 @@
       hardClose('button-close', 220);
       return;
     }
+
     if (isSuppressed()) {
       const opener = target?.closest?.('.card-edit-btn, .edit-btn, [data-action="edit"]');
       if (opener) {
@@ -522,9 +613,16 @@
       }
     }
   }
+
+  // Capture the physical user intent before cards.js stops propagation.
   document.addEventListener('pointerdown', handleOpenIntentEvent, true);
   document.addEventListener('mousedown', handleOpenIntentEvent, true);
+
+  // Use capture phase so app.js target/bubble listeners never see Save/Cancel.
   document.addEventListener('click', handleDocumentClick, true);
+
+  // If a re-render or delayed callback tries to show the edit while Save is closing,
+  // immediately remove the class again. This is a last-resort gate, not the main save path.
   const observer = new MutationObserver(() => {
     const e = els();
     if (!e.editOverlay || !isSuppressed()) return;
@@ -533,12 +631,15 @@
       hardClose('observer-reclose', Math.max(1200, getSuppressUntil() - now()));
     }
   });
+
   function initObserver() {
     const overlay = $('#editOverlay');
     if (overlay) observer.observe(overlay, { attributes: true, attributeFilter: ['class', 'aria-hidden'] });
   }
+
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initObserver, { once: true });
   else initObserver();
+
   window.MHPEditGalleryController = {
     version: state.version,
     markClosing: setSuppress,
@@ -553,18 +654,27 @@
     debug(value = true) { state.debug = !!value; return state.debug; },
     getState() { return { ...state, remainingMs: Math.max(0, Math.ceil(getSuppressUntil() - now())) }; }
   };
+
   window.MHPHardCloseEditModal = () => hardClose('global-hard-close', 1800);
   window.MHPForceCloseEditModal = () => hardClose('global-force-close', 1800);
 })();
+
+/* v2.480: hard gallery layout lock
+   Some restored galleries can inherit old preview sizing and overlap only for
+   specific image sets. This lock gives the grid explicit row heights based on
+   the real panel width, so every card occupies exactly one grid cell. */
 (() => {
   'use strict';
+
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
   let raf = 0;
+
   function numericPx(value, fallback = 0) {
     const n = Number.parseFloat(String(value || '').replace('px', ''));
     return Number.isFinite(n) ? n : fallback;
   }
+
   function getCols(grid, width) {
     const styles = getComputedStyle(grid);
     const cssCols = Number.parseInt(styles.getPropertyValue('--gallery-cols'), 10);
@@ -574,23 +684,28 @@
     if (width < 980) return 6;
     return 7;
   }
+
   function lockGalleryLayout(reason = 'layout') {
     raf = 0;
     const grid = $('#galleryGrid');
     const panel = $('#galleryPanel');
     if (!grid || !panel || panel.hidden) return;
+
     const styles = getComputedStyle(grid);
     const width = grid.clientWidth || grid.getBoundingClientRect().width || 0;
     if (!width) return;
+
     const cols = getCols(grid, width);
     const gap = numericPx(styles.columnGap || styles.gap, 12);
     const colWidth = Math.max(1, (width - ((cols - 1) * gap)) / cols);
     const rowHeight = Math.max(120, Math.round(colWidth * 14 / 9));
+
     grid.classList.add('mhp-gallery-layout-locked');
     grid.style.setProperty('--mhp-gallery-locked-row', rowHeight + 'px');
     grid.style.gridAutoRows = rowHeight + 'px';
     grid.style.alignItems = 'stretch';
     grid.style.alignContent = 'start';
+
     $$('.gallery-card', grid).forEach(card => {
       card.classList.add('mhp-gallery-card-locked');
       card.style.height = '100%';
@@ -602,6 +717,7 @@
       card.style.margin = '0';
       card.style.alignSelf = 'stretch';
       card.style.justifySelf = 'stretch';
+
       $$('img, picture, canvas, .gif-poster', card).forEach(media => {
         media.style.position = 'absolute';
         media.style.inset = '0';
@@ -614,6 +730,7 @@
         media.style.transform = 'none';
       });
     });
+
     window.__mhpLastGalleryLayoutLock = {
       reason,
       at: Date.now(),
@@ -623,10 +740,12 @@
       width: Math.round(width)
     };
   }
+
   function schedule(reason = 'scheduled') {
     if (raf) cancelAnimationFrame(raf);
     raf = requestAnimationFrame(() => lockGalleryLayout(reason));
   }
+
   window.MHPLockGalleryLayout = schedule;
   window.addEventListener('mhp-gallery-rendered', () => schedule('gallery-rendered'));
   window.addEventListener('resize', () => schedule('resize'));

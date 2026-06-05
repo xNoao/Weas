@@ -1,1 +1,247 @@
-#editModal .edit-actions.edit-actions-split,.edit-modal .edit-actions.edit-actions-split,body.mhp-promoted-edit-gallery .edit-actions.edit-actions-split{display:flex !important;align-items:center !important;justify-content:flex-start !important;gap:12px !important;width:100% !important;max-width:100% !important;margin-top:12px !important;flex-wrap:nowrap !important;background:transparent !important;border:0 !important;box-shadow:none !important}#editModal .edit-actions-left,.edit-modal .edit-actions-left,body.mhp-promoted-edit-gallery .edit-actions-left{display:flex !important;align-items:center !important;justify-content:flex-start !important;flex:0 0 auto !important;min-width:max-content !important;background:transparent !important}#editModal .edit-actions-right,.edit-modal .edit-actions-right,body.mhp-promoted-edit-gallery .edit-actions-right{display:flex !important;align-items:center !important;justify-content:flex-end !important;gap:8px !important;flex:0 0 auto !important;min-width:max-content !important;margin-left:auto !important;padding-left:0 !important;background:transparent !important}#editModal .edit-actions-left>.btn,#editModal .edit-actions-right>.btn,.edit-modal .edit-actions-left>.btn,.edit-modal .edit-actions-right>.btn,body.mhp-promoted-edit-gallery .edit-actions-left>.btn,body.mhp-promoted-edit-gallery .edit-actions-right>.btn{flex:0 0 auto !important;white-space:nowrap !important}#editModal #deleteEditCharacterBtn,#editModal .edit-delete-character-btn,.edit-modal #deleteEditCharacterBtn,.edit-modal .edit-delete-character-btn,body #deleteEditCharacterBtn,body .edit-delete-character-btn{margin:0 !important;background:linear-gradient(135deg,rgba(127,29,29,.96),rgba(185,28,28,.82))!important;border-color:rgba(248,113,113,.68)!important;color:#fee2e2 !important;text-shadow:none !important;box-shadow:0 0 0 1px rgba(127,29,29,.24),0 10px 26px rgba(127,29,29,.18)!important;font-weight:900 !important}#editModal #deleteEditCharacterBtn:hover:not(:disabled),#editModal .edit-delete-character-btn:hover:not(:disabled),.edit-modal #deleteEditCharacterBtn:hover:not(:disabled),.edit-modal .edit-delete-character-btn:hover:not(:disabled),body #deleteEditCharacterBtn:hover:not(:disabled),body .edit-delete-character-btn:hover:not(:disabled){background:linear-gradient(135deg,rgba(153,27,27,1),rgba(220,38,38,.9))!important;border-color:rgba(252,165,165,.86)!important;color:#fff !important;box-shadow:0 0 0 1px rgba(248,113,113,.22),0 12px 30px rgba(185,28,28,.28),0 0 18px rgba(248,113,113,.18)!important}#editModal #deleteEditCharacterBtn:active:not(:disabled),#editModal .edit-delete-character-btn:active:not(:disabled),.edit-modal #deleteEditCharacterBtn:active:not(:disabled),.edit-modal .edit-delete-character-btn:active:not(:disabled),body #deleteEditCharacterBtn:active:not(:disabled),body .edit-delete-character-btn:active:not(:disabled){transform:translateY(1px)!important}#editModal #deleteEditCharacterBtn:disabled,#editModal .edit-delete-character-btn:disabled,.edit-modal #deleteEditCharacterBtn:disabled,.edit-modal .edit-delete-character-btn:disabled,body #deleteEditCharacterBtn:disabled,body .edit-delete-character-btn:disabled{background:rgba(69,10,10,.58)!important;border-color:rgba(127,29,29,.44)!important;color:rgba(254,226,226,.52)!important;box-shadow:none !important}@media(max-width:620px){#editModal .edit-actions.edit-actions-split,.edit-modal .edit-actions.edit-actions-split,body.mhp-promoted-edit-gallery .edit-actions.edit-actions-split{flex-wrap:wrap !important;align-items:stretch !important}#editModal .edit-actions-right,.edit-modal .edit-actions-right,body.mhp-promoted-edit-gallery .edit-actions-right{width:100% !important;justify-content:flex-end !important;margin-left:0 !important}}@media(max-width:520px){#editModal .edit-actions.edit-actions-split,.edit-modal .edit-actions.edit-actions-split,body.mhp-promoted-edit-gallery .edit-actions.edit-actions-split{flex-direction:column !important}#editModal .edit-actions-left,#editModal .edit-actions-right,.edit-modal .edit-actions-left,.edit-modal .edit-actions-right,body.mhp-promoted-edit-gallery .edit-actions-left,body.mhp-promoted-edit-gallery .edit-actions-right{width:100% !important;justify-content:stretch !important}#editModal .edit-actions-left>.btn,#editModal .edit-actions-right>.btn,.edit-modal .edit-actions-left>.btn,.edit-modal .edit-actions-right>.btn{flex:1 1 auto !important}}#editModal>.edit-actions-modal-footer,.edit-modal>.edit-actions-modal-footer,body.mhp-promoted-edit-gallery #editModal>.edit-actions-modal-footer{display:grid !important;grid-template-columns:minmax(0,1fr)auto !important;align-items:center !important;column-gap:12px !important;width:100% !important;max-width:100% !important;margin:14px 0 0 !important;box-sizing:border-box !important;padding:0 16px 0 0 !important;background:transparent !important;border:0 !important;box-shadow:none !important}#editModal>.edit-actions-modal-footer .edit-actions-left,.edit-modal>.edit-actions-modal-footer .edit-actions-left,body.mhp-promoted-edit-gallery #editModal>.edit-actions-modal-footer .edit-actions-left{display:flex !important;justify-content:flex-start !important;min-width:0 !important;background:transparent !important}#editModal>.edit-actions-modal-footer .edit-actions-right,.edit-modal>.edit-actions-modal-footer .edit-actions-right,body.mhp-promoted-edit-gallery #editModal>.edit-actions-modal-footer .edit-actions-right{display:flex !important;justify-content:flex-end !important;align-items:center !important;gap:8px !important;min-width:max-content !important;margin-left:0 !important;margin-right:0 !important;padding-left:0 !important;background:transparent !important}#editModal>.edit-actions-modal-footer #deleteEditCharacterBtn,.edit-modal>.edit-actions-modal-footer #deleteEditCharacterBtn{margin-inline-end:0 !important}@media(max-width:620px){#editModal>.edit-actions-modal-footer,.edit-modal>.edit-actions-modal-footer,body.mhp-promoted-edit-gallery #editModal>.edit-actions-modal-footer{grid-template-columns:1fr !important;row-gap:10px !important}#editModal>.edit-actions-modal-footer .edit-actions-left,#editModal>.edit-actions-modal-footer .edit-actions-right,.edit-modal>.edit-actions-modal-footer .edit-actions-left,.edit-modal>.edit-actions-modal-footer .edit-actions-right{width:100% !important}#editModal>.edit-actions-modal-footer .edit-actions-right,.edit-modal>.edit-actions-modal-footer .edit-actions-right{justify-content:flex-end !important}}#editModal>.edit-actions-modal-footer .edit-actions-right,.edit-modal>.edit-actions-modal-footer .edit-actions-right,body.mhp-promoted-edit-gallery #editModal>.edit-actions-modal-footer .edit-actions-right{margin-right:0 !important}#editModal>.edit-actions-modal-footer,.edit-modal>.edit-actions-modal-footer,body.mhp-promoted-edit-gallery #editModal>.edit-actions-modal-footer{padding-right:16px !important;box-sizing:border-box !important}#editModal>.edit-actions-modal-footer,.edit-modal>.edit-actions-modal-footer,body.mhp-promoted-edit-gallery #editModal>.edit-actions-modal-footer{padding:0 16px 16px 16px !important;box-sizing:border-box !important}#editModal>.edit-actions-modal-footer .edit-actions-left,.edit-modal>.edit-actions-modal-footer .edit-actions-left,body.mhp-promoted-edit-gallery #editModal>.edit-actions-modal-footer .edit-actions-left{padding-left:0 !important}#editModal>.edit-actions-modal-footer .edit-actions-right,.edit-modal>.edit-actions-modal-footer .edit-actions-right,body.mhp-promoted-edit-gallery #editModal>.edit-actions-modal-footer .edit-actions-right{padding-right:0 !important}
+/* v2.654: edit footer true right alignment + dangerous delete button parity
+   Keep all edit action buttons on one row when there is room:
+   Cancel stays left, Delete Character + Save stay grouped on the far right. */
+
+#editModal .edit-actions.edit-actions-split,
+.edit-modal .edit-actions.edit-actions-split,
+body.mhp-promoted-edit-gallery .edit-actions.edit-actions-split{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  gap:12px !important;
+  width:100% !important;
+  max-width:100% !important;
+  margin-top:12px !important;
+  flex-wrap:nowrap !important;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+
+#editModal .edit-actions-left,
+.edit-modal .edit-actions-left,
+body.mhp-promoted-edit-gallery .edit-actions-left{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  flex:0 0 auto !important;
+  min-width:max-content !important;
+  background:transparent !important;
+}
+
+#editModal .edit-actions-right,
+.edit-modal .edit-actions-right,
+body.mhp-promoted-edit-gallery .edit-actions-right{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-end !important;
+  gap:8px !important;
+  flex:0 0 auto !important;
+  min-width:max-content !important;
+  margin-left:auto !important;
+  padding-left:0 !important;
+  background:transparent !important;
+}
+
+#editModal .edit-actions-left > .btn,
+#editModal .edit-actions-right > .btn,
+.edit-modal .edit-actions-left > .btn,
+.edit-modal .edit-actions-right > .btn,
+body.mhp-promoted-edit-gallery .edit-actions-left > .btn,
+body.mhp-promoted-edit-gallery .edit-actions-right > .btn{
+  flex:0 0 auto !important;
+  white-space:nowrap !important;
+}
+
+#editModal #deleteEditCharacterBtn,
+#editModal .edit-delete-character-btn,
+.edit-modal #deleteEditCharacterBtn,
+.edit-modal .edit-delete-character-btn,
+body #deleteEditCharacterBtn,
+body .edit-delete-character-btn{
+  margin:0 !important;
+  background:linear-gradient(135deg, rgba(127,29,29,.96), rgba(185,28,28,.82)) !important;
+  border-color:rgba(248,113,113,.68) !important;
+  color:#fee2e2 !important;
+  text-shadow:none !important;
+  box-shadow:0 0 0 1px rgba(127,29,29,.24), 0 10px 26px rgba(127,29,29,.18) !important;
+  font-weight:900 !important;
+}
+
+#editModal #deleteEditCharacterBtn:hover:not(:disabled),
+#editModal .edit-delete-character-btn:hover:not(:disabled),
+.edit-modal #deleteEditCharacterBtn:hover:not(:disabled),
+.edit-modal .edit-delete-character-btn:hover:not(:disabled),
+body #deleteEditCharacterBtn:hover:not(:disabled),
+body .edit-delete-character-btn:hover:not(:disabled){
+  background:linear-gradient(135deg, rgba(153,27,27,1), rgba(220,38,38,.9)) !important;
+  border-color:rgba(252,165,165,.86) !important;
+  color:#fff !important;
+  box-shadow:0 0 0 1px rgba(248,113,113,.22), 0 12px 30px rgba(185,28,28,.28), 0 0 18px rgba(248,113,113,.18) !important;
+}
+
+#editModal #deleteEditCharacterBtn:active:not(:disabled),
+#editModal .edit-delete-character-btn:active:not(:disabled),
+.edit-modal #deleteEditCharacterBtn:active:not(:disabled),
+.edit-modal .edit-delete-character-btn:active:not(:disabled),
+body #deleteEditCharacterBtn:active:not(:disabled),
+body .edit-delete-character-btn:active:not(:disabled){
+  transform:translateY(1px) !important;
+}
+
+#editModal #deleteEditCharacterBtn:disabled,
+#editModal .edit-delete-character-btn:disabled,
+.edit-modal #deleteEditCharacterBtn:disabled,
+.edit-modal .edit-delete-character-btn:disabled,
+body #deleteEditCharacterBtn:disabled,
+body .edit-delete-character-btn:disabled{
+  background:rgba(69,10,10,.58) !important;
+  border-color:rgba(127,29,29,.44) !important;
+  color:rgba(254,226,226,.52) !important;
+  box-shadow:none !important;
+}
+
+@media (max-width:620px){
+  #editModal .edit-actions.edit-actions-split,
+  .edit-modal .edit-actions.edit-actions-split,
+  body.mhp-promoted-edit-gallery .edit-actions.edit-actions-split{
+    flex-wrap:wrap !important;
+    align-items:stretch !important;
+  }
+  #editModal .edit-actions-right,
+  .edit-modal .edit-actions-right,
+  body.mhp-promoted-edit-gallery .edit-actions-right{
+    width:100% !important;
+    justify-content:flex-end !important;
+    margin-left:0 !important;
+  }
+}
+
+@media (max-width:520px){
+  #editModal .edit-actions.edit-actions-split,
+  .edit-modal .edit-actions.edit-actions-split,
+  body.mhp-promoted-edit-gallery .edit-actions.edit-actions-split{
+    flex-direction:column !important;
+  }
+  #editModal .edit-actions-left,
+  #editModal .edit-actions-right,
+  .edit-modal .edit-actions-left,
+  .edit-modal .edit-actions-right,
+  body.mhp-promoted-edit-gallery .edit-actions-left,
+  body.mhp-promoted-edit-gallery .edit-actions-right{
+    width:100% !important;
+    justify-content:stretch !important;
+  }
+  #editModal .edit-actions-left > .btn,
+  #editModal .edit-actions-right > .btn,
+  .edit-modal .edit-actions-left > .btn,
+  .edit-modal .edit-actions-right > .btn{
+    flex:1 1 auto !important;
+  }
+}
+
+
+/* Final edit footer layout: the action footer lives outside the form so it can
+   span the whole modal. Cancel remains left; Delete + Save align to the modal
+   right with a tiny breathing room from the edge. */
+#editModal > .edit-actions-modal-footer,
+.edit-modal > .edit-actions-modal-footer,
+body.mhp-promoted-edit-gallery #editModal > .edit-actions-modal-footer{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) auto !important;
+  align-items:center !important;
+  column-gap:12px !important;
+  width:100% !important;
+  max-width:100% !important;
+  margin:14px 0 0 !important;
+  box-sizing:border-box !important;
+  padding:0 16px 0 0 !important;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+
+#editModal > .edit-actions-modal-footer .edit-actions-left,
+.edit-modal > .edit-actions-modal-footer .edit-actions-left,
+body.mhp-promoted-edit-gallery #editModal > .edit-actions-modal-footer .edit-actions-left{
+  display:flex !important;
+  justify-content:flex-start !important;
+  min-width:0 !important;
+  background:transparent !important;
+}
+
+#editModal > .edit-actions-modal-footer .edit-actions-right,
+.edit-modal > .edit-actions-modal-footer .edit-actions-right,
+body.mhp-promoted-edit-gallery #editModal > .edit-actions-modal-footer .edit-actions-right{
+  display:flex !important;
+  justify-content:flex-end !important;
+  align-items:center !important;
+  gap:8px !important;
+  min-width:max-content !important;
+  margin-left:0 !important;
+  margin-right:0 !important;
+  padding-left:0 !important;
+  background:transparent !important;
+}
+
+#editModal > .edit-actions-modal-footer #deleteEditCharacterBtn,
+.edit-modal > .edit-actions-modal-footer #deleteEditCharacterBtn{
+  margin-inline-end:0 !important;
+}
+
+@media (max-width:620px){
+  #editModal > .edit-actions-modal-footer,
+  .edit-modal > .edit-actions-modal-footer,
+  body.mhp-promoted-edit-gallery #editModal > .edit-actions-modal-footer{
+    grid-template-columns:1fr !important;
+    row-gap:10px !important;
+  }
+  #editModal > .edit-actions-modal-footer .edit-actions-left,
+  #editModal > .edit-actions-modal-footer .edit-actions-right,
+  .edit-modal > .edit-actions-modal-footer .edit-actions-left,
+  .edit-modal > .edit-actions-modal-footer .edit-actions-right{
+    width:100% !important;
+  }
+  #editModal > .edit-actions-modal-footer .edit-actions-right,
+  .edit-modal > .edit-actions-modal-footer .edit-actions-right{
+    justify-content:flex-end !important;
+  }
+}
+
+
+/* v2.657: keep right-side edit actions from touching the modal edge. */
+#editModal > .edit-actions-modal-footer .edit-actions-right,
+.edit-modal > .edit-actions-modal-footer .edit-actions-right,
+body.mhp-promoted-edit-gallery #editModal > .edit-actions-modal-footer .edit-actions-right{
+  margin-right:0 !important;
+}
+
+#editModal > .edit-actions-modal-footer,
+.edit-modal > .edit-actions-modal-footer,
+body.mhp-promoted-edit-gallery #editModal > .edit-actions-modal-footer{
+  padding-right:16px !important;
+  box-sizing:border-box !important;
+}
+
+
+/* v2.658: edit footer breathing room on both sides and bottom.
+   Cancel gets the same 16px left inset; Delete + Save keep 16px right inset;
+   all three buttons get 16px bottom breathing room from the modal edge. */
+#editModal > .edit-actions-modal-footer,
+.edit-modal > .edit-actions-modal-footer,
+body.mhp-promoted-edit-gallery #editModal > .edit-actions-modal-footer{
+  padding:0 16px 16px 16px !important;
+  box-sizing:border-box !important;
+}
+
+#editModal > .edit-actions-modal-footer .edit-actions-left,
+.edit-modal > .edit-actions-modal-footer .edit-actions-left,
+body.mhp-promoted-edit-gallery #editModal > .edit-actions-modal-footer .edit-actions-left{
+  padding-left:0 !important;
+}
+
+#editModal > .edit-actions-modal-footer .edit-actions-right,
+.edit-modal > .edit-actions-modal-footer .edit-actions-right,
+body.mhp-promoted-edit-gallery #editModal > .edit-actions-modal-footer .edit-actions-right{
+  padding-right:0 !important;
+}

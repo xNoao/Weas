@@ -1,0 +1,16 @@
+/*
+  Mudae Harem Organizer - legacy style entry
+  ==========================================
+  The active page now loads zone CSS files directly from index.html:
+
+  css/core/          base, background, themes
+  css/board/         board layout / parser panel / stats layout
+  css/cards/         character cards and stat pills
+  css/edit-gallery/  edit modal, gallery panel, parser overlay modal
+  css/settings/      settings and graphics settings
+  css/floating/      floating action/search bar
+  css/exports/       export sidebar/tools
+  css/legacy/        compatibility overrides only
+
+  The old css/min/ bundle is kept only as archive/backup.
+*/

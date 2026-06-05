@@ -1,1 +1,341 @@
-:root{--mhp-loader-z:99999;--mhp-loader-asset-size:112px;--mhp-loader-track-w:min(360px,calc(100vw - 64px));--mhp-loader-track-h:8px}html.mhp-booting body{background-color:#020617 !important}html.mhp-booting body>*:not(#mhpBootLoader){visibility:hidden !important}html.mhp-booting #mhpBootLoader{visibility:visible !important}.mhp-loader-overlay{position:fixed !important;inset:0 !important;z-index:var(--mhp-loader-z)!important;display:grid !important;place-items:center !important;padding:28px !important;box-sizing:border-box !important;color:#eaf6ff !important;background:rgba(2,6,23,.88)!important;backdrop-filter:blur(18px)saturate(120%)!important;-webkit-backdrop-filter:blur(18px)saturate(120%)!important;opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transition:opacity .20s ease,visibility .20s ease !important}.mhp-loader-overlay[hidden],.app-loading-overlay[hidden],#appLoadingOverlay[hidden]{display:none !important;opacity:0 !important;visibility:hidden !important;pointer-events:none !important}html.mhp-booting #mhpBootLoader.mhp-loader-overlay,#appLoadingOverlay.is-parser-loading:not([hidden]){display:grid !important}html.mhp-booting #appLoadingOverlay:not(.is-parser-loading){display:none !important}#mhpBootLoader.is-hiding,html.mhp-ready #mhpBootLoader{opacity:0 !important;visibility:hidden !important;pointer-events:none !important}.mhp-loader-card,.app-loading-card,.mhp-boot-loader-card{position:relative !important;z-index:1 !important;width:min(420px,calc(100vw - 48px))!important;min-height:0 !important;display:grid !important;justify-items:center !important;align-content:center !important;gap:12px !important;padding:0 !important;margin:0 !important;border:0 !important;border-radius:0 !important;background:transparent !important;box-shadow:none !important;overflow:visible !important;isolation:isolate !important}.mhp-loader-card::before,.mhp-loader-card::after,.app-loading-card::before,.app-loading-card::after,.mhp-boot-loader-card::before,.mhp-boot-loader-card::after{display:none !important;content:none !important;animation:none !important}.mhp-loader-asset-slot,.app-loading-asset-slot,.mhp-boot-loader-asset-slot{width:var(--mhp-loader-asset-size)!important;height:var(--mhp-loader-asset-size)!important;display:grid !important;place-items:center !important;padding:0 !important;margin:0 0 4px !important;border:0 !important;background:transparent !important;box-shadow:none !important;overflow:visible !important}.mhp-loader-img,.app-loading-asset-img,.mhp-boot-loader-img{display:block !important;width:100% !important;height:100% !important;max-width:100% !important;max-height:100% !important;object-fit:contain !important;border:0 !important;border-radius:0 !important;opacity:1 !important;transform:none !important;filter:drop-shadow(0 18px 36px rgba(0,0,0,.48))drop-shadow(0 0 22px rgba(56,189,248,.22))!important}.mhp-loader-img[hidden],.mhp-loader-asset-slot.is-missing{display:none !important}.mhp-loader-copy,.app-loading-copy{display:grid !important;justify-items:center !important;gap:7px !important;text-align:center !important}.mhp-loader-title,.mhp-boot-loader-title,.app-loading-copy strong{display:block !important;margin:0 !important;color:#f8fafc !important;font:900 1.18rem/1.1 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif !important;letter-spacing:.025em !important;text-align:center !important;text-shadow:0 2px 22px rgba(34,211,238,.22),0 2px 12px rgba(0,0,0,.55)!important}.mhp-loader-subtitle,.mhp-boot-loader-subtitle,.app-loading-copy span.mhp-loader-subtitle{display:block !important;margin:0 !important;max-width:min(44ch,calc(100vw - 48px))!important;color:rgba(226,232,240,.80)!important;font:650 .86rem/1.35 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif !important;text-align:center !important;text-shadow:0 2px 10px rgba(0,0,0,.44)!important}.mhp-loader-data,.mhp-boot-loader-data,.app-loading-copy .mhp-loader-data{display:inline-flex !important;align-items:center !important;justify-content:center !important;gap:8px !important;min-height:20px !important;color:rgba(186,230,253,.88)!important;font:750 .76rem/1.25 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif !important;letter-spacing:.035em !important;text-align:center !important;text-transform:uppercase !important;text-shadow:0 2px 12px rgba(0,0,0,.45)!important}.mhp-loader-bar,.mhp-boot-loader-bar,.app-loading-bar{position:relative !important;display:block !important;width:var(--mhp-loader-track-w)!important;height:var(--mhp-loader-track-h)!important;margin:8px auto 0 !important;padding:0 !important;overflow:hidden !important;border:1px solid rgba(148,163,184,.22)!important;border-radius:999px !important;background:rgba(15,23,42,.52)!important;box-shadow:inset 0 1px 5px rgba(0,0,0,.38),0 0 28px rgba(34,211,238,.08)!important}.mhp-loader-bar span,.mhp-boot-loader-bar span,.app-loading-bar span{position:absolute !important;left:0 !important;top:0 !important;bottom:0 !important;display:block !important;height:100% !important;border-radius:inherit !important;background:linear-gradient(90deg,#22d3ee,#60a5fa,#a78bfa,#f472b6)!important;box-shadow:0 0 20px rgba(56,189,248,.44)!important;will-change:transform,width !important}.mhp-loader-overlay:not(.is-determinate).mhp-loader-bar span{width:42% !important;animation:mhp-loader-bar-sweep 1.16s ease-in-out infinite !important}.mhp-loader-overlay.is-determinate .mhp-loader-bar span{width:var(--mhp-loader-progress,0%)!important;min-width:14px !important;animation:mhp-loader-fill-pulse 1.18s ease-in-out infinite !important}@keyframes mhp-loader-bar-sweep{0%{transform:translateX(-130%)}50%{transform:translateX(78%)}100%{transform:translateX(245%)}}@keyframes mhp-loader-fill-pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.35)}}@media(prefers-reduced-motion:reduce){.mhp-loader-bar span,.mhp-boot-loader-bar span,.app-loading-bar span{animation:none !important}}@media(max-width:520px){:root{--mhp-loader-asset-size:86px;--mhp-loader-track-w:min(300px,calc(100vw - 58px))}.mhp-loader-title,.mhp-boot-loader-title,.app-loading-copy strong{font-size:1.04rem !important}}#appLoadingOverlay.is-parser-loading .app-loading-asset-slot,#appLoadingOverlay.is-parser-loading .mhp-loader-asset-slot,#mhpBootLoader .mhp-boot-loader-asset-slot{width:var(--mhp-loader-asset-size)!important;height:var(--mhp-loader-asset-size)!important;display:grid !important;place-items:center !important;border:0 !important;background:transparent !important;box-shadow:none !important;animation:none !important}#appLoadingOverlay.is-parser-loading .app-loading-asset-img,#appLoadingOverlay.is-parser-loading .mhp-loader-img,#mhpBootLoader .mhp-boot-loader-img{display:block !important;width:100% !important;height:100% !important;object-fit:contain !important;opacity:1 !important}html.app-is-loading body,html.mhp-json-loading-overlay body,html.mhp-parser-loading-overlay body,html.mhp-heavy-loading body{background-color:#020617 !important}#appLoadingOverlay:not([hidden]),html.mhp-json-loading-overlay #appLoadingOverlay:not([hidden]),html.mhp-parser-loading-overlay #appLoadingOverlay:not([hidden]),html.mhp-heavy-loading #appLoadingOverlay:not([hidden]){background:radial-gradient(circle at 50% 42%,rgba(14,165,233,.12),transparent 34%),radial-gradient(circle at 50% 62%,rgba(168,85,247,.10),transparent 42%),rgba(2,6,23,.92)!important;backdrop-filter:blur(20px)saturate(122%)!important;-webkit-backdrop-filter:blur(20px)saturate(122%)!important}.mhp-json-drop-overlay{position:fixed;inset:0;z-index:12000;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(circle at center,rgba(56,189,248,.16),transparent 42%),rgba(2,6,23,.86);backdrop-filter:blur(14px)saturate(1.1);-webkit-backdrop-filter:blur(14px)saturate(1.1)}.mhp-json-drop-overlay[hidden]{display:none!important}.mhp-json-drop-card{width:min(520px,calc(100vw - 48px));padding:28px;border:1px solid rgba(148,163,184,.32);border-radius:24px;background:linear-gradient(180deg,rgba(15,23,42,.94),rgba(2,6,23,.92));box-shadow:0 28px 80px rgba(0,0,0,.45);text-align:center}.mhp-json-drop-title{font-size:24px;line-height:1.15;font-weight:900;color:#e5f3ff}.mhp-json-drop-subtitle{margin-top:8px;font-size:14px;line-height:1.4;color:rgba(226,232,240,.74)}
+:root {
+  --mhp-loader-z: 99999;
+  --mhp-loader-asset-size: 112px;
+  --mhp-loader-track-w: min(360px, calc(100vw - 64px));
+  --mhp-loader-track-h: 8px;
+}
+
+html.mhp-booting body {
+  background-color: #020617 !important;
+}
+
+html.mhp-booting body > *:not(#mhpBootLoader) {
+  visibility: hidden !important;
+}
+
+html.mhp-booting #mhpBootLoader {
+  visibility: visible !important;
+}
+
+.mhp-loader-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: var(--mhp-loader-z) !important;
+  display: grid !important;
+  place-items: center !important;
+  padding: 28px !important;
+  box-sizing: border-box !important;
+  color: #eaf6ff !important;
+  background: rgba(2, 6, 23, .88) !important;
+  backdrop-filter: blur(18px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(120%) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transition: opacity .20s ease, visibility .20s ease !important;
+}
+
+.mhp-loader-overlay[hidden],
+.app-loading-overlay[hidden],
+#appLoadingOverlay[hidden] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+html.mhp-booting #mhpBootLoader.mhp-loader-overlay,
+#appLoadingOverlay.is-parser-loading:not([hidden]) {
+  display: grid !important;
+}
+
+html.mhp-booting #appLoadingOverlay:not(.is-parser-loading) {
+  display: none !important;
+}
+
+#mhpBootLoader.is-hiding,
+html.mhp-ready #mhpBootLoader {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.mhp-loader-card,
+.app-loading-card,
+.mhp-boot-loader-card {
+  position: relative !important;
+  z-index: 1 !important;
+  width: min(420px, calc(100vw - 48px)) !important;
+  min-height: 0 !important;
+  display: grid !important;
+  justify-items: center !important;
+  align-content: center !important;
+  gap: 12px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  isolation: isolate !important;
+}
+
+.mhp-loader-card::before,
+.mhp-loader-card::after,
+.app-loading-card::before,
+.app-loading-card::after,
+.mhp-boot-loader-card::before,
+.mhp-boot-loader-card::after {
+  display: none !important;
+  content: none !important;
+  animation: none !important;
+}
+
+.mhp-loader-asset-slot,
+.app-loading-asset-slot,
+.mhp-boot-loader-asset-slot {
+  width: var(--mhp-loader-asset-size) !important;
+  height: var(--mhp-loader-asset-size) !important;
+  display: grid !important;
+  place-items: center !important;
+  padding: 0 !important;
+  margin: 0 0 4px !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+.mhp-loader-img,
+.app-loading-asset-img,
+.mhp-boot-loader-img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  opacity: 1 !important;
+  transform: none !important;
+  filter: drop-shadow(0 18px 36px rgba(0,0,0,.48)) drop-shadow(0 0 22px rgba(56,189,248,.22)) !important;
+}
+
+.mhp-loader-img[hidden],
+.mhp-loader-asset-slot.is-missing {
+  display: none !important;
+}
+
+.mhp-loader-copy,
+.app-loading-copy {
+  display: grid !important;
+  justify-items: center !important;
+  gap: 7px !important;
+  text-align: center !important;
+}
+
+.mhp-loader-title,
+.mhp-boot-loader-title,
+.app-loading-copy strong {
+  display: block !important;
+  margin: 0 !important;
+  color: #f8fafc !important;
+  font: 900 1.18rem/1.1 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  letter-spacing: .025em !important;
+  text-align: center !important;
+  text-shadow: 0 2px 22px rgba(34, 211, 238, .22), 0 2px 12px rgba(0,0,0,.55) !important;
+}
+
+.mhp-loader-subtitle,
+.mhp-boot-loader-subtitle,
+.app-loading-copy span.mhp-loader-subtitle {
+  display: block !important;
+  margin: 0 !important;
+  max-width: min(44ch, calc(100vw - 48px)) !important;
+  color: rgba(226, 232, 240, .80) !important;
+  font: 650 .86rem/1.35 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  text-align: center !important;
+  text-shadow: 0 2px 10px rgba(0,0,0,.44) !important;
+}
+
+.mhp-loader-data,
+.mhp-boot-loader-data,
+.app-loading-copy .mhp-loader-data {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  min-height: 20px !important;
+  color: rgba(186, 230, 253, .88) !important;
+  font: 750 .76rem/1.25 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  letter-spacing: .035em !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 2px 12px rgba(0,0,0,.45) !important;
+}
+
+.mhp-loader-bar,
+.mhp-boot-loader-bar,
+.app-loading-bar {
+  position: relative !important;
+  display: block !important;
+  width: var(--mhp-loader-track-w) !important;
+  height: var(--mhp-loader-track-h) !important;
+  margin: 8px auto 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(148, 163, 184, .22) !important;
+  border-radius: 999px !important;
+  background: rgba(15, 23, 42, .52) !important;
+  box-shadow:
+    inset 0 1px 5px rgba(0,0,0,.38),
+    0 0 28px rgba(34,211,238,.08) !important;
+}
+
+.mhp-loader-bar span,
+.mhp-boot-loader-bar span,
+.app-loading-bar span {
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  display: block !important;
+  height: 100% !important;
+  border-radius: inherit !important;
+  background: linear-gradient(90deg, #22d3ee, #60a5fa, #a78bfa, #f472b6) !important;
+  box-shadow: 0 0 20px rgba(56, 189, 248, .44) !important;
+  will-change: transform, width !important;
+}
+
+.mhp-loader-overlay:not(.is-determinate) .mhp-loader-bar span {
+  width: 42% !important;
+  animation: mhp-loader-bar-sweep 1.16s ease-in-out infinite !important;
+}
+
+.mhp-loader-overlay.is-determinate .mhp-loader-bar span {
+  width: var(--mhp-loader-progress, 0%) !important;
+  min-width: 14px !important;
+  animation: mhp-loader-fill-pulse 1.18s ease-in-out infinite !important;
+}
+
+@keyframes mhp-loader-bar-sweep {
+  0% { transform: translateX(-130%); }
+  50% { transform: translateX(78%); }
+  100% { transform: translateX(245%); }
+}
+
+@keyframes mhp-loader-fill-pulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.35); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mhp-loader-bar span,
+  .mhp-boot-loader-bar span,
+  .app-loading-bar span {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 520px) {
+  :root {
+    --mhp-loader-asset-size: 86px;
+    --mhp-loader-track-w: min(300px, calc(100vw - 58px));
+  }
+
+  .mhp-loader-title,
+  .mhp-boot-loader-title,
+  .app-loading-copy strong {
+    font-size: 1.04rem !important;
+  }
+}
+
+#appLoadingOverlay.is-parser-loading .app-loading-asset-slot,
+#appLoadingOverlay.is-parser-loading .mhp-loader-asset-slot,
+#mhpBootLoader .mhp-boot-loader-asset-slot {
+  width: var(--mhp-loader-asset-size) !important;
+  height: var(--mhp-loader-asset-size) !important;
+  display: grid !important;
+  place-items: center !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  animation: none !important;
+}
+
+#appLoadingOverlay.is-parser-loading .app-loading-asset-img,
+#appLoadingOverlay.is-parser-loading .mhp-loader-img,
+#mhpBootLoader .mhp-boot-loader-img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  opacity: 1 !important;
+}
+
+
+/* v2.619: JSON import, parsing and secondary harem loads use the same dark stage as initial boot. */
+html.app-is-loading body,
+html.mhp-json-loading-overlay body,
+html.mhp-parser-loading-overlay body,
+html.mhp-heavy-loading body {
+  background-color: #020617 !important;
+}
+
+#appLoadingOverlay:not([hidden]),
+html.mhp-json-loading-overlay #appLoadingOverlay:not([hidden]),
+html.mhp-parser-loading-overlay #appLoadingOverlay:not([hidden]),
+html.mhp-heavy-loading #appLoadingOverlay:not([hidden]) {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(14, 165, 233, .12), transparent 34%),
+    radial-gradient(circle at 50% 62%, rgba(168, 85, 247, .10), transparent 42%),
+    rgba(2, 6, 23, .92) !important;
+  backdrop-filter: blur(20px) saturate(122%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(122%) !important;
+}
+
+/* v2.621: JSON drag-and-drop import overlay. */
+.mhp-json-drop-overlay{
+  position:fixed;
+  inset:0;
+  z-index:12000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:
+    radial-gradient(circle at center, rgba(56,189,248,.16), transparent 42%),
+    rgba(2,6,23,.86);
+  backdrop-filter:blur(14px) saturate(1.1);
+  -webkit-backdrop-filter:blur(14px) saturate(1.1);
+}
+
+.mhp-json-drop-overlay[hidden]{
+  display:none!important;
+}
+
+.mhp-json-drop-card{
+  width:min(520px, calc(100vw - 48px));
+  padding:28px;
+  border:1px solid rgba(148,163,184,.32);
+  border-radius:24px;
+  background:linear-gradient(180deg, rgba(15,23,42,.94), rgba(2,6,23,.92));
+  box-shadow:0 28px 80px rgba(0,0,0,.45);
+  text-align:center;
+}
+
+.mhp-json-drop-title{
+  font-size:24px;
+  line-height:1.15;
+  font-weight:900;
+  color:#e5f3ff;
+}
+
+.mhp-json-drop-subtitle{
+  margin-top:8px;
+  font-size:14px;
+  line-height:1.4;
+  color:rgba(226,232,240,.74);
+}

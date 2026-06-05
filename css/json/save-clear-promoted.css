@@ -1,1 +1,860 @@
-body.mhp-promoted-save-clear{--mhp-json-dialog-radius:18px;--mhp-json-dialog-control-radius:11px;--mhp-json-dialog-width:min(460px,calc(100vw - 42px));--mhp-json-dialog-text:var(--mhp-promoted-text,#f8fafc);--mhp-json-dialog-muted:var(--mhp-promoted-muted,#cbd5e1);--mhp-json-dialog-line:var(--mhp-promoted-border,rgba(226,232,240,.18));--mhp-json-dialog-shadow:0 24px 80px rgba(0,0,0,.42);--mhp-json-save-accent:#4ade80;--mhp-json-save-border:rgba(74,222,128,.58);--mhp-json-save-title:#dcfce7;--mhp-json-save-muted:#bbf7d0;--mhp-json-clear-accent:#f87171;--mhp-json-clear-border:rgba(248,113,113,.58);--mhp-json-clear-title:#fee2e2;--mhp-json-clear-muted:#fecaca}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog{position:fixed !important;inset:0 !important;z-index:9300 !important;display:grid !important;place-items:center !important;padding:22px !important;overflow:auto !important;background:rgba(2,6,23,.24)!important;border:0 !important;box-shadow:none !important}body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-json-small-dialog,body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-json-small-dialog{backdrop-filter:blur(4px)saturate(1.02)!important;-webkit-backdrop-filter:blur(4px)saturate(1.02)!important}body.mhp-promoted-save-clear.visual-mode-minimalist #appDialogOverlay.mhp-json-small-dialog,body.mhp-promoted-save-clear[data-visual-mode="minimalist"] #appDialogOverlay.mhp-json-small-dialog,body.mhp-promoted-save-clear:not(.visual-mode-glass)#appDialogOverlay.mhp-json-small-dialog{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog[hidden]{display:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-card{box-sizing:border-box !important;width:var(--mhp-json-dialog-width)!important;max-width:var(--mhp-json-dialog-width)!important;display:flex !important;flex-direction:column !important;gap:0 !important;border-radius:var(--mhp-json-dialog-radius)!important;overflow:hidden !important;color:var(--mhp-json-dialog-text)!important;box-shadow:var(--mhp-json-dialog-shadow)!important;transform:none !important;left:auto !important;top:auto !important;margin:0 !important;isolation:isolate}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-card{border:1px solid var(--mhp-json-save-border)!important;box-shadow:var(--mhp-json-dialog-shadow),0 0 0 1px rgba(74,222,128,.12),0 0 28px rgba(34,197,94,.13)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card{border:1px solid var(--mhp-json-clear-border)!important;box-shadow:var(--mhp-json-dialog-shadow),0 0 0 1px rgba(248,113,113,.12),0 0 28px rgba(220,38,38,.13)!important}body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-save-json-dialog .app-dialog-card,body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-save-json-dialog .app-dialog-card{background:linear-gradient(180deg,rgba(6,78,59,var(--mhp-promoted-graphics-menu-alpha,.80)),rgba(15,23,42,var(--mhp-promoted-graphics-panel-alpha,.65)))!important;backdrop-filter:blur(var(--mhp-glass-blur,14px))saturate(1.06)!important;-webkit-backdrop-filter:blur(var(--mhp-glass-blur,14px))saturate(1.06)!important}body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card,body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card{background:linear-gradient(180deg,rgba(69,10,10,var(--mhp-promoted-graphics-menu-alpha,.80)),rgba(15,23,42,var(--mhp-promoted-graphics-panel-alpha,.65)))!important;backdrop-filter:blur(var(--mhp-glass-blur,14px))saturate(1.06)!important;-webkit-backdrop-filter:blur(var(--mhp-glass-blur,14px))saturate(1.06)!important}body.mhp-promoted-save-clear.visual-mode-minimalist #appDialogOverlay.mhp-save-json-dialog .app-dialog-card,body.mhp-promoted-save-clear[data-visual-mode="minimalist"] #appDialogOverlay.mhp-save-json-dialog .app-dialog-card,body.mhp-promoted-save-clear:not(.visual-mode-glass)#appDialogOverlay.mhp-save-json-dialog .app-dialog-card{background:#102018 !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important}body.mhp-promoted-save-clear.visual-mode-minimalist #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card,body.mhp-promoted-save-clear[data-visual-mode="minimalist"] #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card,body.mhp-promoted-save-clear:not(.visual-mode-glass)#appDialogOverlay.mhp-clear-local-dialog .app-dialog-card{background:#211317 !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-head{display:flex !important;align-items:flex-start !important;justify-content:space-between !important;gap:12px !important;padding:15px 16px 12px !important;border:0 !important;border-bottom:1px solid var(--mhp-json-dialog-line)!important;background:transparent !important;box-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-head{border-bottom-color:rgba(74,222,128,.26)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-head{border-bottom-color:rgba(248,113,113,.26)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-title{display:block !important;margin:0 !important;font-size:15px !important;line-height:1.2 !important;font-weight:800 !important;letter-spacing:.01em !important;text-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-title{color:var(--mhp-json-save-title)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-title{color:var(--mhp-json-clear-title)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-message{margin:5px 0 0 !important;font-size:12px !important;line-height:1.45 !important;background:transparent !important;border:0 !important;box-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-message{color:var(--mhp-json-save-muted)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-message{color:var(--mhp-json-clear-muted)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-close{display:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-input-wrap{display:flex !important;flex-direction:column !important;gap:7px !important;padding:14px 16px 0 !important;margin:0 !important;background:transparent !important;border:0 !important;box-shadow:none !important;color:var(--mhp-json-dialog-muted)!important;font-size:12px !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-input-wrap[hidden]{display:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-input{min-height:34px !important;height:34px !important;padding:0 10px !important;border-radius:var(--mhp-json-dialog-control-radius)!important;outline:none !important;box-shadow:none !important;font-size:13px !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-input{border:1px solid rgba(74,222,128,.38)!important;background:rgba(6,78,59,.22)!important;color:#f0fdf4 !important}body.mhp-promoted-save-clear.visual-mode-minimalist #appDialogOverlay.mhp-save-json-dialog .app-dialog-input,body.mhp-promoted-save-clear[data-visual-mode="minimalist"] #appDialogOverlay.mhp-save-json-dialog .app-dialog-input,body.mhp-promoted-save-clear:not(.visual-mode-glass)#appDialogOverlay.mhp-save-json-dialog .app-dialog-input{background:#17251c !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-input:focus{border-color:var(--mhp-json-save-accent)!important;box-shadow:0 0 0 2px rgba(74,222,128,.15)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-actions{display:flex !important;justify-content:flex-end !important;gap:8px !important;padding:14px 16px 16px !important;margin:0 !important;border:0 !important;background:transparent !important;box-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-btn,body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .btn{min-height:30px !important;padding:0 13px !important;border-radius:var(--mhp-json-dialog-control-radius)!important;font-size:12px !important;font-weight:750 !important;letter-spacing:.01em !important;box-shadow:none !important;text-shadow:none !important;transform:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-btn.btn-primary,body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .btn-primary{border:1px solid #86efac !important;background:linear-gradient(135deg,#166534,#22c55e)!important;color:#f0fdf4 !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-btn.btn-primary:hover,body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .btn-primary:hover{border-color:#bbf7d0 !important;background:linear-gradient(135deg,#15803d,#4ade80)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-danger,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-danger{border:1px solid #f87171 !important;background:linear-gradient(135deg,#7f1d1d,#dc2626)!important;color:#fff1f2 !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-danger:hover,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-danger:hover{border-color:#fecaca !important;background:linear-gradient(135deg,#991b1b,#ef4444)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-btn.btn-ghost,body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .btn-ghost{border:1px solid rgba(226,232,240,.16)!important;background:rgba(15,23,42,.26)!important;color:rgba(226,232,240,.84)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-custom-content,body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-custom-content::before,body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-custom-content::after{background:transparent !important;background-image:none !important;border:0 !important;box-shadow:none !important;content:none !important}body.mhp-promoted-save-clear{--mhp-json-dialog-width:min(460px,calc(100vw - 34px));--mhp-json-card-bg:rgba(9,14,25,.94);--mhp-json-card-bg-glass:rgba(9,14,25,var(--mhp-promoted-graphics-menu-alpha,.82));--mhp-json-card-border:rgba(148,163,184,.22);--mhp-json-soft-line:rgba(148,163,184,.26);--mhp-json-title:#f8fafc;--mhp-json-text:#e5e7eb;--mhp-json-muted:#cbd5e1;--mhp-json-control-bg:rgba(15,23,42,.62);--mhp-json-control-bg-glass:rgba(15,23,42,var(--mhp-promoted-graphics-panel-alpha,.54));--mhp-json-save-input-bg:rgba(22,101,52,.22)}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog{background:rgba(2,6,23,.36)!important;padding:20px !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-card{width:var(--mhp-json-dialog-width)!important;max-width:var(--mhp-json-dialog-width)!important;display:grid !important;gap:14px !important;padding:16px !important;border:1px solid var(--mhp-json-card-border)!important;border-radius:18px !important;background:var(--mhp-json-card-bg)!important;color:var(--mhp-json-text)!important;box-shadow:0 24px 80px rgba(0,0,0,.42)!important;overflow:hidden !important}body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-json-small-dialog .app-dialog-card,body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-json-small-dialog .app-dialog-card{background:var(--mhp-json-card-bg-glass)!important;backdrop-filter:blur(var(--mhp-glass-blur,16px))saturate(1.06)!important;-webkit-backdrop-filter:blur(var(--mhp-glass-blur,16px))saturate(1.06)!important}body.mhp-promoted-save-clear.visual-mode-minimalist #appDialogOverlay.mhp-json-small-dialog .app-dialog-card,body.mhp-promoted-save-clear[data-visual-mode="minimalist"] #appDialogOverlay.mhp-json-small-dialog .app-dialog-card,body.mhp-promoted-save-clear:not(.visual-mode-glass)#appDialogOverlay.mhp-json-small-dialog .app-dialog-card{background:var(--mhp-json-card-bg)!important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-card,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card{border-color:var(--mhp-json-card-border)!important;box-shadow:0 24px 80px rgba(0,0,0,.42)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-card{--mhp-json-intent:#22c55e;--mhp-json-intent-soft:rgba(74,222,128,.42);--mhp-json-intent-strong:#86efac}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card{--mhp-json-intent:#ef4444;--mhp-json-intent-soft:rgba(248,113,113,.42);--mhp-json-intent-strong:#fecaca}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-head{display:block !important;padding:0 0 12px !important;margin:0 !important;border:0 !important;border-bottom:1px solid var(--mhp-json-soft-line)!important;background:transparent !important;box-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-head,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-head{border-bottom-color:var(--mhp-json-soft-line)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-title{color:var(--mhp-json-title)!important;margin:0 !important;font-size:20px !important;line-height:1.1 !important;font-weight:900 !important;letter-spacing:-.02em !important;text-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-message{margin:10px 0 0 !important;color:var(--mhp-json-muted)!important;font-size:13px !important;line-height:1.4 !important;background:transparent !important;border:0 !important;box-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-input-wrap{display:block !important;padding:0 !important;margin:0 !important;background:transparent !important;border:0 !important;box-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-input-wrap[hidden]{display:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog #appDialogInputLabel,body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-input-label{display:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-input{width:100% !important;min-height:38px !important;height:38px !important;box-sizing:border-box !important;padding:0 12px !important;border-radius:10px !important;font-size:13px !important;font-weight:800 !important;outline:none !important;box-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-input{border:1px solid rgba(74,222,128,.55)!important;background:var(--mhp-json-save-input-bg)!important;color:#f0fdf4 !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-input{border:1px solid rgba(248,113,113,.48)!important;background:rgba(127,29,29,.20)!important;color:#fff1f2 !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-input:focus{border-color:var(--mhp-json-intent-strong)!important;box-shadow:0 0 0 2px color-mix(in srgb,var(--mhp-json-intent)22%,transparent 78%)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-actions{display:flex !important;align-items:center !important;justify-content:flex-end !important;gap:8px !important;padding:0 !important;margin:0 !important;border:0 !important;background:transparent !important;box-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-btn,body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .btn{min-height:34px !important;height:34px !important;padding:0 13px !important;border-radius:10px !important;font-size:13px !important;font-weight:850 !important;letter-spacing:0 !important;line-height:1 !important;box-shadow:none !important;text-shadow:none !important;transform:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-btn.btn-ghost,body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .btn-ghost{border:1px solid rgba(148,163,184,.34)!important;background:var(--mhp-json-control-bg)!important;color:#e5e7eb !important}body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-json-small-dialog .app-dialog-btn.btn-ghost,body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-json-small-dialog .btn-ghost,body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-json-small-dialog .app-dialog-btn.btn-ghost,body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-json-small-dialog .btn-ghost{background:var(--mhp-json-control-bg-glass)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-btn.btn-primary,body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .btn-primary{border:1px solid rgba(134,239,172,.78)!important;background:#22c55e !important;color:#f0fdf4 !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-btn.btn-primary:hover,body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .btn-primary:hover{border-color:#bbf7d0 !important;background:#16a34a !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-danger,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-danger,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-primary,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-primary{border:1px solid rgba(248,113,113,.78)!important;background:#dc2626 !important;color:#fff1f2 !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-danger:hover,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-danger:hover,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-primary:hover,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-primary:hover{border-color:#fecaca !important;background:#b91c1c !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-close{display:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog.app-dialog-overlay.is-danger .app-dialog-card,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card{border-color:var(--mhp-json-card-border)!important;background:var(--mhp-json-card-bg)!important;box-shadow:0 24px 80px rgba(0,0,0,.42)!important}body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-clear-local-dialog.app-dialog-overlay.is-danger .app-dialog-card,body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card,body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-clear-local-dialog.app-dialog-overlay.is-danger .app-dialog-card,body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card{background:var(--mhp-json-card-bg-glass)!important;backdrop-filter:blur(var(--mhp-glass-blur,16px))saturate(1.06)!important;-webkit-backdrop-filter:blur(var(--mhp-glass-blur,16px))saturate(1.06)!important}body.mhp-promoted-save-clear.visual-mode-minimalist #appDialogOverlay.mhp-clear-local-dialog.app-dialog-overlay.is-danger .app-dialog-card,body.mhp-promoted-save-clear.visual-mode-minimalist #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card,body.mhp-promoted-save-clear[data-visual-mode="minimalist"] #appDialogOverlay.mhp-clear-local-dialog.app-dialog-overlay.is-danger .app-dialog-card,body.mhp-promoted-save-clear[data-visual-mode="minimalist"] #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card,body.mhp-promoted-save-clear:not(.visual-mode-glass)#appDialogOverlay.mhp-clear-local-dialog.app-dialog-overlay.is-danger .app-dialog-card,body.mhp-promoted-save-clear:not(.visual-mode-glass)#appDialogOverlay.mhp-clear-local-dialog .app-dialog-card{background:var(--mhp-json-card-bg)!important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-head{border-bottom-color:var(--mhp-json-soft-line)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-title{color:var(--mhp-json-title)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-message{color:var(--mhp-json-muted)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-input-wrap,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-custom-content{background:transparent !important;border:0 !important;box-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-danger,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-danger,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-primary,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-primary{border:1px solid rgba(248,113,113,.78)!important;background:#dc2626 !important;color:#fff1f2 !important;box-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-danger:hover,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-danger:hover,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-primary:hover,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-primary:hover{border-color:#fecaca !important;background:#b91c1c !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog{background:rgba(2,6,23,.30)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card{width:min(460px,calc(100vw - 34px))!important;max-width:min(460px,calc(100vw - 34px))!important;padding:16px !important;gap:14px !important;border-radius:18px !important;border:1px solid rgba(148,163,184,.20)!important;background:rgba(9,14,25,.94)!important;box-shadow:0 24px 80px rgba(0,0,0,.42)!important}body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card,body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card{background:rgba(9,14,25,var(--mhp-promoted-graphics-menu-alpha,.82))!important;backdrop-filter:blur(var(--mhp-glass-blur,16px))saturate(1.06)!important;-webkit-backdrop-filter:blur(var(--mhp-glass-blur,16px))saturate(1.06)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-head{display:block !important;padding:0 0 12px !important;margin:0 !important;border:0 !important;border-bottom:1px solid rgba(248,113,113,.36)!important;background:transparent !important;box-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-title{margin:0 !important;color:#fee2e2 !important;font-size:20px !important;line-height:1.1 !important;font-weight:900 !important;letter-spacing:-.02em !important;text-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-message{margin:10px 0 0 !important;color:#fecaca !important;font-size:13px !important;line-height:1.4 !important;background:transparent !important;border:0 !important;box-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-actions{display:flex !important;align-items:center !important;justify-content:flex-end !important;gap:8px !important;padding:0 !important;margin:0 !important;border:0 !important;background:transparent !important;box-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn{min-height:34px !important;height:34px !important;padding:0 13px !important;border-radius:10px !important;font-size:13px !important;font-weight:850 !important;line-height:1 !important;box-shadow:none !important;text-shadow:none !important;transform:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-ghost,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-ghost{border:1px solid rgba(148,163,184,.34)!important;background:rgba(15,23,42,.46)!important;color:#e5e7eb !important}body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-ghost,body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-clear-local-dialog .btn-ghost,body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-ghost,body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-clear-local-dialog .btn-ghost{background:rgba(15,23,42,var(--mhp-promoted-graphics-panel-alpha,.54))!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-danger,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-danger,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-primary,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-primary{border:1px solid rgba(248,113,113,.58)!important;background:rgba(127,29,29,.30)!important;color:#fee2e2 !important;box-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-danger:hover,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-danger:hover,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-primary:hover,body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-primary:hover{border-color:rgba(254,202,202,.72)!important;background:rgba(153,27,27,.42)!important;color:#fff1f2 !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog{background:rgba(2,6,23,.30)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-card{width:min(460px,calc(100vw - 34px))!important;max-width:min(460px,calc(100vw - 34px))!important;padding:16px !important;gap:14px !important;border-radius:18px !important;border:1px solid rgba(148,163,184,.20)!important;background:rgba(9,14,25,.94)!important;box-shadow:0 24px 80px rgba(0,0,0,.42)!important}body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-save-json-dialog .app-dialog-card,body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-save-json-dialog .app-dialog-card{background:rgba(9,14,25,var(--mhp-promoted-graphics-menu-alpha,.82))!important;backdrop-filter:blur(var(--mhp-glass-blur,16px))saturate(1.06)!important;-webkit-backdrop-filter:blur(var(--mhp-glass-blur,16px))saturate(1.06)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-head{display:block !important;padding:0 0 12px !important;margin:0 !important;border:0 !important;border-bottom:1px solid rgba(74,222,128,.36)!important;background:transparent !important;box-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-title{margin:0 !important;color:#dcfce7 !important;font-size:20px !important;line-height:1.1 !important;font-weight:900 !important;letter-spacing:-.02em !important;text-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-message{margin:10px 0 0 !important;color:#bbf7d0 !important;font-size:13px !important;line-height:1.4 !important;background:transparent !important;border:0 !important;box-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-input-wrap{display:block !important;padding:0 !important;margin:0 !important;background:transparent !important;border:0 !important;box-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog #appDialogInputLabel,body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-input-label{display:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-input{width:100% !important;min-height:38px !important;height:38px !important;box-sizing:border-box !important;padding:0 12px !important;border-radius:10px !important;border:1px solid rgba(74,222,128,.55)!important;background:rgba(22,101,52,.22)!important;color:#f0fdf4 !important;font-size:13px !important;font-weight:800 !important;outline:none !important;box-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-input:focus{border-color:rgba(187,247,208,.78)!important;box-shadow:0 0 0 2px rgba(74,222,128,.16)!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-actions{display:flex !important;align-items:center !important;justify-content:flex-end !important;gap:8px !important;padding:0 !important;margin:0 !important;border:0 !important;background:transparent !important;box-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-btn,body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .btn{min-height:34px !important;height:34px !important;padding:0 13px !important;border-radius:10px !important;font-size:13px !important;font-weight:850 !important;line-height:1 !important;box-shadow:none !important;text-shadow:none !important;transform:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-btn.btn-ghost,body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .btn-ghost{border:1px solid rgba(148,163,184,.34)!important;background:rgba(15,23,42,.46)!important;color:#e5e7eb !important}body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-save-json-dialog .app-dialog-btn.btn-ghost,body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-save-json-dialog .btn-ghost,body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-save-json-dialog .app-dialog-btn.btn-ghost,body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-save-json-dialog .btn-ghost{background:rgba(15,23,42,var(--mhp-promoted-graphics-panel-alpha,.54))!important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-btn.btn-primary,body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .btn-primary{border:1px solid rgba(74,222,128,.58)!important;background:rgba(22,101,52,.30)!important;color:#dcfce7 !important;box-shadow:none !important}body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-btn.btn-primary:hover,body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .btn-primary:hover{border-color:rgba(187,247,208,.72)!important;background:rgba(22,163,74,.42)!important;color:#f0fdf4 !important}
+/* =========================================================
+   Promoted Save JSON / Clear Local dialogs v2.584
+   Source language: Menus LAB small dialogs.
+   Scope is intentionally limited to the reusable app dialog when the bridge
+   marks it as Save JSON or Clear Local. No page background image is changed.
+   ========================================================= */
+
+body.mhp-promoted-save-clear{
+  --mhp-json-dialog-radius:18px;
+  --mhp-json-dialog-control-radius:11px;
+  --mhp-json-dialog-width:min(460px, calc(100vw - 42px));
+  --mhp-json-dialog-text:var(--mhp-promoted-text,#f8fafc);
+  --mhp-json-dialog-muted:var(--mhp-promoted-muted,#cbd5e1);
+  --mhp-json-dialog-line:var(--mhp-promoted-border,rgba(226,232,240,.18));
+  --mhp-json-dialog-shadow:0 24px 80px rgba(0,0,0,.42);
+  --mhp-json-save-accent:#4ade80;
+  --mhp-json-save-border:rgba(74,222,128,.58);
+  --mhp-json-save-title:#dcfce7;
+  --mhp-json-save-muted:#bbf7d0;
+  --mhp-json-clear-accent:#f87171;
+  --mhp-json-clear-border:rgba(248,113,113,.58);
+  --mhp-json-clear-title:#fee2e2;
+  --mhp-json-clear-muted:#fecaca;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog{
+  position:fixed !important;
+  inset:0 !important;
+  z-index:9300 !important;
+  display:grid !important;
+  place-items:center !important;
+  padding:22px !important;
+  overflow:auto !important;
+  background:rgba(2,6,23,.24) !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-json-small-dialog,
+body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-json-small-dialog{
+  backdrop-filter:blur(4px) saturate(1.02) !important;
+  -webkit-backdrop-filter:blur(4px) saturate(1.02) !important;
+}
+
+body.mhp-promoted-save-clear.visual-mode-minimalist #appDialogOverlay.mhp-json-small-dialog,
+body.mhp-promoted-save-clear[data-visual-mode="minimalist"] #appDialogOverlay.mhp-json-small-dialog,
+body.mhp-promoted-save-clear:not(.visual-mode-glass) #appDialogOverlay.mhp-json-small-dialog{
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog[hidden]{
+  display:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-card{
+  box-sizing:border-box !important;
+  width:var(--mhp-json-dialog-width) !important;
+  max-width:var(--mhp-json-dialog-width) !important;
+  display:flex !important;
+  flex-direction:column !important;
+  gap:0 !important;
+  border-radius:var(--mhp-json-dialog-radius) !important;
+  overflow:hidden !important;
+  color:var(--mhp-json-dialog-text) !important;
+  box-shadow:var(--mhp-json-dialog-shadow) !important;
+  transform:none !important;
+  left:auto !important;
+  top:auto !important;
+  margin:0 !important;
+  isolation:isolate;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-card{
+  border:1px solid var(--mhp-json-save-border) !important;
+  box-shadow:
+    var(--mhp-json-dialog-shadow),
+    0 0 0 1px rgba(74,222,128,.12),
+    0 0 28px rgba(34,197,94,.13) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card{
+  border:1px solid var(--mhp-json-clear-border) !important;
+  box-shadow:
+    var(--mhp-json-dialog-shadow),
+    0 0 0 1px rgba(248,113,113,.12),
+    0 0 28px rgba(220,38,38,.13) !important;
+}
+
+body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-save-json-dialog .app-dialog-card,
+body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-save-json-dialog .app-dialog-card{
+  background:linear-gradient(
+    180deg,
+    rgba(6,78,59,var(--mhp-promoted-graphics-menu-alpha,.80)),
+    rgba(15,23,42,var(--mhp-promoted-graphics-panel-alpha,.65))
+  ) !important;
+  backdrop-filter:blur(var(--mhp-glass-blur,14px)) saturate(1.06) !important;
+  -webkit-backdrop-filter:blur(var(--mhp-glass-blur,14px)) saturate(1.06) !important;
+}
+
+body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card,
+body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card{
+  background:linear-gradient(
+    180deg,
+    rgba(69,10,10,var(--mhp-promoted-graphics-menu-alpha,.80)),
+    rgba(15,23,42,var(--mhp-promoted-graphics-panel-alpha,.65))
+  ) !important;
+  backdrop-filter:blur(var(--mhp-glass-blur,14px)) saturate(1.06) !important;
+  -webkit-backdrop-filter:blur(var(--mhp-glass-blur,14px)) saturate(1.06) !important;
+}
+
+body.mhp-promoted-save-clear.visual-mode-minimalist #appDialogOverlay.mhp-save-json-dialog .app-dialog-card,
+body.mhp-promoted-save-clear[data-visual-mode="minimalist"] #appDialogOverlay.mhp-save-json-dialog .app-dialog-card,
+body.mhp-promoted-save-clear:not(.visual-mode-glass) #appDialogOverlay.mhp-save-json-dialog .app-dialog-card{
+  background:#102018 !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+
+body.mhp-promoted-save-clear.visual-mode-minimalist #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card,
+body.mhp-promoted-save-clear[data-visual-mode="minimalist"] #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card,
+body.mhp-promoted-save-clear:not(.visual-mode-glass) #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card{
+  background:#211317 !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-head{
+  display:flex !important;
+  align-items:flex-start !important;
+  justify-content:space-between !important;
+  gap:12px !important;
+  padding:15px 16px 12px !important;
+  border:0 !important;
+  border-bottom:1px solid var(--mhp-json-dialog-line) !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-head{
+  border-bottom-color:rgba(74,222,128,.26) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-head{
+  border-bottom-color:rgba(248,113,113,.26) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-title{
+  display:block !important;
+  margin:0 !important;
+  font-size:15px !important;
+  line-height:1.2 !important;
+  font-weight:800 !important;
+  letter-spacing:.01em !important;
+  text-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-title{
+  color:var(--mhp-json-save-title) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-title{
+  color:var(--mhp-json-clear-title) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-message{
+  margin:5px 0 0 !important;
+  font-size:12px !important;
+  line-height:1.45 !important;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-message{
+  color:var(--mhp-json-save-muted) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-message{
+  color:var(--mhp-json-clear-muted) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-close{
+  display:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-input-wrap{
+  display:flex !important;
+  flex-direction:column !important;
+  gap:7px !important;
+  padding:14px 16px 0 !important;
+  margin:0 !important;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+  color:var(--mhp-json-dialog-muted) !important;
+  font-size:12px !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-input-wrap[hidden]{
+  display:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-input{
+  min-height:34px !important;
+  height:34px !important;
+  padding:0 10px !important;
+  border-radius:var(--mhp-json-dialog-control-radius) !important;
+  outline:none !important;
+  box-shadow:none !important;
+  font-size:13px !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-input{
+  border:1px solid rgba(74,222,128,.38) !important;
+  background:rgba(6,78,59,.22) !important;
+  color:#f0fdf4 !important;
+}
+
+body.mhp-promoted-save-clear.visual-mode-minimalist #appDialogOverlay.mhp-save-json-dialog .app-dialog-input,
+body.mhp-promoted-save-clear[data-visual-mode="minimalist"] #appDialogOverlay.mhp-save-json-dialog .app-dialog-input,
+body.mhp-promoted-save-clear:not(.visual-mode-glass) #appDialogOverlay.mhp-save-json-dialog .app-dialog-input{
+  background:#17251c !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-input:focus{
+  border-color:var(--mhp-json-save-accent) !important;
+  box-shadow:0 0 0 2px rgba(74,222,128,.15) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-actions{
+  display:flex !important;
+  justify-content:flex-end !important;
+  gap:8px !important;
+  padding:14px 16px 16px !important;
+  margin:0 !important;
+  border:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-btn,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .btn{
+  min-height:30px !important;
+  padding:0 13px !important;
+  border-radius:var(--mhp-json-dialog-control-radius) !important;
+  font-size:12px !important;
+  font-weight:750 !important;
+  letter-spacing:.01em !important;
+  box-shadow:none !important;
+  text-shadow:none !important;
+  transform:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-btn.btn-primary,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .btn-primary{
+  border:1px solid #86efac !important;
+  background:linear-gradient(135deg, #166534, #22c55e) !important;
+  color:#f0fdf4 !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-btn.btn-primary:hover,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .btn-primary:hover{
+  border-color:#bbf7d0 !important;
+  background:linear-gradient(135deg, #15803d, #4ade80) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-danger,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-danger{
+  border:1px solid #f87171 !important;
+  background:linear-gradient(135deg, #7f1d1d, #dc2626) !important;
+  color:#fff1f2 !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-danger:hover,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-danger:hover{
+  border-color:#fecaca !important;
+  background:linear-gradient(135deg, #991b1b, #ef4444) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-btn.btn-ghost,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .btn-ghost{
+  border:1px solid rgba(226,232,240,.16) !important;
+  background:rgba(15,23,42,.26) !important;
+  color:rgba(226,232,240,.84) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-custom-content,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-custom-content::before,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-custom-content::after{
+  background:transparent !important;
+  background-image:none !important;
+  border:0 !important;
+  box-shadow:none !important;
+  content:none !important;
+}
+
+/* =========================================================
+   v2.585: LAB parity for Save JSON / Clear Local small dialogs
+   The previous promoted layer kept the page prompt layout: title tint, label,
+   extra green container and full-dialog accent. The LAB small dialog uses a
+   neutral card with only the input/action carrying the intent color.
+   ========================================================= */
+body.mhp-promoted-save-clear{
+  --mhp-json-dialog-width:min(460px, calc(100vw - 34px));
+  --mhp-json-card-bg:rgba(9,14,25,.94);
+  --mhp-json-card-bg-glass:rgba(9,14,25,var(--mhp-promoted-graphics-menu-alpha,.82));
+  --mhp-json-card-border:rgba(148,163,184,.22);
+  --mhp-json-soft-line:rgba(148,163,184,.26);
+  --mhp-json-title:#f8fafc;
+  --mhp-json-text:#e5e7eb;
+  --mhp-json-muted:#cbd5e1;
+  --mhp-json-control-bg:rgba(15,23,42,.62);
+  --mhp-json-control-bg-glass:rgba(15,23,42,var(--mhp-promoted-graphics-panel-alpha,.54));
+  --mhp-json-save-input-bg:rgba(22,101,52,.22);
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog{
+  background:rgba(2,6,23,.36) !important;
+  padding:20px !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-card{
+  width:var(--mhp-json-dialog-width) !important;
+  max-width:var(--mhp-json-dialog-width) !important;
+  display:grid !important;
+  gap:14px !important;
+  padding:16px !important;
+  border:1px solid var(--mhp-json-card-border) !important;
+  border-radius:18px !important;
+  background:var(--mhp-json-card-bg) !important;
+  color:var(--mhp-json-text) !important;
+  box-shadow:0 24px 80px rgba(0,0,0,.42) !important;
+  overflow:hidden !important;
+}
+
+body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-json-small-dialog .app-dialog-card,
+body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-json-small-dialog .app-dialog-card{
+  background:var(--mhp-json-card-bg-glass) !important;
+  backdrop-filter:blur(var(--mhp-glass-blur,16px)) saturate(1.06) !important;
+  -webkit-backdrop-filter:blur(var(--mhp-glass-blur,16px)) saturate(1.06) !important;
+}
+
+body.mhp-promoted-save-clear.visual-mode-minimalist #appDialogOverlay.mhp-json-small-dialog .app-dialog-card,
+body.mhp-promoted-save-clear[data-visual-mode="minimalist"] #appDialogOverlay.mhp-json-small-dialog .app-dialog-card,
+body.mhp-promoted-save-clear:not(.visual-mode-glass) #appDialogOverlay.mhp-json-small-dialog .app-dialog-card{
+  background:var(--mhp-json-card-bg) !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-card,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card{
+  border-color:var(--mhp-json-card-border) !important;
+  box-shadow:0 24px 80px rgba(0,0,0,.42) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-card{
+  --mhp-json-intent:#22c55e;
+  --mhp-json-intent-soft:rgba(74,222,128,.42);
+  --mhp-json-intent-strong:#86efac;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card{
+  --mhp-json-intent:#ef4444;
+  --mhp-json-intent-soft:rgba(248,113,113,.42);
+  --mhp-json-intent-strong:#fecaca;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-head{
+  display:block !important;
+  padding:0 0 12px !important;
+  margin:0 !important;
+  border:0 !important;
+  border-bottom:1px solid var(--mhp-json-soft-line) !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-head,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-head{
+  border-bottom-color:var(--mhp-json-soft-line) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-title{
+  color:var(--mhp-json-title) !important;
+  margin:0 !important;
+  font-size:20px !important;
+  line-height:1.1 !important;
+  font-weight:900 !important;
+  letter-spacing:-.02em !important;
+  text-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-message{
+  margin:10px 0 0 !important;
+  color:var(--mhp-json-muted) !important;
+  font-size:13px !important;
+  line-height:1.4 !important;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-input-wrap{
+  display:block !important;
+  padding:0 !important;
+  margin:0 !important;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-input-wrap[hidden]{
+  display:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog #appDialogInputLabel,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-input-label{
+  display:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-input{
+  width:100% !important;
+  min-height:38px !important;
+  height:38px !important;
+  box-sizing:border-box !important;
+  padding:0 12px !important;
+  border-radius:10px !important;
+  font-size:13px !important;
+  font-weight:800 !important;
+  outline:none !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-input{
+  border:1px solid rgba(74,222,128,.55) !important;
+  background:var(--mhp-json-save-input-bg) !important;
+  color:#f0fdf4 !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-input{
+  border:1px solid rgba(248,113,113,.48) !important;
+  background:rgba(127,29,29,.20) !important;
+  color:#fff1f2 !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-input:focus{
+  border-color:var(--mhp-json-intent-strong) !important;
+  box-shadow:0 0 0 2px color-mix(in srgb, var(--mhp-json-intent) 22%, transparent 78%) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-actions{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-end !important;
+  gap:8px !important;
+  padding:0 !important;
+  margin:0 !important;
+  border:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-btn,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .btn{
+  min-height:34px !important;
+  height:34px !important;
+  padding:0 13px !important;
+  border-radius:10px !important;
+  font-size:13px !important;
+  font-weight:850 !important;
+  letter-spacing:0 !important;
+  line-height:1 !important;
+  box-shadow:none !important;
+  text-shadow:none !important;
+  transform:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-btn.btn-ghost,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .btn-ghost{
+  border:1px solid rgba(148,163,184,.34) !important;
+  background:var(--mhp-json-control-bg) !important;
+  color:#e5e7eb !important;
+}
+
+body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-json-small-dialog .app-dialog-btn.btn-ghost,
+body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-json-small-dialog .btn-ghost,
+body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-json-small-dialog .app-dialog-btn.btn-ghost,
+body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-json-small-dialog .btn-ghost{
+  background:var(--mhp-json-control-bg-glass) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-btn.btn-primary,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .btn-primary{
+  border:1px solid rgba(134,239,172,.78) !important;
+  background:#22c55e !important;
+  color:#f0fdf4 !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-btn.btn-primary:hover,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .btn-primary:hover{
+  border-color:#bbf7d0 !important;
+  background:#16a34a !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-danger,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-danger,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-primary,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-primary{
+  border:1px solid rgba(248,113,113,.78) !important;
+  background:#dc2626 !important;
+  color:#fff1f2 !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-danger:hover,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-danger:hover,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-primary:hover,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-primary:hover{
+  border-color:#fecaca !important;
+  background:#b91c1c !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-json-small-dialog .app-dialog-close{
+  display:none !important;
+}
+
+/* =========================================================
+   v2.586: Clear Local LAB parity pass
+   Clear Local now follows the same neutral small-dialog frame as Save JSON.
+   Only the destructive action button/input accent keeps the danger color.
+   ========================================================= */
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog.app-dialog-overlay.is-danger .app-dialog-card,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card{
+  border-color:var(--mhp-json-card-border) !important;
+  background:var(--mhp-json-card-bg) !important;
+  box-shadow:0 24px 80px rgba(0,0,0,.42) !important;
+}
+
+body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-clear-local-dialog.app-dialog-overlay.is-danger .app-dialog-card,
+body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card,
+body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-clear-local-dialog.app-dialog-overlay.is-danger .app-dialog-card,
+body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card{
+  background:var(--mhp-json-card-bg-glass) !important;
+  backdrop-filter:blur(var(--mhp-glass-blur,16px)) saturate(1.06) !important;
+  -webkit-backdrop-filter:blur(var(--mhp-glass-blur,16px)) saturate(1.06) !important;
+}
+
+body.mhp-promoted-save-clear.visual-mode-minimalist #appDialogOverlay.mhp-clear-local-dialog.app-dialog-overlay.is-danger .app-dialog-card,
+body.mhp-promoted-save-clear.visual-mode-minimalist #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card,
+body.mhp-promoted-save-clear[data-visual-mode="minimalist"] #appDialogOverlay.mhp-clear-local-dialog.app-dialog-overlay.is-danger .app-dialog-card,
+body.mhp-promoted-save-clear[data-visual-mode="minimalist"] #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card,
+body.mhp-promoted-save-clear:not(.visual-mode-glass) #appDialogOverlay.mhp-clear-local-dialog.app-dialog-overlay.is-danger .app-dialog-card,
+body.mhp-promoted-save-clear:not(.visual-mode-glass) #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card{
+  background:var(--mhp-json-card-bg) !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-head{
+  border-bottom-color:var(--mhp-json-soft-line) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-title{
+  color:var(--mhp-json-title) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-message{
+  color:var(--mhp-json-muted) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-input-wrap,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-custom-content{
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-danger,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-danger,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-primary,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-primary{
+  border:1px solid rgba(248,113,113,.78) !important;
+  background:#dc2626 !important;
+  color:#fff1f2 !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-danger:hover,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-danger:hover,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-primary:hover,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-primary:hover{
+  border-color:#fecaca !important;
+  background:#b91c1c !important;
+}
+
+/* =========================================================
+   v2.587: Clear Local exact LAB danger styling
+   The LAB clear dialog is not neutral-white + solid red. It keeps the same
+   small dark card, but tints the title/copy/divider and uses a restrained
+   dark danger action button.
+   ========================================================= */
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog{
+  background:rgba(2,6,23,.30) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card{
+  width:min(460px, calc(100vw - 34px)) !important;
+  max-width:min(460px, calc(100vw - 34px)) !important;
+  padding:16px !important;
+  gap:14px !important;
+  border-radius:18px !important;
+  border:1px solid rgba(148,163,184,.20) !important;
+  background:rgba(9,14,25,.94) !important;
+  box-shadow:0 24px 80px rgba(0,0,0,.42) !important;
+}
+
+body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card,
+body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-clear-local-dialog .app-dialog-card{
+  background:rgba(9,14,25,var(--mhp-promoted-graphics-menu-alpha,.82)) !important;
+  backdrop-filter:blur(var(--mhp-glass-blur,16px)) saturate(1.06) !important;
+  -webkit-backdrop-filter:blur(var(--mhp-glass-blur,16px)) saturate(1.06) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-head{
+  display:block !important;
+  padding:0 0 12px !important;
+  margin:0 !important;
+  border:0 !important;
+  border-bottom:1px solid rgba(248,113,113,.36) !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-title{
+  margin:0 !important;
+  color:#fee2e2 !important;
+  font-size:20px !important;
+  line-height:1.1 !important;
+  font-weight:900 !important;
+  letter-spacing:-.02em !important;
+  text-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-message{
+  margin:10px 0 0 !important;
+  color:#fecaca !important;
+  font-size:13px !important;
+  line-height:1.4 !important;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-actions{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-end !important;
+  gap:8px !important;
+  padding:0 !important;
+  margin:0 !important;
+  border:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn{
+  min-height:34px !important;
+  height:34px !important;
+  padding:0 13px !important;
+  border-radius:10px !important;
+  font-size:13px !important;
+  font-weight:850 !important;
+  line-height:1 !important;
+  box-shadow:none !important;
+  text-shadow:none !important;
+  transform:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-ghost,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-ghost{
+  border:1px solid rgba(148,163,184,.34) !important;
+  background:rgba(15,23,42,.46) !important;
+  color:#e5e7eb !important;
+}
+
+body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-ghost,
+body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-clear-local-dialog .btn-ghost,
+body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-ghost,
+body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-clear-local-dialog .btn-ghost{
+  background:rgba(15,23,42,var(--mhp-promoted-graphics-panel-alpha,.54)) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-danger,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-danger,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-primary,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-primary{
+  border:1px solid rgba(248,113,113,.58) !important;
+  background:rgba(127,29,29,.30) !important;
+  color:#fee2e2 !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-danger:hover,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-danger:hover,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .app-dialog-btn.btn-primary:hover,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-clear-local-dialog .btn-primary:hover{
+  border-color:rgba(254,202,202,.72) !important;
+  background:rgba(153,27,27,.42) !important;
+  color:#fff1f2 !important;
+}
+
+/* =========================================================
+   v2.588: Save JSON exact LAB save styling
+   Match the LAB small save dialog: neutral dark card, save-tinted title/copy/
+   divider, green input, and restrained dark save action instead of a solid
+   bright green button or green-tinted full panel.
+   ========================================================= */
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog{
+  background:rgba(2,6,23,.30) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-card{
+  width:min(460px, calc(100vw - 34px)) !important;
+  max-width:min(460px, calc(100vw - 34px)) !important;
+  padding:16px !important;
+  gap:14px !important;
+  border-radius:18px !important;
+  border:1px solid rgba(148,163,184,.20) !important;
+  background:rgba(9,14,25,.94) !important;
+  box-shadow:0 24px 80px rgba(0,0,0,.42) !important;
+}
+
+body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-save-json-dialog .app-dialog-card,
+body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-save-json-dialog .app-dialog-card{
+  background:rgba(9,14,25,var(--mhp-promoted-graphics-menu-alpha,.82)) !important;
+  backdrop-filter:blur(var(--mhp-glass-blur,16px)) saturate(1.06) !important;
+  -webkit-backdrop-filter:blur(var(--mhp-glass-blur,16px)) saturate(1.06) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-head{
+  display:block !important;
+  padding:0 0 12px !important;
+  margin:0 !important;
+  border:0 !important;
+  border-bottom:1px solid rgba(74,222,128,.36) !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-title{
+  margin:0 !important;
+  color:#dcfce7 !important;
+  font-size:20px !important;
+  line-height:1.1 !important;
+  font-weight:900 !important;
+  letter-spacing:-.02em !important;
+  text-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-message{
+  margin:10px 0 0 !important;
+  color:#bbf7d0 !important;
+  font-size:13px !important;
+  line-height:1.4 !important;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-input-wrap{
+  display:block !important;
+  padding:0 !important;
+  margin:0 !important;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog #appDialogInputLabel,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-input-label{
+  display:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-input{
+  width:100% !important;
+  min-height:38px !important;
+  height:38px !important;
+  box-sizing:border-box !important;
+  padding:0 12px !important;
+  border-radius:10px !important;
+  border:1px solid rgba(74,222,128,.55) !important;
+  background:rgba(22,101,52,.22) !important;
+  color:#f0fdf4 !important;
+  font-size:13px !important;
+  font-weight:800 !important;
+  outline:none !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-input:focus{
+  border-color:rgba(187,247,208,.78) !important;
+  box-shadow:0 0 0 2px rgba(74,222,128,.16) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-actions{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-end !important;
+  gap:8px !important;
+  padding:0 !important;
+  margin:0 !important;
+  border:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-btn,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .btn{
+  min-height:34px !important;
+  height:34px !important;
+  padding:0 13px !important;
+  border-radius:10px !important;
+  font-size:13px !important;
+  font-weight:850 !important;
+  line-height:1 !important;
+  box-shadow:none !important;
+  text-shadow:none !important;
+  transform:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-btn.btn-ghost,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .btn-ghost{
+  border:1px solid rgba(148,163,184,.34) !important;
+  background:rgba(15,23,42,.46) !important;
+  color:#e5e7eb !important;
+}
+
+body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-save-json-dialog .app-dialog-btn.btn-ghost,
+body.mhp-promoted-save-clear.visual-mode-glass #appDialogOverlay.mhp-save-json-dialog .btn-ghost,
+body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-save-json-dialog .app-dialog-btn.btn-ghost,
+body.mhp-promoted-save-clear[data-visual-mode="glass"] #appDialogOverlay.mhp-save-json-dialog .btn-ghost{
+  background:rgba(15,23,42,var(--mhp-promoted-graphics-panel-alpha,.54)) !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-btn.btn-primary,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .btn-primary{
+  border:1px solid rgba(74,222,128,.58) !important;
+  background:rgba(22,101,52,.30) !important;
+  color:#dcfce7 !important;
+  box-shadow:none !important;
+}
+
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .app-dialog-btn.btn-primary:hover,
+body.mhp-promoted-save-clear #appDialogOverlay.mhp-save-json-dialog .btn-primary:hover{
+  border-color:rgba(187,247,208,.72) !important;
+  background:rgba(22,163,74,.42) !important;
+  color:#f0fdf4 !important;
+}

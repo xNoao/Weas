@@ -1,18 +1,26 @@
+/* Promoted Group Menu bridge v2.583
+   Safe bridge: no body/html MutationObserver loop. Keeps Group Menu LAB parity styles scoped
+   without blocking page load. */
 (function(){
   'use strict';
+
   let overlayObserver = null;
   let syncQueued = false;
+
   function addScope(){
     if (!document.body) return;
     document.body.classList.add('mhp-promoted-group-menu');
   }
+
   function syncGroupDialogClass(){
     addScope();
     const overlay = document.getElementById('appDialogOverlay');
     if (!overlay) return;
+
     const hasGroup = !!overlay.querySelector('.group-menu-panel');
     overlay.classList.toggle('mhp-group-menu-overlay', hasGroup);
     overlay.classList.remove('group-menu-dialog');
+
     const card = overlay.querySelector('.app-dialog-card');
     if (card) {
       card.classList.toggle('mhp-group-menu-card', hasGroup);
@@ -20,6 +28,7 @@
       card.classList.remove('group-menu-dialog');
     }
   }
+
   function requestSync(){
     if (syncQueued) return;
     syncQueued = true;
@@ -28,6 +37,7 @@
       syncGroupDialogClass();
     });
   }
+
   function boot(){
     addScope();
     const overlay = document.getElementById('appDialogOverlay');
@@ -42,14 +52,19 @@
     }
     requestSync();
   }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot, { once:true });
   } else {
     boot();
   }
+
   window.addEventListener('load', boot, { once:true });
   window.addEventListener('mhp-visual-mode-change', requestSync);
   window.addEventListener('mhp-theme-change', requestSync);
+
+  // Graphics controls already update CSS variables globally. We only resync the dialog class
+  // after user changes these controls; do not observe body/html to avoid recursive loops.
   document.addEventListener('input', (event) => {
     const target = event.target;
     if (!target || !target.id) return;

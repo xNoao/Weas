@@ -1,1 +1,532 @@
-body.mhp-promoted-group-menu{--mhp-group-accent:var(--mhp-theme-accent-2,var(--mhp-promoted-title,#38bdf8));--mhp-group-accent-main:var(--mhp-theme-accent,var(--mhp-group-accent));--mhp-group-title:var(--mhp-theme-title,var(--mhp-promoted-text,#f8fafc));--mhp-group-text:var(--mhp-promoted-text,#f8fafc);--mhp-group-muted:var(--mhp-promoted-muted,rgba(226,232,240,.68));--mhp-group-line:var(--mhp-theme-border,var(--mhp-promoted-border,rgba(226,232,240,.14)));--mhp-group-line-soft:var(--mhp-theme-border-soft,rgba(226,232,240,.075));--mhp-group-glow:var(--mhp-theme-glow,rgba(56,189,248,.18));--mhp-group-panel-glass:rgba(10,15,28,var(--mhp-promoted-graphics-panel-alpha,.65));--mhp-group-panel-minimal:rgba(12,18,30,.965);--mhp-group-control-glass:rgba(15,23,42,calc(var(--mhp-promoted-graphics-menu-alpha,.80)* .52));--mhp-group-control-minimal:rgba(15,23,42,.86);--mhp-group-control-hover:rgba(30,41,59,.34);--mhp-group-radius:18px;--mhp-group-control-radius:11px;--mhp-group-panel-current:var(--mhp-group-panel-minimal);--mhp-group-control-current:var(--mhp-group-control-minimal);--mhp-group-backdrop-blur:none}body.mhp-promoted-group-menu.visual-mode-glass,body.mhp-promoted-group-menu[data-visual-mode="glass"]{--mhp-group-panel-current:var(--mhp-group-panel-glass);--mhp-group-control-current:var(--mhp-group-control-glass);--mhp-group-backdrop-blur:blur(var(--mhp-glass-blur,14px))saturate(1.04)}body.mhp-promoted-group-menu.visual-mode-minimalist,body.mhp-promoted-group-menu[data-visual-mode="minimalist"],body.mhp-promoted-group-menu:not(.visual-mode-glass){--mhp-group-panel-current:var(--mhp-group-panel-minimal);--mhp-group-control-current:var(--mhp-group-control-minimal);--mhp-group-backdrop-blur:none}body.mhp-promoted-group-menu #appDialogOverlay.app-dialog-overlay:has(.group-menu-panel){position:fixed !important;inset:0 !important;z-index:9200 !important;display:grid !important;place-items:center !important;padding:22px !important;overflow:auto !important;background:rgba(2,6,23,.24)!important;border:0 !important;box-shadow:none !important}body.mhp-promoted-group-menu.visual-mode-glass #appDialogOverlay.app-dialog-overlay:has(.group-menu-panel),body.mhp-promoted-group-menu[data-visual-mode="glass"] #appDialogOverlay.app-dialog-overlay:has(.group-menu-panel){backdrop-filter:blur(4px)saturate(1.02)!important;-webkit-backdrop-filter:blur(4px)saturate(1.02)!important}body.mhp-promoted-group-menu.visual-mode-minimalist #appDialogOverlay.app-dialog-overlay:has(.group-menu-panel),body.mhp-promoted-group-menu[data-visual-mode="minimalist"] #appDialogOverlay.app-dialog-overlay:has(.group-menu-panel),body.mhp-promoted-group-menu:not(.visual-mode-glass)#appDialogOverlay.app-dialog-overlay:has(.group-menu-panel){backdrop-filter:none !important;-webkit-backdrop-filter:none !important}body.mhp-promoted-group-menu #appDialogOverlay.app-dialog-overlay[hidden]{display:none !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).app-dialog-card{box-sizing:border-box !important;width:min(700px,calc(100vw - 44px))!important;max-width:calc(100vw - 44px)!important;max-height:calc(100vh - 44px)!important;display:flex !important;flex-direction:column !important;gap:0 !important;padding:14px 16px !important;margin:auto !important;overflow:auto !important;color:var(--mhp-group-text)!important;border-radius:var(--mhp-group-radius)!important;border:1px solid var(--mhp-group-line)!important;background:var(--mhp-group-panel-current)!important;background-image:none !important;box-shadow:0 22px 62px rgba(0,0,0,.32)!important;outline:0 !important;scrollbar-width:thin;scrollbar-color:rgba(148,163,184,.35)transparent}body.mhp-promoted-group-menu.visual-mode-glass #appDialogOverlay:has(.group-menu-panel).app-dialog-card,body.mhp-promoted-group-menu[data-visual-mode="glass"] #appDialogOverlay:has(.group-menu-panel).app-dialog-card{backdrop-filter:var(--mhp-group-backdrop-blur)!important;-webkit-backdrop-filter:var(--mhp-group-backdrop-blur)!important}body.mhp-promoted-group-menu.visual-mode-minimalist #appDialogOverlay:has(.group-menu-panel).app-dialog-card,body.mhp-promoted-group-menu[data-visual-mode="minimalist"] #appDialogOverlay:has(.group-menu-panel).app-dialog-card,body.mhp-promoted-group-menu:not(.visual-mode-glass)#appDialogOverlay:has(.group-menu-panel).app-dialog-card{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).app-dialog-head{display:none !important;padding:0 !important;margin:0 !important;min-height:0 !important;border:0 !important;background:transparent !important;box-shadow:none !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).app-dialog-title,body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).app-dialog-message,body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).app-dialog-close{display:none !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel):is(.app-dialog-card,.app-dialog-head,.app-dialog-custom-content,.app-dialog-actions,.group-menu-panel,.group-menu-head,.group-menu-list,.group-menu-member,.group-menu-copy,.group-menu-actions,.group-menu-arrows)::before,body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel):is(.app-dialog-card,.app-dialog-head,.app-dialog-custom-content,.app-dialog-actions,.group-menu-panel,.group-menu-head,.group-menu-list,.group-menu-member,.group-menu-copy,.group-menu-actions,.group-menu-arrows)::after{content:none !important;display:none !important;background:none !important;background-image:none !important;box-shadow:none !important;filter:none !important;opacity:0 !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel):is(.app-dialog-custom-content,.group-menu-panel,.group-menu-head-copy,.group-menu-head-actions,.group-menu-list,.group-menu-member,.group-menu-copy,.group-menu-actions,.group-menu-arrows){background:transparent !important;background-image:none !important;box-shadow:none !important;outline:0 !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).app-dialog-custom-content{display:block !important;min-height:0 !important;overflow:visible !important;padding:0 !important;margin:0 !important;border:0 !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-panel{display:grid !important;grid-template-columns:1fr !important;gap:10px !important;width:100% !important;min-width:0 !important;max-width:100% !important;margin:0 !important;padding:0 !important;border:0 !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-head{box-sizing:border-box !important;display:flex !important;align-items:center !important;justify-content:space-between !important;gap:12px !important;padding:4px 0 12px !important;margin:0 !important;border:0 !important;border-bottom:1px solid var(--mhp-group-line-soft)!important;border-radius:0 !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-head-copy{min-width:0 !important;display:grid !important;gap:4px !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-head-copy>span{display:inline-flex !important;width:max-content !important;align-items:center !important;gap:6px !important;padding:3px 8px !important;border-radius:999px !important;border:1px solid var(--mhp-group-line)!important;background:var(--mhp-group-control-current)!important;color:var(--mhp-group-accent)!important;font-size:10px !important;line-height:1 !important;font-weight:1000 !important;letter-spacing:.08em !important;text-transform:uppercase !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-head-copy strong{display:block !important;color:var(--mhp-group-title)!important;font-size:21px !important;line-height:1.05 !important;font-weight:1000 !important;letter-spacing:-.02em !important;overflow:hidden !important;text-overflow:ellipsis !important;white-space:nowrap !important;text-shadow:none !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-head-copy small{color:var(--mhp-group-muted)!important;font-size:12px !important;line-height:1.2 !important;font-weight:700 !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-head-actions{display:flex !important;align-items:center !important;justify-content:flex-end !important;gap:8px !important;flex:0 0 auto !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-list{display:grid !important;grid-template-columns:1fr !important;gap:0 !important;max-height:min(520px,58vh)!important;overflow:auto !important;padding:0 !important;margin:0 !important;border:0 !important;border-radius:0 !important;scrollbar-width:thin;scrollbar-color:rgba(148,163,184,.35)transparent}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-member{box-sizing:border-box !important;display:grid !important;grid-template-columns:24px 42px minmax(0,1fr)max-content !important;align-items:center !important;gap:10px !important;min-height:72px !important;padding:8px 0 !important;margin:0 !important;border:0 !important;border-radius:0 !important;background:transparent !important;background-image:none !important;box-shadow:none !important;filter:none !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-member+.group-menu-member{border-top:1px solid var(--mhp-group-line-soft)!important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-member.is-lead{border-color:var(--mhp-group-line-soft)!important;box-shadow:inset 3px 0 0 #facc15 !important;padding-left:8px !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-member.is-lead .group-menu-copy strong::after{content:none !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-member.is-dragging{opacity:.70 !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-member.is-drop-before{box-shadow:inset 0 2px 0 var(--mhp-group-accent)!important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-member.is-drop-after{box-shadow:inset 0 -2px 0 var(--mhp-group-accent)!important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-drag-handle{width:22px !important;min-width:22px !important;height:42px !important;display:grid !important;place-items:center !important;color:var(--mhp-group-muted)!important;opacity:.82 !important;cursor:grab !important;font-size:14px !important;line-height:1 !important;user-select:none !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-member.is-lead .group-menu-drag-handle{color:#facc15 !important;cursor:default !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-thumb{display:block !important;width:38px !important;height:58px !important;aspect-ratio:225 / 350 !important;object-fit:cover !important;border-radius:8px !important;background:rgba(2,6,23,.28)!important;border:1px solid var(--mhp-group-line)!important;box-shadow:none !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-copy{min-width:0 !important;display:grid !important;gap:2px !important;border:0 !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-copy strong{color:var(--mhp-group-title)!important;font-size:13px !important;line-height:1.15 !important;font-weight:1000 !important;overflow:hidden !important;text-overflow:ellipsis !important;white-space:nowrap !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-copy span{color:var(--mhp-group-muted)!important;font-size:11px !important;line-height:1.2 !important;font-weight:750 !important;overflow:hidden !important;text-overflow:ellipsis !important;white-space:nowrap !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-copy em{color:#fde68a !important;font-size:10px !important;line-height:1.1 !important;font-style:normal !important;font-weight:1000 !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-actions{display:grid !important;gap:6px !important;justify-items:end !important;align-items:center !important;min-width:max-content !important;border:0 !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-arrows{display:flex !important;align-items:center !important;gap:6px !important;border:0 !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel):is(.group-menu-rename-btn,.group-menu-set-lead,.group-menu-move-up,.group-menu-move-down,.app-dialog-btn){min-height:30px !important;border-radius:var(--mhp-group-control-radius)!important;border:1px solid var(--mhp-group-line)!important;background:var(--mhp-group-control-current)!important;background-image:none !important;color:var(--mhp-group-title)!important;box-shadow:none !important;text-shadow:none !important;transform:none !important;filter:none !important;font-size:12px !important;font-weight:900 !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel):is(.group-menu-rename-btn,.group-menu-set-lead){padding:0 12px !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-set-lead{min-width:58px !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel):is(.group-menu-move-up,.group-menu-move-down){width:30px !important;min-width:30px !important;padding:0 !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel):is(.group-menu-rename-btn,.group-menu-set-lead,.group-menu-move-up,.group-menu-move-down,.app-dialog-btn):not(:disabled):hover{background:var(--mhp-group-control-hover)!important;border-color:color-mix(in srgb,var(--mhp-group-accent)48%,var(--mhp-group-line))!important;box-shadow:none !important;transform:none !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel):is(.group-menu-set-lead,.group-menu-move-up,.group-menu-move-down):disabled{opacity:.42 !important;cursor:not-allowed !important;color:var(--mhp-group-muted)!important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).app-dialog-actions{display:flex !important;align-items:center !important;justify-content:flex-end !important;gap:8px !important;padding:12px 0 0 !important;margin:12px 0 0 !important;border:0 !important;border-top:1px solid var(--mhp-group-line-soft)!important;background:transparent !important;background-image:none !important;box-shadow:none !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).app-dialog-actions .btn-primary{background:color-mix(in srgb,var(--mhp-group-accent)18%,var(--mhp-group-control-current))!important;border-color:color-mix(in srgb,var(--mhp-group-accent)42%,var(--mhp-group-line))!important;color:#fff !important}@media(max-width:680px){body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel){padding:12px !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).app-dialog-card{width:min(100%,calc(100vw - 24px))!important;max-height:calc(100vh - 24px)!important;padding:12px !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-head{align-items:flex-start !important;flex-direction:column !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-head-actions,body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-rename-btn{width:100% !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-member{grid-template-columns:22px 36px minmax(0,1fr)!important;grid-template-areas:"handle thumb copy" "actions actions actions";gap:8px !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-drag-handle{grid-area:handle !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-thumb{grid-area:thumb !important;width:34px !important;height:53px !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-copy{grid-area:copy !important}body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel).group-menu-actions{grid-area:actions !important;justify-content:flex-end !important;display:flex !important}}body.mhp-promoted-group-menu #appDialogOverlay.app-dialog-overlay.mhp-group-menu-overlay{position:fixed !important;inset:0 !important;top:0 !important;right:0 !important;bottom:0 !important;left:0 !important;width:auto !important;min-width:0 !important;max-width:none !important;height:auto !important;min-height:100dvh !important;max-height:none !important;display:grid !important;grid-template-columns:1fr !important;grid-template-rows:1fr !important;place-items:center !important;align-items:center !important;justify-items:center !important;padding:22px !important;margin:0 !important;overflow:auto !important;transform:none !important;translate:none !important}body.mhp-promoted-group-menu #appDialogOverlay.app-dialog-overlay.mhp-group-menu-overlay[hidden]{display:none !important}body.mhp-promoted-group-menu #appDialogOverlay.mhp-group-menu-overlay>.app-dialog-card.mhp-group-menu-card{position:relative !important;inset:auto !important;top:auto !important;right:auto !important;bottom:auto !important;left:auto !important;align-self:center !important;justify-self:center !important;width:min(700px,calc(100vw - 44px))!important;min-width:0 !important;max-width:calc(100vw - 44px)!important;height:auto !important;min-height:0 !important;max-height:calc(100dvh - 44px)!important;margin:auto !important;transform:none !important;translate:none !important;float:none !important}body.mhp-promoted-group-menu.visual-mode-glass #appDialogOverlay.app-dialog-overlay.mhp-group-menu-overlay,body.mhp-promoted-group-menu[data-visual-mode="glass"] #appDialogOverlay.app-dialog-overlay.mhp-group-menu-overlay{background:rgba(2,6,23,.24)!important;backdrop-filter:blur(4px)saturate(1.02)!important;-webkit-backdrop-filter:blur(4px)saturate(1.02)!important}body.mhp-promoted-group-menu.visual-mode-minimalist #appDialogOverlay.app-dialog-overlay.mhp-group-menu-overlay,body.mhp-promoted-group-menu[data-visual-mode="minimalist"] #appDialogOverlay.app-dialog-overlay.mhp-group-menu-overlay,body.mhp-promoted-group-menu:not(.visual-mode-glass)#appDialogOverlay.app-dialog-overlay.mhp-group-menu-overlay{background:rgba(2,6,23,.24)!important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important}body.mhp-promoted-group-menu.visual-mode-glass #appDialogOverlay.mhp-group-menu-overlay>.app-dialog-card.mhp-group-menu-card,body.mhp-promoted-group-menu[data-visual-mode="glass"] #appDialogOverlay.mhp-group-menu-overlay>.app-dialog-card.mhp-group-menu-card{background:var(--mhp-group-panel-glass)!important;backdrop-filter:var(--mhp-group-backdrop-blur)!important;-webkit-backdrop-filter:var(--mhp-group-backdrop-blur)!important}body.mhp-promoted-group-menu.visual-mode-minimalist #appDialogOverlay.mhp-group-menu-overlay>.app-dialog-card.mhp-group-menu-card,body.mhp-promoted-group-menu[data-visual-mode="minimalist"] #appDialogOverlay.mhp-group-menu-overlay>.app-dialog-card.mhp-group-menu-card,body.mhp-promoted-group-menu:not(.visual-mode-glass)#appDialogOverlay.mhp-group-menu-overlay>.app-dialog-card.mhp-group-menu-card{background:var(--mhp-group-panel-minimal)!important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important}@media(max-width:680px){body.mhp-promoted-group-menu #appDialogOverlay.app-dialog-overlay.mhp-group-menu-overlay{padding:12px !important}body.mhp-promoted-group-menu #appDialogOverlay.mhp-group-menu-overlay>.app-dialog-card.mhp-group-menu-card{width:min(100%,calc(100vw - 24px))!important;max-width:calc(100vw - 24px)!important;max-height:calc(100dvh - 24px)!important}}
+/* =========================================================
+   Promoted Group Menu v2.581
+   LAB parity pass for Group Menu.
+   - Uses the same clean one-surface language as Menus LAB v5.58.
+   - Theme colors come from the promoted/original theme variables.
+   - Glass opacity comes from Graphics Settings transparency variables.
+   - No page background image is removed or changed.
+   ========================================================= */
+
+body.mhp-promoted-group-menu{
+  --mhp-group-accent:var(--mhp-theme-accent-2,var(--mhp-promoted-title,#38bdf8));
+  --mhp-group-accent-main:var(--mhp-theme-accent,var(--mhp-group-accent));
+  --mhp-group-title:var(--mhp-theme-title,var(--mhp-promoted-text,#f8fafc));
+  --mhp-group-text:var(--mhp-promoted-text,#f8fafc);
+  --mhp-group-muted:var(--mhp-promoted-muted,rgba(226,232,240,.68));
+  --mhp-group-line:var(--mhp-theme-border,var(--mhp-promoted-border,rgba(226,232,240,.14)));
+  --mhp-group-line-soft:var(--mhp-theme-border-soft,rgba(226,232,240,.075));
+  --mhp-group-glow:var(--mhp-theme-glow,rgba(56,189,248,.18));
+  --mhp-group-panel-glass:rgba(10,15,28,var(--mhp-promoted-graphics-panel-alpha,.65));
+  --mhp-group-panel-minimal:rgba(12,18,30,.965);
+  --mhp-group-control-glass:rgba(15,23,42,calc(var(--mhp-promoted-graphics-menu-alpha,.80) * .52));
+  --mhp-group-control-minimal:rgba(15,23,42,.86);
+  --mhp-group-control-hover:rgba(30,41,59,.34);
+  --mhp-group-radius:18px;
+  --mhp-group-control-radius:11px;
+  --mhp-group-panel-current:var(--mhp-group-panel-minimal);
+  --mhp-group-control-current:var(--mhp-group-control-minimal);
+  --mhp-group-backdrop-blur:none;
+}
+
+body.mhp-promoted-group-menu.visual-mode-glass,
+body.mhp-promoted-group-menu[data-visual-mode="glass"]{
+  --mhp-group-panel-current:var(--mhp-group-panel-glass);
+  --mhp-group-control-current:var(--mhp-group-control-glass);
+  --mhp-group-backdrop-blur:blur(var(--mhp-glass-blur,14px)) saturate(1.04);
+}
+
+body.mhp-promoted-group-menu.visual-mode-minimalist,
+body.mhp-promoted-group-menu[data-visual-mode="minimalist"],
+body.mhp-promoted-group-menu:not(.visual-mode-glass){
+  --mhp-group-panel-current:var(--mhp-group-panel-minimal);
+  --mhp-group-control-current:var(--mhp-group-control-minimal);
+  --mhp-group-backdrop-blur:none;
+}
+
+/* Overlay: same quiet darkening used by the LAB. */
+body.mhp-promoted-group-menu #appDialogOverlay.app-dialog-overlay:has(.group-menu-panel){
+  position:fixed !important;
+  inset:0 !important;
+  z-index:9200 !important;
+  display:grid !important;
+  place-items:center !important;
+  padding:22px !important;
+  overflow:auto !important;
+  background:rgba(2,6,23,.24) !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+body.mhp-promoted-group-menu.visual-mode-glass #appDialogOverlay.app-dialog-overlay:has(.group-menu-panel),
+body.mhp-promoted-group-menu[data-visual-mode="glass"] #appDialogOverlay.app-dialog-overlay:has(.group-menu-panel){
+  backdrop-filter:blur(4px) saturate(1.02) !important;
+  -webkit-backdrop-filter:blur(4px) saturate(1.02) !important;
+}
+body.mhp-promoted-group-menu.visual-mode-minimalist #appDialogOverlay.app-dialog-overlay:has(.group-menu-panel),
+body.mhp-promoted-group-menu[data-visual-mode="minimalist"] #appDialogOverlay.app-dialog-overlay:has(.group-menu-panel),
+body.mhp-promoted-group-menu:not(.visual-mode-glass) #appDialogOverlay.app-dialog-overlay:has(.group-menu-panel){
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay.app-dialog-overlay[hidden]{display:none !important;}
+
+/* Main shell: one real surface, no nested cards. */
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .app-dialog-card{
+  box-sizing:border-box !important;
+  width:min(700px, calc(100vw - 44px)) !important;
+  max-width:calc(100vw - 44px) !important;
+  max-height:calc(100vh - 44px) !important;
+  display:flex !important;
+  flex-direction:column !important;
+  gap:0 !important;
+  padding:14px 16px !important;
+  margin:auto !important;
+  overflow:auto !important;
+  color:var(--mhp-group-text) !important;
+  border-radius:var(--mhp-group-radius) !important;
+  border:1px solid var(--mhp-group-line) !important;
+  background:var(--mhp-group-panel-current) !important;
+  background-image:none !important;
+  box-shadow:0 22px 62px rgba(0,0,0,.32) !important;
+  outline:0 !important;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(148,163,184,.35) transparent;
+}
+body.mhp-promoted-group-menu.visual-mode-glass #appDialogOverlay:has(.group-menu-panel) .app-dialog-card,
+body.mhp-promoted-group-menu[data-visual-mode="glass"] #appDialogOverlay:has(.group-menu-panel) .app-dialog-card{
+  backdrop-filter:var(--mhp-group-backdrop-blur) !important;
+  -webkit-backdrop-filter:var(--mhp-group-backdrop-blur) !important;
+}
+body.mhp-promoted-group-menu.visual-mode-minimalist #appDialogOverlay:has(.group-menu-panel) .app-dialog-card,
+body.mhp-promoted-group-menu[data-visual-mode="minimalist"] #appDialogOverlay:has(.group-menu-panel) .app-dialog-card,
+body.mhp-promoted-group-menu:not(.visual-mode-glass) #appDialogOverlay:has(.group-menu-panel) .app-dialog-card{
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+
+/* The generic app-dialog header is only structural for this menu. The LAB uses the group head. */
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .app-dialog-head{
+  display:none !important;
+  padding:0 !important;
+  margin:0 !important;
+  min-height:0 !important;
+  border:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .app-dialog-title,
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .app-dialog-message,
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .app-dialog-close{
+  display:none !important;
+}
+
+/* Nuke old decorative layers that made the promoted menu diverge from LAB. */
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) :is(
+  .app-dialog-card,.app-dialog-head,.app-dialog-custom-content,.app-dialog-actions,
+  .group-menu-panel,.group-menu-head,.group-menu-list,.group-menu-member,.group-menu-copy,
+  .group-menu-actions,.group-menu-arrows
+)::before,
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) :is(
+  .app-dialog-card,.app-dialog-head,.app-dialog-custom-content,.app-dialog-actions,
+  .group-menu-panel,.group-menu-head,.group-menu-list,.group-menu-member,.group-menu-copy,
+  .group-menu-actions,.group-menu-arrows
+)::after{
+  content:none !important;
+  display:none !important;
+  background:none !important;
+  background-image:none !important;
+  box-shadow:none !important;
+  filter:none !important;
+  opacity:0 !important;
+}
+
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) :is(
+  .app-dialog-custom-content,.group-menu-panel,.group-menu-head-copy,.group-menu-head-actions,
+  .group-menu-list,.group-menu-member,.group-menu-copy,.group-menu-actions,.group-menu-arrows
+){
+  background:transparent !important;
+  background-image:none !important;
+  box-shadow:none !important;
+  outline:0 !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .app-dialog-custom-content{
+  display:block !important;
+  min-height:0 !important;
+  overflow:visible !important;
+  padding:0 !important;
+  margin:0 !important;
+  border:0 !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-panel{
+  display:grid !important;
+  grid-template-columns:1fr !important;
+  gap:10px !important;
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+}
+
+/* Visible group header. */
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-head{
+  box-sizing:border-box !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:12px !important;
+  padding:4px 0 12px !important;
+  margin:0 !important;
+  border:0 !important;
+  border-bottom:1px solid var(--mhp-group-line-soft) !important;
+  border-radius:0 !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-head-copy{
+  min-width:0 !important;
+  display:grid !important;
+  gap:4px !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-head-copy > span{
+  display:inline-flex !important;
+  width:max-content !important;
+  align-items:center !important;
+  gap:6px !important;
+  padding:3px 8px !important;
+  border-radius:999px !important;
+  border:1px solid var(--mhp-group-line) !important;
+  background:var(--mhp-group-control-current) !important;
+  color:var(--mhp-group-accent) !important;
+  font-size:10px !important;
+  line-height:1 !important;
+  font-weight:1000 !important;
+  letter-spacing:.08em !important;
+  text-transform:uppercase !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-head-copy strong{
+  display:block !important;
+  color:var(--mhp-group-title) !important;
+  font-size:21px !important;
+  line-height:1.05 !important;
+  font-weight:1000 !important;
+  letter-spacing:-.02em !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  white-space:nowrap !important;
+  text-shadow:none !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-head-copy small{
+  color:var(--mhp-group-muted) !important;
+  font-size:12px !important;
+  line-height:1.2 !important;
+  font-weight:700 !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-head-actions{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-end !important;
+  gap:8px !important;
+  flex:0 0 auto !important;
+}
+
+/* Member list: LAB clean style, no card-on-card effect. */
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-list{
+  display:grid !important;
+  grid-template-columns:1fr !important;
+  gap:0 !important;
+  max-height:min(520px, 58vh) !important;
+  overflow:auto !important;
+  padding:0 !important;
+  margin:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(148,163,184,.35) transparent;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-member{
+  box-sizing:border-box !important;
+  display:grid !important;
+  grid-template-columns:24px 42px minmax(0,1fr) max-content !important;
+  align-items:center !important;
+  gap:10px !important;
+  min-height:72px !important;
+  padding:8px 0 !important;
+  margin:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  background-image:none !important;
+  box-shadow:none !important;
+  filter:none !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-member + .group-menu-member{
+  border-top:1px solid var(--mhp-group-line-soft) !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-member.is-lead{
+  border-color:var(--mhp-group-line-soft) !important;
+  box-shadow:inset 3px 0 0 #facc15 !important;
+  padding-left:8px !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-member.is-lead .group-menu-copy strong::after{
+  content:none !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-member.is-dragging{
+  opacity:.70 !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-member.is-drop-before{
+  box-shadow:inset 0 2px 0 var(--mhp-group-accent) !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-member.is-drop-after{
+  box-shadow:inset 0 -2px 0 var(--mhp-group-accent) !important;
+}
+
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-drag-handle{
+  width:22px !important;
+  min-width:22px !important;
+  height:42px !important;
+  display:grid !important;
+  place-items:center !important;
+  color:var(--mhp-group-muted) !important;
+  opacity:.82 !important;
+  cursor:grab !important;
+  font-size:14px !important;
+  line-height:1 !important;
+  user-select:none !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-member.is-lead .group-menu-drag-handle{
+  color:#facc15 !important;
+  cursor:default !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-thumb{
+  display:block !important;
+  width:38px !important;
+  height:58px !important;
+  aspect-ratio:225 / 350 !important;
+  object-fit:cover !important;
+  border-radius:8px !important;
+  background:rgba(2,6,23,.28) !important;
+  border:1px solid var(--mhp-group-line) !important;
+  box-shadow:none !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-copy{
+  min-width:0 !important;
+  display:grid !important;
+  gap:2px !important;
+  border:0 !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-copy strong{
+  color:var(--mhp-group-title) !important;
+  font-size:13px !important;
+  line-height:1.15 !important;
+  font-weight:1000 !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  white-space:nowrap !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-copy span{
+  color:var(--mhp-group-muted) !important;
+  font-size:11px !important;
+  line-height:1.2 !important;
+  font-weight:750 !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  white-space:nowrap !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-copy em{
+  color:#fde68a !important;
+  font-size:10px !important;
+  line-height:1.1 !important;
+  font-style:normal !important;
+  font-weight:1000 !important;
+}
+
+/* Controls match LAB flat buttons and inherit theme/accent. */
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-actions{
+  display:grid !important;
+  gap:6px !important;
+  justify-items:end !important;
+  align-items:center !important;
+  min-width:max-content !important;
+  border:0 !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-arrows{
+  display:flex !important;
+  align-items:center !important;
+  gap:6px !important;
+  border:0 !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) :is(.group-menu-rename-btn,.group-menu-set-lead,.group-menu-move-up,.group-menu-move-down,.app-dialog-btn){
+  min-height:30px !important;
+  border-radius:var(--mhp-group-control-radius) !important;
+  border:1px solid var(--mhp-group-line) !important;
+  background:var(--mhp-group-control-current) !important;
+  background-image:none !important;
+  color:var(--mhp-group-title) !important;
+  box-shadow:none !important;
+  text-shadow:none !important;
+  transform:none !important;
+  filter:none !important;
+  font-size:12px !important;
+  font-weight:900 !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) :is(.group-menu-rename-btn,.group-menu-set-lead){
+  padding:0 12px !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-set-lead{
+  min-width:58px !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) :is(.group-menu-move-up,.group-menu-move-down){
+  width:30px !important;
+  min-width:30px !important;
+  padding:0 !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) :is(.group-menu-rename-btn,.group-menu-set-lead,.group-menu-move-up,.group-menu-move-down,.app-dialog-btn):not(:disabled):hover{
+  background:var(--mhp-group-control-hover) !important;
+  border-color:color-mix(in srgb, var(--mhp-group-accent) 48%, var(--mhp-group-line)) !important;
+  box-shadow:none !important;
+  transform:none !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) :is(.group-menu-set-lead,.group-menu-move-up,.group-menu-move-down):disabled{
+  opacity:.42 !important;
+  cursor:not-allowed !important;
+  color:var(--mhp-group-muted) !important;
+}
+
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .app-dialog-actions{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-end !important;
+  gap:8px !important;
+  padding:12px 0 0 !important;
+  margin:12px 0 0 !important;
+  border:0 !important;
+  border-top:1px solid var(--mhp-group-line-soft) !important;
+  background:transparent !important;
+  background-image:none !important;
+  box-shadow:none !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .app-dialog-actions .btn-primary{
+  background:color-mix(in srgb, var(--mhp-group-accent) 18%, var(--mhp-group-control-current)) !important;
+  border-color:color-mix(in srgb, var(--mhp-group-accent) 42%, var(--mhp-group-line)) !important;
+  color:#fff !important;
+}
+
+@media (max-width:680px){
+  body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel){padding:12px !important;}
+  body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .app-dialog-card{
+    width:min(100%, calc(100vw - 24px)) !important;
+    max-height:calc(100vh - 24px) !important;
+    padding:12px !important;
+  }
+  body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-head{
+    align-items:flex-start !important;
+    flex-direction:column !important;
+  }
+  body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-head-actions,
+  body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-rename-btn{
+    width:100% !important;
+  }
+  body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-member{
+    grid-template-columns:22px 36px minmax(0,1fr) !important;
+    grid-template-areas:"handle thumb copy" "actions actions actions";
+    gap:8px !important;
+  }
+  body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-drag-handle{grid-area:handle !important;}
+  body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-thumb{grid-area:thumb !important; width:34px !important; height:53px !important;}
+  body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-copy{grid-area:copy !important;}
+  body.mhp-promoted-group-menu #appDialogOverlay:has(.group-menu-panel) .group-menu-actions{grid-area:actions !important; justify-content:flex-end !important; display:flex !important;}
+}
+
+
+/* =========================================================
+   v2.583 hard centering fix
+   Use bridge-owned classes instead of the old .group-menu-dialog class.
+   This prevents legacy glass rules from shrinking the fixed overlay and
+   sending the reusable dialog to the top-left corner.
+   ========================================================= */
+body.mhp-promoted-group-menu #appDialogOverlay.app-dialog-overlay.mhp-group-menu-overlay{
+  position:fixed !important;
+  inset:0 !important;
+  top:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  left:0 !important;
+  width:auto !important;
+  min-width:0 !important;
+  max-width:none !important;
+  height:auto !important;
+  min-height:100dvh !important;
+  max-height:none !important;
+  display:grid !important;
+  grid-template-columns:1fr !important;
+  grid-template-rows:1fr !important;
+  place-items:center !important;
+  align-items:center !important;
+  justify-items:center !important;
+  padding:22px !important;
+  margin:0 !important;
+  overflow:auto !important;
+  transform:none !important;
+  translate:none !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay.app-dialog-overlay.mhp-group-menu-overlay[hidden]{
+  display:none !important;
+}
+body.mhp-promoted-group-menu #appDialogOverlay.mhp-group-menu-overlay > .app-dialog-card.mhp-group-menu-card{
+  position:relative !important;
+  inset:auto !important;
+  top:auto !important;
+  right:auto !important;
+  bottom:auto !important;
+  left:auto !important;
+  align-self:center !important;
+  justify-self:center !important;
+  width:min(700px, calc(100vw - 44px)) !important;
+  min-width:0 !important;
+  max-width:calc(100vw - 44px) !important;
+  height:auto !important;
+  min-height:0 !important;
+  max-height:calc(100dvh - 44px) !important;
+  margin:auto !important;
+  transform:none !important;
+  translate:none !important;
+  float:none !important;
+}
+body.mhp-promoted-group-menu.visual-mode-glass #appDialogOverlay.app-dialog-overlay.mhp-group-menu-overlay,
+body.mhp-promoted-group-menu[data-visual-mode="glass"] #appDialogOverlay.app-dialog-overlay.mhp-group-menu-overlay{
+  background:rgba(2,6,23,.24) !important;
+  backdrop-filter:blur(4px) saturate(1.02) !important;
+  -webkit-backdrop-filter:blur(4px) saturate(1.02) !important;
+}
+body.mhp-promoted-group-menu.visual-mode-minimalist #appDialogOverlay.app-dialog-overlay.mhp-group-menu-overlay,
+body.mhp-promoted-group-menu[data-visual-mode="minimalist"] #appDialogOverlay.app-dialog-overlay.mhp-group-menu-overlay,
+body.mhp-promoted-group-menu:not(.visual-mode-glass) #appDialogOverlay.app-dialog-overlay.mhp-group-menu-overlay{
+  background:rgba(2,6,23,.24) !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+body.mhp-promoted-group-menu.visual-mode-glass #appDialogOverlay.mhp-group-menu-overlay > .app-dialog-card.mhp-group-menu-card,
+body.mhp-promoted-group-menu[data-visual-mode="glass"] #appDialogOverlay.mhp-group-menu-overlay > .app-dialog-card.mhp-group-menu-card{
+  background:var(--mhp-group-panel-glass) !important;
+  backdrop-filter:var(--mhp-group-backdrop-blur) !important;
+  -webkit-backdrop-filter:var(--mhp-group-backdrop-blur) !important;
+}
+body.mhp-promoted-group-menu.visual-mode-minimalist #appDialogOverlay.mhp-group-menu-overlay > .app-dialog-card.mhp-group-menu-card,
+body.mhp-promoted-group-menu[data-visual-mode="minimalist"] #appDialogOverlay.mhp-group-menu-overlay > .app-dialog-card.mhp-group-menu-card,
+body.mhp-promoted-group-menu:not(.visual-mode-glass) #appDialogOverlay.mhp-group-menu-overlay > .app-dialog-card.mhp-group-menu-card{
+  background:var(--mhp-group-panel-minimal) !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+@media (max-width:680px){
+  body.mhp-promoted-group-menu #appDialogOverlay.app-dialog-overlay.mhp-group-menu-overlay{
+    padding:12px !important;
+  }
+  body.mhp-promoted-group-menu #appDialogOverlay.mhp-group-menu-overlay > .app-dialog-card.mhp-group-menu-card{
+    width:min(100%, calc(100vw - 24px)) !important;
+    max-width:calc(100vw - 24px) !important;
+    max-height:calc(100dvh - 24px) !important;
+  }
+}

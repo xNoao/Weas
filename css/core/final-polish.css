@@ -1,1 +1,19 @@
-#parserPanel.parser-panel,body #parserPanel.parser-panel{border:0!important;border-radius:0!important}#parserPanel.parser-panel>details,body #parserPanel.parser-panel>details{border:0!important;border-radius:0!important}
+/*
+  Final visual polish before minification.
+  Keep tiny cross-theme overrides here when they intentionally need to win over
+  older module/theme CSS without changing behavior.
+*/
+
+/* Parser panel: remove the framed/card look while keeping its internal spacing
+   and theme-aware background. */
+#parserPanel.parser-panel,
+body #parserPanel.parser-panel{
+  border:0!important;
+  border-radius:0!important;
+}
+
+#parserPanel.parser-panel > details,
+body #parserPanel.parser-panel > details{
+  border:0!important;
+  border-radius:0!important;
+}

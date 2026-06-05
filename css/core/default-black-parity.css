@@ -1,1 +1,725 @@
-html.mhp-theme-default,body.mhp-theme-default,html.bg-preset-default,body.bg-preset-default,html[data-background-preset="default"],body[data-background-preset="default"]{--mhp-default-page:#030304;--mhp-default-page-2:#08080a;--mhp-default-panel:#08080a;--mhp-default-panel-2:#0d0d10;--mhp-default-panel-3:#121216;--mhp-default-panel-soft:#151519;--mhp-default-field:#09090b;--mhp-default-field-2:#111114;--mhp-default-card:#0b0b0d;--mhp-default-card-2:#101013;--mhp-default-border:rgba(161,161,170,.24);--mhp-default-border-strong:rgba(212,212,216,.34);--mhp-default-border-soft:rgba(113,113,122,.18);--mhp-default-text:#f4f4f5;--mhp-default-text-2:#e4e4e7;--mhp-default-muted:#b6b6be;--mhp-default-muted-2:#92929a;--mhp-default-accent:#e5e7eb;--mhp-default-accent-2:#a1a1aa;--mhp-default-primary-bg:linear-gradient(180deg,#f4f4f5,#cfcfd4);--mhp-default-primary-bg-hover:linear-gradient(180deg,#ffffff,#e4e4e7);--mhp-default-primary-text:#09090b;--mhp-default-secondary-bg:linear-gradient(180deg,#17171b,#101013);--mhp-default-secondary-bg-hover:linear-gradient(180deg,#222227,#17171b);--mhp-default-danger-bg:linear-gradient(180deg,#3f1116,#25090d);--mhp-default-disabled-bg:#202024;--mhp-default-disabled-text:#a1a1aa;--mhp-default-shadow:0 22px 70px rgba(0,0,0,.58),0 0 0 1px rgba(255,255,255,.045)inset;--bg:#030304;--panel:#08080a;--panel-2:#0d0d10;--text:#f4f4f5;--muted:#b6b6be;--border:rgba(161,161,170,.24);--accent:#e5e7eb;--accent-2:#a1a1aa;--theme-surface:#08080a;--theme-surface-2:#0d0d10;--theme-card:#0b0b0d;--theme-panel:#08080a;--theme-title:#f4f4f5;--theme-text:#f4f4f5;--theme-muted:#b6b6be;--theme-border:rgba(161,161,170,.24);--theme-border-soft:rgba(113,113,122,.18);--theme-accent:#e5e7eb;--theme-accent-2:#a1a1aa;--mhp-promoted-text:#f4f4f5;--mhp-promoted-muted:#b6b6be;--mhp-settings-panel-min:#08080a;--mhp-settings-control:#101013;--mhp-settings-control-hover:#1a1a1f;--mhp-settings-row:#0d0d10;--mhp-settings-row-min:#0d0d10}body.mhp-theme-default,html.mhp-theme-default body,body.bg-preset-default,html.bg-preset-default body,body[data-background-preset="default"],html[data-background-preset="default"] body{background:linear-gradient(180deg,var(--mhp-default-page),var(--mhp-default-page-2))!important;color:var(--mhp-default-text)!important}body.mhp-theme-default:is(.topbar,#parserPanel,.parser-panel,.toolbar,#statsBar,.stats,.mhp-floating-bar),html.mhp-theme-default body:is(.topbar,#parserPanel,.parser-panel,.toolbar,#statsBar,.stats,.mhp-floating-bar),body.bg-preset-default:is(.topbar,#parserPanel,.parser-panel,.toolbar,#statsBar,.stats,.mhp-floating-bar),body[data-background-preset="default"]:is(.topbar,#parserPanel,.parser-panel,.toolbar,#statsBar,.stats,.mhp-floating-bar){background:linear-gradient(180deg,var(--mhp-default-panel),var(--mhp-default-panel-2))!important;border-color:var(--mhp-default-border)!important;color:var(--mhp-default-text)!important;box-shadow:0 12px 34px rgba(0,0,0,.36)!important}body.mhp-theme-default #board,html.mhp-theme-default body #board,body.bg-preset-default #board,body[data-background-preset="default"] #board{color:var(--mhp-default-text)!important}body.mhp-theme-default:is(.char-card,.card-inner,.group-shell),html.mhp-theme-default body:is(.char-card,.card-inner,.group-shell),body.bg-preset-default:is(.char-card,.card-inner,.group-shell),body[data-background-preset="default"]:is(.char-card,.card-inner,.group-shell){background:linear-gradient(180deg,var(--mhp-default-card),var(--mhp-default-card-2))!important;border-color:var(--mhp-default-border)!important;color:var(--mhp-default-text)!important;box-shadow:0 14px 36px rgba(0,0,0,.38),0 0 0 1px rgba(255,255,255,.025)inset !important}body.mhp-theme-default:is(.card-series,.card-owner,.card-note,.stat-pill,.type-badge,.card-group-badge,.gallery-badge,.sphere-badge,.card-position),html.mhp-theme-default body:is(.card-series,.card-owner,.card-note,.stat-pill,.type-badge,.card-group-badge,.gallery-badge,.sphere-badge,.card-position),body.bg-preset-default:is(.card-series,.card-owner,.card-note,.stat-pill,.type-badge,.card-group-badge,.gallery-badge,.sphere-badge,.card-position),body[data-background-preset="default"]:is(.card-series,.card-owner,.card-note,.stat-pill,.type-badge,.card-group-badge,.gallery-badge,.sphere-badge,.card-position){background:var(--mhp-default-panel-3)!important;border-color:var(--mhp-default-border-soft)!important;color:var(--mhp-default-text-2)!important}body.mhp-theme-default:is(.char-name,.card-head,.divider-title,#haremTitle),html.mhp-theme-default body:is(.char-name,.card-head,.divider-title,#haremTitle),body.bg-preset-default:is(.char-name,.card-head,.divider-title,#haremTitle),body[data-background-preset="default"]:is(.char-name,.card-head,.divider-title,#haremTitle){color:var(--mhp-default-text)!important}body.mhp-theme-default:is(.divider-row,.compact-sticky-divider-inner,.subdivider-row),html.mhp-theme-default body:is(.divider-row,.compact-sticky-divider-inner,.subdivider-row),body.bg-preset-default:is(.divider-row,.compact-sticky-divider-inner,.subdivider-row),body[data-background-preset="default"]:is(.divider-row,.compact-sticky-divider-inner,.subdivider-row){background:linear-gradient(180deg,#0d0d10,#09090b)!important;border-color:var(--mhp-default-border)!important;color:var(--mhp-default-text)!important}body.mhp-theme-default:is(#settingsPanel.settings-panel,#graphicsSettingsPanel.settings-graphics-panel,#editModal.edit-modal,#galleryPanel.gallery-panel,.gallery-match-preview-panel,.gallery-match-conflict-panel,.move-character-dialog,.group-menu-panel,.export-sidebar,.export-dialog,.app-dialog-card,.modal-card,.dialog-card,.mhp-menu-standard,.mhp-json-drop-card,.searchSuggestBox,.search-suggest-box,.search-suggestions,.embed-color-palette-panel),html.mhp-theme-default body:is(#settingsPanel.settings-panel,#graphicsSettingsPanel.settings-graphics-panel,#editModal.edit-modal,#galleryPanel.gallery-panel,.gallery-match-preview-panel,.gallery-match-conflict-panel,.move-character-dialog,.group-menu-panel,.export-sidebar,.export-dialog,.app-dialog-card,.modal-card,.dialog-card,.mhp-menu-standard,.mhp-json-drop-card,.searchSuggestBox,.search-suggest-box,.search-suggestions,.embed-color-palette-panel),body.bg-preset-default:is(#settingsPanel.settings-panel,#graphicsSettingsPanel.settings-graphics-panel,#editModal.edit-modal,#galleryPanel.gallery-panel,.gallery-match-preview-panel,.gallery-match-conflict-panel,.move-character-dialog,.group-menu-panel,.export-sidebar,.export-dialog,.app-dialog-card,.modal-card,.dialog-card,.mhp-menu-standard,.mhp-json-drop-card,.searchSuggestBox,.search-suggest-box,.search-suggestions,.embed-color-palette-panel),body[data-background-preset="default"]:is(#settingsPanel.settings-panel,#graphicsSettingsPanel.settings-graphics-panel,#editModal.edit-modal,#galleryPanel.gallery-panel,.gallery-match-preview-panel,.gallery-match-conflict-panel,.move-character-dialog,.group-menu-panel,.export-sidebar,.export-dialog,.app-dialog-card,.modal-card,.dialog-card,.mhp-menu-standard,.mhp-json-drop-card,.searchSuggestBox,.search-suggest-box,.search-suggestions,.embed-color-palette-panel){background:linear-gradient(180deg,var(--mhp-default-panel),var(--mhp-default-panel-2))!important;border-color:var(--mhp-default-border-strong)!important;color:var(--mhp-default-text)!important;box-shadow:var(--mhp-default-shadow)!important;text-shadow:none !important}body.mhp-theme-default:is(.settings-toggle-row,.settings-action-row,.settings-theme-preset-row,.settings-background-row,.settings-background-status,.settings-background-url-row,.settings-background-tuning,.settings-background-action-buttons,.settings-glass-tuning,.settings-range-control,.settings-inline-pair,.edit-section,.edit-body,.edit-form,.edit-preview-column,.preview-box,.edit-spheres-panel,.spheres-box,.spheres-panel,.embed-color-control,.gallery-card,.gallery-bottom,.gallery-section,.gallery-body,.gallery-paste-details,.gallery-match-preview-card,.gallery-match-conflict-group,.gallery-match-conflict-card,.move-character-section,.move-new-divider-panel,.move-character-context-preview,.move-divider-choice-list,.move-character-row,.move-character-list,.move-character-search,.group-menu-list,.group-menu-member,.group-menu-actions,.export-menu-section,.export-menu-chunk,.export-sidebar-chunk,.export-sidebar-chunks,.changed-exports-section,.changed-exports-list,.full-export-section,.app-dialog-custom-content,.app-dialog-field,.app-dialog-input-wrap,.parser-command-chip,.parser-input,.search-box,.search-suggest-item,.search-suggestion,.character-stat-card,.stat-card-rich,.mini-breakdown,.key-breakdown,.stat-detail-box),html.mhp-theme-default body:is(.settings-toggle-row,.settings-action-row,.settings-theme-preset-row,.settings-background-row,.settings-background-status,.settings-background-url-row,.settings-background-tuning,.settings-background-action-buttons,.settings-glass-tuning,.settings-range-control,.settings-inline-pair,.edit-section,.edit-body,.edit-form,.edit-preview-column,.preview-box,.edit-spheres-panel,.spheres-box,.spheres-panel,.embed-color-control,.gallery-card,.gallery-bottom,.gallery-section,.gallery-body,.gallery-paste-details,.gallery-match-preview-card,.gallery-match-conflict-group,.gallery-match-conflict-card,.move-character-section,.move-new-divider-panel,.move-character-context-preview,.move-divider-choice-list,.move-character-row,.move-character-list,.move-character-search,.group-menu-list,.group-menu-member,.group-menu-actions,.export-menu-section,.export-menu-chunk,.export-sidebar-chunk,.export-sidebar-chunks,.changed-exports-section,.changed-exports-list,.full-export-section,.app-dialog-custom-content,.app-dialog-field,.app-dialog-input-wrap,.parser-command-chip,.parser-input,.search-box,.search-suggest-item,.search-suggestion,.character-stat-card,.stat-card-rich,.mini-breakdown,.key-breakdown,.stat-detail-box),body.bg-preset-default:is(.settings-toggle-row,.settings-action-row,.settings-theme-preset-row,.settings-background-row,.settings-background-status,.settings-background-url-row,.settings-background-tuning,.settings-background-action-buttons,.settings-glass-tuning,.settings-range-control,.settings-inline-pair,.edit-section,.edit-body,.edit-form,.edit-preview-column,.preview-box,.edit-spheres-panel,.spheres-box,.spheres-panel,.embed-color-control,.gallery-card,.gallery-bottom,.gallery-section,.gallery-body,.gallery-paste-details,.gallery-match-preview-card,.gallery-match-conflict-group,.gallery-match-conflict-card,.move-character-section,.move-new-divider-panel,.move-character-context-preview,.move-divider-choice-list,.move-character-row,.move-character-list,.move-character-search,.group-menu-list,.group-menu-member,.group-menu-actions,.export-menu-section,.export-menu-chunk,.export-sidebar-chunk,.export-sidebar-chunks,.changed-exports-section,.changed-exports-list,.full-export-section,.app-dialog-custom-content,.app-dialog-field,.app-dialog-input-wrap,.parser-command-chip,.parser-input,.search-box,.search-suggest-item,.search-suggestion,.character-stat-card,.stat-card-rich,.mini-breakdown,.key-breakdown,.stat-detail-box),body[data-background-preset="default"]:is(.settings-toggle-row,.settings-action-row,.settings-theme-preset-row,.settings-background-row,.settings-background-status,.settings-background-url-row,.settings-background-tuning,.settings-background-action-buttons,.settings-glass-tuning,.settings-range-control,.settings-inline-pair,.edit-section,.edit-body,.edit-form,.edit-preview-column,.preview-box,.edit-spheres-panel,.spheres-box,.spheres-panel,.embed-color-control,.gallery-card,.gallery-bottom,.gallery-section,.gallery-body,.gallery-paste-details,.gallery-match-preview-card,.gallery-match-conflict-group,.gallery-match-conflict-card,.move-character-section,.move-new-divider-panel,.move-character-context-preview,.move-divider-choice-list,.move-character-row,.move-character-list,.move-character-search,.group-menu-list,.group-menu-member,.group-menu-actions,.export-menu-section,.export-menu-chunk,.export-sidebar-chunk,.export-sidebar-chunks,.changed-exports-section,.changed-exports-list,.full-export-section,.app-dialog-custom-content,.app-dialog-field,.app-dialog-input-wrap,.parser-command-chip,.parser-input,.search-box,.search-suggest-item,.search-suggestion,.character-stat-card,.stat-card-rich,.mini-breakdown,.key-breakdown,.stat-detail-box){background:var(--mhp-default-panel-3)!important;border-color:var(--mhp-default-border-soft)!important;color:var(--mhp-default-text-2)!important}body.mhp-theme-default:is(input,textarea,select,.settings-select,.settings-text-input,.settings-number-input,.app-dialog-input,.gallery-paste,.parser-input,.search-input,.mhp-floating-input,.embed-color-hex-input),html.mhp-theme-default body:is(input,textarea,select,.settings-select,.settings-text-input,.settings-number-input,.app-dialog-input,.gallery-paste,.parser-input,.search-input,.mhp-floating-input,.embed-color-hex-input),body.bg-preset-default:is(input,textarea,select,.settings-select,.settings-text-input,.settings-number-input,.app-dialog-input,.gallery-paste,.parser-input,.search-input,.mhp-floating-input,.embed-color-hex-input),body[data-background-preset="default"]:is(input,textarea,select,.settings-select,.settings-text-input,.settings-number-input,.app-dialog-input,.gallery-paste,.parser-input,.search-input,.mhp-floating-input,.embed-color-hex-input){background:var(--mhp-default-field)!important;border-color:var(--mhp-default-border-strong)!important;color:var(--mhp-default-text)!important;box-shadow:0 0 0 1px rgba(255,255,255,.025)inset !important}body.mhp-theme-default:is(input,textarea,select)::placeholder,html.mhp-theme-default body:is(input,textarea,select)::placeholder,body.bg-preset-default:is(input,textarea,select)::placeholder,body[data-background-preset="default"]:is(input,textarea,select)::placeholder{color:var(--mhp-default-muted-2)!important}body.mhp-theme-default:is(label,small,p,.muted,.hint,.description,.app-dialog-message,.settings-toggle-copy span,.settings-background-copy span,.settings-limit-note,#galleryStatus,#editSubtitle,.gallery-match-preview-hint),html.mhp-theme-default body:is(label,small,p,.muted,.hint,.description,.app-dialog-message,.settings-toggle-copy span,.settings-background-copy span,.settings-limit-note,#galleryStatus,#editSubtitle,.gallery-match-preview-hint),body.bg-preset-default:is(label,small,p,.muted,.hint,.description,.app-dialog-message,.settings-toggle-copy span,.settings-background-copy span,.settings-limit-note,#galleryStatus,#editSubtitle,.gallery-match-preview-hint),body[data-background-preset="default"]:is(label,small,p,.muted,.hint,.description,.app-dialog-message,.settings-toggle-copy span,.settings-background-copy span,.settings-limit-note,#galleryStatus,#editSubtitle,.gallery-match-preview-hint){color:var(--mhp-default-muted)!important}body.mhp-theme-default:is(h1,h2,h3,strong,.app-dialog-title,.settings-title,.settings-section-label,.edit-head h2,#editTitle,#galleryTitle,.group-menu-title,.export-menu-title,.gallery-match-preview-head h3,.gallery-match-conflict-head h3),html.mhp-theme-default body:is(h1,h2,h3,strong,.app-dialog-title,.settings-title,.settings-section-label,.edit-head h2,#editTitle,#galleryTitle,.group-menu-title,.export-menu-title,.gallery-match-preview-head h3,.gallery-match-conflict-head h3),body.bg-preset-default:is(h1,h2,h3,strong,.app-dialog-title,.settings-title,.settings-section-label,.edit-head h2,#editTitle,#galleryTitle,.group-menu-title,.export-menu-title,.gallery-match-preview-head h3,.gallery-match-conflict-head h3),body[data-background-preset="default"]:is(h1,h2,h3,strong,.app-dialog-title,.settings-title,.settings-section-label,.edit-head h2,#editTitle,#galleryTitle,.group-menu-title,.export-menu-title,.gallery-match-preview-head h3,.gallery-match-conflict-head h3){color:var(--mhp-default-text)!important;text-shadow:none !important}body.mhp-theme-default:is(.btn-primary,.app-dialog-btn.btn-primary,.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active,.gallery-match-apply-one,.gallery-match-preview-footer .btn-primary),html.mhp-theme-default body:is(.btn-primary,.app-dialog-btn.btn-primary,.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active,.gallery-match-apply-one,.gallery-match-preview-footer .btn-primary),body.bg-preset-default:is(.btn-primary,.app-dialog-btn.btn-primary,.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active,.gallery-match-apply-one,.gallery-match-preview-footer .btn-primary),body[data-background-preset="default"]:is(.btn-primary,.app-dialog-btn.btn-primary,.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active,.gallery-match-apply-one,.gallery-match-preview-footer .btn-primary){background:var(--mhp-default-primary-bg)!important;border-color:rgba(244,244,245,.72)!important;color:var(--mhp-default-primary-text)!important;text-shadow:none !important;box-shadow:0 0 0 1px rgba(255,255,255,.10)inset,0 12px 28px rgba(0,0,0,.24)!important}body.mhp-theme-default:is(.btn-primary,.app-dialog-btn.btn-primary,.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active,.gallery-match-apply-one):hover:not(:disabled),html.mhp-theme-default body:is(.btn-primary,.app-dialog-btn.btn-primary,.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active,.gallery-match-apply-one):hover:not(:disabled),body.bg-preset-default:is(.btn-primary,.app-dialog-btn.btn-primary,.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active,.gallery-match-apply-one):hover:not(:disabled),body[data-background-preset="default"]:is(.btn-primary,.app-dialog-btn.btn-primary,.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active,.gallery-match-apply-one):hover:not(:disabled){background:var(--mhp-default-primary-bg-hover)!important;color:var(--mhp-default-primary-text)!important}body.mhp-theme-default:is(button,.btn,.app-dialog-btn,.settings-action-btn,.settings-toggle-btn,.settings-section-btn,.settings-file-btn,.settings-preset-btn,.visual-mode-btn,.gallery-match-apply-one):disabled,html.mhp-theme-default body:is(button,.btn,.app-dialog-btn,.settings-action-btn,.settings-toggle-btn,.settings-section-btn,.settings-file-btn,.settings-preset-btn,.visual-mode-btn,.gallery-match-apply-one):disabled,body.bg-preset-default:is(button,.btn,.app-dialog-btn,.settings-action-btn,.settings-toggle-btn,.settings-section-btn,.settings-file-btn,.settings-preset-btn,.visual-mode-btn,.gallery-match-apply-one):disabled,body[data-background-preset="default"]:is(button,.btn,.app-dialog-btn,.settings-action-btn,.settings-toggle-btn,.settings-section-btn,.settings-file-btn,.settings-preset-btn,.visual-mode-btn,.gallery-match-apply-one):disabled{background:var(--mhp-default-disabled-bg)!important;border-color:rgba(113,113,122,.38)!important;color:var(--mhp-default-disabled-text)!important;opacity:1 !important;text-shadow:none !important;box-shadow:none !important}body.mhp-theme-default:is(.btn,.app-dialog-btn,.settings-action-btn,.settings-toggle-btn,.settings-section-btn,.settings-file-btn,.settings-preset-btn,.visual-mode-btn,.group-menu-save-btn,.group-menu-rename-btn,.group-menu-copy,.gallery-close,.edit-modal-close,.app-dialog-close,.settings-modal-close,.settings-graphics-close):not(.btn-primary):not(.btn-danger):not(.is-active):not(.is-on):not(:disabled),html.mhp-theme-default body:is(.btn,.app-dialog-btn,.settings-action-btn,.settings-toggle-btn,.settings-section-btn,.settings-file-btn,.settings-preset-btn,.visual-mode-btn,.group-menu-save-btn,.group-menu-rename-btn,.group-menu-copy,.gallery-close,.edit-modal-close,.app-dialog-close,.settings-modal-close,.settings-graphics-close):not(.btn-primary):not(.btn-danger):not(.is-active):not(.is-on):not(:disabled),body.bg-preset-default:is(.btn,.app-dialog-btn,.settings-action-btn,.settings-toggle-btn,.settings-section-btn,.settings-file-btn,.settings-preset-btn,.visual-mode-btn,.group-menu-save-btn,.group-menu-rename-btn,.group-menu-copy,.gallery-close,.edit-modal-close,.app-dialog-close,.settings-modal-close,.settings-graphics-close):not(.btn-primary):not(.btn-danger):not(.is-active):not(.is-on):not(:disabled),body[data-background-preset="default"]:is(.btn,.app-dialog-btn,.settings-action-btn,.settings-toggle-btn,.settings-section-btn,.settings-file-btn,.settings-preset-btn,.visual-mode-btn,.group-menu-save-btn,.group-menu-rename-btn,.group-menu-copy,.gallery-close,.edit-modal-close,.app-dialog-close,.settings-modal-close,.settings-graphics-close):not(.btn-primary):not(.btn-danger):not(.is-active):not(.is-on):not(:disabled){background:var(--mhp-default-secondary-bg)!important;border-color:var(--mhp-default-border-strong)!important;color:var(--mhp-default-text)!important;text-shadow:none !important}body.mhp-theme-default:is(.btn-danger,.edit-delete-character-btn),html.mhp-theme-default body:is(.btn-danger,.edit-delete-character-btn),body.bg-preset-default:is(.btn-danger,.edit-delete-character-btn),body[data-background-preset="default"]:is(.btn-danger,.edit-delete-character-btn){background:var(--mhp-default-danger-bg)!important;border-color:rgba(248,113,113,.36)!important;color:#fee2e2 !important}body.mhp-theme-default:is(.gallery-image-cell,.mudae-gallery-item,.mhp-gallery-ratio-card,.gallery-match-preview-image-btn,.gallery-match-conflict-card),html.mhp-theme-default body:is(.gallery-image-cell,.mudae-gallery-item,.mhp-gallery-ratio-card,.gallery-match-preview-image-btn,.gallery-match-conflict-card),body.bg-preset-default:is(.gallery-image-cell,.mudae-gallery-item,.mhp-gallery-ratio-card,.gallery-match-preview-image-btn,.gallery-match-conflict-card),body[data-background-preset="default"]:is(.gallery-image-cell,.mudae-gallery-item,.mhp-gallery-ratio-card,.gallery-match-preview-image-btn,.gallery-match-conflict-card){background:var(--mhp-default-card)!important;border-color:var(--mhp-default-border)!important}body.mhp-theme-default:is(.gallery-image-cell.is-selected,.mudae-gallery-item.is-selected,.mhp-gallery-ratio-card.is-selected,.char-card.multi-selected-card),html.mhp-theme-default body:is(.gallery-image-cell.is-selected,.mudae-gallery-item.is-selected,.mhp-gallery-ratio-card.is-selected,.char-card.multi-selected-card),body.bg-preset-default:is(.gallery-image-cell.is-selected,.mudae-gallery-item.is-selected,.mhp-gallery-ratio-card.is-selected,.char-card.multi-selected-card),body[data-background-preset="default"]:is(.gallery-image-cell.is-selected,.mudae-gallery-item.is-selected,.mhp-gallery-ratio-card.is-selected,.char-card.multi-selected-card){border-color:rgba(244,244,245,.78)!important;box-shadow:0 0 0 1px rgba(244,244,245,.40),0 16px 38px rgba(0,0,0,.40)!important}html.mhp-theme-default,body.mhp-theme-default,html.bg-preset-default,body.bg-preset-default,html[data-background-preset="default"],body[data-background-preset="default"]{--mhp-menu-accent:#e5e7eb !important;--mhp-menu-accent-2:#a1a1aa !important;--mhp-menu-title-graphics:#f4f4f5 !important;--mhp-menu-text-graphics:#f4f4f5 !important;--mhp-menu-muted-graphics:#b6b6be !important;--mhp-menu-border-graphics:rgba(161,161,170,.24)!important;--mhp-menu-border-graphics-strong:rgba(212,212,216,.34)!important;--mhp-graphics-shell:#08080a !important;--mhp-graphics-row:#0d0d10 !important;--mhp-graphics-row-2:#121216 !important;--mhp-graphics-control:#101013 !important;--mhp-graphics-control-hover:#1a1a1f !important;--mhp-graphics-border:rgba(161,161,170,.24)!important;--mhp-graphics-border-strong:rgba(212,212,216,.34)!important;--mhp-graphics-title:#f4f4f5 !important;--mhp-graphics-text:#f4f4f5 !important;--mhp-graphics-muted:#b6b6be !important;--mhp-promoted-title:#f4f4f5 !important;--mhp-promoted-accent:#e5e7eb !important;--mhp-promoted-accent-2:#a1a1aa !important}html.mhp-theme-default,body.mhp-theme-default,html.bg-preset-default,body.bg-preset-default,html[data-background-preset="default"],body[data-background-preset="default"]{background:#000 !important;background-color:#000 !important}.mhp-page-background[data-background-preset="default"],body.mhp-theme-default .mhp-page-background,body.bg-preset-default .mhp-page-background,body[data-background-preset="default"] .mhp-page-background{background:#000 !important}.mhp-page-background[data-background-preset="default"] .mhp-page-background-base,body.mhp-theme-default .mhp-page-background .mhp-page-background-base,body.bg-preset-default .mhp-page-background .mhp-page-background-base,body[data-background-preset="default"] .mhp-page-background .mhp-page-background-base{background:radial-gradient(72vw 72vw at 50% -16%,rgba(82,82,91,.16),transparent 58%),radial-gradient(46vw 46vw at 90% 18%,rgba(63,63,70,.10),transparent 56%),radial-gradient(38vw 38vw at 16% 76%,rgba(39,39,42,.10),transparent 58%),linear-gradient(180deg,#020203 0%,#000 100%)!important}.mhp-page-background[data-background-preset="default"] .mhp-page-background-tint,body.mhp-theme-default .mhp-page-background .mhp-page-background-tint,body.bg-preset-default .mhp-page-background .mhp-page-background-tint,body[data-background-preset="default"] .mhp-page-background .mhp-page-background-tint{background:linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.42))!important}body.mhp-theme-default:is(.app-shell,#app,main,.board,#board,.board-wrap,.board-shell,.board-panel,.characters-board,.mhp-board-shell),html.mhp-theme-default body:is(.app-shell,#app,main,.board,#board,.board-wrap,.board-shell,.board-panel,.characters-board,.mhp-board-shell),body.bg-preset-default:is(.app-shell,#app,main,.board,#board,.board-wrap,.board-shell,.board-panel,.characters-board,.mhp-board-shell),body[data-background-preset="default"]:is(.app-shell,#app,main,.board,#board,.board-wrap,.board-shell,.board-panel,.characters-board,.mhp-board-shell){background-color:transparent !important;color:var(--mhp-default-text)!important}body.mhp-theme-default:is(#board,.board).bgc-window-active::before,html.mhp-theme-default body:is(#board,.board).bgc-window-active::before,body.bg-preset-default:is(#board,.board).bgc-window-active::before,body[data-background-preset="default"]:is(#board,.board).bgc-window-active::before{background:transparent !important}body.mhp-theme-default:is(#graphicsSettingsPanel,.settings-graphics-panel,.graphics-settings-panel,.settings-graphics-head,.graphics-setting-row,.settings-background-row,.settings-background-preview,.settings-background-status,.settings-glass-tuning,.settings-background-tuning),html.mhp-theme-default body:is(#graphicsSettingsPanel,.settings-graphics-panel,.graphics-settings-panel,.settings-graphics-head,.graphics-setting-row,.settings-background-row,.settings-background-preview,.settings-background-status,.settings-glass-tuning,.settings-background-tuning),body.bg-preset-default:is(#graphicsSettingsPanel,.settings-graphics-panel,.graphics-settings-panel,.settings-graphics-head,.graphics-setting-row,.settings-background-row,.settings-background-preview,.settings-background-status,.settings-glass-tuning,.settings-background-tuning),body[data-background-preset="default"]:is(#graphicsSettingsPanel,.settings-graphics-panel,.graphics-settings-panel,.settings-graphics-head,.graphics-setting-row,.settings-background-row,.settings-background-preview,.settings-background-status,.settings-glass-tuning,.settings-background-tuning){background:linear-gradient(180deg,var(--mhp-default-panel-2),var(--mhp-default-panel-3))!important;border-color:var(--mhp-default-border)!important;color:var(--mhp-default-text)!important;box-shadow:none !important}body.mhp-theme-default:is(#graphicsSettingsPanel,.settings-graphics-panel):is(h1,h2,h3,strong,label,.settings-section-label,.settings-title,.settings-graphics-title),html.mhp-theme-default body:is(#graphicsSettingsPanel,.settings-graphics-panel):is(h1,h2,h3,strong,label,.settings-section-label,.settings-title,.settings-graphics-title),body.bg-preset-default:is(#graphicsSettingsPanel,.settings-graphics-panel):is(h1,h2,h3,strong,label,.settings-section-label,.settings-title,.settings-graphics-title),body[data-background-preset="default"]:is(#graphicsSettingsPanel,.settings-graphics-panel):is(h1,h2,h3,strong,label,.settings-section-label,.settings-title,.settings-graphics-title){color:var(--mhp-default-text)!important;text-shadow:none !important}body.mhp-theme-default:is(#graphicsSettingsPanel,.settings-graphics-panel):is(p,small,span,.settings-description,.settings-help,.settings-muted,.settings-subtitle,.settings-background-copy),html.mhp-theme-default body:is(#graphicsSettingsPanel,.settings-graphics-panel):is(p,small,span,.settings-description,.settings-help,.settings-muted,.settings-subtitle,.settings-background-copy),body.bg-preset-default:is(#graphicsSettingsPanel,.settings-graphics-panel):is(p,small,span,.settings-description,.settings-help,.settings-muted,.settings-subtitle,.settings-background-copy),body[data-background-preset="default"]:is(#graphicsSettingsPanel,.settings-graphics-panel):is(p,small,span,.settings-description,.settings-help,.settings-muted,.settings-subtitle,.settings-background-copy){color:var(--mhp-default-muted)!important}body.mhp-theme-default:is(#graphicsSettingsPanel,.settings-graphics-panel):is(.settings-action-btn,.settings-toggle-btn,.settings-preset-btn,.visual-mode-btn,.settings-file-btn,#clearBackgroundBtn,#backgroundClearBtn),html.mhp-theme-default body:is(#graphicsSettingsPanel,.settings-graphics-panel):is(.settings-action-btn,.settings-toggle-btn,.settings-preset-btn,.visual-mode-btn,.settings-file-btn,#clearBackgroundBtn,#backgroundClearBtn),body.bg-preset-default:is(#graphicsSettingsPanel,.settings-graphics-panel):is(.settings-action-btn,.settings-toggle-btn,.settings-preset-btn,.visual-mode-btn,.settings-file-btn,#clearBackgroundBtn,#backgroundClearBtn),body[data-background-preset="default"]:is(#graphicsSettingsPanel,.settings-graphics-panel):is(.settings-action-btn,.settings-toggle-btn,.settings-preset-btn,.visual-mode-btn,.settings-file-btn,#clearBackgroundBtn,#backgroundClearBtn){background:linear-gradient(180deg,#17171b,#101013)!important;border-color:var(--mhp-default-border-strong)!important;color:var(--mhp-default-text)!important;box-shadow:none !important}body.mhp-theme-default:is(#graphicsSettingsPanel,.settings-graphics-panel):is(.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active),html.mhp-theme-default body:is(#graphicsSettingsPanel,.settings-graphics-panel):is(.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active),body.bg-preset-default:is(#graphicsSettingsPanel,.settings-graphics-panel):is(.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active),body[data-background-preset="default"]:is(#graphicsSettingsPanel,.settings-graphics-panel):is(.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active){background:linear-gradient(180deg,#f4f4f5,#cfcfd4)!important;border-color:rgba(244,244,245,.72)!important;color:#09090b !important}body.mhp-theme-default:is(#graphicsSettingsPanel,.settings-graphics-panel):is(input,textarea,select,.settings-select,.settings-number-input,.settings-text-input),html.mhp-theme-default body:is(#graphicsSettingsPanel,.settings-graphics-panel):is(input,textarea,select,.settings-select,.settings-number-input,.settings-text-input),body.bg-preset-default:is(#graphicsSettingsPanel,.settings-graphics-panel):is(input,textarea,select,.settings-select,.settings-number-input,.settings-text-input),body[data-background-preset="default"]:is(#graphicsSettingsPanel,.settings-graphics-panel):is(input,textarea,select,.settings-select,.settings-number-input,.settings-text-input){background:#09090b !important;border-color:var(--mhp-default-border-strong)!important;color:var(--mhp-default-text)!important}body.mhp-theme-default:is(#graphicsSettingsPanel,.settings-graphics-panel)*,html.mhp-theme-default body:is(#graphicsSettingsPanel,.settings-graphics-panel)*,body.bg-preset-default:is(#graphicsSettingsPanel,.settings-graphics-panel)*,body[data-background-preset="default"]:is(#graphicsSettingsPanel,.settings-graphics-panel)*{--mhp-menu-accent:#e5e7eb !important;--mhp-menu-accent-2:#a1a1aa !important;--mhp-theme-accent:#e5e7eb !important;--mhp-theme-accent-2:#a1a1aa !important}body.mhp-theme-default:is(.mhp-loader-card,.force-load-progress-card,.mhp-boot-loader-card,.mhp-loading-card,.mhp-loading-panel),html.mhp-theme-default body:is(.mhp-loader-card,.force-load-progress-card,.mhp-boot-loader-card,.mhp-loading-card,.mhp-loading-panel),body.bg-preset-default:is(.mhp-loader-card,.force-load-progress-card,.mhp-boot-loader-card,.mhp-loading-card,.mhp-loading-panel),body[data-background-preset="default"]:is(.mhp-loader-card,.force-load-progress-card,.mhp-boot-loader-card,.mhp-loading-card,.mhp-loading-panel){background:revert-layer !important;border-color:revert-layer !important;box-shadow:revert-layer !important}body.mhp-theme-default:is(.mhp-loader-overlay,.mhp-boot-loader,.force-load-progress-overlay,.mhp-json-drop-overlay),html.mhp-theme-default body:is(.mhp-loader-overlay,.mhp-boot-loader,.force-load-progress-overlay,.mhp-json-drop-overlay),body.bg-preset-default:is(.mhp-loader-overlay,.mhp-boot-loader,.force-load-progress-overlay,.mhp-json-drop-overlay),body[data-background-preset="default"]:is(.mhp-loader-overlay,.mhp-boot-loader,.force-load-progress-overlay,.mhp-json-drop-overlay){background:revert-layer !important}html.mhp-booting body{background:radial-gradient(70vw 58vw at 50% 36%,rgba(56,189,248,.12),transparent 48%),radial-gradient(74vw 62vw at 50% 62%,rgba(168,85,247,.11),transparent 54%),linear-gradient(180deg,#020617 0%,#000 100%)!important;background-color:#020617 !important}body.mhp-theme-default:is(#mhpBootLoader.mhp-loader-overlay,#appLoadingOverlay.mhp-loader-overlay,.mhp-loader-overlay,.force-load-progress-overlay),html.mhp-theme-default body:is(#mhpBootLoader.mhp-loader-overlay,#appLoadingOverlay.mhp-loader-overlay,.mhp-loader-overlay,.force-load-progress-overlay),body.bg-preset-default:is(#mhpBootLoader.mhp-loader-overlay,#appLoadingOverlay.mhp-loader-overlay,.mhp-loader-overlay,.force-load-progress-overlay),body[data-background-preset="default"]:is(#mhpBootLoader.mhp-loader-overlay,#appLoadingOverlay.mhp-loader-overlay,.mhp-loader-overlay,.force-load-progress-overlay){background:radial-gradient(circle at 50% 40%,rgba(14,165,233,.16),transparent 34%),radial-gradient(circle at 50% 62%,rgba(168,85,247,.14),transparent 45%),linear-gradient(180deg,rgba(2,6,23,.90)0%,rgba(0,0,0,.92)100%)!important;backdrop-filter:blur(20px)saturate(122%)!important;-webkit-backdrop-filter:blur(20px)saturate(122%)!important}body.mhp-theme-default:is(#mhpBootLoader.mhp-loader-overlay,#appLoadingOverlay.mhp-loader-overlay,.mhp-loader-overlay,.force-load-progress-overlay):is(.mhp-loader-card,.app-loading-card,.mhp-boot-loader-card,.force-load-progress-card),html.mhp-theme-default body:is(#mhpBootLoader.mhp-loader-overlay,#appLoadingOverlay.mhp-loader-overlay,.mhp-loader-overlay,.force-load-progress-overlay):is(.mhp-loader-card,.app-loading-card,.mhp-boot-loader-card,.force-load-progress-card),body.bg-preset-default:is(#mhpBootLoader.mhp-loader-overlay,#appLoadingOverlay.mhp-loader-overlay,.mhp-loader-overlay,.force-load-progress-overlay):is(.mhp-loader-card,.app-loading-card,.mhp-boot-loader-card,.force-load-progress-card),body[data-background-preset="default"]:is(#mhpBootLoader.mhp-loader-overlay,#appLoadingOverlay.mhp-loader-overlay,.mhp-loader-overlay,.force-load-progress-overlay):is(.mhp-loader-card,.app-loading-card,.mhp-boot-loader-card,.force-load-progress-card){background:transparent !important;border:0 !important;box-shadow:none !important}body.mhp-theme-default .mhp-json-drop-overlay,html.mhp-theme-default body .mhp-json-drop-overlay,body.bg-preset-default .mhp-json-drop-overlay,body[data-background-preset="default"] .mhp-json-drop-overlay{background:radial-gradient(circle at center,rgba(148,163,184,.14),transparent 42%),rgba(0,0,0,.82)!important;backdrop-filter:blur(14px)saturate(1.1)!important;-webkit-backdrop-filter:blur(14px)saturate(1.1)!important}body.mhp-theme-default.mhp-promoted-graphics>#graphicsSettingsPanel.settings-graphics-panel,html.mhp-theme-default body.mhp-promoted-graphics>#graphicsSettingsPanel.settings-graphics-panel,body.bg-preset-default.mhp-promoted-graphics>#graphicsSettingsPanel.settings-graphics-panel,body[data-background-preset="default"].mhp-promoted-graphics>#graphicsSettingsPanel.settings-graphics-panel{--mhp-menu-accent:#e5e7eb !important;--mhp-menu-accent-2:#a1a1aa !important;--mhp-graphics-glass-panel:rgba(8,8,10,.92)!important;--mhp-graphics-glass-line:rgba(212,212,216,.18)!important;--mhp-graphics-glass-line-soft:rgba(161,161,170,.14)!important;--mhp-graphics-glass-control:rgba(16,16,19,.72)!important;--mhp-graphics-glass-control-hover:rgba(28,28,32,.84)!important;--mhp-graphics-glass-control-active:rgba(229,231,235,.16)!important;--mhp-graphics-min-panel:#08080a !important;--mhp-graphics-min-control:#101013 !important;background:linear-gradient(180deg,#08080a,#0d0d10)!important;background-image:linear-gradient(180deg,#08080a,#0d0d10)!important;border-color:rgba(212,212,216,.26)!important;color:#f4f4f5 !important;box-shadow:0 24px 72px rgba(0,0,0,.58),0 0 0 1px rgba(255,255,255,.035)inset !important}body.mhp-theme-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(.settings-background-row,.settings-glass-row,.graphics-style-pair,.settings-inline-pair,.graphics-density-pair,.settings-toggle-row,.settings-action-row,.graphics-setting-row,.settings-background-status,.settings-background-url-row,.settings-background-tuning,.settings-background-action-buttons,.settings-glass-tuning,.settings-range-control),html.mhp-theme-default body.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(.settings-background-row,.settings-glass-row,.graphics-style-pair,.settings-inline-pair,.graphics-density-pair,.settings-toggle-row,.settings-action-row,.graphics-setting-row,.settings-background-status,.settings-background-url-row,.settings-background-tuning,.settings-background-action-buttons,.settings-glass-tuning,.settings-range-control),body.bg-preset-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(.settings-background-row,.settings-glass-row,.graphics-style-pair,.settings-inline-pair,.graphics-density-pair,.settings-toggle-row,.settings-action-row,.graphics-setting-row,.settings-background-status,.settings-background-url-row,.settings-background-tuning,.settings-background-action-buttons,.settings-glass-tuning,.settings-range-control),body[data-background-preset="default"].mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(.settings-background-row,.settings-glass-row,.graphics-style-pair,.settings-inline-pair,.graphics-density-pair,.settings-toggle-row,.settings-action-row,.graphics-setting-row,.settings-background-status,.settings-background-url-row,.settings-background-tuning,.settings-background-action-buttons,.settings-glass-tuning,.settings-range-control){background:transparent !important;background-color:transparent !important;background-image:none !important;border-color:rgba(161,161,170,.16)!important;box-shadow:none !important;color:#f4f4f5 !important}body.mhp-theme-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(.settings-background-row,.settings-glass-row,.graphics-style-pair),html.mhp-theme-default body.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(.settings-background-row,.settings-glass-row,.graphics-style-pair),body.bg-preset-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(.settings-background-row,.settings-glass-row,.graphics-style-pair),body[data-background-preset="default"].mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(.settings-background-row,.settings-glass-row,.graphics-style-pair){border-top-color:rgba(161,161,170,.16)!important}body.mhp-theme-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(.settings-section-label,#graphicsSettingsTitle,strong,label),html.mhp-theme-default body.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(.settings-section-label,#graphicsSettingsTitle,strong,label),body.bg-preset-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(.settings-section-label,#graphicsSettingsTitle,strong,label),body[data-background-preset="default"].mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(.settings-section-label,#graphicsSettingsTitle,strong,label){color:#f4f4f5 !important;text-shadow:none !important}body.mhp-theme-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(p,span,small,.settings-toggle-copy span,.settings-background-copy span,.settings-limit-note),html.mhp-theme-default body.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(p,span,small,.settings-toggle-copy span,.settings-background-copy span,.settings-limit-note),body.bg-preset-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(p,span,small,.settings-toggle-copy span,.settings-background-copy span,.settings-limit-note),body[data-background-preset="default"].mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(p,span,small,.settings-toggle-copy span,.settings-background-copy span,.settings-limit-note){color:#b6b6be !important}body.mhp-theme-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(button,.settings-action-btn,.settings-toggle-btn,.settings-preset-btn,.visual-mode-btn,.settings-file-btn,select,input,textarea),html.mhp-theme-default body.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(button,.settings-action-btn,.settings-toggle-btn,.settings-preset-btn,.visual-mode-btn,.settings-file-btn,select,input,textarea),body.bg-preset-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(button,.settings-action-btn,.settings-toggle-btn,.settings-preset-btn,.visual-mode-btn,.settings-file-btn,select,input,textarea),body[data-background-preset="default"].mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(button,.settings-action-btn,.settings-toggle-btn,.settings-preset-btn,.visual-mode-btn,.settings-file-btn,select,input,textarea){background:linear-gradient(180deg,#17171b,#101013)!important;border-color:rgba(212,212,216,.26)!important;color:#f4f4f5 !important;box-shadow:none !important}body.mhp-theme-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active),html.mhp-theme-default body.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active),body.bg-preset-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active),body[data-background-preset="default"].mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel:is(.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active){background:linear-gradient(180deg,#f4f4f5,#cfcfd4)!important;border-color:rgba(244,244,245,.72)!important;color:#09090b !important}body.visual-mode-glass #board,body.glass-panels-enabled #board{contain:layout paint style !important}body.visual-mode-glass:is(.char-card,.character-card,.card-inner,.group-shell),body.glass-panels-enabled:is(.char-card,.character-card,.card-inner,.group-shell){content-visibility:auto;contain-intrinsic-size:360px 190px;backdrop-filter:none !important;-webkit-backdrop-filter:none !important;filter:none !important;text-shadow:none !important;box-shadow:0 8px 18px rgba(0,0,0,.22)!important;transition:border-color .12s ease,background-color .12s ease,transform .12s ease !important}body.visual-mode-glass:is(.char-card:hover,.character-card:hover,.card-inner:hover),body.glass-panels-enabled:is(.char-card:hover,.character-card:hover,.card-inner:hover){transform:none !important;box-shadow:0 10px 22px rgba(0,0,0,.24)!important}body.visual-mode-glass:is(.char-img,.card-image,img.char-img,.character-card img),body.glass-panels-enabled:is(.char-img,.card-image,img.char-img,.character-card img){filter:none !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important}body.visual-mode-minimalist.mhp-theme-default:is(.btn,button,.mhp-floating-bar button,.top-actions .btn,.toolbar button,.settings-panel button,.settings-graphics-panel button,.gallery-panel button,.edit-modal button,.app-dialog button,.group-menu-panel button,.move-character-dialog button),html.mhp-theme-default body.visual-mode-minimalist:is(.btn,button,.mhp-floating-bar button,.top-actions .btn,.toolbar button,.settings-panel button,.settings-graphics-panel button,.gallery-panel button,.edit-modal button,.app-dialog button,.group-menu-panel button,.move-character-dialog button),body.visual-mode-minimalist.bg-preset-default:is(.btn,button,.mhp-floating-bar button,.top-actions .btn,.toolbar button,.settings-panel button,.settings-graphics-panel button,.gallery-panel button,.edit-modal button,.app-dialog button,.group-menu-panel button,.move-character-dialog button){box-shadow:none !important;text-shadow:none !important;background-image:none !important;background-color:var(--mhp-default-panel-3,#121216)!important;border-color:rgba(161,161,170,.30)!important}body.visual-mode-minimalist.mhp-theme-default:is(.btn-primary,.primary,#exportJsonBtn,.save-json-btn,.confirm-primary,.app-dialog .btn-primary),html.mhp-theme-default body.visual-mode-minimalist:is(.btn-primary,.primary,#exportJsonBtn,.save-json-btn,.confirm-primary,.app-dialog .btn-primary),body.visual-mode-minimalist.bg-preset-default:is(.btn-primary,.primary,#exportJsonBtn,.save-json-btn,.confirm-primary,.app-dialog .btn-primary){background:var(--mhp-default-accent,#e5e7eb)!important;color:var(--mhp-default-primary-text,#09090b)!important;border-color:rgba(244,244,245,.55)!important;box-shadow:none !important}body.visual-mode-minimalist.mhp-theme-default:is(.btn:hover,button:hover),html.mhp-theme-default body.visual-mode-minimalist:is(.btn:hover,button:hover),body.visual-mode-minimalist.bg-preset-default:is(.btn:hover,button:hover){box-shadow:none !important;transform:none !important}body.visual-mode-minimalist.mhp-theme-default:is(.btn:disabled,button:disabled,[aria-disabled="true"]),html.mhp-theme-default body.visual-mode-minimalist:is(.btn:disabled,button:disabled,[aria-disabled="true"]),body.visual-mode-minimalist.bg-preset-default:is(.btn:disabled,button:disabled,[aria-disabled="true"]){background:var(--mhp-default-disabled-bg,#202024)!important;color:var(--mhp-default-disabled-text,#a1a1aa)!important;border-color:rgba(113,113,122,.22)!important;opacity:.72 !important}
+/* Default black/gray theme parity, loader safeguards, Glass performance, and Minimalist flat controls. */
+
+html.mhp-theme-default,
+body.mhp-theme-default,
+html.bg-preset-default,
+body.bg-preset-default,
+html[data-background-preset="default"],
+body[data-background-preset="default"]{
+  --mhp-default-page:#030304;
+  --mhp-default-page-2:#08080a;
+  --mhp-default-panel:#08080a;
+  --mhp-default-panel-2:#0d0d10;
+  --mhp-default-panel-3:#121216;
+  --mhp-default-panel-soft:#151519;
+  --mhp-default-field:#09090b;
+  --mhp-default-field-2:#111114;
+  --mhp-default-card:#0b0b0d;
+  --mhp-default-card-2:#101013;
+  --mhp-default-border:rgba(161,161,170,.24);
+  --mhp-default-border-strong:rgba(212,212,216,.34);
+  --mhp-default-border-soft:rgba(113,113,122,.18);
+  --mhp-default-text:#f4f4f5;
+  --mhp-default-text-2:#e4e4e7;
+  --mhp-default-muted:#b6b6be;
+  --mhp-default-muted-2:#92929a;
+  --mhp-default-accent:#e5e7eb;
+  --mhp-default-accent-2:#a1a1aa;
+  --mhp-default-primary-bg:linear-gradient(180deg,#f4f4f5,#cfcfd4);
+  --mhp-default-primary-bg-hover:linear-gradient(180deg,#ffffff,#e4e4e7);
+  --mhp-default-primary-text:#09090b;
+  --mhp-default-secondary-bg:linear-gradient(180deg,#17171b,#101013);
+  --mhp-default-secondary-bg-hover:linear-gradient(180deg,#222227,#17171b);
+  --mhp-default-danger-bg:linear-gradient(180deg,#3f1116,#25090d);
+  --mhp-default-disabled-bg:#202024;
+  --mhp-default-disabled-text:#a1a1aa;
+  --mhp-default-shadow:0 22px 70px rgba(0,0,0,.58),0 0 0 1px rgba(255,255,255,.045) inset;
+
+  --bg:#030304;
+  --panel:#08080a;
+  --panel-2:#0d0d10;
+  --text:#f4f4f5;
+  --muted:#b6b6be;
+  --border:rgba(161,161,170,.24);
+  --accent:#e5e7eb;
+  --accent-2:#a1a1aa;
+  --theme-surface:#08080a;
+  --theme-surface-2:#0d0d10;
+  --theme-card:#0b0b0d;
+  --theme-panel:#08080a;
+  --theme-title:#f4f4f5;
+  --theme-text:#f4f4f5;
+  --theme-muted:#b6b6be;
+  --theme-border:rgba(161,161,170,.24);
+  --theme-border-soft:rgba(113,113,122,.18);
+  --theme-accent:#e5e7eb;
+  --theme-accent-2:#a1a1aa;
+  --mhp-promoted-text:#f4f4f5;
+  --mhp-promoted-muted:#b6b6be;
+  --mhp-settings-panel-min:#08080a;
+  --mhp-settings-control:#101013;
+  --mhp-settings-control-hover:#1a1a1f;
+  --mhp-settings-row:#0d0d10;
+  --mhp-settings-row-min:#0d0d10;
+}
+
+body.mhp-theme-default,
+html.mhp-theme-default body,
+body.bg-preset-default,
+html.bg-preset-default body,
+body[data-background-preset="default"],
+html[data-background-preset="default"] body{
+  background:linear-gradient(180deg,var(--mhp-default-page),var(--mhp-default-page-2)) !important;
+  color:var(--mhp-default-text) !important;
+}
+
+/* Main chrome / board */
+body.mhp-theme-default :is(.topbar,#parserPanel,.parser-panel,.toolbar,#statsBar,.stats,.mhp-floating-bar),
+html.mhp-theme-default body :is(.topbar,#parserPanel,.parser-panel,.toolbar,#statsBar,.stats,.mhp-floating-bar),
+body.bg-preset-default :is(.topbar,#parserPanel,.parser-panel,.toolbar,#statsBar,.stats,.mhp-floating-bar),
+body[data-background-preset="default"] :is(.topbar,#parserPanel,.parser-panel,.toolbar,#statsBar,.stats,.mhp-floating-bar){
+  background:linear-gradient(180deg,var(--mhp-default-panel),var(--mhp-default-panel-2)) !important;
+  border-color:var(--mhp-default-border) !important;
+  color:var(--mhp-default-text) !important;
+  box-shadow:0 12px 34px rgba(0,0,0,.36) !important;
+}
+
+body.mhp-theme-default #board,
+html.mhp-theme-default body #board,
+body.bg-preset-default #board,
+body[data-background-preset="default"] #board{
+  color:var(--mhp-default-text) !important;
+}
+
+body.mhp-theme-default :is(.char-card,.card-inner,.group-shell),
+html.mhp-theme-default body :is(.char-card,.card-inner,.group-shell),
+body.bg-preset-default :is(.char-card,.card-inner,.group-shell),
+body[data-background-preset="default"] :is(.char-card,.card-inner,.group-shell){
+  background:linear-gradient(180deg,var(--mhp-default-card),var(--mhp-default-card-2)) !important;
+  border-color:var(--mhp-default-border) !important;
+  color:var(--mhp-default-text) !important;
+  box-shadow:0 14px 36px rgba(0,0,0,.38),0 0 0 1px rgba(255,255,255,.025) inset !important;
+}
+
+body.mhp-theme-default :is(.card-series,.card-owner,.card-note,.stat-pill,.type-badge,.card-group-badge,.gallery-badge,.sphere-badge,.card-position),
+html.mhp-theme-default body :is(.card-series,.card-owner,.card-note,.stat-pill,.type-badge,.card-group-badge,.gallery-badge,.sphere-badge,.card-position),
+body.bg-preset-default :is(.card-series,.card-owner,.card-note,.stat-pill,.type-badge,.card-group-badge,.gallery-badge,.sphere-badge,.card-position),
+body[data-background-preset="default"] :is(.card-series,.card-owner,.card-note,.stat-pill,.type-badge,.card-group-badge,.gallery-badge,.sphere-badge,.card-position){
+  background:var(--mhp-default-panel-3) !important;
+  border-color:var(--mhp-default-border-soft) !important;
+  color:var(--mhp-default-text-2) !important;
+}
+
+body.mhp-theme-default :is(.char-name,.card-head,.divider-title,#haremTitle),
+html.mhp-theme-default body :is(.char-name,.card-head,.divider-title,#haremTitle),
+body.bg-preset-default :is(.char-name,.card-head,.divider-title,#haremTitle),
+body[data-background-preset="default"] :is(.char-name,.card-head,.divider-title,#haremTitle){
+  color:var(--mhp-default-text) !important;
+}
+
+body.mhp-theme-default :is(.divider-row,.compact-sticky-divider-inner,.subdivider-row),
+html.mhp-theme-default body :is(.divider-row,.compact-sticky-divider-inner,.subdivider-row),
+body.bg-preset-default :is(.divider-row,.compact-sticky-divider-inner,.subdivider-row),
+body[data-background-preset="default"] :is(.divider-row,.compact-sticky-divider-inner,.subdivider-row){
+  background:linear-gradient(180deg,#0d0d10,#09090b) !important;
+  border-color:var(--mhp-default-border) !important;
+  color:var(--mhp-default-text) !important;
+}
+
+/* Menus, modals, dialogs, panels. */
+body.mhp-theme-default :is(
+  #settingsPanel.settings-panel,
+  #graphicsSettingsPanel.settings-graphics-panel,
+  #editModal.edit-modal,
+  #galleryPanel.gallery-panel,
+  .gallery-match-preview-panel,
+  .gallery-match-conflict-panel,
+  .move-character-dialog,
+  .group-menu-panel,
+  .export-sidebar,
+  .export-dialog,
+  .app-dialog-card,
+  .modal-card,
+  .dialog-card,
+  .mhp-menu-standard,
+  .mhp-json-drop-card,
+  .searchSuggestBox,
+  .search-suggest-box,
+  .search-suggestions,
+  .embed-color-palette-panel
+),
+html.mhp-theme-default body :is(
+  #settingsPanel.settings-panel,
+  #graphicsSettingsPanel.settings-graphics-panel,
+  #editModal.edit-modal,
+  #galleryPanel.gallery-panel,
+  .gallery-match-preview-panel,
+  .gallery-match-conflict-panel,
+  .move-character-dialog,
+  .group-menu-panel,
+  .export-sidebar,
+  .export-dialog,
+  .app-dialog-card,
+  .modal-card,
+  .dialog-card,
+  .mhp-menu-standard,
+  .mhp-json-drop-card,
+  .searchSuggestBox,
+  .search-suggest-box,
+  .search-suggestions,
+  .embed-color-palette-panel
+),
+body.bg-preset-default :is(
+  #settingsPanel.settings-panel,
+  #graphicsSettingsPanel.settings-graphics-panel,
+  #editModal.edit-modal,
+  #galleryPanel.gallery-panel,
+  .gallery-match-preview-panel,
+  .gallery-match-conflict-panel,
+  .move-character-dialog,
+  .group-menu-panel,
+  .export-sidebar,
+  .export-dialog,
+  .app-dialog-card,
+  .modal-card,
+  .dialog-card,
+  .mhp-menu-standard,
+  .mhp-json-drop-card,
+  .searchSuggestBox,
+  .search-suggest-box,
+  .search-suggestions,
+  .embed-color-palette-panel
+),
+body[data-background-preset="default"] :is(
+  #settingsPanel.settings-panel,
+  #graphicsSettingsPanel.settings-graphics-panel,
+  #editModal.edit-modal,
+  #galleryPanel.gallery-panel,
+  .gallery-match-preview-panel,
+  .gallery-match-conflict-panel,
+  .move-character-dialog,
+  .group-menu-panel,
+  .export-sidebar,
+  .export-dialog,
+  .app-dialog-card,
+  .modal-card,
+  .dialog-card,
+  .mhp-menu-standard,
+  .mhp-json-drop-card,
+  .searchSuggestBox,
+  .search-suggest-box,
+  .search-suggestions,
+  .embed-color-palette-panel
+){
+  background:linear-gradient(180deg,var(--mhp-default-panel),var(--mhp-default-panel-2)) !important;
+  border-color:var(--mhp-default-border-strong) !important;
+  color:var(--mhp-default-text) !important;
+  box-shadow:var(--mhp-default-shadow) !important;
+  text-shadow:none !important;
+}
+
+body.mhp-theme-default :is(
+  .settings-toggle-row,.settings-action-row,.settings-theme-preset-row,.settings-background-row,.settings-background-status,.settings-background-url-row,.settings-background-tuning,.settings-background-action-buttons,.settings-glass-tuning,.settings-range-control,.settings-inline-pair,
+  .edit-section,.edit-body,.edit-form,.edit-preview-column,.preview-box,.edit-spheres-panel,.spheres-box,.spheres-panel,.embed-color-control,
+  .gallery-card,.gallery-bottom,.gallery-section,.gallery-body,.gallery-paste-details,.gallery-match-preview-card,.gallery-match-conflict-group,.gallery-match-conflict-card,
+  .move-character-section,.move-new-divider-panel,.move-character-context-preview,.move-divider-choice-list,.move-character-row,.move-character-list,.move-character-search,
+  .group-menu-list,.group-menu-member,.group-menu-actions,
+  .export-menu-section,.export-menu-chunk,.export-sidebar-chunk,.export-sidebar-chunks,.changed-exports-section,.changed-exports-list,.full-export-section,
+  .app-dialog-custom-content,.app-dialog-field,.app-dialog-input-wrap,
+  .parser-command-chip,.parser-input,.search-box,.search-suggest-item,.search-suggestion,
+  .character-stat-card,.stat-card-rich,.mini-breakdown,.key-breakdown,.stat-detail-box
+),
+html.mhp-theme-default body :is(
+  .settings-toggle-row,.settings-action-row,.settings-theme-preset-row,.settings-background-row,.settings-background-status,.settings-background-url-row,.settings-background-tuning,.settings-background-action-buttons,.settings-glass-tuning,.settings-range-control,.settings-inline-pair,
+  .edit-section,.edit-body,.edit-form,.edit-preview-column,.preview-box,.edit-spheres-panel,.spheres-box,.spheres-panel,.embed-color-control,
+  .gallery-card,.gallery-bottom,.gallery-section,.gallery-body,.gallery-paste-details,.gallery-match-preview-card,.gallery-match-conflict-group,.gallery-match-conflict-card,
+  .move-character-section,.move-new-divider-panel,.move-character-context-preview,.move-divider-choice-list,.move-character-row,.move-character-list,.move-character-search,
+  .group-menu-list,.group-menu-member,.group-menu-actions,
+  .export-menu-section,.export-menu-chunk,.export-sidebar-chunk,.export-sidebar-chunks,.changed-exports-section,.changed-exports-list,.full-export-section,
+  .app-dialog-custom-content,.app-dialog-field,.app-dialog-input-wrap,
+  .parser-command-chip,.parser-input,.search-box,.search-suggest-item,.search-suggestion,
+  .character-stat-card,.stat-card-rich,.mini-breakdown,.key-breakdown,.stat-detail-box
+),
+body.bg-preset-default :is(
+  .settings-toggle-row,.settings-action-row,.settings-theme-preset-row,.settings-background-row,.settings-background-status,.settings-background-url-row,.settings-background-tuning,.settings-background-action-buttons,.settings-glass-tuning,.settings-range-control,.settings-inline-pair,
+  .edit-section,.edit-body,.edit-form,.edit-preview-column,.preview-box,.edit-spheres-panel,.spheres-box,.spheres-panel,.embed-color-control,
+  .gallery-card,.gallery-bottom,.gallery-section,.gallery-body,.gallery-paste-details,.gallery-match-preview-card,.gallery-match-conflict-group,.gallery-match-conflict-card,
+  .move-character-section,.move-new-divider-panel,.move-character-context-preview,.move-divider-choice-list,.move-character-row,.move-character-list,.move-character-search,
+  .group-menu-list,.group-menu-member,.group-menu-actions,
+  .export-menu-section,.export-menu-chunk,.export-sidebar-chunk,.export-sidebar-chunks,.changed-exports-section,.changed-exports-list,.full-export-section,
+  .app-dialog-custom-content,.app-dialog-field,.app-dialog-input-wrap,
+  .parser-command-chip,.parser-input,.search-box,.search-suggest-item,.search-suggestion,
+  .character-stat-card,.stat-card-rich,.mini-breakdown,.key-breakdown,.stat-detail-box
+),
+body[data-background-preset="default"] :is(
+  .settings-toggle-row,.settings-action-row,.settings-theme-preset-row,.settings-background-row,.settings-background-status,.settings-background-url-row,.settings-background-tuning,.settings-background-action-buttons,.settings-glass-tuning,.settings-range-control,.settings-inline-pair,
+  .edit-section,.edit-body,.edit-form,.edit-preview-column,.preview-box,.edit-spheres-panel,.spheres-box,.spheres-panel,.embed-color-control,
+  .gallery-card,.gallery-bottom,.gallery-section,.gallery-body,.gallery-paste-details,.gallery-match-preview-card,.gallery-match-conflict-group,.gallery-match-conflict-card,
+  .move-character-section,.move-new-divider-panel,.move-character-context-preview,.move-divider-choice-list,.move-character-row,.move-character-list,.move-character-search,
+  .group-menu-list,.group-menu-member,.group-menu-actions,
+  .export-menu-section,.export-menu-chunk,.export-sidebar-chunk,.export-sidebar-chunks,.changed-exports-section,.changed-exports-list,.full-export-section,
+  .app-dialog-custom-content,.app-dialog-field,.app-dialog-input-wrap,
+  .parser-command-chip,.parser-input,.search-box,.search-suggest-item,.search-suggestion,
+  .character-stat-card,.stat-card-rich,.mini-breakdown,.key-breakdown,.stat-detail-box
+){
+  background:var(--mhp-default-panel-3) !important;
+  border-color:var(--mhp-default-border-soft) !important;
+  color:var(--mhp-default-text-2) !important;
+}
+
+/* Inputs and text controls. */
+body.mhp-theme-default :is(input,textarea,select,.settings-select,.settings-text-input,.settings-number-input,.app-dialog-input,.gallery-paste,.parser-input,.search-input,.mhp-floating-input,.embed-color-hex-input),
+html.mhp-theme-default body :is(input,textarea,select,.settings-select,.settings-text-input,.settings-number-input,.app-dialog-input,.gallery-paste,.parser-input,.search-input,.mhp-floating-input,.embed-color-hex-input),
+body.bg-preset-default :is(input,textarea,select,.settings-select,.settings-text-input,.settings-number-input,.app-dialog-input,.gallery-paste,.parser-input,.search-input,.mhp-floating-input,.embed-color-hex-input),
+body[data-background-preset="default"] :is(input,textarea,select,.settings-select,.settings-text-input,.settings-number-input,.app-dialog-input,.gallery-paste,.parser-input,.search-input,.mhp-floating-input,.embed-color-hex-input){
+  background:var(--mhp-default-field) !important;
+  border-color:var(--mhp-default-border-strong) !important;
+  color:var(--mhp-default-text) !important;
+  box-shadow:0 0 0 1px rgba(255,255,255,.025) inset !important;
+}
+
+body.mhp-theme-default :is(input,textarea,select)::placeholder,
+html.mhp-theme-default body :is(input,textarea,select)::placeholder,
+body.bg-preset-default :is(input,textarea,select)::placeholder,
+body[data-background-preset="default"] :is(input,textarea,select)::placeholder{
+  color:var(--mhp-default-muted-2) !important;
+}
+
+body.mhp-theme-default :is(label,small,p,.muted,.hint,.description,.app-dialog-message,.settings-toggle-copy span,.settings-background-copy span,.settings-limit-note,#galleryStatus,#editSubtitle,.gallery-match-preview-hint),
+html.mhp-theme-default body :is(label,small,p,.muted,.hint,.description,.app-dialog-message,.settings-toggle-copy span,.settings-background-copy span,.settings-limit-note,#galleryStatus,#editSubtitle,.gallery-match-preview-hint),
+body.bg-preset-default :is(label,small,p,.muted,.hint,.description,.app-dialog-message,.settings-toggle-copy span,.settings-background-copy span,.settings-limit-note,#galleryStatus,#editSubtitle,.gallery-match-preview-hint),
+body[data-background-preset="default"] :is(label,small,p,.muted,.hint,.description,.app-dialog-message,.settings-toggle-copy span,.settings-background-copy span,.settings-limit-note,#galleryStatus,#editSubtitle,.gallery-match-preview-hint){
+  color:var(--mhp-default-muted) !important;
+}
+
+body.mhp-theme-default :is(h1,h2,h3,strong,.app-dialog-title,.settings-title,.settings-section-label,.edit-head h2,#editTitle,#galleryTitle,.group-menu-title,.export-menu-title,.gallery-match-preview-head h3,.gallery-match-conflict-head h3),
+html.mhp-theme-default body :is(h1,h2,h3,strong,.app-dialog-title,.settings-title,.settings-section-label,.edit-head h2,#editTitle,#galleryTitle,.group-menu-title,.export-menu-title,.gallery-match-preview-head h3,.gallery-match-conflict-head h3),
+body.bg-preset-default :is(h1,h2,h3,strong,.app-dialog-title,.settings-title,.settings-section-label,.edit-head h2,#editTitle,#galleryTitle,.group-menu-title,.export-menu-title,.gallery-match-preview-head h3,.gallery-match-conflict-head h3),
+body[data-background-preset="default"] :is(h1,h2,h3,strong,.app-dialog-title,.settings-title,.settings-section-label,.edit-head h2,#editTitle,#galleryTitle,.group-menu-title,.export-menu-title,.gallery-match-preview-head h3,.gallery-match-conflict-head h3){
+  color:var(--mhp-default-text) !important;
+  text-shadow:none !important;
+}
+
+/* Buttons: fix unreadable light buttons and disabled states. */
+body.mhp-theme-default :is(.btn-primary,.app-dialog-btn.btn-primary,.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active,.gallery-match-apply-one,.gallery-match-preview-footer .btn-primary),
+html.mhp-theme-default body :is(.btn-primary,.app-dialog-btn.btn-primary,.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active,.gallery-match-apply-one,.gallery-match-preview-footer .btn-primary),
+body.bg-preset-default :is(.btn-primary,.app-dialog-btn.btn-primary,.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active,.gallery-match-apply-one,.gallery-match-preview-footer .btn-primary),
+body[data-background-preset="default"] :is(.btn-primary,.app-dialog-btn.btn-primary,.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active,.gallery-match-apply-one,.gallery-match-preview-footer .btn-primary){
+  background:var(--mhp-default-primary-bg) !important;
+  border-color:rgba(244,244,245,.72) !important;
+  color:var(--mhp-default-primary-text) !important;
+  text-shadow:none !important;
+  box-shadow:0 0 0 1px rgba(255,255,255,.10) inset,0 12px 28px rgba(0,0,0,.24) !important;
+}
+
+body.mhp-theme-default :is(.btn-primary,.app-dialog-btn.btn-primary,.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active,.gallery-match-apply-one):hover:not(:disabled),
+html.mhp-theme-default body :is(.btn-primary,.app-dialog-btn.btn-primary,.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active,.gallery-match-apply-one):hover:not(:disabled),
+body.bg-preset-default :is(.btn-primary,.app-dialog-btn.btn-primary,.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active,.gallery-match-apply-one):hover:not(:disabled),
+body[data-background-preset="default"] :is(.btn-primary,.app-dialog-btn.btn-primary,.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active,.gallery-match-apply-one):hover:not(:disabled){
+  background:var(--mhp-default-primary-bg-hover) !important;
+  color:var(--mhp-default-primary-text) !important;
+}
+
+body.mhp-theme-default :is(button,.btn,.app-dialog-btn,.settings-action-btn,.settings-toggle-btn,.settings-section-btn,.settings-file-btn,.settings-preset-btn,.visual-mode-btn,.gallery-match-apply-one):disabled,
+html.mhp-theme-default body :is(button,.btn,.app-dialog-btn,.settings-action-btn,.settings-toggle-btn,.settings-section-btn,.settings-file-btn,.settings-preset-btn,.visual-mode-btn,.gallery-match-apply-one):disabled,
+body.bg-preset-default :is(button,.btn,.app-dialog-btn,.settings-action-btn,.settings-toggle-btn,.settings-section-btn,.settings-file-btn,.settings-preset-btn,.visual-mode-btn,.gallery-match-apply-one):disabled,
+body[data-background-preset="default"] :is(button,.btn,.app-dialog-btn,.settings-action-btn,.settings-toggle-btn,.settings-section-btn,.settings-file-btn,.settings-preset-btn,.visual-mode-btn,.gallery-match-apply-one):disabled{
+  background:var(--mhp-default-disabled-bg) !important;
+  border-color:rgba(113,113,122,.38) !important;
+  color:var(--mhp-default-disabled-text) !important;
+  opacity:1 !important;
+  text-shadow:none !important;
+  box-shadow:none !important;
+}
+
+body.mhp-theme-default :is(.btn,.app-dialog-btn,.settings-action-btn,.settings-toggle-btn,.settings-section-btn,.settings-file-btn,.settings-preset-btn,.visual-mode-btn,.group-menu-save-btn,.group-menu-rename-btn,.group-menu-copy,.gallery-close,.edit-modal-close,.app-dialog-close,.settings-modal-close,.settings-graphics-close):not(.btn-primary):not(.btn-danger):not(.is-active):not(.is-on):not(:disabled),
+html.mhp-theme-default body :is(.btn,.app-dialog-btn,.settings-action-btn,.settings-toggle-btn,.settings-section-btn,.settings-file-btn,.settings-preset-btn,.visual-mode-btn,.group-menu-save-btn,.group-menu-rename-btn,.group-menu-copy,.gallery-close,.edit-modal-close,.app-dialog-close,.settings-modal-close,.settings-graphics-close):not(.btn-primary):not(.btn-danger):not(.is-active):not(.is-on):not(:disabled),
+body.bg-preset-default :is(.btn,.app-dialog-btn,.settings-action-btn,.settings-toggle-btn,.settings-section-btn,.settings-file-btn,.settings-preset-btn,.visual-mode-btn,.group-menu-save-btn,.group-menu-rename-btn,.group-menu-copy,.gallery-close,.edit-modal-close,.app-dialog-close,.settings-modal-close,.settings-graphics-close):not(.btn-primary):not(.btn-danger):not(.is-active):not(.is-on):not(:disabled),
+body[data-background-preset="default"] :is(.btn,.app-dialog-btn,.settings-action-btn,.settings-toggle-btn,.settings-section-btn,.settings-file-btn,.settings-preset-btn,.visual-mode-btn,.group-menu-save-btn,.group-menu-rename-btn,.group-menu-copy,.gallery-close,.edit-modal-close,.app-dialog-close,.settings-modal-close,.settings-graphics-close):not(.btn-primary):not(.btn-danger):not(.is-active):not(.is-on):not(:disabled){
+  background:var(--mhp-default-secondary-bg) !important;
+  border-color:var(--mhp-default-border-strong) !important;
+  color:var(--mhp-default-text) !important;
+  text-shadow:none !important;
+}
+
+body.mhp-theme-default :is(.btn-danger,.edit-delete-character-btn),
+html.mhp-theme-default body :is(.btn-danger,.edit-delete-character-btn),
+body.bg-preset-default :is(.btn-danger,.edit-delete-character-btn),
+body[data-background-preset="default"] :is(.btn-danger,.edit-delete-character-btn){
+  background:var(--mhp-default-danger-bg) !important;
+  border-color:rgba(248,113,113,.36) !important;
+  color:#fee2e2 !important;
+}
+
+/* Gallery/media cells */
+body.mhp-theme-default :is(.gallery-image-cell,.mudae-gallery-item,.mhp-gallery-ratio-card,.gallery-match-preview-image-btn,.gallery-match-conflict-card),
+html.mhp-theme-default body :is(.gallery-image-cell,.mudae-gallery-item,.mhp-gallery-ratio-card,.gallery-match-preview-image-btn,.gallery-match-conflict-card),
+body.bg-preset-default :is(.gallery-image-cell,.mudae-gallery-item,.mhp-gallery-ratio-card,.gallery-match-preview-image-btn,.gallery-match-conflict-card),
+body[data-background-preset="default"] :is(.gallery-image-cell,.mudae-gallery-item,.mhp-gallery-ratio-card,.gallery-match-preview-image-btn,.gallery-match-conflict-card){
+  background:var(--mhp-default-card) !important;
+  border-color:var(--mhp-default-border) !important;
+}
+
+body.mhp-theme-default :is(.gallery-image-cell.is-selected,.mudae-gallery-item.is-selected,.mhp-gallery-ratio-card.is-selected,.char-card.multi-selected-card),
+html.mhp-theme-default body :is(.gallery-image-cell.is-selected,.mudae-gallery-item.is-selected,.mhp-gallery-ratio-card.is-selected,.char-card.multi-selected-card),
+body.bg-preset-default :is(.gallery-image-cell.is-selected,.mudae-gallery-item.is-selected,.mhp-gallery-ratio-card.is-selected,.char-card.multi-selected-card),
+body[data-background-preset="default"] :is(.gallery-image-cell.is-selected,.mudae-gallery-item.is-selected,.mhp-gallery-ratio-card.is-selected,.char-card.multi-selected-card){
+  border-color:rgba(244,244,245,.78) !important;
+  box-shadow:0 0 0 1px rgba(244,244,245,.40),0 16px 38px rgba(0,0,0,.40) !important;
+}
+
+/* Default cleanup: neutralize remaining blue tones in Graphics Settings and board background. */
+html.mhp-theme-default,
+body.mhp-theme-default,
+html.bg-preset-default,
+body.bg-preset-default,
+html[data-background-preset="default"],
+body[data-background-preset="default"]{
+  --mhp-menu-accent:#e5e7eb !important;
+  --mhp-menu-accent-2:#a1a1aa !important;
+  --mhp-menu-title-graphics:#f4f4f5 !important;
+  --mhp-menu-text-graphics:#f4f4f5 !important;
+  --mhp-menu-muted-graphics:#b6b6be !important;
+  --mhp-menu-border-graphics:rgba(161,161,170,.24) !important;
+  --mhp-menu-border-graphics-strong:rgba(212,212,216,.34) !important;
+  --mhp-graphics-shell:#08080a !important;
+  --mhp-graphics-row:#0d0d10 !important;
+  --mhp-graphics-row-2:#121216 !important;
+  --mhp-graphics-control:#101013 !important;
+  --mhp-graphics-control-hover:#1a1a1f !important;
+  --mhp-graphics-border:rgba(161,161,170,.24) !important;
+  --mhp-graphics-border-strong:rgba(212,212,216,.34) !important;
+  --mhp-graphics-title:#f4f4f5 !important;
+  --mhp-graphics-text:#f4f4f5 !important;
+  --mhp-graphics-muted:#b6b6be !important;
+  --mhp-promoted-title:#f4f4f5 !important;
+  --mhp-promoted-accent:#e5e7eb !important;
+  --mhp-promoted-accent-2:#a1a1aa !important;
+}
+
+/* Default page / board background must be black-gray, not the original blue radial gradient. */
+html.mhp-theme-default,
+body.mhp-theme-default,
+html.bg-preset-default,
+body.bg-preset-default,
+html[data-background-preset="default"],
+body[data-background-preset="default"]{
+  background:#000 !important;
+  background-color:#000 !important;
+}
+
+.mhp-page-background[data-background-preset="default"],
+body.mhp-theme-default .mhp-page-background,
+body.bg-preset-default .mhp-page-background,
+body[data-background-preset="default"] .mhp-page-background{
+  background:#000 !important;
+}
+
+.mhp-page-background[data-background-preset="default"] .mhp-page-background-base,
+body.mhp-theme-default .mhp-page-background .mhp-page-background-base,
+body.bg-preset-default .mhp-page-background .mhp-page-background-base,
+body[data-background-preset="default"] .mhp-page-background .mhp-page-background-base{
+  background:
+    radial-gradient(72vw 72vw at 50% -16%, rgba(82,82,91,.16), transparent 58%),
+    radial-gradient(46vw 46vw at 90% 18%, rgba(63,63,70,.10), transparent 56%),
+    radial-gradient(38vw 38vw at 16% 76%, rgba(39,39,42,.10), transparent 58%),
+    linear-gradient(180deg,#020203 0%,#000 100%) !important;
+}
+
+.mhp-page-background[data-background-preset="default"] .mhp-page-background-tint,
+body.mhp-theme-default .mhp-page-background .mhp-page-background-tint,
+body.bg-preset-default .mhp-page-background .mhp-page-background-tint,
+body[data-background-preset="default"] .mhp-page-background .mhp-page-background-tint{
+  background:
+    linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.42)) !important;
+}
+
+body.mhp-theme-default :is(.app-shell,#app,main,.board,#board,.board-wrap,.board-shell,.board-panel,.characters-board,.mhp-board-shell),
+html.mhp-theme-default body :is(.app-shell,#app,main,.board,#board,.board-wrap,.board-shell,.board-panel,.characters-board,.mhp-board-shell),
+body.bg-preset-default :is(.app-shell,#app,main,.board,#board,.board-wrap,.board-shell,.board-panel,.characters-board,.mhp-board-shell),
+body[data-background-preset="default"] :is(.app-shell,#app,main,.board,#board,.board-wrap,.board-shell,.board-panel,.characters-board,.mhp-board-shell){
+  background-color:transparent !important;
+  color:var(--mhp-default-text) !important;
+}
+
+body.mhp-theme-default :is(#board,.board).bgc-window-active::before,
+html.mhp-theme-default body :is(#board,.board).bgc-window-active::before,
+body.bg-preset-default :is(#board,.board).bgc-window-active::before,
+body[data-background-preset="default"] :is(#board,.board).bgc-window-active::before{
+  background:transparent !important;
+}
+
+/* Graphics settings: promoted module had its own blue/cyan accents. Force grayscale in Default. */
+body.mhp-theme-default :is(#graphicsSettingsPanel,.settings-graphics-panel,.graphics-settings-panel,.settings-graphics-head,.graphics-setting-row,.settings-background-row,.settings-background-preview,.settings-background-status,.settings-glass-tuning,.settings-background-tuning),
+html.mhp-theme-default body :is(#graphicsSettingsPanel,.settings-graphics-panel,.graphics-settings-panel,.settings-graphics-head,.graphics-setting-row,.settings-background-row,.settings-background-preview,.settings-background-status,.settings-glass-tuning,.settings-background-tuning),
+body.bg-preset-default :is(#graphicsSettingsPanel,.settings-graphics-panel,.graphics-settings-panel,.settings-graphics-head,.graphics-setting-row,.settings-background-row,.settings-background-preview,.settings-background-status,.settings-glass-tuning,.settings-background-tuning),
+body[data-background-preset="default"] :is(#graphicsSettingsPanel,.settings-graphics-panel,.graphics-settings-panel,.settings-graphics-head,.graphics-setting-row,.settings-background-row,.settings-background-preview,.settings-background-status,.settings-glass-tuning,.settings-background-tuning){
+  background:linear-gradient(180deg,var(--mhp-default-panel-2),var(--mhp-default-panel-3)) !important;
+  border-color:var(--mhp-default-border) !important;
+  color:var(--mhp-default-text) !important;
+  box-shadow:none !important;
+}
+
+body.mhp-theme-default :is(#graphicsSettingsPanel,.settings-graphics-panel) :is(h1,h2,h3,strong,label,.settings-section-label,.settings-title,.settings-graphics-title),
+html.mhp-theme-default body :is(#graphicsSettingsPanel,.settings-graphics-panel) :is(h1,h2,h3,strong,label,.settings-section-label,.settings-title,.settings-graphics-title),
+body.bg-preset-default :is(#graphicsSettingsPanel,.settings-graphics-panel) :is(h1,h2,h3,strong,label,.settings-section-label,.settings-title,.settings-graphics-title),
+body[data-background-preset="default"] :is(#graphicsSettingsPanel,.settings-graphics-panel) :is(h1,h2,h3,strong,label,.settings-section-label,.settings-title,.settings-graphics-title){
+  color:var(--mhp-default-text) !important;
+  text-shadow:none !important;
+}
+
+body.mhp-theme-default :is(#graphicsSettingsPanel,.settings-graphics-panel) :is(p,small,span,.settings-description,.settings-help,.settings-muted,.settings-subtitle,.settings-background-copy),
+html.mhp-theme-default body :is(#graphicsSettingsPanel,.settings-graphics-panel) :is(p,small,span,.settings-description,.settings-help,.settings-muted,.settings-subtitle,.settings-background-copy),
+body.bg-preset-default :is(#graphicsSettingsPanel,.settings-graphics-panel) :is(p,small,span,.settings-description,.settings-help,.settings-muted,.settings-subtitle,.settings-background-copy),
+body[data-background-preset="default"] :is(#graphicsSettingsPanel,.settings-graphics-panel) :is(p,small,span,.settings-description,.settings-help,.settings-muted,.settings-subtitle,.settings-background-copy){
+  color:var(--mhp-default-muted) !important;
+}
+
+body.mhp-theme-default :is(#graphicsSettingsPanel,.settings-graphics-panel) :is(.settings-action-btn,.settings-toggle-btn,.settings-preset-btn,.visual-mode-btn,.settings-file-btn,#clearBackgroundBtn,#backgroundClearBtn),
+html.mhp-theme-default body :is(#graphicsSettingsPanel,.settings-graphics-panel) :is(.settings-action-btn,.settings-toggle-btn,.settings-preset-btn,.visual-mode-btn,.settings-file-btn,#clearBackgroundBtn,#backgroundClearBtn),
+body.bg-preset-default :is(#graphicsSettingsPanel,.settings-graphics-panel) :is(.settings-action-btn,.settings-toggle-btn,.settings-preset-btn,.visual-mode-btn,.settings-file-btn,#clearBackgroundBtn,#backgroundClearBtn),
+body[data-background-preset="default"] :is(#graphicsSettingsPanel,.settings-graphics-panel) :is(.settings-action-btn,.settings-toggle-btn,.settings-preset-btn,.visual-mode-btn,.settings-file-btn,#clearBackgroundBtn,#backgroundClearBtn){
+  background:linear-gradient(180deg,#17171b,#101013) !important;
+  border-color:var(--mhp-default-border-strong) !important;
+  color:var(--mhp-default-text) !important;
+  box-shadow:none !important;
+}
+
+body.mhp-theme-default :is(#graphicsSettingsPanel,.settings-graphics-panel) :is(.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active),
+html.mhp-theme-default body :is(#graphicsSettingsPanel,.settings-graphics-panel) :is(.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active),
+body.bg-preset-default :is(#graphicsSettingsPanel,.settings-graphics-panel) :is(.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active),
+body[data-background-preset="default"] :is(#graphicsSettingsPanel,.settings-graphics-panel) :is(.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active){
+  background:linear-gradient(180deg,#f4f4f5,#cfcfd4) !important;
+  border-color:rgba(244,244,245,.72) !important;
+  color:#09090b !important;
+}
+
+body.mhp-theme-default :is(#graphicsSettingsPanel,.settings-graphics-panel) :is(input,textarea,select,.settings-select,.settings-number-input,.settings-text-input),
+html.mhp-theme-default body :is(#graphicsSettingsPanel,.settings-graphics-panel) :is(input,textarea,select,.settings-select,.settings-number-input,.settings-text-input),
+body.bg-preset-default :is(#graphicsSettingsPanel,.settings-graphics-panel) :is(input,textarea,select,.settings-select,.settings-number-input,.settings-text-input),
+body[data-background-preset="default"] :is(#graphicsSettingsPanel,.settings-graphics-panel) :is(input,textarea,select,.settings-select,.settings-number-input,.settings-text-input){
+  background:#09090b !important;
+  border-color:var(--mhp-default-border-strong) !important;
+  color:var(--mhp-default-text) !important;
+}
+
+/* Remove default-theme cyan/purple glows from rows and active outlines. */
+body.mhp-theme-default :is(#graphicsSettingsPanel,.settings-graphics-panel) *,
+html.mhp-theme-default body :is(#graphicsSettingsPanel,.settings-graphics-panel) *,
+body.bg-preset-default :is(#graphicsSettingsPanel,.settings-graphics-panel) *,
+body[data-background-preset="default"] :is(#graphicsSettingsPanel,.settings-graphics-panel) *{
+  --mhp-menu-accent:#e5e7eb !important;
+  --mhp-menu-accent-2:#a1a1aa !important;
+  --mhp-theme-accent:#e5e7eb !important;
+  --mhp-theme-accent-2:#a1a1aa !important;
+}
+
+
+/* v2.649: Loader overlays are not menus. Do not force the Default black menu
+   surface onto Loading harem / Loading JSON / Parsing harem cards; they keep
+   their original dark translucent loader styling. */
+body.mhp-theme-default :is(.mhp-loader-card,.force-load-progress-card,.mhp-boot-loader-card,.mhp-loading-card,.mhp-loading-panel),
+html.mhp-theme-default body :is(.mhp-loader-card,.force-load-progress-card,.mhp-boot-loader-card,.mhp-loading-card,.mhp-loading-panel),
+body.bg-preset-default :is(.mhp-loader-card,.force-load-progress-card,.mhp-boot-loader-card,.mhp-loading-card,.mhp-loading-panel),
+body[data-background-preset="default"] :is(.mhp-loader-card,.force-load-progress-card,.mhp-boot-loader-card,.mhp-loading-card,.mhp-loading-panel){
+  background:revert-layer !important;
+  border-color:revert-layer !important;
+  box-shadow:revert-layer !important;
+}
+
+body.mhp-theme-default :is(.mhp-loader-overlay,.mhp-boot-loader,.force-load-progress-overlay,.mhp-json-drop-overlay),
+html.mhp-theme-default body :is(.mhp-loader-overlay,.mhp-boot-loader,.force-load-progress-overlay,.mhp-json-drop-overlay),
+body.bg-preset-default :is(.mhp-loader-overlay,.mhp-boot-loader,.force-load-progress-overlay,.mhp-json-drop-overlay),
+body[data-background-preset="default"] :is(.mhp-loader-overlay,.mhp-boot-loader,.force-load-progress-overlay,.mhp-json-drop-overlay){
+  background:revert-layer !important;
+}
+
+/* v2.650: precise Default black pass.
+   Restore dynamic loader overlays and override promoted Graphics blue/purple rules
+   with enough specificity to beat module-level !important selectors. */
+
+/* Loading harem / JSON / parsing overlays keep the dynamic blurred loader look. */
+html.mhp-booting body{
+  background:
+    radial-gradient(70vw 58vw at 50% 36%, rgba(56,189,248,.12), transparent 48%),
+    radial-gradient(74vw 62vw at 50% 62%, rgba(168,85,247,.11), transparent 54%),
+    linear-gradient(180deg, #020617 0%, #000 100%) !important;
+  background-color:#020617 !important;
+}
+
+body.mhp-theme-default :is(#mhpBootLoader.mhp-loader-overlay,#appLoadingOverlay.mhp-loader-overlay,.mhp-loader-overlay,.force-load-progress-overlay),
+html.mhp-theme-default body :is(#mhpBootLoader.mhp-loader-overlay,#appLoadingOverlay.mhp-loader-overlay,.mhp-loader-overlay,.force-load-progress-overlay),
+body.bg-preset-default :is(#mhpBootLoader.mhp-loader-overlay,#appLoadingOverlay.mhp-loader-overlay,.mhp-loader-overlay,.force-load-progress-overlay),
+body[data-background-preset="default"] :is(#mhpBootLoader.mhp-loader-overlay,#appLoadingOverlay.mhp-loader-overlay,.mhp-loader-overlay,.force-load-progress-overlay){
+  background:
+    radial-gradient(circle at 50% 40%, rgba(14,165,233,.16), transparent 34%),
+    radial-gradient(circle at 50% 62%, rgba(168,85,247,.14), transparent 45%),
+    linear-gradient(180deg, rgba(2,6,23,.90) 0%, rgba(0,0,0,.92) 100%) !important;
+  backdrop-filter:blur(20px) saturate(122%) !important;
+  -webkit-backdrop-filter:blur(20px) saturate(122%) !important;
+}
+
+body.mhp-theme-default :is(#mhpBootLoader.mhp-loader-overlay,#appLoadingOverlay.mhp-loader-overlay,.mhp-loader-overlay,.force-load-progress-overlay) :is(.mhp-loader-card,.app-loading-card,.mhp-boot-loader-card,.force-load-progress-card),
+html.mhp-theme-default body :is(#mhpBootLoader.mhp-loader-overlay,#appLoadingOverlay.mhp-loader-overlay,.mhp-loader-overlay,.force-load-progress-overlay) :is(.mhp-loader-card,.app-loading-card,.mhp-boot-loader-card,.force-load-progress-card),
+body.bg-preset-default :is(#mhpBootLoader.mhp-loader-overlay,#appLoadingOverlay.mhp-loader-overlay,.mhp-loader-overlay,.force-load-progress-overlay) :is(.mhp-loader-card,.app-loading-card,.mhp-boot-loader-card,.force-load-progress-card),
+body[data-background-preset="default"] :is(#mhpBootLoader.mhp-loader-overlay,#appLoadingOverlay.mhp-loader-overlay,.mhp-loader-overlay,.force-load-progress-overlay) :is(.mhp-loader-card,.app-loading-card,.mhp-boot-loader-card,.force-load-progress-card){
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+
+/* Drag/drop JSON overlay also keeps its loader-style transparency instead of menu panels. */
+body.mhp-theme-default .mhp-json-drop-overlay,
+html.mhp-theme-default body .mhp-json-drop-overlay,
+body.bg-preset-default .mhp-json-drop-overlay,
+body[data-background-preset="default"] .mhp-json-drop-overlay{
+  background:
+    radial-gradient(circle at center, rgba(148,163,184,.14), transparent 42%),
+    rgba(0,0,0,.82) !important;
+  backdrop-filter:blur(14px) saturate(1.1) !important;
+  -webkit-backdrop-filter:blur(14px) saturate(1.1) !important;
+}
+
+/* Graphics Settings: promoted CSS has high-specificity blue/purple rules. Override them
+   at equal/higher specificity only for the Default preset. */
+body.mhp-theme-default.mhp-promoted-graphics > #graphicsSettingsPanel.settings-graphics-panel,
+html.mhp-theme-default body.mhp-promoted-graphics > #graphicsSettingsPanel.settings-graphics-panel,
+body.bg-preset-default.mhp-promoted-graphics > #graphicsSettingsPanel.settings-graphics-panel,
+body[data-background-preset="default"].mhp-promoted-graphics > #graphicsSettingsPanel.settings-graphics-panel{
+  --mhp-menu-accent:#e5e7eb !important;
+  --mhp-menu-accent-2:#a1a1aa !important;
+  --mhp-graphics-glass-panel:rgba(8,8,10,.92) !important;
+  --mhp-graphics-glass-line:rgba(212,212,216,.18) !important;
+  --mhp-graphics-glass-line-soft:rgba(161,161,170,.14) !important;
+  --mhp-graphics-glass-control:rgba(16,16,19,.72) !important;
+  --mhp-graphics-glass-control-hover:rgba(28,28,32,.84) !important;
+  --mhp-graphics-glass-control-active:rgba(229,231,235,.16) !important;
+  --mhp-graphics-min-panel:#08080a !important;
+  --mhp-graphics-min-control:#101013 !important;
+  background:linear-gradient(180deg,#08080a,#0d0d10) !important;
+  background-image:linear-gradient(180deg,#08080a,#0d0d10) !important;
+  border-color:rgba(212,212,216,.26) !important;
+  color:#f4f4f5 !important;
+  box-shadow:0 24px 72px rgba(0,0,0,.58),0 0 0 1px rgba(255,255,255,.035) inset !important;
+}
+
+body.mhp-theme-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(.settings-background-row,.settings-glass-row,.graphics-style-pair,.settings-inline-pair,.graphics-density-pair,.settings-toggle-row,.settings-action-row,.graphics-setting-row,.settings-background-status,.settings-background-url-row,.settings-background-tuning,.settings-background-action-buttons,.settings-glass-tuning,.settings-range-control),
+html.mhp-theme-default body.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(.settings-background-row,.settings-glass-row,.graphics-style-pair,.settings-inline-pair,.graphics-density-pair,.settings-toggle-row,.settings-action-row,.graphics-setting-row,.settings-background-status,.settings-background-url-row,.settings-background-tuning,.settings-background-action-buttons,.settings-glass-tuning,.settings-range-control),
+body.bg-preset-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(.settings-background-row,.settings-glass-row,.graphics-style-pair,.settings-inline-pair,.graphics-density-pair,.settings-toggle-row,.settings-action-row,.graphics-setting-row,.settings-background-status,.settings-background-url-row,.settings-background-tuning,.settings-background-action-buttons,.settings-glass-tuning,.settings-range-control),
+body[data-background-preset="default"].mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(.settings-background-row,.settings-glass-row,.graphics-style-pair,.settings-inline-pair,.graphics-density-pair,.settings-toggle-row,.settings-action-row,.graphics-setting-row,.settings-background-status,.settings-background-url-row,.settings-background-tuning,.settings-background-action-buttons,.settings-glass-tuning,.settings-range-control){
+  background:transparent !important;
+  background-color:transparent !important;
+  background-image:none !important;
+  border-color:rgba(161,161,170,.16) !important;
+  box-shadow:none !important;
+  color:#f4f4f5 !important;
+}
+
+body.mhp-theme-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(.settings-background-row,.settings-glass-row,.graphics-style-pair),
+html.mhp-theme-default body.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(.settings-background-row,.settings-glass-row,.graphics-style-pair),
+body.bg-preset-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(.settings-background-row,.settings-glass-row,.graphics-style-pair),
+body[data-background-preset="default"].mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(.settings-background-row,.settings-glass-row,.graphics-style-pair){
+  border-top-color:rgba(161,161,170,.16) !important;
+}
+
+body.mhp-theme-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(.settings-section-label,#graphicsSettingsTitle,strong,label),
+html.mhp-theme-default body.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(.settings-section-label,#graphicsSettingsTitle,strong,label),
+body.bg-preset-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(.settings-section-label,#graphicsSettingsTitle,strong,label),
+body[data-background-preset="default"].mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(.settings-section-label,#graphicsSettingsTitle,strong,label){
+  color:#f4f4f5 !important;
+  text-shadow:none !important;
+}
+
+body.mhp-theme-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(p,span,small,.settings-toggle-copy span,.settings-background-copy span,.settings-limit-note),
+html.mhp-theme-default body.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(p,span,small,.settings-toggle-copy span,.settings-background-copy span,.settings-limit-note),
+body.bg-preset-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(p,span,small,.settings-toggle-copy span,.settings-background-copy span,.settings-limit-note),
+body[data-background-preset="default"].mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(p,span,small,.settings-toggle-copy span,.settings-background-copy span,.settings-limit-note){
+  color:#b6b6be !important;
+}
+
+body.mhp-theme-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(button,.settings-action-btn,.settings-toggle-btn,.settings-preset-btn,.visual-mode-btn,.settings-file-btn,select,input,textarea),
+html.mhp-theme-default body.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(button,.settings-action-btn,.settings-toggle-btn,.settings-preset-btn,.visual-mode-btn,.settings-file-btn,select,input,textarea),
+body.bg-preset-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(button,.settings-action-btn,.settings-toggle-btn,.settings-preset-btn,.visual-mode-btn,.settings-file-btn,select,input,textarea),
+body[data-background-preset="default"].mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(button,.settings-action-btn,.settings-toggle-btn,.settings-preset-btn,.visual-mode-btn,.settings-file-btn,select,input,textarea){
+  background:linear-gradient(180deg,#17171b,#101013) !important;
+  border-color:rgba(212,212,216,.26) !important;
+  color:#f4f4f5 !important;
+  box-shadow:none !important;
+}
+
+body.mhp-theme-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active),
+html.mhp-theme-default body.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active),
+body.bg-preset-default.mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active),
+body[data-background-preset="default"].mhp-promoted-graphics #graphicsSettingsPanel.settings-graphics-panel :is(.settings-action-btn.is-active,.settings-toggle-btn.is-on,.settings-preset-btn.is-active,.visual-mode-btn.is-active){
+  background:linear-gradient(180deg,#f4f4f5,#cfcfd4) !important;
+  border-color:rgba(244,244,245,.72) !important;
+  color:#09090b !important;
+}
+
+
+/* Glass performance: keep full-board scroll paint-only and avoid heavy card effects. */
+body.visual-mode-glass #board,
+body.glass-panels-enabled #board{
+  contain:layout paint style !important;
+}
+
+body.visual-mode-glass :is(.char-card,.character-card,.card-inner,.group-shell),
+body.glass-panels-enabled :is(.char-card,.character-card,.card-inner,.group-shell){
+  content-visibility:auto;
+  contain-intrinsic-size:360px 190px;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+  filter:none !important;
+  text-shadow:none !important;
+  box-shadow:0 8px 18px rgba(0,0,0,.22) !important;
+  transition:border-color .12s ease, background-color .12s ease, transform .12s ease !important;
+}
+
+body.visual-mode-glass :is(.char-card:hover,.character-card:hover,.card-inner:hover),
+body.glass-panels-enabled :is(.char-card:hover,.character-card:hover,.card-inner:hover){
+  transform:none !important;
+  box-shadow:0 10px 22px rgba(0,0,0,.24) !important;
+}
+
+body.visual-mode-glass :is(.char-img,.card-image,img.char-img,.character-card img),
+body.glass-panels-enabled :is(.char-img,.card-image,img.char-img,.character-card img){
+  filter:none !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+
+/* Minimalist Default: flatter controls, less relief. */
+body.visual-mode-minimalist.mhp-theme-default :is(.btn,button,.mhp-floating-bar button,.top-actions .btn,.toolbar button,.settings-panel button,.settings-graphics-panel button,.gallery-panel button,.edit-modal button,.app-dialog button,.group-menu-panel button,.move-character-dialog button),
+html.mhp-theme-default body.visual-mode-minimalist :is(.btn,button,.mhp-floating-bar button,.top-actions .btn,.toolbar button,.settings-panel button,.settings-graphics-panel button,.gallery-panel button,.edit-modal button,.app-dialog button,.group-menu-panel button,.move-character-dialog button),
+body.visual-mode-minimalist.bg-preset-default :is(.btn,button,.mhp-floating-bar button,.top-actions .btn,.toolbar button,.settings-panel button,.settings-graphics-panel button,.gallery-panel button,.edit-modal button,.app-dialog button,.group-menu-panel button,.move-character-dialog button){
+  box-shadow:none !important;
+  text-shadow:none !important;
+  background-image:none !important;
+  background-color:var(--mhp-default-panel-3,#121216) !important;
+  border-color:rgba(161,161,170,.30) !important;
+}
+
+body.visual-mode-minimalist.mhp-theme-default :is(.btn-primary,.primary,#exportJsonBtn,.save-json-btn,.confirm-primary,.app-dialog .btn-primary),
+html.mhp-theme-default body.visual-mode-minimalist :is(.btn-primary,.primary,#exportJsonBtn,.save-json-btn,.confirm-primary,.app-dialog .btn-primary),
+body.visual-mode-minimalist.bg-preset-default :is(.btn-primary,.primary,#exportJsonBtn,.save-json-btn,.confirm-primary,.app-dialog .btn-primary){
+  background:var(--mhp-default-accent,#e5e7eb) !important;
+  color:var(--mhp-default-primary-text,#09090b) !important;
+  border-color:rgba(244,244,245,.55) !important;
+  box-shadow:none !important;
+}
+
+body.visual-mode-minimalist.mhp-theme-default :is(.btn:hover,button:hover),
+html.mhp-theme-default body.visual-mode-minimalist :is(.btn:hover,button:hover),
+body.visual-mode-minimalist.bg-preset-default :is(.btn:hover,button:hover){
+  box-shadow:none !important;
+  transform:none !important;
+}
+
+body.visual-mode-minimalist.mhp-theme-default :is(.btn:disabled,button:disabled,[aria-disabled="true"]),
+html.mhp-theme-default body.visual-mode-minimalist :is(.btn:disabled,button:disabled,[aria-disabled="true"]),
+body.visual-mode-minimalist.bg-preset-default :is(.btn:disabled,button:disabled,[aria-disabled="true"]){
+  background:var(--mhp-default-disabled-bg,#202024) !important;
+  color:var(--mhp-default-disabled-text,#a1a1aa) !important;
+  border-color:rgba(113,113,122,.22) !important;
+  opacity:.72 !important;
+}

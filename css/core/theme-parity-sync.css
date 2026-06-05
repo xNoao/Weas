@@ -1,1 +1,305 @@
-:root,html.mhp-theme-default,body.mhp-theme-default,html.bg-preset-default,body.bg-preset-default,html[data-background-preset="default"],body[data-background-preset="default"]{--mhp-theme-accent:#e5e7eb;--mhp-theme-accent-2:#a1a1aa;--mhp-theme-title:#f5f5f5;--mhp-theme-border:rgba(212,212,216,.24);--mhp-theme-border-soft:rgba(212,212,216,.15);--mhp-theme-glow:rgba(229,231,235,.10);--mhp-menu-shell:#0a0a0c;--mhp-menu-row:#111113;--mhp-menu-row-2:#18181b;--mhp-menu-control:#18181b;--mhp-menu-control-hover:#27272a;--mhp-menu-border:rgba(212,212,216,.18);--mhp-menu-border-strong:rgba(229,231,235,.26);--mhp-menu-text:#f5f5f5;--mhp-menu-muted:#c9c9cf;--mhp-menu-title:#f5f5f5;--mhp-card-shell:rgba(24,24,27,.82);--mhp-card-shell-glass:rgba(24,24,27,.52);--mhp-card-inner:rgba(39,39,42,.52);--mhp-card-chip:rgba(39,39,42,.64)}html.mhp-theme-purple,body.mhp-theme-purple,html.bg-preset-purple,body.bg-preset-purple,html[data-background-preset="purple"],body[data-background-preset="purple"]{--mhp-theme-accent:#c084fc;--mhp-theme-accent-2:#f0abfc;--mhp-theme-title:#e9d5ff;--mhp-theme-border:rgba(216,180,254,.46);--mhp-theme-border-soft:rgba(196,181,253,.28);--mhp-theme-glow:rgba(168,85,247,.26);--mhp-menu-shell:#171027;--mhp-menu-row:#10091f;--mhp-menu-row-2:#21143a;--mhp-menu-control:#33205a;--mhp-menu-control-hover:#4c2b78;--mhp-menu-border:rgba(216,180,254,.26);--mhp-menu-border-strong:rgba(216,180,254,.44);--mhp-menu-text:#fbf7ff;--mhp-menu-muted:#e9d5ff;--mhp-menu-title:#e9d5ff;--mhp-card-shell:rgba(23,16,39,.86);--mhp-card-shell-glass:rgba(23,16,39,.50);--mhp-card-inner:rgba(33,20,58,.50);--mhp-card-chip:rgba(51,32,90,.60)}html.mhp-theme-blue,body.mhp-theme-blue,html.bg-preset-blue,body.bg-preset-blue,html[data-background-preset="blue"],body[data-background-preset="blue"]{--mhp-theme-accent:#38bdf8;--mhp-theme-accent-2:#818cf8;--mhp-theme-title:#bae6fd;--mhp-theme-border:rgba(125,211,252,.42);--mhp-theme-border-soft:rgba(56,189,248,.24);--mhp-theme-glow:rgba(56,189,248,.24);--mhp-menu-shell:#08162a;--mhp-menu-row:#04111f;--mhp-menu-row-2:#0d2038;--mhp-menu-control:#123154;--mhp-menu-control-hover:#16416f;--mhp-menu-border:rgba(125,211,252,.24);--mhp-menu-border-strong:rgba(103,232,249,.40);--mhp-menu-text:#eef6ff;--mhp-menu-muted:#bfdbfe;--mhp-menu-title:#bae6fd;--mhp-card-shell:rgba(8,22,42,.86);--mhp-card-shell-glass:rgba(8,22,42,.50);--mhp-card-inner:rgba(13,32,56,.50);--mhp-card-chip:rgba(18,49,84,.60)}body.visual-mode-glass,body.glass-panels-enabled,body[data-visual-mode="glass"]{--mhp-promoted-panel-bg:var(--mhp-glass-shell,var(--mhp-card-shell-glass));--mhp-promoted-control-bg:var(--mhp-glass-control,var(--mhp-menu-control));--mhp-promoted-control-bg-hover:var(--mhp-glass-control-hover,var(--mhp-menu-control-hover));--mhp-promoted-border:var(--mhp-glass-border,var(--mhp-theme-border-soft));--mhp-promoted-border-strong:var(--mhp-glass-border-strong,var(--mhp-theme-border));--mhp-promoted-text:var(--mhp-glass-text,var(--mhp-menu-text));--mhp-promoted-muted:var(--mhp-glass-muted,var(--mhp-menu-muted));--mhp-promoted-title:var(--mhp-glass-title,var(--mhp-theme-title));--mhp-ui-shell:var(--mhp-glass-shell,var(--mhp-card-shell-glass));--mhp-ui-row:var(--mhp-glass-row,var(--mhp-card-inner));--mhp-ui-row-alt:var(--mhp-glass-row-alt,var(--mhp-card-inner));--mhp-ui-control:var(--mhp-glass-control,var(--mhp-menu-control));--mhp-ui-control-hover:var(--mhp-glass-control-hover,var(--mhp-menu-control-hover));--mhp-ui-border:var(--mhp-glass-border,var(--mhp-theme-border-soft));--mhp-ui-border-strong:var(--mhp-glass-border-strong,var(--mhp-theme-border));--mhp-ui-text:var(--mhp-menu-text);--mhp-ui-muted:var(--mhp-menu-muted);--mhp-ui-title:var(--mhp-theme-title)}body.visual-mode-minimalist,body[data-visual-mode="minimalist"]{--mhp-promoted-panel-bg:var(--mhp-min-shell,var(--mhp-menu-shell));--mhp-promoted-control-bg:var(--mhp-min-control,var(--mhp-menu-control));--mhp-promoted-control-bg-hover:var(--mhp-min-control-hover,var(--mhp-menu-control-hover));--mhp-promoted-border:var(--mhp-min-border,var(--mhp-theme-border-soft));--mhp-promoted-border-strong:var(--mhp-min-border-strong,var(--mhp-theme-border));--mhp-promoted-text:var(--mhp-menu-text);--mhp-promoted-muted:var(--mhp-menu-muted);--mhp-promoted-title:var(--mhp-theme-title);--mhp-ui-shell:var(--mhp-min-shell,var(--mhp-menu-shell));--mhp-ui-row:var(--mhp-min-row,var(--mhp-menu-row));--mhp-ui-row-alt:var(--mhp-min-row-2,var(--mhp-menu-row-2));--mhp-ui-control:var(--mhp-min-control,var(--mhp-menu-control));--mhp-ui-control-hover:var(--mhp-min-control-hover,var(--mhp-menu-control-hover));--mhp-ui-border:var(--mhp-min-border,var(--mhp-theme-border-soft));--mhp-ui-border-strong:var(--mhp-min-border-strong,var(--mhp-theme-border));--mhp-ui-text:var(--mhp-menu-text);--mhp-ui-muted:var(--mhp-menu-muted);--mhp-ui-title:var(--mhp-theme-title)}body:is(.mhp-promoted-settings,.mhp-promoted-graphics,.mhp-promoted-edit-gallery,.mhp-promoted-move-character,.mhp-promoted-group-menu,.mhp-promoted-save-clear):is(#settingsPanel.settings-panel,#graphicsSettingsPanel,#editModal.edit-modal,#mudaeImageSidePanel,.gallery-panel,#appDialogOverlay .app-dialog-card,.move-character-dialog,.mhp-group-menu-card,.group-menu-panel,.embed-color-palette-panel){background:var(--mhp-promoted-panel-bg)!important;border-color:var(--mhp-promoted-border)!important;color:var(--mhp-promoted-text)!important}body.visual-mode-glass:is(.mhp-promoted-settings,.mhp-promoted-graphics,.mhp-promoted-edit-gallery,.mhp-promoted-move-character,.mhp-promoted-group-menu,.mhp-promoted-save-clear):is(#settingsPanel.settings-panel,#graphicsSettingsPanel,#editModal.edit-modal,#mudaeImageSidePanel,.gallery-panel,#appDialogOverlay .app-dialog-card,.move-character-dialog,.mhp-group-menu-card,.group-menu-panel,.embed-color-palette-panel),body.glass-panels-enabled:is(.mhp-promoted-settings,.mhp-promoted-graphics,.mhp-promoted-edit-gallery,.mhp-promoted-move-character,.mhp-promoted-group-menu,.mhp-promoted-save-clear):is(#settingsPanel.settings-panel,#graphicsSettingsPanel,#editModal.edit-modal,#mudaeImageSidePanel,.gallery-panel,#appDialogOverlay .app-dialog-card,.move-character-dialog,.mhp-group-menu-card,.group-menu-panel,.embed-color-palette-panel){background:var(--mhp-glass-shell,var(--mhp-promoted-panel-bg))!important;border-color:var(--mhp-glass-border,var(--mhp-promoted-border))!important;backdrop-filter:blur(var(--mhp-glass-blur,14px))saturate(1.08)!important;-webkit-backdrop-filter:blur(var(--mhp-glass-blur,14px))saturate(1.08)!important}body:is(.mhp-promoted-settings,.mhp-promoted-graphics,.mhp-promoted-edit-gallery,.mhp-promoted-move-character,.mhp-promoted-group-menu,.mhp-promoted-save-clear):is(.settings-title,.settings-graphics-title,.settings-graphics-head strong,.edit-title,.gallery-title,.app-dialog-title,.move-character-head strong,.group-menu-title,.group-menu-head strong){color:var(--mhp-promoted-title)!important}body:is(.mhp-promoted-settings,.mhp-promoted-graphics,.mhp-promoted-edit-gallery,.mhp-promoted-move-character,.mhp-promoted-group-menu,.mhp-promoted-save-clear):is(.settings-toggle-row,.settings-image-controls,.graphics-setting-row,.settings-range-control,.edit-form input,.edit-form select,.edit-form textarea,.edit-meta-box,.gallery-toolbar,.mhp-gallery-clean-card,.move-character-context-row,.move-raw-pill,.move-divider-choice,.group-menu-member,.app-dialog-input,.app-dialog-btn,.settings-action-btn,.settings-toggle-btn,.settings-section-btn,.settings-preset-btn){border-color:var(--mhp-promoted-border)!important;color:var(--mhp-promoted-text)!important}.char-card{background:var(--mhp-card-shell)!important;border-color:var(--mhp-theme-border-soft,var(--border))!important;color:var(--mhp-menu-text,var(--text))!important}body.visual-mode-glass .char-card,body.glass-panels-enabled .char-card,body[data-visual-mode="glass"] .char-card{background:linear-gradient(180deg,color-mix(in srgb,var(--mhp-card-shell-glass)88%,transparent),color-mix(in srgb,var(--mhp-card-inner)76%,transparent))!important;border-color:var(--mhp-glass-border,var(--mhp-theme-border-soft))!important}body.visual-mode-minimalist .char-card,body[data-visual-mode="minimalist"] .char-card{background:var(--mhp-min-shell,var(--mhp-menu-shell))!important;border-color:var(--mhp-min-border,var(--mhp-theme-border-soft))!important}:is(.stats>div,.card-position,.card-series,.stat-pill,.gallery-badge,.card-group-badge,.image-wrap .card-edit-btn,.card-note,.card-embed-color-strip){border-color:color-mix(in srgb,var(--mhp-theme-accent)42%,var(--mhp-theme-border-soft))!important}:is(.card-position,.card-series,.stat-pill.rank-pill,.image-wrap .card-edit-btn){background:linear-gradient(135deg,color-mix(in srgb,var(--mhp-theme-accent)18%,var(--mhp-card-chip)),color-mix(in srgb,var(--mhp-card-inner)86%,transparent))!important;color:var(--mhp-menu-text,var(--text))!important}.card-series,.card-position,.stat-pill.rank-pill{box-shadow:0 0 0 1px color-mix(in srgb,var(--mhp-theme-accent)14%,transparent)inset!important}.gallery-badge{background:linear-gradient(135deg,color-mix(in srgb,var(--mhp-theme-accent-2)18%,var(--mhp-card-chip)),color-mix(in srgb,var(--mhp-card-inner)82%,transparent))!important;border-color:color-mix(in srgb,var(--mhp-theme-accent-2)55%,var(--mhp-theme-border-soft))!important}.card-group-badge{background:linear-gradient(135deg,color-mix(in srgb,var(--mhp-theme-accent)20%,var(--mhp-card-chip)),color-mix(in srgb,var(--mhp-card-inner)82%,transparent))!important;border-color:color-mix(in srgb,var(--mhp-theme-accent)55%,var(--mhp-theme-border-soft))!important}.char-card.multi-selected-card{outline-color:color-mix(in srgb,var(--mhp-theme-accent)86%,#ffffff 10%)!important;box-shadow:0 0 0 5px color-mix(in srgb,var(--mhp-theme-accent)18%,transparent),0 18px 60px rgba(0,0,0,.25)!important}.image-wrap .card-edit-btn,.char-card:hover .image-wrap .card-edit-btn,.char-card .image-wrap:hover .card-edit-btn,.char-card:focus-within .image-wrap .card-edit-btn{opacity:1!important;pointer-events:auto!important;transform:translate3d(0,0,0)!important;visibility:visible!important}
+/* v2.602: final theme parity sync for promoted menus and cards.
+   This file intentionally loads last. It does not touch background images. */
+
+:root,
+html.mhp-theme-default,
+body.mhp-theme-default,
+html.bg-preset-default,
+body.bg-preset-default,
+html[data-background-preset="default"],
+body[data-background-preset="default"]{
+  --mhp-theme-accent:#e5e7eb;
+  --mhp-theme-accent-2:#a1a1aa;
+  --mhp-theme-title:#f5f5f5;
+  --mhp-theme-border:rgba(212,212,216,.24);
+  --mhp-theme-border-soft:rgba(212,212,216,.15);
+  --mhp-theme-glow:rgba(229,231,235,.10);
+
+  --mhp-menu-shell:#0a0a0c;
+  --mhp-menu-row:#111113;
+  --mhp-menu-row-2:#18181b;
+  --mhp-menu-control:#18181b;
+  --mhp-menu-control-hover:#27272a;
+  --mhp-menu-border:rgba(212,212,216,.18);
+  --mhp-menu-border-strong:rgba(229,231,235,.26);
+  --mhp-menu-text:#f5f5f5;
+  --mhp-menu-muted:#c9c9cf;
+  --mhp-menu-title:#f5f5f5;
+
+  --mhp-card-shell:rgba(24,24,27,.82);
+  --mhp-card-shell-glass:rgba(24,24,27,.52);
+  --mhp-card-inner:rgba(39,39,42,.52);
+  --mhp-card-chip:rgba(39,39,42,.64);
+}
+
+html.mhp-theme-purple,
+body.mhp-theme-purple,
+html.bg-preset-purple,
+body.bg-preset-purple,
+html[data-background-preset="purple"],
+body[data-background-preset="purple"]{
+  --mhp-theme-accent:#c084fc;
+  --mhp-theme-accent-2:#f0abfc;
+  --mhp-theme-title:#e9d5ff;
+  --mhp-theme-border:rgba(216,180,254,.46);
+  --mhp-theme-border-soft:rgba(196,181,253,.28);
+  --mhp-theme-glow:rgba(168,85,247,.26);
+
+  --mhp-menu-shell:#171027;
+  --mhp-menu-row:#10091f;
+  --mhp-menu-row-2:#21143a;
+  --mhp-menu-control:#33205a;
+  --mhp-menu-control-hover:#4c2b78;
+  --mhp-menu-border:rgba(216,180,254,.26);
+  --mhp-menu-border-strong:rgba(216,180,254,.44);
+  --mhp-menu-text:#fbf7ff;
+  --mhp-menu-muted:#e9d5ff;
+  --mhp-menu-title:#e9d5ff;
+
+  --mhp-card-shell:rgba(23,16,39,.86);
+  --mhp-card-shell-glass:rgba(23,16,39,.50);
+  --mhp-card-inner:rgba(33,20,58,.50);
+  --mhp-card-chip:rgba(51,32,90,.60);
+}
+
+html.mhp-theme-blue,
+body.mhp-theme-blue,
+html.bg-preset-blue,
+body.bg-preset-blue,
+html[data-background-preset="blue"],
+body[data-background-preset="blue"]{
+  --mhp-theme-accent:#38bdf8;
+  --mhp-theme-accent-2:#818cf8;
+  --mhp-theme-title:#bae6fd;
+  --mhp-theme-border:rgba(125,211,252,.42);
+  --mhp-theme-border-soft:rgba(56,189,248,.24);
+  --mhp-theme-glow:rgba(56,189,248,.24);
+
+  --mhp-menu-shell:#08162a;
+  --mhp-menu-row:#04111f;
+  --mhp-menu-row-2:#0d2038;
+  --mhp-menu-control:#123154;
+  --mhp-menu-control-hover:#16416f;
+  --mhp-menu-border:rgba(125,211,252,.24);
+  --mhp-menu-border-strong:rgba(103,232,249,.40);
+  --mhp-menu-text:#eef6ff;
+  --mhp-menu-muted:#bfdbfe;
+  --mhp-menu-title:#bae6fd;
+
+  --mhp-card-shell:rgba(8,22,42,.86);
+  --mhp-card-shell-glass:rgba(8,22,42,.50);
+  --mhp-card-inner:rgba(13,32,56,.50);
+  --mhp-card-chip:rgba(18,49,84,.60);
+}
+
+body.visual-mode-glass,
+body.glass-panels-enabled,
+body[data-visual-mode="glass"]{
+  --mhp-promoted-panel-bg:var(--mhp-glass-shell,var(--mhp-card-shell-glass));
+  --mhp-promoted-control-bg:var(--mhp-glass-control,var(--mhp-menu-control));
+  --mhp-promoted-control-bg-hover:var(--mhp-glass-control-hover,var(--mhp-menu-control-hover));
+  --mhp-promoted-border:var(--mhp-glass-border,var(--mhp-theme-border-soft));
+  --mhp-promoted-border-strong:var(--mhp-glass-border-strong,var(--mhp-theme-border));
+  --mhp-promoted-text:var(--mhp-glass-text,var(--mhp-menu-text));
+  --mhp-promoted-muted:var(--mhp-glass-muted,var(--mhp-menu-muted));
+  --mhp-promoted-title:var(--mhp-glass-title,var(--mhp-theme-title));
+  --mhp-ui-shell:var(--mhp-glass-shell,var(--mhp-card-shell-glass));
+  --mhp-ui-row:var(--mhp-glass-row,var(--mhp-card-inner));
+  --mhp-ui-row-alt:var(--mhp-glass-row-alt,var(--mhp-card-inner));
+  --mhp-ui-control:var(--mhp-glass-control,var(--mhp-menu-control));
+  --mhp-ui-control-hover:var(--mhp-glass-control-hover,var(--mhp-menu-control-hover));
+  --mhp-ui-border:var(--mhp-glass-border,var(--mhp-theme-border-soft));
+  --mhp-ui-border-strong:var(--mhp-glass-border-strong,var(--mhp-theme-border));
+  --mhp-ui-text:var(--mhp-menu-text);
+  --mhp-ui-muted:var(--mhp-menu-muted);
+  --mhp-ui-title:var(--mhp-theme-title);
+}
+
+body.visual-mode-minimalist,
+body[data-visual-mode="minimalist"]{
+  --mhp-promoted-panel-bg:var(--mhp-min-shell,var(--mhp-menu-shell));
+  --mhp-promoted-control-bg:var(--mhp-min-control,var(--mhp-menu-control));
+  --mhp-promoted-control-bg-hover:var(--mhp-min-control-hover,var(--mhp-menu-control-hover));
+  --mhp-promoted-border:var(--mhp-min-border,var(--mhp-theme-border-soft));
+  --mhp-promoted-border-strong:var(--mhp-min-border-strong,var(--mhp-theme-border));
+  --mhp-promoted-text:var(--mhp-menu-text);
+  --mhp-promoted-muted:var(--mhp-menu-muted);
+  --mhp-promoted-title:var(--mhp-theme-title);
+  --mhp-ui-shell:var(--mhp-min-shell,var(--mhp-menu-shell));
+  --mhp-ui-row:var(--mhp-min-row,var(--mhp-menu-row));
+  --mhp-ui-row-alt:var(--mhp-min-row-2,var(--mhp-menu-row-2));
+  --mhp-ui-control:var(--mhp-min-control,var(--mhp-menu-control));
+  --mhp-ui-control-hover:var(--mhp-min-control-hover,var(--mhp-menu-control-hover));
+  --mhp-ui-border:var(--mhp-min-border,var(--mhp-theme-border-soft));
+  --mhp-ui-border-strong:var(--mhp-min-border-strong,var(--mhp-theme-border));
+  --mhp-ui-text:var(--mhp-menu-text);
+  --mhp-ui-muted:var(--mhp-menu-muted);
+  --mhp-ui-title:var(--mhp-theme-title);
+}
+
+/* Promoted menus: one last shared theme owner so old menu CSS cannot pin them to one color. */
+body:is(.mhp-promoted-settings,.mhp-promoted-graphics,.mhp-promoted-edit-gallery,.mhp-promoted-move-character,.mhp-promoted-group-menu,.mhp-promoted-save-clear)
+  :is(#settingsPanel.settings-panel,
+      #graphicsSettingsPanel,
+      #editModal.edit-modal,
+      #mudaeImageSidePanel,
+      .gallery-panel,
+      #appDialogOverlay .app-dialog-card,
+      .move-character-dialog,
+      .mhp-group-menu-card,
+      .group-menu-panel,
+      .embed-color-palette-panel){
+  background:var(--mhp-promoted-panel-bg)!important;
+  border-color:var(--mhp-promoted-border)!important;
+  color:var(--mhp-promoted-text)!important;
+}
+
+body.visual-mode-glass:is(.mhp-promoted-settings,.mhp-promoted-graphics,.mhp-promoted-edit-gallery,.mhp-promoted-move-character,.mhp-promoted-group-menu,.mhp-promoted-save-clear)
+  :is(#settingsPanel.settings-panel,
+      #graphicsSettingsPanel,
+      #editModal.edit-modal,
+      #mudaeImageSidePanel,
+      .gallery-panel,
+      #appDialogOverlay .app-dialog-card,
+      .move-character-dialog,
+      .mhp-group-menu-card,
+      .group-menu-panel,
+      .embed-color-palette-panel),
+body.glass-panels-enabled:is(.mhp-promoted-settings,.mhp-promoted-graphics,.mhp-promoted-edit-gallery,.mhp-promoted-move-character,.mhp-promoted-group-menu,.mhp-promoted-save-clear)
+  :is(#settingsPanel.settings-panel,
+      #graphicsSettingsPanel,
+      #editModal.edit-modal,
+      #mudaeImageSidePanel,
+      .gallery-panel,
+      #appDialogOverlay .app-dialog-card,
+      .move-character-dialog,
+      .mhp-group-menu-card,
+      .group-menu-panel,
+      .embed-color-palette-panel){
+  background:var(--mhp-glass-shell,var(--mhp-promoted-panel-bg))!important;
+  border-color:var(--mhp-glass-border,var(--mhp-promoted-border))!important;
+  backdrop-filter:blur(var(--mhp-glass-blur,14px)) saturate(1.08)!important;
+  -webkit-backdrop-filter:blur(var(--mhp-glass-blur,14px)) saturate(1.08)!important;
+}
+
+body:is(.mhp-promoted-settings,.mhp-promoted-graphics,.mhp-promoted-edit-gallery,.mhp-promoted-move-character,.mhp-promoted-group-menu,.mhp-promoted-save-clear)
+  :is(.settings-title,
+      .settings-graphics-title,
+      .settings-graphics-head strong,
+      .edit-title,
+      .gallery-title,
+      .app-dialog-title,
+      .move-character-head strong,
+      .group-menu-title,
+      .group-menu-head strong){
+  color:var(--mhp-promoted-title)!important;
+}
+
+body:is(.mhp-promoted-settings,.mhp-promoted-graphics,.mhp-promoted-edit-gallery,.mhp-promoted-move-character,.mhp-promoted-group-menu,.mhp-promoted-save-clear)
+  :is(.settings-toggle-row,
+      .settings-image-controls,
+      .graphics-setting-row,
+      .settings-range-control,
+      .edit-form input,
+      .edit-form select,
+      .edit-form textarea,
+      .edit-meta-box,
+      .gallery-toolbar,
+      .mhp-gallery-clean-card,
+      .move-character-context-row,
+      .move-raw-pill,
+      .move-divider-choice,
+      .group-menu-member,
+      .app-dialog-input,
+      .app-dialog-btn,
+      .settings-action-btn,
+      .settings-toggle-btn,
+      .settings-section-btn,
+      .settings-preset-btn){
+  border-color:var(--mhp-promoted-border)!important;
+  color:var(--mhp-promoted-text)!important;
+}
+
+/* Cards and board chips: make theme presets affect the board again. */
+.char-card{
+  background:var(--mhp-card-shell)!important;
+  border-color:var(--mhp-theme-border-soft,var(--border))!important;
+  color:var(--mhp-menu-text,var(--text))!important;
+}
+body.visual-mode-glass .char-card,
+body.glass-panels-enabled .char-card,
+body[data-visual-mode="glass"] .char-card{
+  background:linear-gradient(180deg,
+    color-mix(in srgb,var(--mhp-card-shell-glass) 88%,transparent),
+    color-mix(in srgb,var(--mhp-card-inner) 76%,transparent)
+  )!important;
+  border-color:var(--mhp-glass-border,var(--mhp-theme-border-soft))!important;
+}
+body.visual-mode-minimalist .char-card,
+body[data-visual-mode="minimalist"] .char-card{
+  background:var(--mhp-min-shell,var(--mhp-menu-shell))!important;
+  border-color:var(--mhp-min-border,var(--mhp-theme-border-soft))!important;
+}
+
+:is(.stats>div,
+    .card-position,
+    .card-series,
+    .stat-pill,
+    .gallery-badge,
+    .card-group-badge,
+    .image-wrap .card-edit-btn,
+    .card-note,
+    .card-embed-color-strip){
+  border-color:color-mix(in srgb,var(--mhp-theme-accent) 42%,var(--mhp-theme-border-soft))!important;
+}
+
+:is(.card-position,
+    .card-series,
+    .stat-pill.rank-pill,
+    .image-wrap .card-edit-btn){
+  background:linear-gradient(135deg,
+    color-mix(in srgb,var(--mhp-theme-accent) 18%,var(--mhp-card-chip)),
+    color-mix(in srgb,var(--mhp-card-inner) 86%,transparent)
+  )!important;
+  color:var(--mhp-menu-text,var(--text))!important;
+}
+
+.card-series,
+.card-position,
+.stat-pill.rank-pill{
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--mhp-theme-accent) 14%,transparent) inset!important;
+}
+
+.gallery-badge{
+  background:linear-gradient(135deg,
+    color-mix(in srgb,var(--mhp-theme-accent-2) 18%,var(--mhp-card-chip)),
+    color-mix(in srgb,var(--mhp-card-inner) 82%,transparent)
+  )!important;
+  border-color:color-mix(in srgb,var(--mhp-theme-accent-2) 55%,var(--mhp-theme-border-soft))!important;
+}
+
+.card-group-badge{
+  background:linear-gradient(135deg,
+    color-mix(in srgb,var(--mhp-theme-accent) 20%,var(--mhp-card-chip)),
+    color-mix(in srgb,var(--mhp-card-inner) 82%,transparent)
+  )!important;
+  border-color:color-mix(in srgb,var(--mhp-theme-accent) 55%,var(--mhp-theme-border-soft))!important;
+}
+
+.char-card.multi-selected-card{
+  outline-color:color-mix(in srgb,var(--mhp-theme-accent) 86%,#ffffff 10%)!important;
+  box-shadow:0 0 0 5px color-mix(in srgb,var(--mhp-theme-accent) 18%,transparent),0 18px 60px rgba(0,0,0,.25)!important;
+}
+
+/* v2.640: Always show card edit controls.
+   The edit button used to appear only on hover, which made the first click
+   unreliable on local file loads and after board refreshes. */
+.image-wrap .card-edit-btn,
+.char-card:hover .image-wrap .card-edit-btn,
+.char-card .image-wrap:hover .card-edit-btn,
+.char-card:focus-within .image-wrap .card-edit-btn{
+  opacity:1!important;
+  pointer-events:auto!important;
+  transform:translate3d(0,0,0)!important;
+  visibility:visible!important;
+}

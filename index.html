@@ -1,320 +1,949 @@
-<!doctype html><html lang="en"><head><script>
-document.documentElement.classList.add("mhp-booting");
-</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mudae Harem Organizer Final</title><link rel="icon" type="image/png" sizes="64x64" href="assets/icons/app/favicon.png?v=674"><link rel="shortcut icon" type="image/png" href="assets/icons/app/favicon.png?v=674"><link rel="apple-touch-icon" href="assets/icons/app/favicon.png?v=674"><script>
-// Prefer the local PNG favicon. The runtime query avoids stale browser cache
-// when assets/icons/app/favicon.png is replaced locally.
-(() => {
-const href = 'assets/icons/app/favicon.png?v=' + Date.now();
-for (const link of document.querySelectorAll('link[rel~="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]')) {
-link.setAttribute('href', href);
-}
-})();
-</script><link rel="stylesheet" href="css/core/base.css"><link rel="stylesheet" href="css/core/background.css"><link rel="stylesheet" href="css/core/themes.css"><link rel="stylesheet" href="css/core/promoted-ui.css"><link rel="stylesheet" href="css/board/layout.css"><link rel="stylesheet" href="css/cards/cards.css"><link rel="stylesheet" href="css/board/dividers.css"><link rel="stylesheet" href="css/edit-gallery/modals.css"><link rel="stylesheet" href="css/edit-gallery/gallery.css"><link rel="stylesheet" href="css/settings/settings.css"><link rel="stylesheet" href="css/legacy/legacy-patches.css"><link rel="stylesheet" href="css/settings/graphics-promoted.css"><link rel="stylesheet" href="css/edit-gallery/edit-gallery-promoted.css"><link rel="stylesheet" href="css/move/move-character-promoted.css"><link rel="stylesheet" href="css/core/loading.css"><link rel="stylesheet" href="css/floating/floating.css"><link rel="stylesheet" href="css/exports/exports.css"><link rel="stylesheet" href="css/group/group-menu-promoted.css"><link rel="stylesheet" href="css/json/save-clear-promoted.css"><link rel="stylesheet" href="css/settings/settings-promoted.css"><link rel="stylesheet" href="css/core/topbar-stability.css"><link rel="stylesheet" href="css/core/theme-parity-sync.css"><link rel="stylesheet" href="css/core/default-black-parity.css"><link rel="stylesheet" href="css/core/edit-actions-danger-parity.css"><link rel="stylesheet" href="css/core/final-polish.css"></head><body class="mhp-promoted-graphics mhp-promoted-edit-gallery mhp-promoted-move-character mhp-promoted-group-menu mhp-promoted-save-clear mhp-promoted-settings"><div id="mhpPageBackground" class="mhp-page-background" aria-hidden="true"><div class="mhp-page-background-base"></div><div class="mhp-page-background-image"></div><div class="mhp-page-background-tint"></div></div><div id="mhpBootLoader" class="mhp-loader-overlay mhp-boot-loader" role="status" aria-live="polite"><div class="mhp-loader-card mhp-boot-loader-card"><div class="mhp-loader-asset-slot mhp-boot-loader-asset-slot" aria-hidden="true"><img
-class="mhp-loader-img mhp-boot-loader-img"
-src="assets/loaders/loading-harem.gif"
-data-fallbacks=""
-alt=""
-></div><div class="mhp-loader-title mhp-boot-loader-title">Loading harem...</div><div class="mhp-loader-subtitle mhp-boot-loader-subtitle">Preparing your collection</div><div class="mhp-loader-data mhp-boot-loader-data" aria-live="polite">Characters: — · Size: —</div><div class="mhp-loader-bar mhp-boot-loader-bar" aria-hidden="true"><span></span></div></div></div><div id="jsonDropOverlay" class="mhp-json-drop-overlay" hidden aria-hidden="true"><div class="mhp-json-drop-card"><div class="mhp-json-drop-title">Drop JSON to load harem</div><div class="mhp-json-drop-subtitle">Release your .json backup anywhere on the page.</div></div></div><header class="topbar"><div class="topbar-title-group"><h1 id="haremTitle" class="topbar-main-title">Load an old JSON export to begin.</h1><p class="topbar-version">Mudae Organizer <span>Final</span></p></div><div class="top-actions"><label class="btn btn-primary file-btn import-json-btn" title="Load a JSON backup or legacy export">
-Load JSON
-<input id="jsonFileInput" type="file" accept=".json,application/json"></label><button id="exportJsonBtn" class="btn btn-secondary save-json-btn" type="button" title="Choose a filename and save a JSON backup">Save JSON</button><button id="clearLocalBtn" class="btn btn-ghost" type="button">Clear local</button></div></header><div class="parser-panel" id="parserPanel"><details id="parserDetails"><summary>Parse Mudae <span id="parserCount" class="parser-count" aria-live="polite">0 characters</span></summary><div class="parser-command-hints" role="group" aria-label="Supported Mudae commands"><span class="parser-command-label">Supported commands</span><button class="parser-command-chip" type="button" data-copy-command="$mmis" title="Copy $mmis"><span class="parser-command-code">$mmis</span><span class="parser-command-description">Visual harem scan with images.</span></button><button class="parser-command-chip" type="button" data-copy-command="$mmsaty+ri-c+x+kom+" title="Copy $mmsaty+ri-c+x+kom+"><span class="parser-command-code">$mmsaty+ri-c+x+kom+</span><span class="parser-command-description">Full harem import with series, ranks, kakera, keys, owner and notes.</span></button><button class="parser-command-chip" type="button" data-copy-command="$mmty+i-c+x+kom+" title="Copy $mmty+i-c+x+kom+"><span class="parser-command-code">$mmty+i-c+x+kom+</span><span class="parser-command-description">Targeted import for a few characters, avoiding a huge full export.</span></button><button class="parser-command-chip" type="button" data-copy-command="$mmz!sm+" title="Copy $mmz!sm+ (Spheres)"><span class="parser-command-code">$mmz!sm+ <em>Spheres</em></span><span class="parser-command-description">Sphere perks and invested SP.</span></button><button id="loadDemoBoardBtn" class="parser-command-chip parser-demo-btn" type="button" title="Load the included demo board JSON"><span class="parser-command-code">Demo board</span><span class="parser-command-description">Load sample JSON.</span></button></div><div class="parser-body"><textarea id="parserInput" class="parser-input" placeholder="Paste $mm / $mms / manual Mudae text here..." autocomplete="off" spellcheck="false"></textarea><div class="parser-actions"><button id="parseAppendBtn" class="btn btn-primary" type="button">Parse</button><button id="parseReplaceBtn" class="btn btn-danger" type="button">Replace board</button><button id="clearParserBtn" class="btn btn-ghost" type="button">Clear</button></div><p id="parserStatus" class="parser-status">Ready.</p></div></details></div><div class="toolbar"><div class="search-box"><input id="searchInput" class="search-input" type="text" placeholder="Search name, series, owner, note..." autocomplete="off" spellcheck="false"><button id="clearSearchBtn" class="search-clear-btn" type="button" title="Clear search" aria-label="Clear search">×</button></div><select id="filterTypeSelect" class="select-input"><option value="all">All</option><optgroup label="Mudae tags"><option value="wa">$wa</option><option value="ha">$ha</option><option value="wg">$wg</option><option value="hg">$hg</option></optgroup><optgroup label="Gender"><option value="gender:waifu">♀️ Waifu</option><option value="gender:husbando">♂️ Husbando</option><option value="gender:both">⚧️ Both</option></optgroup><optgroup label="Roulette type"><option value="world:animanga">🎴 Animanga</option><option value="world:game">🎮 Game</option><option value="world:both">🔀 Both</option></optgroup><optgroup label="Other"><option value="gallery">Has gallery</option><option value="noimage">No real image</option></optgroup></select><button id="restoreAllBtn" class="btn btn-ghost" type="button">Show all</button></div><div id="floatingBar" class="floating-bar floating-bar-slim is-floating-active"><div class="mhp-floating-shell floating-bar-inner"><div id="floatingActionBtns" class="mhp-floating-actions floating-action-btns"><button id="floatingBackTopBtn" class="mhp-floating-btn mhp-floating-icon-btn floating-back-btn" type="button" title="Back to top">↑</button><button id="floatingMultiSelectBtn" class="mhp-floating-btn floating-action-btn floating-normal-action" type="button" title="Toggle multi-select">Multi-Select</button><button id="floatingMoveSelectedBtn" class="mhp-floating-btn floating-action-btn floating-multi-only" type="button" title="Choose destination for selected cards" hidden>Move selected</button><button id="floatingCreateGroupBtn" class="mhp-floating-btn floating-action-btn floating-multi-only" type="button" title="Create a group from selected cards" hidden>Create Group</button><button id="floatingClearMultiSelectBtn" class="mhp-floating-btn floating-action-btn floating-multi-only" type="button" title="Clear selected cards" hidden>Clear</button><button id="floatingAddDividerBtn" class="mhp-floating-btn floating-action-btn floating-normal-action" type="button" title="Add divider or sub-divider">Add Divider</button></div><div class="mhp-floating-search floating-search-box"><input id="floatingSearchInput" class="mhp-floating-input floating-search-input" placeholder="Search while browsing..." autocomplete="off" spellcheck="false"><button id="floatingClearSearchBtn" class="mhp-floating-btn mhp-floating-icon-btn floating-search-clear-btn" type="button" title="Clear floating search" aria-label="Clear floating search" hidden>×</button></div></div></div><div class="stats" id="statsBar"><div class="character-stat-card"><strong id="totalCharactersStat">0</strong><span>Characters</span><div id="genderBreakdown" class="mini-breakdown gender-breakdown"></div><div id="rouletteBreakdown" class="mini-breakdown roulette-breakdown"></div></div><div class="key-stat-card stat-card-rich"><strong id="totalKeysStat">0</strong><span>Total Keys</span><div id="keyBreakdown" class="key-breakdown"></div></div><div class="kakera-stat-card stat-card-rich"><strong id="totalKakeraStat">0</strong><span>Total Kakera</span><div id="kakeraBreakdown" class="stat-detail-box kakera-detail-box"></div></div><div class="sphere-stat-card stat-card-rich"><strong id="totalSpheresStat">0</strong><span>Total Spheres</span><div id="sphereBreakdown" class="stat-detail-box sphere-detail-box"></div></div></div><main id="board" class="board"></main><div id="editOverlay" class="edit-overlay" aria-hidden="true"><section id="editModal" class="edit-modal" role="dialog" aria-modal="true" aria-labelledby="editTitle"><header class="edit-head"><div><h2 id="editTitle">Edit Character</h2><p id="editSubtitle">Clean rebuild editor.</p></div><button id="editCloseBtn" class="btn btn-ghost icon-btn" type="button" aria-label="Close edit">×</button></header><div id="editBody" class="edit-body"><form id="editForm" class="edit-form"><input id="editIdInput" type="hidden"><div class="field-grid two"><label>Name <input id="editNameInput" type="text"></label><label>Series <input id="editSeriesInput" type="text"></label></div><label>Image URL <input id="editImageInput" type="text"></label><div class="field-grid three"><label>Rank <input id="editRankInput" type="number"></label><label>Kakera <input id="editKakeraInput" type="number"></label><label>Keys <input id="editKeysInput" type="number"></label></div><div class="field-grid two"><label>Owner <input id="editOwnerInput" type="text"></label><label>Roulette <input id="editRouletteInput" type="text"></label></div><div class="field-grid two edit-color-note-row"><div class="embed-color-field"><span class="field-label-text">Embed color</span><div class="embed-color-control"><button id="editColorPreviewBtn" class="embed-color-preview-btn" type="button" title="Open color palette"><span id="editColorPreviewSwatch" class="embed-color-preview-swatch"></span><span id="editColorPreviewText" class="embed-color-preview-text">#8B5CF6</span></button><input id="editColorInput" class="embed-color-hex-input" type="text" inputmode="text" maxlength="7" spellcheck="false" placeholder="#8B5CF6"></div><div id="editColorPalettePanel" class="embed-color-palette-panel" hidden><div class="embed-color-palette-head"><div><span>Custom palette</span><small>Write HEX or choose a swatch</small></div><button id="editColorPaletteCloseBtn" class="embed-color-palette-close" type="button" aria-label="Close color palette">×</button></div><div id="editColorPaletteGrid" class="embed-color-palette-grid" role="listbox" aria-label="Embed color swatches"></div></div></div><label class="edit-note-field">Note <textarea id="editNoteInput" rows="2"></textarea></label></div><details class="spheres-box edit-spheres-panel edit-spheres-collapsible"><summary><span>Spheres</span><small id="spheresSummary">No spheres</small></summary><div id="spheresGrid" class="spheres-grid"></div><div class="spheres-actions"><button id="spheresAllBtn" class="btn btn-secondary" type="button">All spheres</button><button id="spheresClearBtn" class="btn btn-ghost" type="button">Clear spheres</button></div></details></form><aside class="edit-preview-column"><div class="preview-box"><img id="editPreviewImg" alt="Preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACw="></div><div class="mudae-preview-actions"><button id="mudaeSearchBtn" class="btn btn-secondary" type="button">Search Mudae</button><button id="galleryToggleBtn" class="btn btn-ghost icon-btn" type="button" aria-expanded="false" title="Toggle gallery">›</button></div></aside></div><footer class="edit-actions edit-actions-split edit-actions-modal-footer"><div class="edit-actions-left"><button id="cancelEditBtn" class="btn btn-ghost" type="button">Cancel</button></div><div class="edit-actions-right"><button class="btn btn-danger edit-delete-character-btn" id="deleteEditCharacterBtn" type="button">Delete Character</button><button id="saveEditBtn" class="btn btn-primary" type="button">Save</button></div></footer></section></div><aside id="galleryPanel" class="gallery-panel" hidden><header class="gallery-head"><div><h2>Mudae images</h2><p id="galleryStatus">Gallery ready.</p></div><button id="galleryCloseBtn" class="btn btn-ghost icon-btn" type="button" aria-label="Close gallery">×</button></header><div id="galleryGrid" class="gallery-grid mhp-gallery-ratio-grid"></div><footer class="gallery-bottom"><div class="gallery-actions"><button id="loadPastedBtn" class="btn btn-secondary" type="button">Parse pasted links</button><button id="galleryMatchedOnlyBtn" class="btn btn-ghost" type="button" aria-pressed="false" title="Show only images marked as match">Matched only</button><button id="galleryUseMatchedBtn" class="btn btn-ghost" type="button" title="Select the first matched image">Use match</button><button id="clearGalleryBtn" class="btn btn-ghost" type="button">Clear</button></div><details id="galleryPasteDetails" class="gallery-paste-details"><summary>Show pasted links</summary><textarea id="galleryPasteInput" class="gallery-paste" placeholder="Paste Mudae image URLs here, one per line..."></textarea></details></footer></aside><template id="cardTemplate"><article class="char-card"><header class="card-head"><div class="card-head-row"><span class="card-position"></span><span class="card-owner"></span></div><span class="card-series"></span></header><div class="image-wrap"><img class="char-img" loading="lazy" alt=""><span class="sphere-badge" hidden></span><span class="gallery-badge" hidden>Gallery</span><button class="card-edit-btn" type="button" title="Edit character">Edit</button></div><h3 class="char-name"></h3><div class="card-type-row"><span class="type-badge gender-badge"></span><span class="type-badge roulette-badge"></span></div><div class="card-stats-row"><span class="stat-pill rank-pill"></span><span class="stat-pill kakera-pill"></span><span class="stat-pill keys-pill"></span></div><p class="card-note" hidden></p></article></template><template id="dividerTemplate"><section class="divider-row"><span class="divider-level"></span><strong class="divider-title"></strong><span class="divider-note"></span></section></template><div id="appLoadingOverlay" class="mhp-loader-overlay app-loading-overlay" hidden><div class="mhp-loader-card app-loading-card"><div class="mhp-loader-asset-slot app-loading-asset-slot" aria-hidden="true"><img
-class="mhp-loader-img app-loading-asset-img"
-src="assets/loaders/loading-harem.gif"
-data-fallbacks=""
-alt=""
-></div><div class="mhp-loader-copy app-loading-copy"><strong id="appLoadingTitle" class="mhp-loader-title">Loading harem...</strong><span id="appLoadingDetail" class="mhp-loader-subtitle">Preparing characters and images.</span><span id="appLoadingData" class="mhp-loader-data" aria-live="polite">Characters: — · Size: —</span></div><div class="mhp-loader-bar app-loading-bar" aria-hidden="true"><span></span></div></div></div><script>
-(() => {
-const loaderBust = String(Date.now());
-window.__MHP_LOADER_CACHE_BUST = loaderBust;
-const bustLoaderUrl = (url) => {
-const clean = String(url || '').trim();
-if (!clean || clean.startsWith('data:') || clean.includes('mhp_loader_v=')) return clean;
-const sep = clean.includes('?') ? '&' : '?';
-return `${clean}${sep}mhp_loader_v=${encodeURIComponent(loaderBust)}`;
-};
-const wireFallback = (img) => {
-if (!img || img.dataset.mhpFallbackReady === '1') return;
-img.dataset.mhpFallbackReady = '1';
-if (img.matches('.mhp-loader-img')) {
-img.dataset.fallbacks = String(img.dataset.fallbacks || '')
-.split('|')
-.filter(Boolean)
-.map(bustLoaderUrl)
-.join('|');
-const bustedSrc = bustLoaderUrl(img.getAttribute('src') || '');
-if (bustedSrc) img.src = bustedSrc;
-}
-img.addEventListener('load', () => {
-img.hidden = false;
-img.closest('.mhp-loader-asset-slot, .app-loading-asset-slot, .mhp-boot-loader-asset-slot')?.classList.remove('is-missing');
-});
-img.addEventListener('error', () => {
-const fallbacks = String(img.dataset.fallbacks || '').split('|').filter(Boolean);
-const index = Number(img.dataset.fallbackIndex || '0');
-if (index < fallbacks.length) {
-img.dataset.fallbackIndex = String(index + 1);
-img.hidden = false;
-img.closest('.mhp-loader-asset-slot, .app-loading-asset-slot, .mhp-boot-loader-asset-slot')?.classList.remove('is-missing');
-img.src = fallbacks[index];
-return;
-}
-img.hidden = true;
-img.closest('.mhp-loader-asset-slot, .app-loading-asset-slot, .mhp-boot-loader-asset-slot')?.classList.add('is-missing');
-});
-};
-document.querySelectorAll('img[data-fallbacks]').forEach(wireFallback);
-window.MHPWireAssetFallbacks = () => document.querySelectorAll('img[data-fallbacks]').forEach(wireFallback);
-window.MHPResetLoaderAssetFallback = (img) => {
-if (!img) return;
-img.dataset.fallbackIndex = '0';
-img.hidden = false;
-img.removeAttribute('hidden');
-img.closest('.mhp-loader-asset-slot, .app-loading-asset-slot, .mhp-boot-loader-asset-slot')?.classList.remove('is-missing');
-};
-})();
-</script><div id="forceLoadProgressPanel" class="force-load-progress-overlay" hidden><div class="force-load-progress-card"><div class="force-load-progress-head"><strong>Image preload</strong></div><div id="forceLoadProgressText" class="force-load-progress-text">Preparing card image queue...</div><div id="forceLoadPreviewGrid" class="force-load-preview-grid" role="group" aria-label="Images currently loading"></div><button id="forceLoadCancelBtn" class="force-load-cancel-btn" type="button">Cancel</button></div></div><div id="settingsDock" class="settings-dock"><button id="settingsGearBtn" class="settings-gear-btn" type="button" title="Settings" aria-label="Settings" aria-expanded="false">⚙️</button><div id="settingsPanel" class="settings-panel" hidden><div class="settings-panel-head"><span class="settings-title">Settings</span><button id="graphicsSettingsBtn" class="settings-section-btn" type="button" aria-expanded="false">Graphics</button></div><div class="settings-toggle-row"><div class="settings-toggle-copy"><strong>Performance Mode</strong><span>Optimized rendering, GIF control and offscreen savings.</span></div><button id="performanceToggleBtn" class="settings-toggle-btn" type="button">ON</button></div><div id="graphicsSettingsBackdrop" class="settings-graphics-backdrop" hidden></div><div id="graphicsSettingsPanel" class="settings-graphics-panel" role="dialog" aria-modal="true" aria-labelledby="graphicsSettingsTitle" hidden><header class="settings-graphics-head"><div><span id="graphicsSettingsTitle" class="settings-section-label">Graphics settings</span><p>Background, layout and visual style.</p></div><button id="graphicsSettingsCloseBtn" class="settings-modal-close" type="button" aria-label="Close graphics settings">×</button></header><div class="settings-inline-pair graphics-density-pair"><div class="settings-toggle-row visible-cards-row"><div class="settings-toggle-copy"><strong>Visible cards</strong><span>Limit how many cards are mounted at once.</span></div><select id="visibleCardLimitSelect" class="settings-select"><option value="150">150</option><option value="300">300</option><option value="600">600</option><option value="900">900</option><option value="1200">1200</option><option value="0">Unlimited</option></select></div><div class="settings-toggle-row board-columns-row"><div class="settings-toggle-copy"><strong>Characters per row</strong><span>Choose how many character cards are shown per row.</span></div><select id="boardColumnsSelect" class="settings-select"><option value="0">Auto</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></div><div class="settings-inline-pair graphics-style-pair"><div class="settings-action-row visual-mode-row"><div class="settings-toggle-copy"><strong>Visual mode</strong><span>Minimalist uses flat panels. Glass uses transparent panels.</span></div><div class="visual-mode-toggle" role="group" aria-label="Visual mode"><button id="minimalistModeBtn" class="visual-mode-btn is-active" type="button" data-visual-mode="minimalist" aria-pressed="true">Minimalist</button><button id="glassModeBtn" class="visual-mode-btn" type="button" data-visual-mode="glass" aria-pressed="false">Glass</button></div></div><div class="settings-action-row settings-theme-preset-row"><div class="settings-toggle-copy"><strong>Theme preset</strong><span>Choose the built-in tint used by the page background.</span></div><div class="settings-preset-buttons" role="group" aria-label="Theme presets"><button class="settings-preset-btn" type="button" data-bg-preset="default">Default</button><button class="settings-preset-btn" type="button" data-bg-preset="purple">Soft Purple</button><button class="settings-preset-btn" type="button" data-bg-preset="blue">Blue Night</button></div></div></div><div class="settings-action-row settings-background-row"><div class="settings-toggle-copy"><strong>Page background</strong><span>Use a direct image URL or upload one from your PC. Great for Imgur or ImgChest direct image links.</span></div><div class="settings-background-status"><span id="backgroundPreviewThumb" class="settings-background-preview" aria-hidden="true"></span><div class="settings-background-copy"><strong id="backgroundStatusText">Default background</strong><span id="backgroundStatusHint">Soft built-in gradient.</span></div></div><div class="settings-background-url-row"><input id="backgroundUrlInput" class="settings-text-input" type="url" placeholder="https://i.imgur.com/example.jpg" spellcheck="false"><button id="applyBackgroundUrlBtn" class="settings-action-btn" type="button">Apply URL</button></div><div class="settings-background-tuning"><div class="settings-range-field"><span>Opacity</span><div class="settings-range-control"><input id="backgroundOpacityInput" class="settings-range-input" type="range" min="0" max="100" step="1" value="35" list="backgroundPercentMarks"><input id="backgroundOpacityNumberInput" class="settings-number-input" type="number" min="0" max="100" step="1" value="35" aria-label="Background opacity percent"><span class="settings-number-suffix">%</span></div></div><div class="settings-range-field"><span>Blur</span><div class="settings-range-control"><input id="backgroundBlurInput" class="settings-range-input" type="range" min="0" max="100" step="1" value="0" list="backgroundPercentMarks"><input id="backgroundBlurNumberInput" class="settings-number-input" type="number" min="0" max="100" step="1" value="0" aria-label="Background blur percent"><span class="settings-number-suffix">%</span></div></div><datalist id="backgroundPercentMarks"><option value="0" label="0%"></option><option value="25" label="25%"></option><option value="50" label="50%"></option><option value="75" label="75%"></option><option value="100" label="100%"></option></datalist></div><div class="settings-action-buttons settings-background-action-buttons" role="group" aria-label="Background image actions"><label class="settings-action-btn settings-file-btn" title="Upload a background image from your PC">
-Upload image
-<input id="backgroundFileInput" type="file" accept="image/*"></label><button id="removeCustomBackgroundBtn" class="settings-action-btn" type="button" title="Remove the custom URL/uploaded image and restore the selected background preset">Restore background</button><button id="clearBackgroundBtn" class="settings-action-btn" type="button" title="Reset background image, preset, opacity and blur">Use default</button></div></div><div class="settings-action-row settings-glass-row"><div class="settings-toggle-copy"><strong>Transparent UI</strong><span>Adjust how much the background shows through cards and panels.</span></div><button id="glassToggleBtn" class="settings-toggle-btn" type="button">ON</button><div class="settings-background-tuning settings-glass-tuning"><div class="settings-range-field"><span>Panel transparency</span><div class="settings-range-control"><input id="glassTransparencyInput" class="settings-range-input" type="range" min="0" max="100" step="1" value="35" list="backgroundPercentMarks"><input id="glassTransparencyNumberInput" class="settings-number-input" type="number" min="0" max="100" step="1" value="35" aria-label="Panel transparency percent"><span class="settings-number-suffix">%</span></div></div><div class="settings-range-field"><span>Menu transparency</span><div class="settings-range-control"><input id="cardsTransparencyInput" class="settings-range-input" type="range" min="0" max="100" step="1" value="20" list="backgroundPercentMarks"><input id="cardsTransparencyNumberInput" class="settings-number-input" type="number" min="0" max="100" step="1" value="20" aria-label="Menu transparency percent"><span class="settings-number-suffix">%</span></div></div><div class="settings-glass-reset-row"><button id="restoreTransparencyDefaultsBtn" class="settings-action-btn" type="button">Restore transparency defaults</button><small>Default: panels 35% · menus 20%.</small></div></div></div></div><div class="settings-action-row"><div class="settings-toggle-copy"><strong>Images</strong><span id="failedImagesStatus">Image helper ready · Failed: 0</span></div><div class="settings-action-buttons"><button id="forceLoadVisibleImagesBtn" class="settings-action-btn" type="button">Load visible</button><button id="forceLoadAllImagesBtn" class="settings-action-btn" type="button">Preload card images</button><button id="retryFailedImagesBtn" class="settings-action-btn" type="button">Retry failed</button><button id="clearFailedImagesBtn" class="settings-action-btn" type="button">Clear failed</button></div></div></div></div><script src="js/core/model.js"></script><script src="js/parser/parser.js"></script><script src="js/core/storage.js"></script><script src="js/dialog-utils.js"></script><script src="js/core/json-io.js"></script><script src="js/board/group-utils.js"></script><script src="js/board/search-session.js"></script><script src="js/board/move-utils.js"></script><script src="js/core/performance.js"></script><script src="js/cards/cards.js"></script><script src="js/cards/image-loader-minimal.js"></script><script src="js/cards/gif-control.js"></script><script src="js/board/board-controller.js"></script><script src="js/board/dividers.js"></script><script src="js/exports/export-utils.js"></script><script src="js/exports/exports.js"></script><script src="js/edit-gallery/gallery-utils.js"></script><script src="js/app.js"></script><script src="js/edit-gallery/edit-gallery-manager.js"></script><script src="js/edit-gallery/edit-gallery-promoted-bridge.js"></script><script src="js/move/move-character-promoted-bridge.js"></script><script src="js/group/group-menu-promoted-bridge.js"></script><script src="js/json/save-clear-promoted-bridge.js"></script><script src="js/core/rebuild-api.js"></script><script src="js/settings/graphics-settings.js"></script><script src="js/settings/settings.js"></script><script src="js/settings/graphics-promoted-bridge.js"></script><script src="js/settings/hibernation-manager.js"></script><script src="js/floating/floating-utils.js"></script><script src="js/floating/floating-bar.js"></script><script src="js/floating/shortcuts.js"></script><script>
-(() => {
-const copyText = async (text) => {
-if (navigator.clipboard?.writeText) {
-await navigator.clipboard.writeText(text);
-return;
-}
-const input = document.createElement('textarea');
-input.value = text;
-input.setAttribute('readonly', '');
-input.style.position = 'fixed';
-input.style.opacity = '0';
-document.body.appendChild(input);
-input.select();
-document.execCommand('copy');
-input.remove();
-};
-document.addEventListener('click', async (event) => {
-const button = event.target.closest?.('[data-copy-command]');
-if (!button) return;
-event.preventDefault();
-event.stopPropagation();
-const command = button.dataset.copyCommand || '';
-if (!command) return;
-try {
-await copyText(command);
-button.classList.add('copied');
-const status = document.getElementById('parserStatus');
-if (status) status.textContent = `Copied ${command}`;
-setTimeout(() => button.classList.remove('copied'), 900);
-} catch (error) {
-console.error('Could not copy command:', error);
-const status = document.getElementById('parserStatus');
-if (status) status.textContent = `Could not copy ${command}`;
-}
-});
-})();
-</script><script id="demoBoardJson" type="application/json">
+<!doctype html>
+<html lang="en">
+<head>
+  <script>
+    document.documentElement.classList.add("mhp-booting");
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mudae Harem Organizer Final</title>
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/icons/app/favicon.png?v=674">
+  <link rel="shortcut icon" type="image/png" href="assets/icons/app/favicon.png?v=674">
+  <link rel="apple-touch-icon" href="assets/icons/app/favicon.png?v=674">
+  <script>
+    // Prefer the local PNG favicon. The runtime query avoids stale browser cache
+    // when assets/icons/app/favicon.png is replaced locally.
+    (() => {
+      const href = 'assets/icons/app/favicon.png?v=' + Date.now();
+      for (const link of document.querySelectorAll('link[rel~="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]')) {
+        link.setAttribute('href', href);
+      }
+    })();
+  </script>
+  <!-- Zone CSS: edit these files instead of the archived minified bundle. -->
+  <link rel="stylesheet" href="css/core/base.css">
+  <link rel="stylesheet" href="css/core/background.css">
+  <link rel="stylesheet" href="css/core/themes.css">
+  <link rel="stylesheet" href="css/core/promoted-ui.css">
+  <link rel="stylesheet" href="css/board/layout.css">
+  <link rel="stylesheet" href="css/cards/cards.css">
+  <link rel="stylesheet" href="css/board/dividers.css">
+  <link rel="stylesheet" href="css/edit-gallery/modals.css">
+  <link rel="stylesheet" href="css/edit-gallery/gallery.css">
+  <link rel="stylesheet" href="css/settings/settings.css">
+  <link rel="stylesheet" href="css/legacy/legacy-patches.css">
+  <link rel="stylesheet" href="css/settings/graphics-promoted.css">
+  <link rel="stylesheet" href="css/edit-gallery/edit-gallery-promoted.css">
+  <link rel="stylesheet" href="css/move/move-character-promoted.css">
+  <!-- Shared loading component. Loading harem and Parsing harem both use this file. -->
+  <link rel="stylesheet" href="css/core/loading.css">
+  <link rel="stylesheet" href="css/floating/floating.css">
+  <link rel="stylesheet" href="css/exports/exports.css">
+  <link rel="stylesheet" href="css/group/group-menu-promoted.css">
+  <link rel="stylesheet" href="css/json/save-clear-promoted.css">
+  <link rel="stylesheet" href="css/settings/settings-promoted.css">
+  <link rel="stylesheet" href="css/core/topbar-stability.css">
+  <link rel="stylesheet" href="css/core/theme-parity-sync.css">
+  <link rel="stylesheet" href="css/core/default-black-parity.css">
+  <link rel="stylesheet" href="css/core/edit-actions-danger-parity.css">
+  <link rel="stylesheet" href="css/core/final-polish.css">
+</head>
+<body class="mhp-promoted-graphics mhp-promoted-edit-gallery mhp-promoted-move-character mhp-promoted-group-menu mhp-promoted-save-clear mhp-promoted-settings">
+  <div id="mhpPageBackground" class="mhp-page-background" aria-hidden="true">
+    <div class="mhp-page-background-base"></div>
+    <div class="mhp-page-background-image"></div>
+    <div class="mhp-page-background-tint"></div>
+  </div>
+  <div id="mhpBootLoader" class="mhp-loader-overlay mhp-boot-loader" role="status" aria-live="polite">
+    <div class="mhp-loader-card mhp-boot-loader-card">
+      <div class="mhp-loader-asset-slot mhp-boot-loader-asset-slot" aria-hidden="true">
+        <img
+          class="mhp-loader-img mhp-boot-loader-img"
+          src="assets/loaders/loading-harem.gif"
+          data-fallbacks=""
+          alt=""
+        >
+      </div>
+      <div class="mhp-loader-title mhp-boot-loader-title">Loading harem...</div>
+      <div class="mhp-loader-subtitle mhp-boot-loader-subtitle">Preparing your collection</div>
+      <div class="mhp-loader-data mhp-boot-loader-data" aria-live="polite">Characters: — · Size: —</div>
+      <div class="mhp-loader-bar mhp-boot-loader-bar" aria-hidden="true"><span></span></div>
+    </div>
+  </div>
+
+  <div id="jsonDropOverlay" class="mhp-json-drop-overlay" hidden aria-hidden="true">
+    <div class="mhp-json-drop-card">
+      <div class="mhp-json-drop-title">Drop JSON to load harem</div>
+      <div class="mhp-json-drop-subtitle">Release your .json backup anywhere on the page.</div>
+    </div>
+  </div>
+
+
+  <header class="topbar">
+    <div class="topbar-title-group">
+      <h1 id="haremTitle" class="topbar-main-title">Load an old JSON export to begin.</h1>
+      <p class="topbar-version">Mudae Organizer <span>Final</span></p>
+    </div>
+
+    <div class="top-actions">
+      <label class="btn btn-primary file-btn import-json-btn" title="Load a JSON backup or legacy export">
+        Load JSON
+        <input id="jsonFileInput" type="file" accept=".json,application/json">
+      </label>
+      <button id="exportJsonBtn" class="btn btn-secondary save-json-btn" type="button" title="Choose a filename and save a JSON backup">Save JSON</button>
+      <button id="clearLocalBtn" class="btn btn-ghost" type="button">Clear local</button>
+    </div>
+  </header>
+
+  <div class="parser-panel" id="parserPanel">
+    <details id="parserDetails">
+      <summary>Parse Mudae <span id="parserCount" class="parser-count" aria-live="polite">0 characters</span></summary>
+      <div class="parser-command-hints" role="group" aria-label="Supported Mudae commands">
+        <span class="parser-command-label">Supported commands</span>
+        <button class="parser-command-chip" type="button" data-copy-command="$mmis" title="Copy $mmis">
+          <span class="parser-command-code">$mmis</span>
+          <span class="parser-command-description">Visual harem scan with images.</span>
+        </button>
+        <button class="parser-command-chip" type="button" data-copy-command="$mmsaty+ri-c+x+kom+" title="Copy $mmsaty+ri-c+x+kom+">
+          <span class="parser-command-code">$mmsaty+ri-c+x+kom+</span>
+          <span class="parser-command-description">Full harem import with series, ranks, kakera, keys, owner and notes.</span>
+        </button>
+        <button class="parser-command-chip" type="button" data-copy-command="$mmty+i-c+x+kom+" title="Copy $mmty+i-c+x+kom+">
+          <span class="parser-command-code">$mmty+i-c+x+kom+</span>
+          <span class="parser-command-description">Targeted import for a few characters, avoiding a huge full export.</span>
+        </button>
+        <button class="parser-command-chip" type="button" data-copy-command="$mmz!sm+" title="Copy $mmz!sm+ (Spheres)">
+          <span class="parser-command-code">$mmz!sm+ <em>Spheres</em></span>
+          <span class="parser-command-description">Sphere perks and invested SP.</span>
+        </button>
+        <button id="loadDemoBoardBtn" class="parser-command-chip parser-demo-btn" type="button" title="Load the included demo board JSON">
+          <span class="parser-command-code">Demo board</span>
+          <span class="parser-command-description">Load sample JSON.</span>
+        </button>
+      </div>
+      <div class="parser-body">
+        <textarea id="parserInput" class="parser-input" placeholder="Paste $mm / $mms / manual Mudae text here..." autocomplete="off" spellcheck="false"></textarea>
+        <div class="parser-actions">
+          <button id="parseAppendBtn" class="btn btn-primary" type="button">Parse</button>
+          <button id="parseReplaceBtn" class="btn btn-danger" type="button">Replace board</button>
+          <button id="clearParserBtn" class="btn btn-ghost" type="button">Clear</button>
+        </div>
+        <p id="parserStatus" class="parser-status">Ready.</p>
+      </div>
+    </details>
+  </div>
+
+
+  <div class="toolbar">
+    <div class="search-box">
+
+      <input id="searchInput" class="search-input" type="text" placeholder="Search name, series, owner, note..." autocomplete="off" spellcheck="false">
+
+      <button id="clearSearchBtn" class="search-clear-btn" type="button" title="Clear search" aria-label="Clear search">×</button>
+
+    </div>
+    <select id="filterTypeSelect" class="select-input">
+      <option value="all">All</option>
+      <optgroup label="Mudae tags">
+        <option value="wa">$wa</option>
+        <option value="ha">$ha</option>
+        <option value="wg">$wg</option>
+        <option value="hg">$hg</option>
+      </optgroup>
+      <optgroup label="Gender">
+        <option value="gender:waifu">♀️ Waifu</option>
+        <option value="gender:husbando">♂️ Husbando</option>
+        <option value="gender:both">⚧️ Both</option>
+      </optgroup>
+      <optgroup label="Roulette type">
+        <option value="world:animanga">🎴 Animanga</option>
+        <option value="world:game">🎮 Game</option>
+        <option value="world:both">🔀 Both</option>
+      </optgroup>
+      <optgroup label="Other">
+        <option value="gallery">Has gallery</option>
+        <option value="noimage">No real image</option>
+      </optgroup>
+    </select>
+    <button id="restoreAllBtn" class="btn btn-ghost" type="button">Show all</button>
+  </div>
+
+  <div id="floatingBar" class="floating-bar floating-bar-slim is-floating-active">
+    <div class="mhp-floating-shell floating-bar-inner">
+      <div id="floatingActionBtns" class="mhp-floating-actions floating-action-btns">
+        <button id="floatingBackTopBtn" class="mhp-floating-btn mhp-floating-icon-btn floating-back-btn" type="button" title="Back to top">↑</button>
+        <button id="floatingMultiSelectBtn" class="mhp-floating-btn floating-action-btn floating-normal-action" type="button" title="Toggle multi-select">Multi-Select</button>
+        <button id="floatingMoveSelectedBtn" class="mhp-floating-btn floating-action-btn floating-multi-only" type="button" title="Choose destination for selected cards" hidden>Move selected</button>
+        <button id="floatingCreateGroupBtn" class="mhp-floating-btn floating-action-btn floating-multi-only" type="button" title="Create a group from selected cards" hidden>Create Group</button>
+        <button id="floatingClearMultiSelectBtn" class="mhp-floating-btn floating-action-btn floating-multi-only" type="button" title="Clear selected cards" hidden>Clear</button>
+        <button id="floatingAddDividerBtn" class="mhp-floating-btn floating-action-btn floating-normal-action" type="button" title="Add divider or sub-divider">Add Divider</button>
+      </div>
+      <div class="mhp-floating-search floating-search-box">
+        <input id="floatingSearchInput" class="mhp-floating-input floating-search-input" placeholder="Search while browsing..." autocomplete="off" spellcheck="false">
+        <button id="floatingClearSearchBtn" class="mhp-floating-btn mhp-floating-icon-btn floating-search-clear-btn" type="button" title="Clear floating search" aria-label="Clear floating search" hidden>×</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="stats" id="statsBar">
+    <div class="character-stat-card">
+      <strong id="totalCharactersStat">0</strong>
+      <span>Characters</span>
+      <div id="genderBreakdown" class="mini-breakdown gender-breakdown"></div>
+      <div id="rouletteBreakdown" class="mini-breakdown roulette-breakdown"></div>
+    </div>
+    <div class="key-stat-card stat-card-rich">
+      <strong id="totalKeysStat">0</strong>
+      <span>Total Keys</span>
+      <div id="keyBreakdown" class="key-breakdown"></div>
+    </div>
+    <div class="kakera-stat-card stat-card-rich">
+      <strong id="totalKakeraStat">0</strong>
+      <span>Total Kakera</span>
+      <div id="kakeraBreakdown" class="stat-detail-box kakera-detail-box"></div>
+    </div>
+    <div class="sphere-stat-card stat-card-rich">
+      <strong id="totalSpheresStat">0</strong>
+      <span>Total Spheres</span>
+      <div id="sphereBreakdown" class="stat-detail-box sphere-detail-box"></div>
+    </div>
+  </div>
+
+  <main id="board" class="board"></main>
+
+  <div id="editOverlay" class="edit-overlay" aria-hidden="true">
+    <section id="editModal" class="edit-modal" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+      <header class="edit-head">
+        <div>
+          <h2 id="editTitle">Edit Character</h2>
+          <p id="editSubtitle">Clean rebuild editor.</p>
+        </div>
+        <button id="editCloseBtn" class="btn btn-ghost icon-btn" type="button" aria-label="Close edit">×</button>
+      </header>
+
+      <div id="editBody" class="edit-body">
+        <form id="editForm" class="edit-form">
+          <input id="editIdInput" type="hidden">
+
+          <div class="field-grid two">
+            <label>Name <input id="editNameInput" type="text"></label>
+            <label>Series <input id="editSeriesInput" type="text"></label>
+          </div>
+
+          <label>Image URL <input id="editImageInput" type="text"></label>
+
+          <div class="field-grid three">
+            <label>Rank <input id="editRankInput" type="number"></label>
+            <label>Kakera <input id="editKakeraInput" type="number"></label>
+            <label>Keys <input id="editKeysInput" type="number"></label>
+          </div>
+
+          <div class="field-grid two">
+            <label>Owner <input id="editOwnerInput" type="text"></label>
+            <label>Roulette <input id="editRouletteInput" type="text"></label>
+          </div>
+
+          <div class="field-grid two edit-color-note-row">
+            <div class="embed-color-field">
+              <span class="field-label-text">Embed color</span>
+              <div class="embed-color-control">
+                <button id="editColorPreviewBtn" class="embed-color-preview-btn" type="button" title="Open color palette">
+                  <span id="editColorPreviewSwatch" class="embed-color-preview-swatch"></span>
+                  <span id="editColorPreviewText" class="embed-color-preview-text">#8B5CF6</span>
+                </button>
+                <input id="editColorInput" class="embed-color-hex-input" type="text" inputmode="text" maxlength="7" spellcheck="false" placeholder="#8B5CF6">
+              </div>
+              <div id="editColorPalettePanel" class="embed-color-palette-panel" hidden>
+                <div class="embed-color-palette-head">
+                  <div>
+                    <span>Custom palette</span>
+                    <small>Write HEX or choose a swatch</small>
+                  </div>
+                  <button id="editColorPaletteCloseBtn" class="embed-color-palette-close" type="button" aria-label="Close color palette">×</button>
+                </div>
+                <div id="editColorPaletteGrid" class="embed-color-palette-grid" role="listbox" aria-label="Embed color swatches"></div>
+              </div>
+            </div>
+            <label class="edit-note-field">Note <textarea id="editNoteInput" rows="2"></textarea></label>
+          </div>
+
+          <details class="spheres-box edit-spheres-panel edit-spheres-collapsible">
+            <summary>
+              <span>Spheres</span>
+              <small id="spheresSummary">No spheres</small>
+            </summary>
+            <div id="spheresGrid" class="spheres-grid"></div>
+            <div class="spheres-actions">
+              <button id="spheresAllBtn" class="btn btn-secondary" type="button">All spheres</button>
+              <button id="spheresClearBtn" class="btn btn-ghost" type="button">Clear spheres</button>
+            </div>
+          </details>
+
+        </form>
+
+        <aside class="edit-preview-column">
+          <div class="preview-box">
+            <img id="editPreviewImg" alt="Preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=">
+          </div>
+          <div class="mudae-preview-actions">
+            <button id="mudaeSearchBtn" class="btn btn-secondary" type="button">Search Mudae</button>
+            <button id="galleryToggleBtn" class="btn btn-ghost icon-btn" type="button" aria-expanded="false" title="Toggle gallery">›</button>
+          </div>
+        </aside>
+      </div>
+
+      <footer class="edit-actions edit-actions-split edit-actions-modal-footer">
+        <div class="edit-actions-left">
+          <button id="cancelEditBtn" class="btn btn-ghost" type="button">Cancel</button>
+        </div>
+        <div class="edit-actions-right">
+          <button class="btn btn-danger edit-delete-character-btn" id="deleteEditCharacterBtn" type="button">Delete Character</button>
+          <button id="saveEditBtn" class="btn btn-primary" type="button">Save</button>
+        </div>
+      </footer>
+    </section>
+  </div>
+
+  <aside id="galleryPanel" class="gallery-panel" hidden>
+    <header class="gallery-head">
+      <div>
+        <h2>Mudae images</h2>
+        <p id="galleryStatus">Gallery ready.</p>
+      </div>
+      <button id="galleryCloseBtn" class="btn btn-ghost icon-btn" type="button" aria-label="Close gallery">×</button>
+    </header>
+
+    <div id="galleryGrid" class="gallery-grid mhp-gallery-ratio-grid"></div>
+
+    <footer class="gallery-bottom">
+      <div class="gallery-actions">
+        <button id="loadPastedBtn" class="btn btn-secondary" type="button">Parse pasted links</button>
+        <button id="galleryMatchedOnlyBtn" class="btn btn-ghost" type="button" aria-pressed="false" title="Show only images marked as match">Matched only</button>
+        <button id="galleryUseMatchedBtn" class="btn btn-ghost" type="button" title="Select the first matched image">Use match</button>
+        <button id="clearGalleryBtn" class="btn btn-ghost" type="button">Clear</button>
+      </div>
+
+      <details id="galleryPasteDetails" class="gallery-paste-details">
+        <summary>Show pasted links</summary>
+        <textarea id="galleryPasteInput" class="gallery-paste" placeholder="Paste Mudae image URLs here, one per line..."></textarea>
+      </details>
+    </footer>
+  </aside>
+
+  <template id="cardTemplate">
+    <article class="char-card">
+      <header class="card-head">
+        <div class="card-head-row">
+          <span class="card-position"></span>
+          <span class="card-owner"></span>
+        </div>
+        <span class="card-series"></span>
+      </header>
+
+      <div class="image-wrap">
+        <img class="char-img" loading="lazy" alt="">
+        <span class="sphere-badge" hidden></span>
+        <span class="gallery-badge" hidden>Gallery</span>
+        <button class="card-edit-btn" type="button" title="Edit character">Edit</button>
+      </div>
+
+      <h3 class="char-name"></h3>
+
+      <div class="card-type-row">
+        <span class="type-badge gender-badge"></span>
+        <span class="type-badge roulette-badge"></span>
+      </div>
+
+      <div class="card-stats-row">
+        <span class="stat-pill rank-pill"></span>
+        <span class="stat-pill kakera-pill"></span>
+        <span class="stat-pill keys-pill"></span>
+      </div>
+
+      <p class="card-note" hidden></p>
+    </article>
+  </template>
+
+  <template id="dividerTemplate">
+    <section class="divider-row">
+      <span class="divider-level"></span>
+      <strong class="divider-title"></strong>
+      <span class="divider-note"></span>
+    </section>
+  </template>
+
+
+
+  <div id="appLoadingOverlay" class="mhp-loader-overlay app-loading-overlay" hidden>
+    <div class="mhp-loader-card app-loading-card">
+      <div class="mhp-loader-asset-slot app-loading-asset-slot" aria-hidden="true">
+        <img
+          class="mhp-loader-img app-loading-asset-img"
+          src="assets/loaders/loading-harem.gif"
+          data-fallbacks=""
+          alt=""
+        >
+      </div>
+      <div class="mhp-loader-copy app-loading-copy">
+        <strong id="appLoadingTitle" class="mhp-loader-title">Loading harem...</strong>
+        <span id="appLoadingDetail" class="mhp-loader-subtitle">Preparing characters and images.</span>
+        <span id="appLoadingData" class="mhp-loader-data" aria-live="polite">Characters: — · Size: —</span>
+      </div>
+      <div class="mhp-loader-bar app-loading-bar" aria-hidden="true"><span></span></div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const loaderBust = String(Date.now());
+      window.__MHP_LOADER_CACHE_BUST = loaderBust;
+      const bustLoaderUrl = (url) => {
+        const clean = String(url || '').trim();
+        if (!clean || clean.startsWith('data:') || clean.includes('mhp_loader_v=')) return clean;
+        const sep = clean.includes('?') ? '&' : '?';
+        return `${clean}${sep}mhp_loader_v=${encodeURIComponent(loaderBust)}`;
+      };
+      const wireFallback = (img) => {
+        if (!img || img.dataset.mhpFallbackReady === '1') return;
+        img.dataset.mhpFallbackReady = '1';
+        if (img.matches('.mhp-loader-img')) {
+          img.dataset.fallbacks = String(img.dataset.fallbacks || '')
+            .split('|')
+            .filter(Boolean)
+            .map(bustLoaderUrl)
+            .join('|');
+          const bustedSrc = bustLoaderUrl(img.getAttribute('src') || '');
+          if (bustedSrc) img.src = bustedSrc;
+        }
+        img.addEventListener('load', () => {
+          img.hidden = false;
+          img.closest('.mhp-loader-asset-slot, .app-loading-asset-slot, .mhp-boot-loader-asset-slot')?.classList.remove('is-missing');
+        });
+        img.addEventListener('error', () => {
+          const fallbacks = String(img.dataset.fallbacks || '').split('|').filter(Boolean);
+          const index = Number(img.dataset.fallbackIndex || '0');
+          if (index < fallbacks.length) {
+            img.dataset.fallbackIndex = String(index + 1);
+            img.hidden = false;
+            img.closest('.mhp-loader-asset-slot, .app-loading-asset-slot, .mhp-boot-loader-asset-slot')?.classList.remove('is-missing');
+            img.src = fallbacks[index];
+            return;
+          }
+          img.hidden = true;
+          img.closest('.mhp-loader-asset-slot, .app-loading-asset-slot, .mhp-boot-loader-asset-slot')?.classList.add('is-missing');
+        });
+      };
+      document.querySelectorAll('img[data-fallbacks]').forEach(wireFallback);
+      window.MHPWireAssetFallbacks = () => document.querySelectorAll('img[data-fallbacks]').forEach(wireFallback);
+      window.MHPResetLoaderAssetFallback = (img) => {
+        if (!img) return;
+        img.dataset.fallbackIndex = '0';
+        img.hidden = false;
+        img.removeAttribute('hidden');
+        img.closest('.mhp-loader-asset-slot, .app-loading-asset-slot, .mhp-boot-loader-asset-slot')?.classList.remove('is-missing');
+      };
+    })();
+  </script>
+
+
+
+  <div id="forceLoadProgressPanel" class="force-load-progress-overlay" hidden>
+    <div class="force-load-progress-card">
+      <div class="force-load-progress-head">
+        <strong>Image preload</strong>
+      </div>
+      <div id="forceLoadProgressText" class="force-load-progress-text">Preparing card image queue...</div>
+      <div id="forceLoadPreviewGrid" class="force-load-preview-grid" role="group" aria-label="Images currently loading"></div>
+      <button id="forceLoadCancelBtn" class="force-load-cancel-btn" type="button">Cancel</button>
+    </div>
+  </div>
+
+  <div id="settingsDock" class="settings-dock">
+    <button id="settingsGearBtn" class="settings-gear-btn" type="button" title="Settings" aria-label="Settings" aria-expanded="false">⚙️</button>
+
+    <div id="settingsPanel" class="settings-panel" hidden>
+      <div class="settings-panel-head">
+        <span class="settings-title">Settings</span>
+        <button id="graphicsSettingsBtn" class="settings-section-btn" type="button" aria-expanded="false">Graphics</button>
+      </div>
+
+      <div class="settings-toggle-row">
+        <div class="settings-toggle-copy">
+          <strong>Performance Mode</strong>
+          <span>Optimized rendering, GIF control and offscreen savings.</span>
+        </div>
+        <button id="performanceToggleBtn" class="settings-toggle-btn" type="button">ON</button>
+      </div>
+
+      <div id="graphicsSettingsBackdrop" class="settings-graphics-backdrop" hidden></div>
+
+      <div id="graphicsSettingsPanel" class="settings-graphics-panel" role="dialog" aria-modal="true" aria-labelledby="graphicsSettingsTitle" hidden>
+        <header class="settings-graphics-head">
+          <div>
+            <span id="graphicsSettingsTitle" class="settings-section-label">Graphics settings</span>
+            <p>Background, layout and visual style.</p>
+          </div>
+          <button id="graphicsSettingsCloseBtn" class="settings-modal-close" type="button" aria-label="Close graphics settings">×</button>
+        </header>
+
+        <div class="settings-inline-pair graphics-density-pair">
+          <div class="settings-toggle-row visible-cards-row">
+        <div class="settings-toggle-copy">
+          <strong>Visible cards</strong>
+          <span>Limit how many cards are mounted at once.</span>
+        </div>
+        <select id="visibleCardLimitSelect" class="settings-select">
+          <option value="150">150</option>
+          <option value="300">300</option>
+          <option value="600">600</option>
+          <option value="900">900</option>
+          <option value="1200">1200</option>
+          <option value="0">Unlimited</option>
+        </select>
+          </div>
+
+          <div class="settings-toggle-row board-columns-row">
+        <div class="settings-toggle-copy">
+          <strong>Characters per row</strong>
+          <span>Choose how many character cards are shown per row.</span>
+        </div>
+        <select id="boardColumnsSelect" class="settings-select">
+          <option value="0">Auto</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+          </div>
+        </div>
+
+        <div class="settings-inline-pair graphics-style-pair">
+          <div class="settings-action-row visual-mode-row">
+        <div class="settings-toggle-copy">
+          <strong>Visual mode</strong>
+          <span>Minimalist uses flat panels. Glass uses transparent panels.</span>
+        </div>
+        <div class="visual-mode-toggle" role="group" aria-label="Visual mode">
+          <button id="minimalistModeBtn" class="visual-mode-btn is-active" type="button" data-visual-mode="minimalist" aria-pressed="true">Minimalist</button>
+          <button id="glassModeBtn" class="visual-mode-btn" type="button" data-visual-mode="glass" aria-pressed="false">Glass</button>
+        </div>
+          </div>
+
+          <div class="settings-action-row settings-theme-preset-row">
+        <div class="settings-toggle-copy">
+          <strong>Theme preset</strong>
+          <span>Choose the built-in tint used by the page background.</span>
+        </div>
+        <div class="settings-preset-buttons" role="group" aria-label="Theme presets">
+          <button class="settings-preset-btn" type="button" data-bg-preset="default">Default</button>
+          <button class="settings-preset-btn" type="button" data-bg-preset="purple">Soft Purple</button>
+          <button class="settings-preset-btn" type="button" data-bg-preset="blue">Blue Night</button>
+        </div>
+          </div>
+
+        </div>
+
+      <div class="settings-action-row settings-background-row">
+        <div class="settings-toggle-copy">
+          <strong>Page background</strong>
+          <span>Use a direct image URL or upload one from your PC. Great for Imgur or ImgChest direct image links.</span>
+        </div>
+        <div class="settings-background-status">
+          <span id="backgroundPreviewThumb" class="settings-background-preview" aria-hidden="true"></span>
+          <div class="settings-background-copy">
+            <strong id="backgroundStatusText">Default background</strong>
+            <span id="backgroundStatusHint">Soft built-in gradient.</span>
+          </div>
+        </div>
+        <div class="settings-background-url-row">
+          <input id="backgroundUrlInput" class="settings-text-input" type="url" placeholder="https://i.imgur.com/example.jpg" spellcheck="false">
+          <button id="applyBackgroundUrlBtn" class="settings-action-btn" type="button">Apply URL</button>
+        </div>
+        <div class="settings-background-tuning">
+          <div class="settings-range-field">
+            <span>Opacity</span>
+            <div class="settings-range-control">
+              <input id="backgroundOpacityInput" class="settings-range-input" type="range" min="0" max="100" step="1" value="35" list="backgroundPercentMarks">
+              <input id="backgroundOpacityNumberInput" class="settings-number-input" type="number" min="0" max="100" step="1" value="35" aria-label="Background opacity percent">
+              <span class="settings-number-suffix">%</span>
+            </div>
+          </div>
+          <div class="settings-range-field">
+            <span>Blur</span>
+            <div class="settings-range-control">
+              <input id="backgroundBlurInput" class="settings-range-input" type="range" min="0" max="100" step="1" value="0" list="backgroundPercentMarks">
+              <input id="backgroundBlurNumberInput" class="settings-number-input" type="number" min="0" max="100" step="1" value="0" aria-label="Background blur percent">
+              <span class="settings-number-suffix">%</span>
+            </div>
+          </div>
+          <datalist id="backgroundPercentMarks">
+            <option value="0" label="0%"></option>
+            <option value="25" label="25%"></option>
+            <option value="50" label="50%"></option>
+            <option value="75" label="75%"></option>
+            <option value="100" label="100%"></option>
+          </datalist>
+        </div>
+        <div class="settings-action-buttons settings-background-action-buttons" role="group" aria-label="Background image actions">
+          <label class="settings-action-btn settings-file-btn" title="Upload a background image from your PC">
+            Upload image
+            <input id="backgroundFileInput" type="file" accept="image/*">
+          </label>
+          <button id="removeCustomBackgroundBtn" class="settings-action-btn" type="button" title="Remove the custom URL/uploaded image and restore the selected background preset">Restore background</button>
+          <button id="clearBackgroundBtn" class="settings-action-btn" type="button" title="Reset background image, preset, opacity and blur">Use default</button>
+        </div>
+      </div>
+
+      <div class="settings-action-row settings-glass-row">
+        <div class="settings-toggle-copy">
+          <strong>Transparent UI</strong>
+          <span>Adjust how much the background shows through cards and panels.</span>
+        </div>
+        <button id="glassToggleBtn" class="settings-toggle-btn" type="button">ON</button>
+        <div class="settings-background-tuning settings-glass-tuning">
+          <div class="settings-range-field">
+            <span>Panel transparency</span>
+            <div class="settings-range-control">
+              <input id="glassTransparencyInput" class="settings-range-input" type="range" min="0" max="100" step="1" value="35" list="backgroundPercentMarks">
+              <input id="glassTransparencyNumberInput" class="settings-number-input" type="number" min="0" max="100" step="1" value="35" aria-label="Panel transparency percent">
+              <span class="settings-number-suffix">%</span>
+            </div>
+          </div>
+          <div class="settings-range-field">
+            <span>Menu transparency</span>
+            <div class="settings-range-control">
+              <input id="cardsTransparencyInput" class="settings-range-input" type="range" min="0" max="100" step="1" value="20" list="backgroundPercentMarks">
+              <input id="cardsTransparencyNumberInput" class="settings-number-input" type="number" min="0" max="100" step="1" value="20" aria-label="Menu transparency percent">
+              <span class="settings-number-suffix">%</span>
+            </div>
+          </div>
+          <div class="settings-glass-reset-row">
+            <button id="restoreTransparencyDefaultsBtn" class="settings-action-btn" type="button">Restore transparency defaults</button>
+            <small>Default: panels 35% · menus 20%.</small>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <div class="settings-action-row">
+        <div class="settings-toggle-copy">
+          <strong>Images</strong>
+          <span id="failedImagesStatus">Image helper ready · Failed: 0</span>
+        </div>
+        <div class="settings-action-buttons">
+          <button id="forceLoadVisibleImagesBtn" class="settings-action-btn" type="button">Load visible</button>
+          <button id="forceLoadAllImagesBtn" class="settings-action-btn" type="button">Preload card images</button>
+          <button id="retryFailedImagesBtn" class="settings-action-btn" type="button">Retry failed</button>
+          <button id="clearFailedImagesBtn" class="settings-action-btn" type="button">Clear failed</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Core data/storage/parser helpers -->
+  <script src="js/core/model.js"></script>
+  <script src="js/parser/parser.js"></script>
+  <script src="js/core/storage.js"></script>
+  <script src="js/dialog-utils.js"></script>
+  <script src="js/core/json-io.js"></script>
+
+  <!-- Board, movement, search and dividers -->
+  <script src="js/board/group-utils.js"></script>
+  <script src="js/board/search-session.js"></script>
+  <script src="js/board/move-utils.js"></script>
+  <script src="js/core/performance.js"></script>
+  <script src="js/cards/cards.js"></script>
+  <script src="js/cards/image-loader-minimal.js"></script>
+  <script src="js/cards/gif-control.js"></script>
+  <script src="js/board/board-controller.js"></script>
+  <script src="js/board/dividers.js"></script>
+
+  <!-- Exports -->
+  <script src="js/exports/export-utils.js"></script>
+  <script src="js/exports/exports.js"></script>
+
+  <!-- Edit + Gallery -->
+  <script src="js/edit-gallery/gallery-utils.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/edit-gallery/edit-gallery-manager.js"></script>
+  <script src="js/edit-gallery/edit-gallery-promoted-bridge.js"></script>
+  <script src="js/move/move-character-promoted-bridge.js"></script>
+  <script src="js/group/group-menu-promoted-bridge.js"></script>
+  <script src="js/json/save-clear-promoted-bridge.js"></script>
+  <script src="js/core/rebuild-api.js"></script>
+
+  <!-- Settings, graphics and hibernation -->
+  <script src="js/settings/graphics-settings.js"></script>
+  <script src="js/settings/settings.js"></script>
+  <script src="js/settings/graphics-promoted-bridge.js"></script>
+  <script src="js/settings/hibernation-manager.js"></script>
+
+  <!-- Floating bar and shortcuts -->
+  <script src="js/floating/floating-utils.js"></script>
+  <script src="js/floating/floating-bar.js"></script>
+  <script src="js/floating/shortcuts.js"></script>
+
+  <script>
+    (() => {
+      const copyText = async (text) => {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(text);
+          return;
+        }
+
+        const input = document.createElement('textarea');
+        input.value = text;
+        input.setAttribute('readonly', '');
+        input.style.position = 'fixed';
+        input.style.opacity = '0';
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        input.remove();
+      };
+
+      document.addEventListener('click', async (event) => {
+        const button = event.target.closest?.('[data-copy-command]');
+        if (!button) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        const command = button.dataset.copyCommand || '';
+        if (!command) return;
+
+        try {
+          await copyText(command);
+          button.classList.add('copied');
+          const status = document.getElementById('parserStatus');
+          if (status) status.textContent = `Copied ${command}`;
+          setTimeout(() => button.classList.remove('copied'), 900);
+        } catch (error) {
+          console.error('Could not copy command:', error);
+          const status = document.getElementById('parserStatus');
+          if (status) status.textContent = `Could not copy ${command}`;
+        }
+      });
+    })();
+  </script>
+
+
+  <script id="demoBoardJson" type="application/json">
 {
-"state": {
-"haremName": "Manual entries",
-"totalValue": 16005,
-"counts": {
-"wa": 6,
-"ha": 0,
-"wg": 0,
-"hg": 0
-},
-"characters": [
-{
-"type": "divider",
-"id": "id-1775409896600-1zj7sx6f",
-"title": "Besto",
-"level": 1,
-"color": "#8b5cf6"
-},
-{
-"type": "divider",
-"id": "id-1780622720547-1n66p720",
-"title": "Catulus",
-"level": 2,
-"color": "#38BDF8"
-},
-{
-"id": "id-1775409849345-hr5vbu44",
-"color": "#8B5CF6",
-"currentRank": 2,
-"name": "Yuki Shirakaba",
-"series": "Catulus Syndrome",
-"image": "https://mudae.net/uploads/2535151/IDPk2ne~Y027xSnTN.png",
-"globalRank": 14771,
-"owner": "kouno",
-"roulette": "$wa",
-"kakera": 4842,
-"mudaeTags": [
-"wa"
-],
-"groupId": "grp-1780622755842-79c2fd",
-"groupLabel": "Yuki+Riko"
-},
-{
-"id": "id-1775409849345-vh0vkkwq",
-"color": "#8B5CF6",
-"currentRank": 3,
-"name": "Riko Ayano",
-"series": "Catulus Syndrome",
-"image": "https://mudae.net/uploads/6180384/Z741Th4~JaDhyh1Aw.png",
-"globalRank": 34471,
-"owner": "kouno",
-"roulette": "$wa",
-"kakera": 718,
-"mudaeTags": [
-"wa"
-],
-"groupId": "grp-1780622755842-79c2fd",
-"groupLabel": "Yuki+Riko"
-},
-{
-"type": "divider",
-"id": "id-1775409906959-zran414n",
-"title": "Kuma Bear",
-"level": 2,
-"color": "#38bdf8"
-},
-{
-"id": "id-1775409849345-e3dpts1s",
-"color": "#8B5CF6",
-"currentRank": 5,
-"name": "Yuna (KB)",
-"series": "Kuma Kuma Kuma Bear",
-"image": "https://mudae.net/uploads/6375477/IbSx-RM~JK1zcoY.png",
-"globalRank": 3910,
-"owner": "kouno",
-"roulette": "$wa",
-"kakera": 6994,
-"mudaeTags": [
-"wa"
-],
-"groupId": "grp-1780622777689-54e677",
-"groupLabel": "Yuna+Fina"
-},
-{
-"id": "id-1775409849345-qsumobb2",
-"color": "#8B5CF6",
-"currentRank": 6,
-"name": "Fina",
-"series": "Kuma Kuma Kuma Bear",
-"image": "https://mudae.net/uploads/3597259/u8Y4ncq~yND28Qr.png",
-"globalRank": 26878,
-"owner": "kouno",
-"roulette": "$wa",
-"kakera": 757,
-"mudaeTags": [
-"wa"
-],
-"groupId": "grp-1780622777689-54e677",
-"groupLabel": "Yuna+Fina"
-},
-{
-"type": "divider",
-"id": "id-1775409923967-qdagbj76",
-"title": "Waifus",
-"level": 2,
-"color": "#38bdf8"
-},
-{
-"id": "id-1775409849345-h5xqo6fj",
-"color": "#8B5CF6",
-"currentRank": 8,
-"name": "Urushi Yaotome",
-"series": "Soredemo Ayumu wa Yosetekuru",
-"image": "https://mudae.net/uploads/4431815/royzCMD~JaPZbpqSS.png",
-"globalRank": 7943,
-"owner": "kouno",
-"roulette": "$wa",
-"kakera": 2249,
-"mudaeTags": [
-"wa"
-]
-},
-{
-"id": "id-1775409849345-d2qrnuil",
-"color": "#000000",
-"currentRank": 9,
-"name": "Tsumiki Ogami",
-"series": "Ogami Tsumiki to Ki Nichijou.",
-"image": "https://mudae.net/uploads/1169458/TtKDbhV~T3tKMwn.png",
-"globalRank": 13552,
-"owner": "kouno",
-"roulette": "$wa",
-"kakera": 445,
-"mudaeTags": [
-"wa"
-]
+  "state": {
+    "haremName": "Manual entries",
+    "totalValue": 16005,
+    "counts": {
+      "wa": 6,
+      "ha": 0,
+      "wg": 0,
+      "hg": 0
+    },
+    "characters": [
+      {
+        "type": "divider",
+        "id": "id-1775409896600-1zj7sx6f",
+        "title": "Besto",
+        "level": 1,
+        "color": "#8b5cf6"
+      },
+      {
+        "type": "divider",
+        "id": "id-1780622720547-1n66p720",
+        "title": "Catulus",
+        "level": 2,
+        "color": "#38BDF8"
+      },
+      {
+        "id": "id-1775409849345-hr5vbu44",
+        "color": "#8B5CF6",
+        "currentRank": 2,
+        "name": "Yuki Shirakaba",
+        "series": "Catulus Syndrome",
+        "image": "https://mudae.net/uploads/2535151/IDPk2ne~Y027xSnTN.png",
+        "globalRank": 14771,
+        "owner": "kouno",
+        "roulette": "$wa",
+        "kakera": 4842,
+        "mudaeTags": [
+          "wa"
+        ],
+        "groupId": "grp-1780622755842-79c2fd",
+        "groupLabel": "Yuki+Riko"
+      },
+      {
+        "id": "id-1775409849345-vh0vkkwq",
+        "color": "#8B5CF6",
+        "currentRank": 3,
+        "name": "Riko Ayano",
+        "series": "Catulus Syndrome",
+        "image": "https://mudae.net/uploads/6180384/Z741Th4~JaDhyh1Aw.png",
+        "globalRank": 34471,
+        "owner": "kouno",
+        "roulette": "$wa",
+        "kakera": 718,
+        "mudaeTags": [
+          "wa"
+        ],
+        "groupId": "grp-1780622755842-79c2fd",
+        "groupLabel": "Yuki+Riko"
+      },
+      {
+        "type": "divider",
+        "id": "id-1775409906959-zran414n",
+        "title": "Kuma Bear",
+        "level": 2,
+        "color": "#38bdf8"
+      },
+      {
+        "id": "id-1775409849345-e3dpts1s",
+        "color": "#8B5CF6",
+        "currentRank": 5,
+        "name": "Yuna (KB)",
+        "series": "Kuma Kuma Kuma Bear",
+        "image": "https://mudae.net/uploads/6375477/IbSx-RM~JK1zcoY.png",
+        "globalRank": 3910,
+        "owner": "kouno",
+        "roulette": "$wa",
+        "kakera": 6994,
+        "mudaeTags": [
+          "wa"
+        ],
+        "groupId": "grp-1780622777689-54e677",
+        "groupLabel": "Yuna+Fina"
+      },
+      {
+        "id": "id-1775409849345-qsumobb2",
+        "color": "#8B5CF6",
+        "currentRank": 6,
+        "name": "Fina",
+        "series": "Kuma Kuma Kuma Bear",
+        "image": "https://mudae.net/uploads/3597259/u8Y4ncq~yND28Qr.png",
+        "globalRank": 26878,
+        "owner": "kouno",
+        "roulette": "$wa",
+        "kakera": 757,
+        "mudaeTags": [
+          "wa"
+        ],
+        "groupId": "grp-1780622777689-54e677",
+        "groupLabel": "Yuna+Fina"
+      },
+      {
+        "type": "divider",
+        "id": "id-1775409923967-qdagbj76",
+        "title": "Waifus",
+        "level": 2,
+        "color": "#38bdf8"
+      },
+      {
+        "id": "id-1775409849345-h5xqo6fj",
+        "color": "#8B5CF6",
+        "currentRank": 8,
+        "name": "Urushi Yaotome",
+        "series": "Soredemo Ayumu wa Yosetekuru",
+        "image": "https://mudae.net/uploads/4431815/royzCMD~JaPZbpqSS.png",
+        "globalRank": 7943,
+        "owner": "kouno",
+        "roulette": "$wa",
+        "kakera": 2249,
+        "mudaeTags": [
+          "wa"
+        ]
+      },
+      {
+        "id": "id-1775409849345-d2qrnuil",
+        "color": "#000000",
+        "currentRank": 9,
+        "name": "Tsumiki Ogami",
+        "series": "Ogami Tsumiki to Ki Nichijou.",
+        "image": "https://mudae.net/uploads/1169458/TtKDbhV~T3tKMwn.png",
+        "globalRank": 13552,
+        "owner": "kouno",
+        "roulette": "$wa",
+        "kakera": 445,
+        "mudaeTags": [
+          "wa"
+        ]
+      }
+    ],
+    "groups": {
+      "grp-1780622755842-79c2fd": {
+        "id": "grp-1780622755842-79c2fd",
+        "name": "Yuki+Riko",
+        "createdAt": "2026-06-05T01:25:55.842Z",
+        "characterIds": [
+          "id-1775409849345-hr5vbu44",
+          "id-1775409849345-vh0vkkwq"
+        ],
+        "leadCharacterId": "id-1775409849345-hr5vbu44"
+      },
+      "grp-1780622777689-54e677": {
+        "id": "grp-1780622777689-54e677",
+        "name": "Yuna+Fina",
+        "createdAt": "2026-06-05T01:26:17.689Z",
+        "characterIds": [
+          "id-1775409849345-e3dpts1s",
+          "id-1775409849345-qsumobb2"
+        ],
+        "leadCharacterId": "id-1775409849345-e3dpts1s"
+      }
+    }
+  },
+  "meta": {
+    "format": "mhp-save",
+    "version": 2,
+    "minified": true,
+    "rebuildVersion": "v1",
+    "compactExport": true,
+    "exportedAt": "2026-06-05T01:27:09.199Z"
+  }
 }
-],
-"groups": {
-"grp-1780622755842-79c2fd": {
-"id": "grp-1780622755842-79c2fd",
-"name": "Yuki+Riko",
-"createdAt": "2026-06-05T01:25:55.842Z",
-"characterIds": [
-"id-1775409849345-hr5vbu44",
-"id-1775409849345-vh0vkkwq"
-],
-"leadCharacterId": "id-1775409849345-hr5vbu44"
-},
-"grp-1780622777689-54e677": {
-"id": "grp-1780622777689-54e677",
-"name": "Yuna+Fina",
-"createdAt": "2026-06-05T01:26:17.689Z",
-"characterIds": [
-"id-1775409849345-e3dpts1s",
-"id-1775409849345-qsumobb2"
-],
-"leadCharacterId": "id-1775409849345-e3dpts1s"
-}
-}
-},
-"meta": {
-"format": "mhp-save",
-"version": 2,
-"minified": true,
-"rebuildVersion": "v1",
-"compactExport": true,
-"exportedAt": "2026-06-05T01:27:09.199Z"
-}
-}
-</script><script>
-window.__mhpBootCanFinish = false;
-window.mhpFinishBootVisual = function mhpFinishBootVisual(options = {}){
-const root = document.documentElement;
-const force = !!options.force;
-// The app owns the initial loading lifecycle. Older load/focus patches may
-// still call this function, but they must not swap the boot loader into a
-// second legacy/app overlay while the harem is still restoring.
-if (!force && !window.__mhpBootCanFinish) {
-window.__mhpPendingBootFinish = true;
-return;
-}
-if (root.classList.contains("mhp-ready") && !root.classList.contains("mhp-booting")) return;
-requestAnimationFrame(() => {
-requestAnimationFrame(() => {
-root.classList.remove("mhp-booting", "app-is-loading");
-root.classList.add("mhp-ready");
-const loader = document.getElementById("mhpBootLoader");
-if (loader) {
-loader.classList.add("is-hiding");
-loader.setAttribute("aria-hidden", "true");
-loader.style.pointerEvents = "none";
-}
-});
-});
-};
-window.addEventListener("load", () => {
-// Safety fallback only. The normal app boot calls hardFinishLoadingState().
-// Keeping this delayed prevents the old two-step loader flash.
-setTimeout(() => {
-if (!document.documentElement.classList.contains("mhp-ready")) {
-window.__mhpBootCanFinish = true;
-window.mhpFinishBootVisual({ force: true });
-}
-}, 12000);
-}, { once: true });
-</script></body></html>
+  </script>
+
+  <script>
+    window.__mhpBootCanFinish = false;
+    window.mhpFinishBootVisual = function mhpFinishBootVisual(options = {}){
+      const root = document.documentElement;
+      const force = !!options.force;
+
+      // The app owns the initial loading lifecycle. Older load/focus patches may
+      // still call this function, but they must not swap the boot loader into a
+      // second legacy/app overlay while the harem is still restoring.
+      if (!force && !window.__mhpBootCanFinish) {
+        window.__mhpPendingBootFinish = true;
+        return;
+      }
+
+      if (root.classList.contains("mhp-ready") && !root.classList.contains("mhp-booting")) return;
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          root.classList.remove("mhp-booting", "app-is-loading");
+          root.classList.add("mhp-ready");
+          const loader = document.getElementById("mhpBootLoader");
+          if (loader) {
+            loader.classList.add("is-hiding");
+            loader.setAttribute("aria-hidden", "true");
+            loader.style.pointerEvents = "none";
+          }
+        });
+      });
+    };
+
+    window.addEventListener("load", () => {
+      // Safety fallback only. The normal app boot calls hardFinishLoadingState().
+      // Keeping this delayed prevents the old two-step loader flash.
+      setTimeout(() => {
+        if (!document.documentElement.classList.contains("mhp-ready")) {
+          window.__mhpBootCanFinish = true;
+          window.mhpFinishBootVisual({ force: true });
+        }
+      }, 12000);
+    }, { once: true });
+  </script>
+
+</body>
+</html>

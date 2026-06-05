@@ -1,10 +1,17 @@
+/* Mudae Organizer Rebuild cards module.
+   Owns character card DOM rendering from the card template.
+   The main app still owns board rendering, state, search, edit and gallery.
+*/
 (function(){
   'use strict';
+
   if (window.MudaeRebuildCards) return;
+
   function isAnimatedImageUrl(url) {
     url = String(url || '').toLowerCase();
     return /\.gif(?:[?#].*)?$/.test(url) || url.includes('.gif?') || url.includes('.gif#');
   }
+
   function normalizeEmbedColor(value, fallback = '#8B5CF6') {
     const raw = String(value || '').trim();
     const compact = raw.startsWith('#') ? raw.slice(1) : raw;
@@ -12,10 +19,13 @@
     if (/^[0-9a-f]{6}$/i.test(compact)) return '#' + compact.toUpperCase();
     return fallback;
   }
+
+
   function parseInteger(value) {
     const n = Number(String(value ?? '').replace(/[^0-9.-]/g, ''));
     return Number.isFinite(n) ? Math.max(0, Math.floor(n)) : 0;
   }
+
   function compactNumber(value, options = {}) {
     const n = parseInteger(value);
     const fmt = options.fmt || ((v) => Number(v || 0).toLocaleString('en-US'));
@@ -33,6 +43,7 @@
     const short = prefix + adjusted.toFixed(decimals).replace(/\.0+$|(?<=\.\d)0$/g, '') + suffix;
     return { short, full, compacted: true, digits: String(n).length };
   }
+
   function applyCompactStatClass(node, info) {
     if (!node || !info) return;
     node.classList.remove('stat-text-normal', 'stat-text-long', 'stat-text-huge', 'stat-is-compacted');
@@ -42,9 +53,11 @@
     else if (textLen >= 6 || info.digits >= 5) node.classList.add('stat-text-long');
     else node.classList.add('stat-text-normal');
   }
+
   function getSphereStatusIconPath(isMaxed) {
     return isMaxed ? 'assets/icons/spheres/SpW.png' : 'assets/icons/spheres/SpR.png';
   }
+
   function renderSphereBadgeContent(badge, label, isMaxed, title) {
     if (!badge) return;
     badge.hidden = false;
@@ -55,6 +68,7 @@
     badge.dataset.sphereMode = isMaxed ? 'full' : 'partial';
     badge.title = title || label || '';
     badge.innerHTML = '';
+
     const icon = document.createElement('img');
     icon.className = 'sphere-status-icon spheres-status-icon';
     icon.src = getSphereStatusIconPath(isMaxed);
@@ -66,11 +80,13 @@
       icon.remove();
       badge.classList.add('missing-sphere-icon');
     };
+
     const text = document.createElement('span');
     text.className = 'sphere-badge-label';
     text.textContent = label || '';
     badge.append(icon, text);
   }
+
   function renderCard(ch, ctx) {
     const {
       cardTemplate,
@@ -98,18 +114,23 @@
       openEdit,
       getGroupLabelForCharacter
     } = ctx;
+
     const node = cardTemplate.content.firstElementChild.cloneNode(true);
     node.dataset.id = ch.id;
+
     const embedColor = normalizeEmbedColor(ch.color || '#8B5CF6');
     node.style.setProperty('--embed-color', embedColor);
     node.dataset.embedColor = embedColor;
     node.classList.add('has-embed-color');
+
     const img = node.querySelector('.char-img');
     img.loading = 'lazy';
     img.decoding = 'async';
     img.fetchPriority = 'low';
+
     const imageUrl = hasRealImage(ch.image) ? ch.image : '';
     const pausedSrc = placeholderSvg(ch.name);
+
     if (imageUrl && isAnimatedImageUrl(imageUrl) && window.MUDAE_PERF?.isGifControlEnabled?.()) {
       img.dataset.animatedSrc = imageUrl;
       img.dataset.pausedSrc = pausedSrc;
@@ -131,26 +152,35 @@
     } else {
       img.src = pausedSrc;
     }
+
     img.alt = ch.name || '';
     const position = ctx.displayPosition || ch.displayCharacterIndex || getCharacterListPosition(ch.id) || 0;
     node.querySelector('.card-position').textContent = '#' + fmt(position);
     node.querySelector('.card-position').title = 'Character position: #' + fmt(position);
+
     node.querySelector('.card-series').textContent = ch.series || 'No series';
     node.querySelector('.card-series').title = ch.series || 'No series';
+
     node.querySelector('.card-owner').textContent = ch.owner || '—';
     node.querySelector('.card-owner').title = ch.owner ? 'Owner: ' + ch.owner : 'No owner';
+
+
     node.querySelector('.char-name').textContent = ch.name || 'Unnamed';
     node.querySelector('.char-name').title = ch.name || '';
+
     const genderType = getGenderType(ch);
     const rouletteWorldType = getRouletteWorldType(ch);
     const genderBadge = node.querySelector('.gender-badge');
     const rouletteBadge = node.querySelector('.roulette-badge');
+
     genderBadge.textContent = genderLabel(genderType);
     genderBadge.classList.add('gender-' + genderType);
     genderBadge.title = 'Gender: ' + genderLabel(genderType);
+
     rouletteBadge.textContent = rouletteWorldLabel(rouletteWorldType);
     rouletteBadge.classList.add('roulette-' + rouletteWorldType);
     rouletteBadge.title = 'Roulette type: ' + rouletteWorldLabel(rouletteWorldType);
+
     const rankPill = node.querySelector('.rank-pill');
     if (rankPill) {
       const rankInfo = ch.globalRank
@@ -226,15 +256,18 @@
       keysPill.title = 'No keys';
       applyCompactStatClass(keysPill, { short: '0', full: '0', compacted: false, digits: 1 });
     }
+
     const note = node.querySelector('.card-note');
     const noteText = ch.note && String(ch.note).trim() ? String(ch.note).trim() : 'no note';
     note.hidden = false;
     note.textContent = noteText;
     note.title = noteText;
     note.classList.toggle('is-empty-note', noteText === 'no note');
+
     const galleryImageCount = typeof getUniqueGalleryImageCount === 'function'
       ? getUniqueGalleryImageCount(ch)
       : (normalizeUrls(ch.mudaeImages).length > 1 ? normalizeUrls(ch.mudaeImages).length : 0);
+
     const groupLabel = typeof getGroupLabelForCharacter === 'function' ? getGroupLabelForCharacter(ch) : '';
     if (groupLabel) {
       node.classList.add('is-grouped-card');
@@ -256,6 +289,7 @@
         imageWrap.appendChild(groupBadge);
       }
     }
+
     const colorStrip = document.createElement('div');
     colorStrip.className = 'card-embed-color-strip';
     colorStrip.style.setProperty('--embed-color', embedColor);
@@ -263,23 +297,28 @@
     colorStrip.setAttribute('aria-label', 'Embed color ' + embedColor);
     colorStrip.innerHTML = '<span class="card-embed-color-strip-fill"></span>';
     note.insertAdjacentElement('afterend', colorStrip);
+
     const sphereLabel = formatSpherePerkLabel(ch.spheres);
     const sphereBadge = node.querySelector('.sphere-badge');
     if (sphereLabel) {
       const sphereMaxed = sphereLabel === 'SP MAX' || (typeof isSphereMax === 'function' && isSphereMax(ch.spheres));
       renderSphereBadgeContent(sphereBadge, sphereLabel, sphereMaxed, formatSphereTooltip(ch.spheres));
     }
+
     const badge = node.querySelector('.gallery-badge');
     if (badge) {
       badge.hidden = galleryImageCount <= 0;
       if (galleryImageCount > 0) badge.textContent = galleryImageCount + ' imgs';
     }
+
     node.querySelector('.card-edit-btn').addEventListener('click', (event) => {
       event.stopPropagation();
       openEdit(ch.id);
     });
     return node;
   }
+
+
   window.MudaeRebuildCards = {
     renderCard
   };

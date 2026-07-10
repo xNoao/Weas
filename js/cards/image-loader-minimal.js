@@ -86,8 +86,12 @@
 
   hydrateLoadedUrlMemory();
 
-  const MAX_CONCURRENT = 6;
-  const LOAD_DELAY_MS = 28;
+  const MAX_CONCURRENT = 4;
+  const LOAD_DELAY_MS = 45;
+  const MAX_RETRIES = 2;
+  const RETRY_BASE_DELAY_MS = 700;
+
+  const retryCounts = new Map();
 
   let activeLoads = 0;
   let pumpTimer = null;
@@ -132,10 +136,31 @@
 
     img.addEventListener('load', () => {
       rememberSuccessfulUrl(src);
+      retryCounts.delete(src);
       img.classList.remove('image-load-error-minimal');
       done();
     }, { once: true });
     img.addEventListener('error', () => {
+      const attempt = (retryCounts.get(src) || 0) + 1;
+
+      if (attempt <= MAX_RETRIES) {
+        // A single failed request is often transient (e.g. a burst of parallel
+        // loads tripping an image host's own rate limiter/edge worker) rather
+        // than the URL genuinely being dead. Retry a couple of times with a
+        // growing delay before giving up, instead of marking it permanently
+        // failed after just one attempt.
+        retryCounts.set(src, attempt);
+        requestedUrls.delete(src);
+        done();
+        setTimeout(() => {
+          if (!document.documentElement.contains(img)) return;
+          img.dataset.src = src;
+          img.classList.remove('image-ready-minimal');
+          load(img, { priority: true });
+        }, RETRY_BASE_DELAY_MS * attempt);
+        return;
+      }
+
       requestedUrls.add(src);
       failedUrls.add(src);
       img.classList.add('image-load-error-minimal');

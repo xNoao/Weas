@@ -74,37 +74,13 @@ img.gif-playing[data-play-ready="1"]{
   font-weight:850;
 }
 
-.search-suggest-box{
-  position:fixed;
-  z-index:1800;
-  display:grid;
-  gap:4px;
-  padding:6px;
-  border:1px solid rgba(167,139,250,.34);
-  border-radius:14px;
-  background:var(--mhp-flat-surface);
-  box-shadow:0 18px 55px rgba(0,0,0,.42);
-  backdrop-filter:blur(14px);
-}
+
 
 .search-suggest-box[hidden]{
   display:none!important;
 }
 
-.search-suggest-item{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) auto;
-  gap:10px;
-  align-items:center;
-  width:100%;
-  border:1px solid transparent;
-  border-radius:10px;
-  background:transparent;
-  color:#e5e7eb;
-  padding:7px 9px;
-  cursor:pointer;
-  text-align:left;
-}
+
 
 .search-suggest-item:hover,
 .search-suggest-item.is-active{

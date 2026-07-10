@@ -466,18 +466,9 @@ body.is-board-focusing #board *{
   display:none;
 }
 
-.search-suggest-box{
-  max-height:min(360px, calc(100vh - 24px));
-  overflow:auto;
-  overscroll-behavior:contain;
-}
 
-.search-suggest-item{
-  grid-template-columns:30px minmax(0,1fr) auto;
-  min-height:38px;
-  gap:9px;
-  padding:5px 8px;
-}
+
+
 
 .search-suggest-thumb{
   width:30px;
@@ -509,10 +500,7 @@ body.is-board-focusing #board *{
   text-overflow:ellipsis;
 }
 
-.search-suggest-item{
-  grid-template-columns:30px minmax(0,1fr) !important;
-  align-items:center;
-}
+
 
 .search-suggest-main{
   min-width:0;

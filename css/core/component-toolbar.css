@@ -1,0 +1,30 @@
+/* Consolidated .toolbar rules — merged from layout.css (3 separate blocks) and cards.css.
+   Order preserved exactly as before; placed right before topbar-stability.css
+   so the final cascade result for .toolbar is unchanged. */
+
+.toolbar{
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 170px auto;
+  gap:10px;
+  padding:14px 22px;
+  border-bottom:1px solid var(--border);
+}
+
+.toolbar{
+  z-index:34;
+  padding:10px 22px 12px;
+  border-top:0;
+  border-bottom:1px solid var(--border);
+}
+
+.toolbar{
+  grid-template-columns:minmax(0,1fr) 170px max-content!important;
+  align-items:center!important;
+}
+
+.toolbar{
+  padding:8px 22px 12px!important;
+  border-top:0!important;
+  border-bottom:1px solid rgba(148,163,184,.2)!important;
+}

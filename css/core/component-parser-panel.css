@@ -1,0 +1,19 @@
+/* Consolidated .parser-panel rules — merged from layout.css (2 separate blocks) and cards.css.
+   Order preserved exactly as before; placed right before topbar-stability.css
+   so the final cascade result for .parser-panel is unchanged. */
+
+.parser-panel{
+  position:relative;
+  padding:0 22px 8px;
+}
+
+.parser-panel{
+  z-index:35;
+  padding:10px 22px 8px;
+  border-bottom:0;
+}
+
+.parser-panel{
+  padding:8px 22px 6px!important;
+  border-bottom:0!important;
+}

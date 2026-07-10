@@ -1,0 +1,199 @@
+/*
+  Final visual polish before minification.
+  Keep tiny cross-theme overrides here when they intentionally need to win over
+  older module/theme CSS without changing behavior.
+*/
+
+/* Parser panel: remove the framed/card look while keeping its internal spacing
+   and theme-aware background. */
+#parserPanel.parser-panel,
+body #parserPanel.parser-panel{
+  border:0!important;
+  border-radius:0!important;
+}
+
+#parserPanel.parser-panel > details,
+body #parserPanel.parser-panel > details{
+  border:0!important;
+  border-radius:0!important;
+}
+
+/* optional debug panel. Disabled unless window.MHPDebug.enablePanel() is called. */
+.mhp-debug-panel{
+  position:fixed;
+  right:12px;
+  bottom:12px;
+  z-index:9999;
+  max-width:min(420px,calc(100vw - 24px));
+  margin:0;
+  padding:10px 12px;
+  border:1px solid rgba(148,163,184,.26);
+  border-radius:12px;
+  background:rgba(2,6,23,.88);
+  color:#e5e7eb;
+  font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  white-space:pre-wrap;
+  pointer-events:none;
+  box-shadow:0 12px 32px rgba(0,0,0,.34);
+}
+
+/* Restore active Discord Nitro glow in the export sidebar. */
+#exportNitroToggleBtn.is-on,
+#exportSidebar .mhp-nitro-icon-btn.is-on,
+.export-sidebar .mhp-nitro-icon-btn.is-on{
+  border-color:rgba(var(--theme-accent-rgb,139,92,246),.72)!important;
+  background:
+    radial-gradient(circle at 50% 25%, rgba(255,255,255,.20), transparent 42%),
+    linear-gradient(135deg, rgba(var(--theme-accent-rgb,139,92,246),.38), rgba(88,101,242,.22)),
+    rgba(var(--mhp-surface-3-rgb,39,39,42),.82)!important;
+  box-shadow:
+    0 0 0 1px rgba(var(--theme-accent-rgb,139,92,246),.24),
+    0 0 16px rgba(var(--theme-accent-rgb,139,92,246),.40),
+    0 8px 18px rgba(0,0,0,.28)!important;
+}
+#exportNitroToggleBtn.is-on .mhp-nitro-svg,
+#exportNitroToggleBtn.is-on img,
+#exportSidebar .mhp-nitro-icon-btn.is-on .mhp-nitro-svg,
+#exportSidebar .mhp-nitro-icon-btn.is-on img,
+.export-sidebar .mhp-nitro-icon-btn.is-on .mhp-nitro-svg,
+.export-sidebar .mhp-nitro-icon-btn.is-on img{
+  opacity:1!important;
+  transform:scale(1.04)!important;
+  filter:
+    drop-shadow(0 0 5px rgba(255,255,255,.44))
+    drop-shadow(0 0 10px rgba(var(--theme-accent-rgb,139,92,246),.70))!important;
+}
+#exportNitroToggleBtn.is-on:hover,
+#exportSidebar .mhp-nitro-icon-btn.is-on:hover,
+.export-sidebar .mhp-nitro-icon-btn.is-on:hover{
+  box-shadow:
+    0 0 0 1px rgba(var(--theme-accent-rgb,139,92,246),.32),
+    0 0 22px rgba(var(--theme-accent-rgb,139,92,246),.52),
+    0 10px 22px rgba(0,0,0,.32)!important;
+}
+
+
+
+/* return card Edit control to hover reveal while keeping the
+   pointerdown reliability fix in JS. Hidden state only applies when the image
+   area is not hovered/focused. */
+.image-wrap .card-edit-btn,
+.char-card .image-wrap .card-edit-btn,
+.character-card .image-wrap .card-edit-btn{
+  opacity:0!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+  transform:translate3d(0,4px,0) scale(.98)!important;
+  z-index:80!important;
+  transition:opacity .12s ease, transform .12s ease, visibility .12s ease, filter .12s ease!important;
+}
+.image-wrap:hover .card-edit-btn,
+.image-wrap:focus-within .card-edit-btn,
+.char-card:hover .image-wrap:hover .card-edit-btn,
+.char-card:focus-within .image-wrap .card-edit-btn,
+.character-card:hover .image-wrap:hover .card-edit-btn,
+.character-card:focus-within .image-wrap .card-edit-btn{
+  opacity:1!important;
+  visibility:visible!important;
+  pointer-events:auto!important;
+  transform:translate3d(0,0,0) scale(1)!important;
+}
+.image-wrap .card-edit-btn:hover,
+.image-wrap .card-edit-btn:focus-visible{
+  filter:brightness(1.14)!important;
+}
+
+/* gallery GIFs play as direct live previews instead of using the board
+   GIF poster controller. This keeps animated previews fluid in the gallery. */
+#galleryGrid .gallery-card img.gallery-gif-live,
+.gallery-grid .gallery-card img.gallery-gif-live{
+  visibility:visible!important;
+  opacity:1!important;
+}
+#galleryGrid .gallery-card img.gallery-gif-live + .gif-poster,
+.gallery-grid .gallery-card img.gallery-gif-live + .gif-poster{
+  display:none!important;
+}
+
+/* Active gallery image marker + edit preview gallery index. */
+.preview-box{
+  position:relative;
+}
+.edit-preview-index-badge{
+  position:absolute;
+  left:4px;
+  top:4px;
+  z-index:3;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:38px;
+  padding:4px 8px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.24);
+  background:rgba(15,23,42,.78);
+  color:#f8fafc;
+  font-size:12px;
+  font-weight:900;
+  line-height:1;
+  pointer-events:none;
+  box-shadow:0 10px 24px rgba(0,0,0,.28);
+}
+.edit-preview-index-badge[hidden]{
+  display:none !important;
+}
+.gallery-card.is-main-gallery-image{
+  border-color:rgba(125,211,252,.95) !important;
+  box-shadow:0 0 0 2px rgba(125,211,252,.72),0 0 18px rgba(125,211,252,.28) !important;
+}
+#galleryPanel #galleryGrid .gallery-card.is-main-gallery-image .gallery-number,
+#galleryPanel .gallery-grid .gallery-card.is-main-gallery-image .gallery-number,
+#galleryGrid .gallery-card.is-main-gallery-image .gallery-number,
+.gallery-grid .gallery-card.is-main-gallery-image .gallery-number{
+  left:6px!important;
+  right:auto!important;
+  top:6px!important;
+  max-width:calc(100% - 48px)!important;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  border-color:rgba(125,211,252,.82) !important;
+}
+
+/* Gallery main marker: keep the index on the left and MAIN on the right. */
+#galleryPanel #galleryGrid .gallery-card .gallery-main-marker,
+#galleryPanel .gallery-grid .gallery-card .gallery-main-marker,
+#galleryGrid .gallery-card .gallery-main-marker,
+.gallery-grid .gallery-card .gallery-main-marker,
+.gallery-card .gallery-main-marker{
+  position:absolute!important;
+  left:auto!important;
+  right:6px!important;
+  top:6px!important;
+  bottom:auto!important;
+  transform:none!important;
+  z-index:7!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:34px!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  padding:2px 4px!important;
+  border-radius:999px!important;
+  border:1px solid rgba(255,255,255,.24)!important;
+  background:rgba(14,165,233,.82)!important;
+  color:#f8fafc!important;
+  font-size:8px!important;
+  font-weight:950!important;
+  letter-spacing:.02em!important;
+  line-height:1!important;
+  pointer-events:none!important;
+  text-transform:uppercase!important;
+}
+.gallery-main-marker[hidden]{
+  display:none!important;
+}

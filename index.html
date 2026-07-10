@@ -7,14 +7,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Mudae Harem Organizer Final</title>
-  <link rel="icon" type="image/png" sizes="64x64" href="assets/icons/app/favicon.png?v=674">
-  <link rel="shortcut icon" type="image/png" href="assets/icons/app/favicon.png?v=674">
-  <link rel="apple-touch-icon" href="assets/icons/app/favicon.png?v=674">
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=674">
+  <link rel="shortcut icon" type="image/png" href="favicon.png?v=674">
+  <link rel="apple-touch-icon" href="favicon.png?v=674">
   <script>
     // Prefer the local PNG favicon. The runtime query avoids stale browser cache
-    // when assets/icons/app/favicon.png is replaced locally.
+    // when favicon.png is replaced locally.
     (() => {
-      const href = 'assets/icons/app/favicon.png?v=' + Date.now();
+      const href = 'favicon.png?v=' + Date.now();
       for (const link of document.querySelectorAll('link[rel~="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]')) {
         link.setAttribute('href', href);
       }
@@ -31,7 +31,7 @@
   <link rel="stylesheet" href="css/edit-gallery/modals.css">
   <link rel="stylesheet" href="css/edit-gallery/gallery.css">
   <link rel="stylesheet" href="css/settings/settings.css">
-  <link rel="stylesheet" href="css/legacy/legacy-patches.css">
+  <link rel="stylesheet" href="css/core/compatibility.css">
   <link rel="stylesheet" href="css/settings/graphics-promoted.css">
   <link rel="stylesheet" href="css/edit-gallery/edit-gallery-promoted.css">
   <link rel="stylesheet" href="css/move/move-character-promoted.css">
@@ -42,6 +42,9 @@
   <link rel="stylesheet" href="css/group/group-menu-promoted.css">
   <link rel="stylesheet" href="css/json/save-clear-promoted.css">
   <link rel="stylesheet" href="css/settings/settings-promoted.css">
+  <link rel="stylesheet" href="css/core/component-topbar.css">
+  <link rel="stylesheet" href="css/core/component-toolbar.css">
+  <link rel="stylesheet" href="css/core/component-parser-panel.css">
   <link rel="stylesheet" href="css/core/topbar-stability.css">
   <link rel="stylesheet" href="css/core/theme-parity-sync.css">
   <link rel="stylesheet" href="css/core/default-black-parity.css">
@@ -64,8 +67,8 @@
           alt=""
         >
       </div>
-      <div class="mhp-loader-title mhp-boot-loader-title">Loading harem...</div>
-      <div class="mhp-loader-subtitle mhp-boot-loader-subtitle">Preparing your collection</div>
+      <div class="mhp-loader-title mhp-boot-loader-title">Loading Harem...</div>
+      <div class="mhp-loader-subtitle mhp-boot-loader-subtitle">Preparing Your Collection</div>
       <div class="mhp-loader-data mhp-boot-loader-data" aria-live="polite">Characters: — · Size: —</div>
       <div class="mhp-loader-bar mhp-boot-loader-bar" aria-hidden="true"><span></span></div>
     </div>
@@ -73,59 +76,59 @@
 
   <div id="jsonDropOverlay" class="mhp-json-drop-overlay" hidden aria-hidden="true">
     <div class="mhp-json-drop-card">
-      <div class="mhp-json-drop-title">Drop JSON to load harem</div>
-      <div class="mhp-json-drop-subtitle">Release your .json backup anywhere on the page.</div>
+      <div class="mhp-json-drop-title">Drop JSON To Load Harem</div>
+      <div class="mhp-json-drop-subtitle">Release Your .json Backup Anywhere On The Page.</div>
     </div>
   </div>
 
 
   <header class="topbar">
     <div class="topbar-title-group">
-      <h1 id="haremTitle" class="topbar-main-title">Load an old JSON export to begin.</h1>
+      <h1 id="haremTitle" class="topbar-main-title">Load An Old JSON Export To Begin.</h1>
       <p class="topbar-version">Mudae Organizer <span>Final</span></p>
     </div>
 
     <div class="top-actions">
-      <label class="btn btn-primary file-btn import-json-btn" title="Load a JSON backup or legacy export">
+      <label class="btn btn-primary file-btn import-json-btn" title="Load A JSON Backup Or Older Export">
         Load JSON
         <input id="jsonFileInput" type="file" accept=".json,application/json">
       </label>
-      <button id="exportJsonBtn" class="btn btn-secondary save-json-btn" type="button" title="Choose a filename and save a JSON backup">Save JSON</button>
-      <button id="clearLocalBtn" class="btn btn-ghost" type="button">Clear local</button>
+      <button id="exportJsonBtn" class="btn btn-secondary save-json-btn" type="button" title="Choose A Filename And Save A JSON Backup">Save JSON</button>
+      <button id="clearLocalBtn" class="btn btn-ghost" type="button">Clear Local</button>
     </div>
   </header>
 
   <div class="parser-panel" id="parserPanel">
     <details id="parserDetails">
-      <summary>Parse Mudae <span id="parserCount" class="parser-count" aria-live="polite">0 characters</span></summary>
+      <summary>Parse Mudae <span id="parserCount" class="parser-count" aria-live="polite">0 Characters</span></summary>
       <div class="parser-command-hints" role="group" aria-label="Supported Mudae commands">
-        <span class="parser-command-label">Supported commands</span>
+        <span class="parser-command-label">Supported Commands</span>
         <button class="parser-command-chip" type="button" data-copy-command="$mmis" title="Copy $mmis">
           <span class="parser-command-code">$mmis</span>
-          <span class="parser-command-description">Visual harem scan with images.</span>
+          <span class="parser-command-description">Visual Harem Scan With Images.</span>
         </button>
         <button class="parser-command-chip" type="button" data-copy-command="$mmsaty+ri-c+x+kom+" title="Copy $mmsaty+ri-c+x+kom+">
           <span class="parser-command-code">$mmsaty+ri-c+x+kom+</span>
-          <span class="parser-command-description">Full harem import with series, ranks, kakera, keys, owner and notes.</span>
+          <span class="parser-command-description">Full Harem Import With Series, Ranks, Kakera, Keys, Owner And Notes.</span>
         </button>
         <button class="parser-command-chip" type="button" data-copy-command="$mmty+i-c+x+kom+" title="Copy $mmty+i-c+x+kom+">
           <span class="parser-command-code">$mmty+i-c+x+kom+</span>
-          <span class="parser-command-description">Targeted import for a few characters, avoiding a huge full export.</span>
+          <span class="parser-command-description">Targeted Import For A Few Characters, Avoiding A Huge Full Export.</span>
         </button>
         <button class="parser-command-chip" type="button" data-copy-command="$mmz!sm+" title="Copy $mmz!sm+ (Spheres)">
           <span class="parser-command-code">$mmz!sm+ <em>Spheres</em></span>
-          <span class="parser-command-description">Sphere perks and invested SP.</span>
+          <span class="parser-command-description">Sphere Perks And Invested SP.</span>
         </button>
         <button id="loadDemoBoardBtn" class="parser-command-chip parser-demo-btn" type="button" title="Load the included demo board JSON">
-          <span class="parser-command-code">Demo board</span>
-          <span class="parser-command-description">Load sample JSON.</span>
+          <span class="parser-command-code">Demo Board</span>
+          <span class="parser-command-description">Load Sample JSON.</span>
         </button>
       </div>
       <div class="parser-body">
-        <textarea id="parserInput" class="parser-input" placeholder="Paste $mm / $mms / manual Mudae text here..." autocomplete="off" spellcheck="false"></textarea>
+        <textarea id="parserInput" class="parser-input" placeholder="Paste $mm / $mms / Manual Mudae Text Here..." autocomplete="off" spellcheck="false"></textarea>
         <div class="parser-actions">
           <button id="parseAppendBtn" class="btn btn-primary" type="button">Parse</button>
-          <button id="parseReplaceBtn" class="btn btn-danger" type="button">Replace board</button>
+          <button id="parseReplaceBtn" class="btn btn-danger" type="button">Replace Board</button>
           <button id="clearParserBtn" class="btn btn-ghost" type="button">Clear</button>
         </div>
         <p id="parserStatus" class="parser-status">Ready.</p>
@@ -137,14 +140,14 @@
   <div class="toolbar">
     <div class="search-box">
 
-      <input id="searchInput" class="search-input" type="text" placeholder="Search name, series, owner, note..." autocomplete="off" spellcheck="false">
+      <input id="searchInput" class="search-input" type="text" placeholder="Search Name, Series, Owner, Note..." autocomplete="off" spellcheck="false">
 
-      <button id="clearSearchBtn" class="search-clear-btn" type="button" title="Clear search" aria-label="Clear search">×</button>
+      <button id="clearSearchBtn" class="search-clear-btn" type="button" title="Clear Search" aria-label="Clear Search">×</button>
 
     </div>
     <select id="filterTypeSelect" class="select-input">
       <option value="all">All</option>
-      <optgroup label="Mudae tags">
+      <optgroup label="Mudae Tags">
         <option value="wa">$wa</option>
         <option value="ha">$ha</option>
         <option value="wg">$wg</option>
@@ -155,32 +158,36 @@
         <option value="gender:husbando">♂️ Husbando</option>
         <option value="gender:both">⚧️ Both</option>
       </optgroup>
-      <optgroup label="Roulette type">
+      <optgroup label="Roulette Type">
         <option value="world:animanga">🎴 Animanga</option>
         <option value="world:game">🎮 Game</option>
         <option value="world:both">🔀 Both</option>
       </optgroup>
       <optgroup label="Other">
-        <option value="gallery">Has gallery</option>
-        <option value="noimage">No real image</option>
+        <option value="gallery">Has Gallery</option>
+        <option value="noimage">No Real Image</option>
       </optgroup>
     </select>
-    <button id="restoreAllBtn" class="btn btn-ghost" type="button">Show all</button>
+    <div class="toolbar-actions" aria-label="Search actions">
+      <button id="restoreAllBtn" class="btn btn-ghost" type="button">Show All</button>
+      <button id="globalGalleryCheckBtn" class="btn btn-secondary global-gallery-check-btn" type="button" title="Global Gallery Check For All Characters">Global</button>
+      <button id="galleryTagsIndexBtn" class="btn btn-secondary gallery-tags-index-btn" type="button" title="Show All Gallery Tags">Tags</button>
+    </div>
   </div>
 
   <div id="floatingBar" class="floating-bar floating-bar-slim is-floating-active">
     <div class="mhp-floating-shell floating-bar-inner">
       <div id="floatingActionBtns" class="mhp-floating-actions floating-action-btns">
-        <button id="floatingBackTopBtn" class="mhp-floating-btn mhp-floating-icon-btn floating-back-btn" type="button" title="Back to top">↑</button>
-        <button id="floatingMultiSelectBtn" class="mhp-floating-btn floating-action-btn floating-normal-action" type="button" title="Toggle multi-select">Multi-Select</button>
-        <button id="floatingMoveSelectedBtn" class="mhp-floating-btn floating-action-btn floating-multi-only" type="button" title="Choose destination for selected cards" hidden>Move selected</button>
-        <button id="floatingCreateGroupBtn" class="mhp-floating-btn floating-action-btn floating-multi-only" type="button" title="Create a group from selected cards" hidden>Create Group</button>
-        <button id="floatingClearMultiSelectBtn" class="mhp-floating-btn floating-action-btn floating-multi-only" type="button" title="Clear selected cards" hidden>Clear</button>
-        <button id="floatingAddDividerBtn" class="mhp-floating-btn floating-action-btn floating-normal-action" type="button" title="Add divider or sub-divider">Add Divider</button>
+        <button id="floatingBackTopBtn" class="mhp-floating-btn mhp-floating-icon-btn floating-back-btn" type="button" title="Back To Top">↑</button>
+        <button id="floatingMultiSelectBtn" class="mhp-floating-btn floating-action-btn floating-normal-action" type="button" title="Toggle Multi-Select">Multi-Select</button>
+        <button id="floatingMoveSelectedBtn" class="mhp-floating-btn floating-action-btn floating-multi-only" type="button" title="Move Selected Characters To An Exact Position. Hold Shift/Ctrl For Click-Destination Mode" hidden>Move Selected</button>
+        <button id="floatingCreateGroupBtn" class="mhp-floating-btn floating-action-btn floating-multi-only" type="button" title="Create A Group From Selected Cards" hidden>Create Group</button>
+        <button id="floatingClearMultiSelectBtn" class="mhp-floating-btn floating-action-btn floating-multi-only" type="button" title="Clear Selected Cards" hidden>Clear</button>
+        <button id="floatingAddDividerBtn" class="mhp-floating-btn floating-action-btn floating-normal-action" type="button" title="Add Divider Or Sub-Divider">Add Divider</button>
       </div>
       <div class="mhp-floating-search floating-search-box">
-        <input id="floatingSearchInput" class="mhp-floating-input floating-search-input" placeholder="Search while browsing..." autocomplete="off" spellcheck="false">
-        <button id="floatingClearSearchBtn" class="mhp-floating-btn mhp-floating-icon-btn floating-search-clear-btn" type="button" title="Clear floating search" aria-label="Clear floating search" hidden>×</button>
+        <input id="floatingSearchInput" class="mhp-floating-input floating-search-input" placeholder="Search While Browsing..." autocomplete="off" spellcheck="false">
+        <button id="floatingClearSearchBtn" class="mhp-floating-btn mhp-floating-icon-btn floating-search-clear-btn" type="button" title="Clear Floating Search" aria-label="Clear Floating Search" hidden>×</button>
       </div>
     </div>
   </div>
@@ -218,9 +225,9 @@
       <header class="edit-head">
         <div>
           <h2 id="editTitle">Edit Character</h2>
-          <p id="editSubtitle">Clean rebuild editor.</p>
+          <p id="editSubtitle">Clean Rebuild Editor.</p>
         </div>
-        <button id="editCloseBtn" class="btn btn-ghost icon-btn" type="button" aria-label="Close edit">×</button>
+        <button id="editCloseBtn" class="btn btn-ghost icon-btn" type="button" aria-label="Close Edit">×</button>
       </header>
 
       <div id="editBody" class="edit-body">
@@ -247,9 +254,9 @@
 
           <div class="field-grid two edit-color-note-row">
             <div class="embed-color-field">
-              <span class="field-label-text">Embed color</span>
+              <span class="field-label-text">Embed Color</span>
               <div class="embed-color-control">
-                <button id="editColorPreviewBtn" class="embed-color-preview-btn" type="button" title="Open color palette">
+                <button id="editColorPreviewBtn" class="embed-color-preview-btn" type="button" title="Open Color Palette">
                   <span id="editColorPreviewSwatch" class="embed-color-preview-swatch"></span>
                   <span id="editColorPreviewText" class="embed-color-preview-text">#8B5CF6</span>
                 </button>
@@ -258,12 +265,12 @@
               <div id="editColorPalettePanel" class="embed-color-palette-panel" hidden>
                 <div class="embed-color-palette-head">
                   <div>
-                    <span>Custom palette</span>
-                    <small>Write HEX or choose a swatch</small>
+                    <span>Custom Palette</span>
+                    <small>Write HEX Or Choose A Swatch</small>
                   </div>
-                  <button id="editColorPaletteCloseBtn" class="embed-color-palette-close" type="button" aria-label="Close color palette">×</button>
+                  <button id="editColorPaletteCloseBtn" class="embed-color-palette-close" type="button" aria-label="Close Color Palette">×</button>
                 </div>
-                <div id="editColorPaletteGrid" class="embed-color-palette-grid" role="listbox" aria-label="Embed color swatches"></div>
+                <div id="editColorPaletteGrid" class="embed-color-palette-grid" role="listbox" aria-label="Embed Color swatches"></div>
               </div>
             </div>
             <label class="edit-note-field">Note <textarea id="editNoteInput" rows="2"></textarea></label>
@@ -272,12 +279,12 @@
           <details class="spheres-box edit-spheres-panel edit-spheres-collapsible">
             <summary>
               <span>Spheres</span>
-              <small id="spheresSummary">No spheres</small>
+              <small id="spheresSummary">No Spheres</small>
             </summary>
             <div id="spheresGrid" class="spheres-grid"></div>
             <div class="spheres-actions">
-              <button id="spheresAllBtn" class="btn btn-secondary" type="button">All spheres</button>
-              <button id="spheresClearBtn" class="btn btn-ghost" type="button">Clear spheres</button>
+              <button id="spheresAllBtn" class="btn btn-secondary" type="button">All Spheres</button>
+              <button id="spheresClearBtn" class="btn btn-ghost" type="button">Clear Spheres</button>
             </div>
           </details>
 
@@ -286,10 +293,11 @@
         <aside class="edit-preview-column">
           <div class="preview-box">
             <img id="editPreviewImg" alt="Preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=">
+            <span id="editPreviewIndexBadge" class="edit-preview-index-badge" hidden></span>
           </div>
           <div class="mudae-preview-actions">
             <button id="mudaeSearchBtn" class="btn btn-secondary" type="button">Search Mudae</button>
-            <button id="galleryToggleBtn" class="btn btn-ghost icon-btn" type="button" aria-expanded="false" title="Toggle gallery">›</button>
+            <button id="galleryToggleBtn" class="btn btn-ghost icon-btn" type="button" aria-expanded="false" title="Toggle Gallery">›</button>
           </div>
         </aside>
       </div>
@@ -309,25 +317,31 @@
   <aside id="galleryPanel" class="gallery-panel" hidden>
     <header class="gallery-head">
       <div>
-        <h2>Mudae images</h2>
-        <p id="galleryStatus">Gallery ready.</p>
+        <h2>Mudae + Custom Images</h2>
+        <p id="galleryStatus">Gallery Ready.</p>
       </div>
-      <button id="galleryCloseBtn" class="btn btn-ghost icon-btn" type="button" aria-label="Close gallery">×</button>
+      <button id="galleryCloseBtn" class="btn btn-ghost icon-btn" type="button" aria-label="Close Gallery">×</button>
     </header>
+
+    <div class="gallery-tag-filter-bar" id="galleryTagFilterBar">
+      <label class="gallery-tag-filter-label" for="galleryTagSearchInput">Tags</label>
+      <input id="galleryTagSearchInput" class="gallery-tag-filter-input" type="search" placeholder="Filter gallery tags..." autocomplete="off" spellcheck="false">
+      <button id="galleryTagClearBtn" class="btn btn-ghost gallery-tag-clear-btn" type="button">All Images</button>
+      <span id="galleryTagFilterInfo" class="gallery-tag-filter-info" aria-live="polite"></span>
+    </div>
 
     <div id="galleryGrid" class="gallery-grid mhp-gallery-ratio-grid"></div>
 
     <footer class="gallery-bottom">
       <div class="gallery-actions">
-        <button id="loadPastedBtn" class="btn btn-secondary" type="button">Parse pasted links</button>
-        <button id="galleryMatchedOnlyBtn" class="btn btn-ghost" type="button" aria-pressed="false" title="Show only images marked as match">Matched only</button>
-        <button id="galleryUseMatchedBtn" class="btn btn-ghost" type="button" title="Select the first matched image">Use match</button>
-        <button id="clearGalleryBtn" class="btn btn-ghost" type="button">Clear</button>
+        <button id="galleryMatchedOnlyBtn" class="btn btn-ghost" type="button" aria-pressed="false" title="Show Only Matched Official Images">Match (0)</button>
+        <button id="clearOfficialGalleryBtn" class="btn btn-ghost" type="button" title="Clear Official Mudae Images Only">Clear Official</button>
+        <button id="clearCustomGalleryBtn" class="btn btn-ghost" type="button" title="Clear Custom Imgur/ImgChest Images Only">Clear Custom</button>
       </div>
 
       <details id="galleryPasteDetails" class="gallery-paste-details">
-        <summary>Show pasted links</summary>
-        <textarea id="galleryPasteInput" class="gallery-paste" placeholder="Paste Mudae image URLs here, one per line..."></textarea>
+        <summary>Show Pasted Links</summary>
+        <textarea id="galleryPasteInput" class="gallery-paste" placeholder="Paste Official Mudae URLs Or Custom Imgur/ImgChest URLs Here, One Per Line..."></textarea>
       </details>
     </footer>
   </aside>
@@ -346,7 +360,7 @@
         <img class="char-img" loading="lazy" alt="">
         <span class="sphere-badge" hidden></span>
         <span class="gallery-badge" hidden>Gallery</span>
-        <button class="card-edit-btn" type="button" title="Edit character">Edit</button>
+        <button class="card-edit-btn" type="button" title="Edit Character">Edit</button>
       </div>
 
       <h3 class="char-name"></h3>
@@ -387,8 +401,8 @@
         >
       </div>
       <div class="mhp-loader-copy app-loading-copy">
-        <strong id="appLoadingTitle" class="mhp-loader-title">Loading harem...</strong>
-        <span id="appLoadingDetail" class="mhp-loader-subtitle">Preparing characters and images.</span>
+        <strong id="appLoadingTitle" class="mhp-loader-title">Loading Harem...</strong>
+        <span id="appLoadingDetail" class="mhp-loader-subtitle">Preparing Characters And Images.</span>
         <span id="appLoadingData" class="mhp-loader-data" aria-live="polite">Characters: — · Size: —</span>
       </div>
       <div class="mhp-loader-bar app-loading-bar" aria-hidden="true"><span></span></div>
@@ -452,10 +466,10 @@
   <div id="forceLoadProgressPanel" class="force-load-progress-overlay" hidden>
     <div class="force-load-progress-card">
       <div class="force-load-progress-head">
-        <strong>Image preload</strong>
+        <strong>Image Preload</strong>
       </div>
-      <div id="forceLoadProgressText" class="force-load-progress-text">Preparing card image queue...</div>
-      <div id="forceLoadPreviewGrid" class="force-load-preview-grid" role="group" aria-label="Images currently loading"></div>
+      <div id="forceLoadProgressText" class="force-load-progress-text">Preparing Card Image Queue...</div>
+      <div id="forceLoadPreviewGrid" class="force-load-preview-grid" role="group" aria-label="Images Currently Loading"></div>
       <button id="forceLoadCancelBtn" class="force-load-cancel-btn" type="button">Cancel</button>
     </div>
   </div>
@@ -477,13 +491,39 @@
         <button id="performanceToggleBtn" class="settings-toggle-btn" type="button">ON</button>
       </div>
 
+      <div class="settings-toggle-row">
+        <div class="settings-toggle-copy">
+          <strong>Group Naming</strong>
+          <span>Automatic uses generated names. Manual asks for a name after creating a group.</span>
+        </div>
+        <button id="groupNamingModeBtn" class="settings-toggle-btn" type="button">Automatic</button>
+      </div>
+
+      <div class="settings-toggle-row settings-storage-row">
+        <div class="settings-toggle-copy settings-storage-copy">
+          <strong>Storage</strong>
+          <span id="storageStatusText" class="settings-storage-compact" aria-live="polite">Checking Storage...</span>
+          <div class="settings-storage-lines" aria-label="Storage Status">
+            <div class="settings-storage-line"><b>Mode</b><em id="storageModeValue">Checking...</em></div>
+            <div class="settings-storage-line"><b>Save</b><em id="storageSaveValue">—</em></div>
+            <div class="settings-storage-line"><b>Persistent</b><em id="storagePersistentValue">—</em></div>
+            <div class="settings-storage-line"><b>Browser</b><em id="storageUsageValue">—</em></div>
+          </div>
+          <span id="storageStatusHint" class="settings-storage-hint">IndexedDB stores the main save. localStorage keeps a small reference.</span>
+        </div>
+        <div class="settings-action-buttons settings-storage-actions">
+          <button id="enablePersistentStorageBtn" class="settings-action-btn" type="button">Enable Persistent</button>
+          <button id="refreshStorageStatusBtn" class="settings-action-btn" type="button">Refresh</button>
+        </div>
+      </div>
+
       <div id="graphicsSettingsBackdrop" class="settings-graphics-backdrop" hidden></div>
 
       <div id="graphicsSettingsPanel" class="settings-graphics-panel" role="dialog" aria-modal="true" aria-labelledby="graphicsSettingsTitle" hidden>
         <header class="settings-graphics-head">
           <div>
-            <span id="graphicsSettingsTitle" class="settings-section-label">Graphics settings</span>
-            <p>Background, layout and visual style.</p>
+            <span id="graphicsSettingsTitle" class="settings-section-label">Graphics Settings</span>
+            <p>Background, Layout And Visual Style.</p>
           </div>
           <button id="graphicsSettingsCloseBtn" class="settings-modal-close" type="button" aria-label="Close graphics settings">×</button>
         </header>
@@ -491,8 +531,8 @@
         <div class="settings-inline-pair graphics-density-pair">
           <div class="settings-toggle-row visible-cards-row">
         <div class="settings-toggle-copy">
-          <strong>Visible cards</strong>
-          <span>Limit how many cards are mounted at once.</span>
+          <strong>Visible Cards</strong>
+          <span>Limit How Many Cards Are Mounted At Once.</span>
         </div>
         <select id="visibleCardLimitSelect" class="settings-select">
           <option value="150">150</option>
@@ -506,8 +546,8 @@
 
           <div class="settings-toggle-row board-columns-row">
         <div class="settings-toggle-copy">
-          <strong>Characters per row</strong>
-          <span>Choose how many character cards are shown per row.</span>
+          <strong>Characters Per Row</strong>
+          <span>Choose How Many Character Cards Are Shown Per Row.</span>
         </div>
         <select id="boardColumnsSelect" class="settings-select">
           <option value="0">Auto</option>
@@ -523,10 +563,10 @@
         <div class="settings-inline-pair graphics-style-pair">
           <div class="settings-action-row visual-mode-row">
         <div class="settings-toggle-copy">
-          <strong>Visual mode</strong>
-          <span>Minimalist uses flat panels. Glass uses transparent panels.</span>
+          <strong>Visual Mode</strong>
+          <span>Minimalist Uses Flat Panels. Glass Uses Transparent Panels.</span>
         </div>
-        <div class="visual-mode-toggle" role="group" aria-label="Visual mode">
+        <div class="visual-mode-toggle" role="group" aria-label="Visual Mode">
           <button id="minimalistModeBtn" class="visual-mode-btn is-active" type="button" data-visual-mode="minimalist" aria-pressed="true">Minimalist</button>
           <button id="glassModeBtn" class="visual-mode-btn" type="button" data-visual-mode="glass" aria-pressed="false">Glass</button>
         </div>
@@ -534,10 +574,10 @@
 
           <div class="settings-action-row settings-theme-preset-row">
         <div class="settings-toggle-copy">
-          <strong>Theme preset</strong>
-          <span>Choose the built-in tint used by the page background.</span>
+          <strong>Theme Preset</strong>
+          <span>Choose The Built-In Tint Used By The Page Background.</span>
         </div>
-        <div class="settings-preset-buttons" role="group" aria-label="Theme presets">
+        <div class="settings-preset-buttons" role="group" aria-label="Theme Presets">
           <button class="settings-preset-btn" type="button" data-bg-preset="default">Default</button>
           <button class="settings-preset-btn" type="button" data-bg-preset="purple">Soft Purple</button>
           <button class="settings-preset-btn" type="button" data-bg-preset="blue">Blue Night</button>
@@ -548,14 +588,14 @@
 
       <div class="settings-action-row settings-background-row">
         <div class="settings-toggle-copy">
-          <strong>Page background</strong>
-          <span>Use a direct image URL or upload one from your PC. Great for Imgur or ImgChest direct image links.</span>
+          <strong>Page Background</strong>
+          <span>Use A Direct Image URL Or Upload One From Your PC. Great For Imgur Or ImgChest Direct Image Links.</span>
         </div>
         <div class="settings-background-status">
           <span id="backgroundPreviewThumb" class="settings-background-preview" aria-hidden="true"></span>
           <div class="settings-background-copy">
-            <strong id="backgroundStatusText">Default background</strong>
-            <span id="backgroundStatusHint">Soft built-in gradient.</span>
+            <strong id="backgroundStatusText">Default Background</strong>
+            <span id="backgroundStatusHint">Soft Built-In Gradient.</span>
           </div>
         </div>
         <div class="settings-background-url-row">
@@ -567,7 +607,7 @@
             <span>Opacity</span>
             <div class="settings-range-control">
               <input id="backgroundOpacityInput" class="settings-range-input" type="range" min="0" max="100" step="1" value="35" list="backgroundPercentMarks">
-              <input id="backgroundOpacityNumberInput" class="settings-number-input" type="number" min="0" max="100" step="1" value="35" aria-label="Background opacity percent">
+              <input id="backgroundOpacityNumberInput" class="settings-number-input" type="number" min="0" max="100" step="1" value="35" aria-label="Background Opacity Percent">
               <span class="settings-number-suffix">%</span>
             </div>
           </div>
@@ -575,7 +615,7 @@
             <span>Blur</span>
             <div class="settings-range-control">
               <input id="backgroundBlurInput" class="settings-range-input" type="range" min="0" max="100" step="1" value="0" list="backgroundPercentMarks">
-              <input id="backgroundBlurNumberInput" class="settings-number-input" type="number" min="0" max="100" step="1" value="0" aria-label="Background blur percent">
+              <input id="backgroundBlurNumberInput" class="settings-number-input" type="number" min="0" max="100" step="1" value="0" aria-label="Background Blur Percent">
               <span class="settings-number-suffix">%</span>
             </div>
           </div>
@@ -587,42 +627,42 @@
             <option value="100" label="100%"></option>
           </datalist>
         </div>
-        <div class="settings-action-buttons settings-background-action-buttons" role="group" aria-label="Background image actions">
-          <label class="settings-action-btn settings-file-btn" title="Upload a background image from your PC">
-            Upload image
+        <div class="settings-action-buttons settings-background-action-buttons" role="group" aria-label="Background Image Actions">
+          <label class="settings-action-btn settings-file-btn" title="Upload A Background Image From Your PC">
+            Upload Image
             <input id="backgroundFileInput" type="file" accept="image/*">
           </label>
-          <button id="removeCustomBackgroundBtn" class="settings-action-btn" type="button" title="Remove the custom URL/uploaded image and restore the selected background preset">Restore background</button>
-          <button id="clearBackgroundBtn" class="settings-action-btn" type="button" title="Reset background image, preset, opacity and blur">Use default</button>
+          <button id="removeCustomBackgroundBtn" class="settings-action-btn" type="button" title="Remove The Custom URL/Uploaded Image And Restore The Selected Background Preset">Restore Background</button>
+          <button id="clearBackgroundBtn" class="settings-action-btn" type="button" title="Reset Background Image, Preset, Opacity And Blur">Use Default</button>
         </div>
       </div>
 
       <div class="settings-action-row settings-glass-row">
         <div class="settings-toggle-copy">
           <strong>Transparent UI</strong>
-          <span>Adjust how much the background shows through cards and panels.</span>
+          <span>Adjust How Much The Background Shows Through Cards And Panels.</span>
         </div>
         <button id="glassToggleBtn" class="settings-toggle-btn" type="button">ON</button>
         <div class="settings-background-tuning settings-glass-tuning">
           <div class="settings-range-field">
-            <span>Panel transparency</span>
+            <span>Panel Transparency</span>
             <div class="settings-range-control">
               <input id="glassTransparencyInput" class="settings-range-input" type="range" min="0" max="100" step="1" value="35" list="backgroundPercentMarks">
-              <input id="glassTransparencyNumberInput" class="settings-number-input" type="number" min="0" max="100" step="1" value="35" aria-label="Panel transparency percent">
+              <input id="glassTransparencyNumberInput" class="settings-number-input" type="number" min="0" max="100" step="1" value="35" aria-label="Panel Transparency percent">
               <span class="settings-number-suffix">%</span>
             </div>
           </div>
           <div class="settings-range-field">
-            <span>Menu transparency</span>
+            <span>Menu Transparency</span>
             <div class="settings-range-control">
               <input id="cardsTransparencyInput" class="settings-range-input" type="range" min="0" max="100" step="1" value="20" list="backgroundPercentMarks">
-              <input id="cardsTransparencyNumberInput" class="settings-number-input" type="number" min="0" max="100" step="1" value="20" aria-label="Menu transparency percent">
+              <input id="cardsTransparencyNumberInput" class="settings-number-input" type="number" min="0" max="100" step="1" value="20" aria-label="Menu Transparency percent">
               <span class="settings-number-suffix">%</span>
             </div>
           </div>
           <div class="settings-glass-reset-row">
-            <button id="restoreTransparencyDefaultsBtn" class="settings-action-btn" type="button">Restore transparency defaults</button>
-            <small>Default: panels 35% · menus 20%.</small>
+            <button id="restoreTransparencyDefaultsBtn" class="settings-action-btn" type="button">Restore Transparency Defaults</button>
+            <small>Default: Panels 35% · Menus 20%.</small>
           </div>
         </div>
       </div>
@@ -631,13 +671,13 @@
       <div class="settings-action-row">
         <div class="settings-toggle-copy">
           <strong>Images</strong>
-          <span id="failedImagesStatus">Image helper ready · Failed: 0</span>
+          <span id="failedImagesStatus">Image Helper Ready · Failed: 0</span>
         </div>
         <div class="settings-action-buttons">
-          <button id="forceLoadVisibleImagesBtn" class="settings-action-btn" type="button">Load visible</button>
-          <button id="forceLoadAllImagesBtn" class="settings-action-btn" type="button">Preload card images</button>
-          <button id="retryFailedImagesBtn" class="settings-action-btn" type="button">Retry failed</button>
-          <button id="clearFailedImagesBtn" class="settings-action-btn" type="button">Clear failed</button>
+          <button id="forceLoadVisibleImagesBtn" class="settings-action-btn" type="button">Load Visible</button>
+          <button id="forceLoadAllImagesBtn" class="settings-action-btn" type="button">Preload Card Images</button>
+          <button id="retryFailedImagesBtn" class="settings-action-btn" type="button">Retry Failed</button>
+          <button id="clearFailedImagesBtn" class="settings-action-btn" type="button">Clear Failed</button>
         </div>
       </div>
     </div>
@@ -910,9 +950,9 @@
       const root = document.documentElement;
       const force = !!options.force;
 
-      // The app owns the initial loading lifecycle. Older load/focus patches may
+      // The app owns the initial loading lifecycle. Older load/focus handlers may
       // still call this function, but they must not swap the boot loader into a
-      // second legacy/app overlay while the harem is still restoring.
+      // second app overlay while the harem is still restoring.
       if (!force && !window.__mhpBootCanFinish) {
         window.__mhpPendingBootFinish = true;
         return;

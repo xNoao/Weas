@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WPlace Manager</title>
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAAXNSR0IArs4c6QAAABJQTFRFAQEBAAAAHGHnRcxVStlbMXLnk8SHtQAAAAF0Uk5TAEDm2GYAAABMSURBVHjadc9JCgAhDERRa7r/lZs0ikawdv+tkvEYALS07U2QawmOTo1oQBKr8/cUMLY7JLEPYLW0oISSNLtgiojRBfv0AuB67vH3B+FjAY/0rrGiAAAAAElFTkSuQmCC" />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+  <style>
+    :root, [data-theme="light"] {
+      --text-xs: clamp(0.7rem, 0.67rem + 0.2vw, 0.78rem);
+      --text-sm: clamp(0.8rem, 0.76rem + 0.25vw, 0.88rem);
+      --text-base: clamp(0.9rem, 0.86rem + 0.2vw, 0.98rem);
+      --text-lg: clamp(1rem, 0.9rem + 0.55vw, 1.25rem);
+      --text-xl: clamp(1.3rem, 1.1rem + 1vw, 1.65rem);
+      --space-1: 0.2rem; --space-2: 0.4rem; --space-3: 0.6rem; --space-4: 0.8rem;
+      --space-5: 1rem; --space-6: 1.2rem; --space-8: 1.6rem; --space-10: 2rem;
+      --space-12: 2.4rem; --space-16: 3.2rem;
+      --radius-sm: 0.4rem; --radius-md: 0.65rem; --radius-lg: 0.9rem; --radius-xl: 1.2rem; --radius-full: 9999px;
+      --color-bg: #f5f4f0; --color-surface: #fbfaf7; --color-surface-2: #f1efea; --color-surface-offset: #ebe7df;
+      --color-border: #d8d2c7; --color-divider: #dfdbd2; --color-text: #221f1a; --color-text-muted: #6f6a61; --color-text-faint: #9c978e;
+      --color-primary: #0c6d77; --color-primary-hover: #09545c; --color-primary-highlight: #d4e4e4; --color-on-primary: #f4fbfb;
+      --color-success: #4f8e28; --color-warning: #c18414; --color-error: #b84574; --color-blue: #2e6bd8;
+      --shadow-sm: 0 4px 10px rgba(27,25,21,.06); --shadow-md: 0 10px 30px rgba(27,25,21,.1); --shadow-lg: 0 18px 50px rgba(27,25,21,.14);
+      --font-body: 'Satoshi', Inter, sans-serif;
+    }
+    [data-theme="dark"] {
+      --color-bg: #111315; --color-surface: #171a1d; --color-surface-2: #1c2024; --color-surface-offset: #21262b;
+      --color-border: #2c3238; --color-divider: #262c31; --color-text: #edf1f5; --color-text-muted: #aab2ba; --color-text-faint: #717983;
+      --color-primary: #59c6d1; --color-primary-hover: #7fd9e1; --color-primary-highlight: rgba(89,198,209,.14); --color-on-primary: #051416;
+      --color-success: #7ec84f; --color-warning: #f3b248; --color-error: #ea73a1; --color-blue: #72a1ff;
+      --shadow-sm: 0 4px 10px rgba(0,0,0,.22); --shadow-md: 0 16px 40px rgba(0,0,0,.32); --shadow-lg: 0 24px 60px rgba(0,0,0,.45);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;min-width:0}
+    img,svg{max-width:100%}
+    html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+    body{min-height:100dvh;font-family:var(--font-body);font-size:var(--text-base);background:
+      radial-gradient(circle at top right, rgba(89,198,209,.15), transparent 28%),
+      radial-gradient(circle at bottom left, rgba(114,161,255,.12), transparent 30%),
+      var(--color-bg);color:var(--color-text);line-height:1.55}
+    button,input{font:inherit;color:inherit}
+    button{cursor:pointer;border:none}
+    input{border:none;background:transparent;outline:none;width:100%}
+    .app{max-width:1400px;margin:0 auto;padding:var(--space-6);display:grid;grid-template-columns:minmax(260px,300px) minmax(0,1fr);gap:var(--space-6);align-items:start}
+    .panel{background:linear-gradient(180deg, color-mix(in srgb, var(--color-surface) 92%, transparent), var(--color-surface-2));border:1px solid color-mix(in srgb, var(--color-border) 82%, transparent);box-shadow:var(--shadow-md);border-radius:var(--radius-xl);backdrop-filter:blur(14px)}
+    .sidebar{padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-6);position:sticky;top:24px;max-height:calc(100dvh - 48px);overflow-y:auto;min-width:0}
+    .brand{display:flex;align-items:center;justify-content:space-between;gap:var(--space-4)}
+    .logoWrap{display:flex;align-items:center;gap:var(--space-3)}
+    .title{font-size:var(--text-lg);font-weight:900;letter-spacing:.01em;overflow-wrap:anywhere}
+    .subtitle{font-size:var(--text-xs);color:var(--color-text-muted);overflow-wrap:anywhere}
+    .themeBtn,.ghostBtn,.iconBtn,.primaryBtn,.dangerBtn{border-radius:var(--radius-md);transition:.18s ease;background:transparent}
+    .themeBtn,.iconBtn{width:34px;height:34px;border:1px solid color-mix(in srgb, var(--color-border) 85%, transparent);display:grid;place-items:center;background:var(--color-surface-2)}
+    .themeBtn:hover,.iconBtn:hover{transform:translateY(-1px);border-color:color-mix(in srgb, var(--color-primary) 30%, var(--color-border))}
+    .heroCard{padding:var(--space-5);background:linear-gradient(155deg, color-mix(in srgb, var(--color-primary) 14%, var(--color-surface)), var(--color-surface));border-radius:var(--radius-lg);border:1px solid color-mix(in srgb, var(--color-primary) 26%, var(--color-border));display:grid;gap:var(--space-3);text-align:center}
+    .heroCard p{color:var(--color-text-muted);font-size:var(--text-sm)}
+    .metricGrid{display:grid;grid-template-columns:1fr;gap:var(--space-3);text-align:center}
+    .metric{padding:var(--space-4);border-radius:var(--radius-lg);background:var(--color-surface-2);border:1px solid color-mix(in srgb, var(--color-border) 88%, transparent);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-1)}
+    .metric .label{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-faint);margin-bottom:var(--space-2)}
+    .metric .value{font-size:var(--text-lg);font-weight:800;font-variant-numeric:tabular-nums lining-nums}
+    .formCard{display:grid;gap:var(--space-4);text-align:center}
+    .field{display:grid;gap:var(--space-2)}
+    .field label{font-size:var(--text-sm);font-weight:700;text-align:center}
+    .inputWrap{display:flex;align-items:center;gap:var(--space-2);padding:0 var(--space-3);height:38px;background:var(--color-surface-2);border:1px solid color-mix(in srgb, var(--color-border) 86%, transparent);border-radius:var(--radius-md)}
+    .inputWrap:focus-within{border-color:var(--color-primary);box-shadow:0 0 0 3px color-mix(in srgb, var(--color-primary) 18%, transparent)}
+    .fieldRow{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3)}
+    .unit{font-size:var(--text-xs);color:var(--color-text-faint);white-space:nowrap}
+    .actions{display:flex;align-items:center;justify-content:center;gap:var(--space-2);flex-wrap:nowrap}
+    .primaryBtn,.ghostBtn,.dangerBtn{padding:0 0.75rem;height:34px;font-weight:800;font-size:var(--text-sm);display:inline-flex;align-items:center;justify-content:center;gap:.45rem}
+    .primaryBtn svg,.dangerBtn svg,.ghostBtn svg{width:15px;height:15px;flex-shrink:0;display:block}
+    .themeBtn svg,.menuBtn svg,.notifyBtn svg{display:block}
+    .primaryBtn{background:var(--color-primary);color:var(--color-on-primary)}
+    .primaryBtn:hover{background:var(--color-primary-hover);color:var(--color-on-primary)}
+    .ghostBtn{background:var(--color-surface-2);border:1px solid color-mix(in srgb, var(--color-border) 88%, transparent)}
+    .dangerBtn{background:color-mix(in srgb, var(--color-error) 16%, var(--color-surface-2));color:var(--color-error);border:1px solid color-mix(in srgb, var(--color-error) 26%, var(--color-border))}
+    .hint{font-size:var(--text-xs);color:var(--color-text-muted);text-align:center}
+    .main{display:grid;gap:var(--space-6)}
+    .topbar{padding:var(--space-4) var(--space-6);display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);text-align:center}
+    .topbarTitle{font-size:var(--text-lg);font-weight:900;letter-spacing:.01em}
+    .topbarMeta{font-size:var(--text-sm);color:var(--color-text-muted);white-space:nowrap}
+    .topbarTitle{font-size:var(--text-lg);font-weight:900;letter-spacing:.01em}
+    .kpis{display:grid;grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));gap:var(--space-4)}
+    .kpi{padding:var(--space-5);border-radius:var(--radius-lg);background:var(--color-surface);border:1px solid color-mix(in srgb, var(--color-border) 88%, transparent);box-shadow:var(--shadow-sm);display:grid;gap:var(--space-2);min-width:0;text-align:center;justify-items:center}
+    .kpiLabel{display:flex;align-items:flex-start;justify-content:center;gap:.4rem;min-height:2.3rem}
+    .kpiLabel svg{width:14px;height:14px;flex-shrink:0;color:var(--color-text-faint);margin-top:.15rem}
+    .kpi span{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-faint);line-height:1.35}
+    .kpi strong{font-size:clamp(1.25rem,1rem + 1vw,2rem);font-weight:900;font-variant-numeric:tabular-nums lining-nums;overflow-wrap:anywhere}
+    .kpi small{font-size:var(--text-sm);color:var(--color-text-muted);min-height:2.6em;display:flex;align-items:flex-start}
+    .section{padding:var(--space-6)}
+    .sectionHeader{display:flex;flex-direction:column;align-items:center;text-align:center;justify-content:space-between;gap:var(--space-3);margin-bottom:var(--space-5)}
+    .sectionTitle{font-size:var(--text-lg);font-weight:800}
+    .accountList{max-height:60dvh;overflow:auto}
+    .accountListInner{border:1px solid color-mix(in srgb, var(--color-border) 85%, transparent);border-radius:var(--radius-md);overflow:hidden;background:var(--color-surface)}
+    .accountRow{padding:var(--space-3) var(--space-4);display:grid;gap:var(--space-2);border-left:1px solid transparent;min-width:0}
+    .accountRow:not(:last-child){border-bottom:1px solid var(--color-divider)}
+    .accountRow.critical{background:color-mix(in srgb, var(--color-error) 5%, var(--color-surface))}
+    .accountRow.low{background:color-mix(in srgb, var(--color-warning) 5%, var(--color-surface))}
+    .accountRow.medium{background:color-mix(in srgb, var(--color-primary) 5%, var(--color-surface))}
+    .accountRow.high{background:color-mix(in srgb, var(--color-blue) 6%, var(--color-surface))}
+    .accountRow.good{background:color-mix(in srgb, var(--color-success) 5%, var(--color-surface))}
+    .accountRow.hasTier{border-left-color:color-mix(in srgb, var(--tier-color) 55%, var(--color-border));box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--tier-color) 12%, transparent), inset 0 1px 0 color-mix(in srgb, #fff 5%, transparent);background-image:linear-gradient(180deg, color-mix(in srgb, var(--tier-color) 7%, transparent), transparent)}
+    .rowMain{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:start;gap:var(--space-3);min-width:0}
+    .rowDot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:.45rem;box-shadow:0 0 0 3px color-mix(in srgb, currentColor 14%, transparent)}
+    .rowDot.critical{background:var(--color-error);color:var(--color-error)}
+    .rowDot.low{background:var(--color-warning);color:var(--color-warning)}
+    .rowDot.medium{background:var(--color-primary);color:var(--color-primary)}
+    .rowDot.high{background:#7db7ff;color:#7db7ff}
+    .rowDot.good{background:var(--color-success);color:var(--color-success)}
+    .rowInfo{min-width:0;display:grid;gap:var(--space-1)}
+    .rowName{font-weight:800;font-size:var(--text-sm);overflow-wrap:anywhere}
+    .rowNameLine{display:flex;align-items:flex-start;gap:var(--space-2);min-width:0}
+    .rowNameGroup{display:flex;align-items:center;gap:var(--space-2);min-width:0;flex-wrap:wrap;flex:1}
+    .rowNote{font-size:var(--text-xs);font-weight:800;letter-spacing:.01em;color:var(--tier-color, var(--color-primary));overflow-wrap:anywhere;display:inline-flex;align-items:center;gap:.35rem;width:fit-content;max-width:100%;padding:.3rem .65rem;margin-top:var(--space-1);background:color-mix(in srgb, var(--tier-color, var(--color-primary)) 16%, var(--color-surface-2));border:1px solid color-mix(in srgb, var(--tier-color, var(--color-primary)) 32%, var(--color-border));border-radius:var(--radius-full)}
+    .nextBadge{display:inline-flex;align-items:center;gap:.3rem;height:20px;padding:0 .5rem;border-radius:var(--radius-full);font-size:11px;font-weight:900;letter-spacing:.02em;background:color-mix(in srgb, var(--color-warning) 20%, var(--color-surface-2));color:var(--color-warning);border:1px solid color-mix(in srgb, var(--color-warning) 38%, var(--color-border));white-space:nowrap}
+    .nextBadge svg{width:11px;height:11px;flex-shrink:0;display:block}
+    .accountRow.isNext{outline:2px solid color-mix(in srgb, var(--color-warning) 55%, transparent);outline-offset:-1px}
+    .rowNoteIcon{flex-shrink:0;display:flex;align-items:center}
+    .rowBar{height:5px;border-radius:999px;background:var(--color-surface-offset);margin-top:var(--space-1);overflow:hidden}
+    .rowBarFill{height:100%;border-radius:inherit;background:var(--color-surface-dynamic, color-mix(in srgb, var(--color-primary) 10%, var(--color-surface-offset)));transition:width .5s ease}
+    .rowBarFill.critical{background:linear-gradient(90deg, color-mix(in srgb, var(--color-error) 78%, #ffb4c9), var(--color-error))}
+    .rowBarFill.low{background:linear-gradient(90deg, color-mix(in srgb, var(--color-warning) 82%, #ffd89a), var(--color-warning))}
+    .rowBarFill.medium{background:linear-gradient(90deg, color-mix(in srgb, var(--color-primary) 88%, #8ce3eb), var(--color-primary))}
+    .rowBarFill.high{background:linear-gradient(90deg, #8dccff, var(--color-blue))}
+    .rowBarFill.good{background:linear-gradient(90deg, color-mix(in srgb, var(--color-success) 78%, #b8ef88), var(--color-success))}
+    .rowStats{text-align:right;flex-shrink:0;display:grid;gap:2px;align-self:center}
+    .rowCount{font-size:var(--text-xs);font-weight:700;font-variant-numeric:tabular-nums lining-nums;white-space:nowrap}
+    .rowEta{font-size:var(--text-xs);color:var(--color-text-faint);white-space:nowrap}
+    .rowActions{display:flex;gap:var(--space-2);justify-content:flex-end;align-items:center;flex-shrink:0}
+    .capBadge{display:inline-flex;align-items:center;justify-content:center;height:20px;padding:0 .45rem;border-radius:var(--radius-full);font-size:11px;font-weight:900;letter-spacing:.02em;background:color-mix(in srgb, var(--tier-color, var(--color-blue)) 18%, var(--color-surface-2));color:var(--tier-color, var(--color-blue));border:1px solid color-mix(in srgb, var(--tier-color, var(--color-blue)) 32%, var(--color-border));white-space:nowrap}
+    .menuWrap{position:relative;display:flex;justify-content:flex-end}
+    .menuBtn{width:34px;height:34px;padding:0;display:grid;place-items:center;border-radius:var(--radius-sm);background:var(--color-surface-2);border:1px solid color-mix(in srgb, var(--color-border) 85%, transparent);transition:.15s ease;font-size:1.1rem;font-weight:900;line-height:1}
+    .notifyBtn{width:34px;height:34px;padding:0;display:grid;place-items:center;border-radius:var(--radius-sm);background:var(--color-surface-2);border:1px solid color-mix(in srgb, var(--color-border) 85%, transparent);color:var(--color-text-muted);transition:.15s ease}
+    .notifyBtn:hover{border-color:color-mix(in srgb, var(--color-primary) 30%, var(--color-border));color:var(--color-text)}
+    .notifyBtn.active{color:var(--color-primary);background:var(--color-primary-highlight);border-color:color-mix(in srgb, var(--color-primary) 45%, var(--color-border))}
+    .notifyWrap{position:relative;display:flex;align-items:center}
+    .notifyTrigger{display:inline-flex;align-items:center;gap:.5rem;height:34px;padding:0 .85rem;border-radius:var(--radius-full);background:var(--color-surface-2);border:1px solid color-mix(in srgb, var(--color-border) 85%, transparent);color:var(--color-text-muted);font-size:var(--text-sm);font-weight:700;white-space:nowrap;transition:.15s ease}
+    .notifyTrigger:hover{border-color:color-mix(in srgb, var(--color-primary) 30%, var(--color-border));color:var(--color-text)}
+    .notifyTrigger.active{color:var(--color-primary);background:var(--color-primary-highlight);border-color:color-mix(in srgb, var(--color-primary) 45%, var(--color-border))}
+    .notifyTriggerIcon{display:flex;align-items:center;flex-shrink:0}
+    .notifyTriggerIcon svg{width:15px;height:15px;display:block}
+    .notifyPanel{min-width:230px}
+    .notifyPanelTitle{font-size:var(--text-sm);font-weight:800;color:var(--color-text);padding:.15rem .3rem .5rem;margin-bottom:.25rem;border-bottom:1px solid var(--color-divider)}
+    .notifyOption{display:flex;align-items:center;gap:.55rem;padding:.4rem .3rem;border-radius:var(--radius-sm);font-size:var(--text-sm);cursor:pointer;user-select:none}
+    .notifyOption:hover{background:var(--color-surface-2)}
+    .notifyOption input[type="checkbox"]{width:15px;height:15px;flex-shrink:0;accent-color:var(--color-primary);cursor:pointer}
+    .notifyTestBtn{width:100%;display:flex;align-items:center;justify-content:center;gap:.45rem;margin-top:.4rem;padding-top:.6rem;border-top:1px solid var(--color-divider);background:transparent;color:var(--color-text-muted);font-size:var(--text-sm);font-weight:700;cursor:pointer;border-left:none;border-right:none;border-bottom:none;border-radius:0}
+    .notifyTestBtn:hover{color:var(--color-primary)}
+    .notifyTestBtn svg{width:14px;height:14px;flex-shrink:0;display:block}
+    .menuBtn:hover{border-color:color-mix(in srgb, var(--color-primary) 30%, var(--color-border))}
+    /* El panel se reubica a <body> con JS al abrirse, por eso usa position:fixed
+       y su visibilidad depende de su propia clase .open (no de un ancestro),
+       así nunca queda recortado por el overflow de la lista de cuentas. */
+    .menuPanel{position:fixed;min-width:140px;padding:var(--space-2);display:none;grid-template-columns:1fr;gap:var(--space-2);background:var(--color-surface);border:1px solid color-mix(in srgb, var(--color-border) 88%, transparent);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);z-index:9999}
+    .menuPanel.open{display:grid}
+    .menuItem{height:32px;padding:0 .7rem;display:flex;align-items:center;gap:var(--space-2);justify-content:flex-start;border-radius:var(--radius-sm);background:var(--color-surface-2);border:1px solid color-mix(in srgb, var(--color-border) 85%, transparent);font-size:var(--text-xs);font-weight:800;white-space:nowrap}
+    .menuItem:hover{border-color:color-mix(in srgb, var(--color-primary) 30%, var(--color-border))}
+    .menuItem.danger{color:var(--color-error);border-color:color-mix(in srgb, var(--color-error) 26%, var(--color-border))}
+    .menuItem.danger:hover{background:color-mix(in srgb, var(--color-error) 12%, var(--color-surface-2))}
+    .iconBtnSm{width:34px;height:34px;padding:0;display:grid;place-items:center;border-radius:var(--radius-sm);background:var(--color-surface-2);border:1px solid color-mix(in srgb, var(--color-border) 85%, transparent);transition:.15s ease;flex-shrink:0}
+    .iconBtnSm svg{width:14px;height:14px}
+    .iconBtnSm:hover{border-color:color-mix(in srgb, var(--color-primary) 30%, var(--color-border))}
+    .iconBtnSm.danger{color:var(--color-error);border-color:color-mix(in srgb, var(--color-error) 26%, var(--color-border))}
+    .iconBtnSm.danger:hover{background:color-mix(in srgb, var(--color-error) 12%, var(--color-surface-2))}
+    .pill{padding:.4rem .7rem;border-radius:var(--radius-full);font-size:var(--text-xs);font-weight:800;background:var(--color-surface-offset);border:1px solid color-mix(in srgb, var(--color-border) 82%, transparent)}
+    .empty{padding:var(--space-12) var(--space-5);text-align:center;color:var(--color-text-muted);border:1px dashed color-mix(in srgb, var(--color-border) 82%, transparent);border-radius:var(--radius-lg);background:var(--color-surface)}
+    @media (max-width: 1120px){.app{grid-template-columns:1fr}.sidebar{position:relative;max-height:none;top:0}}
+    @media (max-width: 760px){.app{padding:var(--space-4)}.topbar{flex-direction:column}.headline h1{max-width:none}.kpis,.metricGrid{grid-template-columns:1fr}.accountList{max-height:none}.actions{flex-wrap:wrap}.rowMain{grid-template-columns:auto minmax(0,1fr)}.rowStats{grid-column:2;text-align:left}.menuWrap{margin-left:auto}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar panel">
+      <div class="brand">
+        <div class="logoWrap"><div class="title">WPlace Manager</div></div>
+        <button class="themeBtn" data-theme-toggle aria-label="Cambiar tema"></button>
+      </div>
+
+      <section class="formCard">
+        <div class="field">
+          <label for="name">Nombre de cuenta</label>
+          <div class="inputWrap"><input id="name" placeholder="Ej. Main, alt 1, guild painter" /></div>
+        </div>
+
+        <div class="fieldRow">
+          <div class="field">
+            <label for="maxPixels">Carga máxima</label>
+            <div class="inputWrap"><input id="maxPixels" type="number" min="1" step="1" placeholder="120" /><span class="unit">px</span></div>
+          </div>
+
+          <div class="field">
+            <label for="currentPixels">Carga actual</label>
+            <div class="inputWrap"><input id="currentPixels" type="number" min="0" step="1" placeholder="48" /><span class="unit">px</span></div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="note">Nota</label>
+          <div class="inputWrap"><input id="note" placeholder="Zona, prioridad, correo, comentario..." /></div>
+        </div>
+
+        <div class="actions">
+          <button class="primaryBtn" id="saveBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg><span>Guardar</span></button>
+          <button class="iconBtnSm" id="demoBtn" title="Cargar demo" aria-label="Cargar cuentas de demostración"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></button>
+          <button class="iconBtnSm" id="exportBtn" title="Exportar JSON" aria-label="Exportar cuentas a un archivo JSON"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></button>
+          <button class="iconBtnSm" id="importBtn" title="Importar JSON" aria-label="Importar cuentas desde un archivo JSON"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
+          <input type="file" id="fileInput" accept="application/json" hidden />
+        </div>
+      </section>
+    </aside>
+
+    <main class="main">
+      <section class="topbar panel">
+        <div class="topbarTitle" id="clockPill">Hora actual: --:--:--</div>
+        <div class="topbarMeta">Recarga base: <strong>1 px / 30s</strong></div>
+        <div class="notifyWrap" id="global-notify">
+          <button class="notifyTrigger" id="globalNotifyBtn" onclick="openPopover('global-notify')" aria-haspopup="true" aria-expanded="false" title="Configurar avisos">
+            <span class="notifyTriggerIcon" aria-hidden="true"></span>
+            <span id="globalNotifyLabel">Avisos desactivados</span>
+          </button>
+          <div class="menuPanel notifyPanel" id="globalNotifyPanel"></div>
+        </div>
+      </section>
+
+      <section class="kpis">
+        <article class="kpi panel">
+          <div class="kpiLabel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Cuentas</span></div>
+          <strong id="kpiAccounts">0</strong>
+          <small>Registradas en el panel</small>
+        </article>
+        <article class="kpi panel">
+          <div class="kpiLabel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg><span>Capacidad total</span></div>
+          <strong id="kpiCapacity">0</strong>
+          <small>Suma de todos los máximos</small>
+        </article>
+        <article class="kpi panel">
+          <div class="kpiLabel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span>Píxeles disponibles</span></div>
+          <strong id="kpiCurrent">0</strong>
+          <small>Lo que tienes ahora mismo</small>
+        </article>
+        <article class="kpi panel">
+          <div class="kpiLabel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg><span>Píxeles por recargar</span></div>
+          <strong id="kpiRemaining">0</strong>
+          <small>Para llegar al máximo combinado</small>
+        </article>
+        <article class="kpi panel">
+          <div class="kpiLabel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Próxima cuenta llena</span></div>
+          <strong id="kpiCritical">—</strong>
+          <small>Tiempo estimado</small>
+        </article>
+      </section>
+
+      <section class="section panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="sectionTitle">Tus cuentas</div>
+            <div class="hint">Ordenadas por capacidad máxima, de mayor a menor.</div>
+          </div>
+        </div>
+        <div id="accountList" class="accountList"></div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    /* =========================================================
+       ESTADO Y PERSISTENCIA
+       ========================================================= */
+    const STORAGE_KEY = 'wplace-manager-state-v1';
+
+    const state = {
+      accounts: [],
+      editingId: null,
+      theme: 'dark',
+      notifySettings: { offsets: [] }
+    };
+
+    // El menú abierto (si hay uno) se guarda acá. El panel se reubica
+    // físicamente dentro de <body> mientras está abierto, para no quedar
+    // recortado por el overflow/scroll de la lista de cuentas.
+    let openMenu = null; // { id, panelEl, btnEl, originalParent }
+
+    // Claves `${accountId}:${offset}` para las que ya se disparó la
+    // notificación en el estado actual. Se limpia por umbral cuando la
+    // cuenta se aleja de él, para poder notificar de nuevo la próxima vez.
+    const notifiedThresholds = new Set();
+    const FAVICON_DATA_URI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAAXNSR0IArs4c6QAAABJQTFRFAQEBAAAAHGHnRcxVStlbMXLnk8SHtQAAAAF0Uk5TAEDm2GYAAABMSURBVHjadc9JCgAhDERRa7r/lZs0ikawdv+tkvEYALS07U2QawmOTo1oQBKr8/cUMLY7JLEPYLW0oISSNLtgiojRBfv0AuB67vH3B+FjAY/0rrGiAAAAAElFTkSuQmCC';
+
+    const els = {
+      name: document.getElementById('name'),
+      maxPixels: document.getElementById('maxPixels'),
+      currentPixels: document.getElementById('currentPixels'),
+      note: document.getElementById('note'),
+      saveBtn: document.getElementById('saveBtn'),
+      demoBtn: document.getElementById('demoBtn'),
+      exportBtn: document.getElementById('exportBtn'),
+      importBtn: document.getElementById('importBtn'),
+      fileInput: document.getElementById('fileInput'),
+      accountList: document.getElementById('accountList'),
+      kpiAccounts: document.getElementById('kpiAccounts'),
+      kpiCurrent: document.getElementById('kpiCurrent'),
+      kpiCapacity: document.getElementById('kpiCapacity'),
+      kpiRemaining: document.getElementById('kpiRemaining'),
+      kpiCritical: document.getElementById('kpiCritical'),
+      clockPill: document.getElementById('clockPill'),
+      themeToggle: document.querySelector('[data-theme-toggle]'),
+      globalNotifyBtn: document.getElementById('globalNotifyBtn'),
+      globalNotifyLabel: document.getElementById('globalNotifyLabel'),
+      globalNotifyPanel: document.getElementById('globalNotifyPanel')
+    };
+
+    const fmt = new Intl.NumberFormat('es-CL');
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          accounts: state.accounts,
+          theme: state.theme,
+          notifySettings: state.notifySettings
+        }));
+      } catch (err) {
+        console.warn('No se pudo guardar el estado en localStorage.', err);
+      }
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (!parsed || !Array.isArray(parsed.accounts)) return null;
+        return parsed;
+      } catch (err) {
+        console.warn('No se pudo leer el estado guardado.', err);
+        return null;
+      }
+    }
+
+    /* =========================================================
+       UTILIDADES
+       ========================================================= */
+    function uid() {
+      return Math.random().toString(36).slice(2, 10);
+    }
+
+    function now() {
+      return Date.now();
+    }
+
+    function clamp(val, min, max) {
+      return Math.min(max, Math.max(min, val));
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    // Opciones de anticipación disponibles para los avisos (en minutos antes
+    // de llenarse; 0 = justo cuando se llena).
+    const NOTIFY_OFFSETS = [
+      { value: 60, label: '1 hora antes' },
+      { value: 30, label: '30 minutos antes' },
+      { value: 15, label: '15 minutos antes' },
+      { value: 5, label: '5 minutos antes' },
+      { value: 0, label: 'Cuando esté llena' }
+    ];
+    const NOTIFY_OFFSET_LABELS = Object.fromEntries(NOTIFY_OFFSETS.map(o => [o.value, o.label]));
+
+    /* =========================================================
+       MODELO DE CUENTA
+       ========================================================= */
+    function normalizeAccount(acc) {
+      const max = Math.max(1, Number(acc.maxPixels) || 1);
+      const current = clamp(Number(acc.currentPixels) || 0, 0, max);
+      return {
+        id: acc.id || uid(),
+        name: acc.name?.trim() || 'Cuenta sin nombre',
+        note: acc.note?.trim() || '',
+        maxPixels: max,
+        currentPixels: current,
+        updatedAt: Number(acc.updatedAt) || now()
+      };
+    }
+
+    function getComputedCurrent(acc) {
+      const elapsed = Math.max(0, now() - acc.updatedAt);
+      const regenerated = Math.floor(elapsed / 30000);
+      return clamp(acc.currentPixels + regenerated, 0, acc.maxPixels);
+    }
+
+    function getSecondsToFull(acc) {
+      const current = getComputedCurrent(acc);
+      return Math.max(0, (acc.maxPixels - current) * 30);
+    }
+
+    function formatDuration(totalSeconds) {
+      if (totalSeconds <= 0) return 'Lista';
+      const h = Math.floor(totalSeconds / 3600);
+      const m = Math.floor((totalSeconds % 3600) / 60);
+      const s = totalSeconds % 60;
+      if (h > 0) return `${h}h ${m}m`;
+      if (m > 0) return `${m}m ${s}s`;
+      return `${s}s`;
+    }
+
+    function getStatus(acc) {
+      const current = getComputedCurrent(acc);
+      const percent = Math.round((current / acc.maxPixels) * 100);
+      if (percent >= 100) return { text: 'Llena', cls: 'good', percent };
+      if (percent >= 80) return { text: 'Alta', cls: 'high', percent };
+      if (percent >= 50) return { text: 'Media', cls: 'medium', percent };
+      if (percent >= 25) return { text: 'Baja', cls: 'low', percent };
+      return { text: 'Crítica', cls: 'critical', percent };
+    }
+
+    // Tramos de capacidad máxima, de mayor a menor. Cada uno tiene su propio
+    // matiz (hue) de color: los tramos bajos son fríos (azul/verde) y suben
+    // hacia colores cálidos (naranja/rojo) a medida que crece la capacidad.
+    const CAPACITY_TIERS = [
+      { min: 10000, label: '10k+', hue: 5 },
+      { min: 9000, label: '9k+', hue: 25 },
+      { min: 8000, label: '8k+', hue: 45 },
+      { min: 7000, label: '7k+', hue: 65 },
+      { min: 6000, label: '6k+', hue: 85 },
+      { min: 5000, label: '5k+', hue: 105 },
+      { min: 4000, label: '4k+', hue: 125 },
+      { min: 3000, label: '3k+', hue: 145 },
+      { min: 2000, label: '2k+', hue: 165 },
+      { min: 1000, label: '1k+', hue: 185 },
+      { min: 500, label: '500+', hue: 205 }
+    ];
+
+    function getCapacityMeta(acc) {
+      const tier = CAPACITY_TIERS.find(t => acc.maxPixels >= t.min);
+      if (!tier) return { levelClass: '', badge: '', colorStyle: '' };
+      const color = `hsl(${tier.hue}, 70%, 50%)`;
+      return {
+        levelClass: 'hasTier',
+        badge: `<span class="capBadge">${tier.label}</span>`,
+        colorStyle: `--tier-color:${color};`
+      };
+    }
+
+    function sortByTimeToFull(list) {
+      return [...list].sort((a, b) => {
+        const af = getSecondsToFull(a);
+        const bf = getSecondsToFull(b);
+        if (af !== bf) return af - bf;
+        return a.name.localeCompare(b.name, 'es');
+      });
+    }
+
+    function sortByCapacity(list) {
+      return [...list].sort((a, b) => {
+        if (b.maxPixels !== a.maxPixels) return b.maxPixels - a.maxPixels;
+        return a.name.localeCompare(b.name, 'es');
+      });
+    }
+
+    // IDs de la(s) cuenta(s) que están más cerca de llenarse (soporta empates).
+    // Las que ya están llenas quedan afuera: no son "las próximas" (para el badge de UI).
+    function getClosestIds(list) {
+      const pending = list
+        .map(acc => ({ id: acc.id, secondsToFull: getSecondsToFull(acc) }))
+        .filter(x => x.secondsToFull > 0);
+      if (!pending.length) return [];
+      const min = Math.min(...pending.map(x => x.secondsToFull));
+      return pending.filter(x => x.secondsToFull === min).map(x => x.id);
+    }
+
+    // Igual que getClosestIds, pero además incluye a cualquier cuenta que ya
+    // esté llena mientras el aviso "cuando esté llena" (offset 0) siga
+    // activo. Sin esto, una cuenta deja de ser "la más próxima" en el
+    // instante exacto en que se llena, y ese aviso nunca llegaría a evaluarse.
+    function getNotifyCandidateIds(list) {
+      const closest = getClosestIds(list);
+      const full = list
+        .filter(acc => getSecondsToFull(acc) === 0 && state.notifySettings.offsets.includes(0))
+        .map(acc => acc.id);
+      return [...new Set([...closest, ...full])];
+    }
+
+    // Set de íconos SVG en línea (estilo trazo, sin emojis) usados en toda la app.
+    const ICONS = {
+      menu: '<svg viewBox="0 0 24 24" width="18" height="18"><circle cx="5" cy="12" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.8" fill="currentColor" stroke="none"/></svg>',
+      edit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>',
+      trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>',
+      note: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
+      save: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>',
+      check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><polyline points="20 6 9 17 4 12"/></svg>',
+      moon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
+      sun: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>',
+      bell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
+      next: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="11" height="11"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>'
+    };
+
+    /* =========================================================
+       RENDER
+       Se separa en dos partes:
+       - renderAccounts(): reconstruye el HTML completo de la lista.
+         Solo se llama cuando cambian los DATOS (crear/editar/borrar/
+         importar/demo/carga inicial).
+       - tickAccounts(): cada 1s actualiza SOLO los valores que cambian
+         con el tiempo (barra, porcentaje, ETA) tocando nodos existentes,
+         sin recrear el DOM. Así los menús abiertos nunca se destruyen
+         a medio uso.
+       ========================================================= */
+    function renderAccounts() {
+      closeAllMenus();
+      const sorted = sortByCapacity(state.accounts);
+      if (!sorted.length) {
+        els.accountList.innerHTML = `<div class="empty">Aún no tienes cuentas cargadas. Usa el panel izquierdo para crear la primera.</div>`;
+        return;
+      }
+
+      const closestIds = getClosestIds(state.accounts);
+
+      const rows = sorted.map(acc => {
+        const current = getComputedCurrent(acc);
+        const status = getStatus(acc);
+        const percent = status.percent;
+        const fullIn = getSecondsToFull(acc);
+        const etaLabel = fullIn <= 0 ? 'Llena' : `ETA ${formatDuration(fullIn)}`;
+        const capacity = getCapacityMeta(acc);
+        const isNext = closestIds.includes(acc.id);
+        return `
+          <article class="accountRow ${status.cls} ${capacity.levelClass}${isNext ? ' isNext' : ''}" data-account-id="${acc.id}" style="${capacity.colorStyle}">
+            <div class="rowMain">
+              <span class="rowDot ${status.cls}" data-role="dot" title="${escapeHtml(status.text)} (${percent}%)" aria-hidden="true"></span>
+              <div class="rowInfo">
+                <div class="rowNameLine">
+                  <div class="rowNameGroup">
+                    <div class="rowName">${escapeHtml(acc.name)}</div>
+                    ${capacity.badge}
+                    ${isNext ? `<span class="nextBadge" title="Es la cuenta más próxima a llenarse">${ICONS.next}Próxima</span>` : ''}
+                  </div>
+                  <div class="rowActions">
+                    <div class="menuWrap" id="menu-${acc.id}">
+                      <button class="menuBtn" onclick="toggleAccountMenu('${acc.id}')" aria-label="Abrir acciones de ${escapeHtml(acc.name)}" aria-expanded="false">${ICONS.menu}</button>
+                      <div class="menuPanel">
+                        <button class="menuItem" onclick="editAccount('${acc.id}'); closeAllMenus();">${ICONS.edit} Editar</button>
+                        <button class="menuItem danger" onclick="deleteAccount('${acc.id}'); closeAllMenus();">${ICONS.trash} Eliminar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                ${acc.note ? `<div class="rowNote"><span class="rowNoteIcon" aria-hidden="true">${ICONS.note}</span><span>${escapeHtml(acc.note)}</span></div>` : ''}
+                <div class="rowBar"><div class="rowBarFill ${status.cls}" data-role="bar" style="width:${percent}%"></div></div>
+              </div>
+              <div class="rowStats">
+                <div class="rowCount" data-role="count">${fmt.format(current)} / ${fmt.format(acc.maxPixels)}</div>
+                <div class="rowEta" data-role="eta">${etaLabel}</div>
+              </div>
+            </div>
+          </article>`;
+      }).join('');
+
+      els.accountList.innerHTML = `<div class="accountListInner">${rows}</div>`;
+    }
+
+    const STATUS_CLASSES = ['critical', 'low', 'medium', 'high', 'good'];
+
+    function tickAccounts(closestIds) {
+      state.accounts.forEach(acc => {
+        const row = els.accountList.querySelector(`[data-account-id="${acc.id}"]`);
+        if (!row) return; // fuera de la vista actual (p.ej. lista vacía momentáneamente)
+
+        const status = getStatus(acc);
+        const current = getComputedCurrent(acc);
+        const fullIn = getSecondsToFull(acc);
+        const etaLabel = fullIn <= 0 ? 'Llena' : `ETA ${formatDuration(fullIn)}`;
+
+        row.classList.remove(...STATUS_CLASSES);
+        row.classList.add(status.cls);
+
+        const isNext = closestIds.includes(acc.id);
+        row.classList.toggle('isNext', isNext);
+        const nameGroup = row.querySelector('.rowNameGroup');
+        const existingBadge = nameGroup?.querySelector('.nextBadge');
+        if (isNext && !existingBadge && nameGroup) {
+          const badge = document.createElement('span');
+          badge.className = 'nextBadge';
+          badge.title = 'Es la cuenta más próxima a llenarse';
+          badge.innerHTML = `${ICONS.next}Próxima`;
+          nameGroup.appendChild(badge);
+        } else if (!isNext && existingBadge) {
+          existingBadge.remove();
+        }
+
+        const dot = row.querySelector('[data-role="dot"]');
+        if (dot) {
+          dot.classList.remove(...STATUS_CLASSES);
+          dot.classList.add(status.cls);
+          dot.title = `${status.text} (${status.percent}%)`;
+        }
+
+        const bar = row.querySelector('[data-role="bar"]');
+        if (bar) {
+          bar.classList.remove(...STATUS_CLASSES);
+          bar.classList.add(status.cls);
+          bar.style.width = `${status.percent}%`;
+        }
+
+        const countEl = row.querySelector('[data-role="count"]');
+        if (countEl) countEl.textContent = `${fmt.format(current)} / ${fmt.format(acc.maxPixels)}`;
+
+        const etaEl = row.querySelector('[data-role="eta"]');
+        if (etaEl) etaEl.textContent = etaLabel;
+      });
+    }
+
+    function renderKpis() {
+      const list = state.accounts;
+      const totalCurrent = list.reduce((sum, acc) => sum + getComputedCurrent(acc), 0);
+      const totalCapacity = list.reduce((sum, acc) => sum + acc.maxPixels, 0);
+      const totalRemaining = Math.max(0, totalCapacity - totalCurrent);
+      const next = sortByTimeToFull(list)[0];
+      els.kpiAccounts.textContent = fmt.format(list.length);
+      els.kpiCurrent.textContent = fmt.format(totalCurrent);
+      els.kpiCapacity.textContent = fmt.format(totalCapacity);
+      els.kpiRemaining.textContent = fmt.format(totalRemaining);
+      els.kpiCritical.textContent = next ? formatDuration(getSecondsToFull(next)) : '—';
+      els.clockPill.textContent = 'Hora actual: ' + new Date().toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+    }
+
+    // Render completo: se usa tras cambios de datos.
+    function render() {
+      renderAccounts();
+      renderKpis();
+    }
+
+    // Tick de reloj: se usa cada 1s, no toca menús ni estructura del DOM.
+    function tick() {
+      const closestIds = getClosestIds(state.accounts);
+      tickAccounts(closestIds);
+      checkNotifications(getNotifyCandidateIds(state.accounts));
+      renderKpis();
+    }
+
+    /* =========================================================
+       NOTIFICACIONES DEL NAVEGADOR (config. GLOBAL)
+       Se elige uno o más avisos con anticipación en minutos (0 = justo
+       cuando se llena). En cada tick, checkNotifications() mira SOLO
+       la(s) cuenta(s) que están más cerca de llenarse (closestIds) y
+       dispara un aviso la primera vez que su tiempo restante cruza
+       cada umbral elegido. Si otra cuenta pasa a ser "la próxima", el
+       seguimiento de la anterior se reinicia para no arrastrar estado.
+       ========================================================= */
+    function checkNotifications(closestIds) {
+      // Si una cuenta deja de ser "la próxima", se olvida su seguimiento
+      // para que, si vuelve a serlo más adelante, pueda notificar de nuevo.
+      Array.from(notifiedThresholds).forEach(key => {
+        const id = key.slice(0, key.lastIndexOf(':'));
+        if (!closestIds.includes(id)) notifiedThresholds.delete(key);
+      });
+
+      const offsets = state.notifySettings.offsets;
+      if (!offsets.length || !closestIds.length) return;
+
+      closestIds.forEach(id => {
+        const acc = state.accounts.find(a => a.id === id);
+        if (!acc) return;
+        const minutesToFull = getSecondsToFull(acc) / 60;
+        offsets.forEach(offset => {
+          const key = `${id}:${offset}`;
+          if (minutesToFull <= offset) {
+            if (!notifiedThresholds.has(key)) {
+              fireOffsetNotification(acc, offset);
+              notifiedThresholds.add(key);
+            }
+          } else {
+            notifiedThresholds.delete(key);
+          }
+        });
+      });
+    }
+
+    function fireOffsetNotification(acc, offset) {
+      if (!('Notification' in window) || Notification.permission !== 'granted') return;
+      const title = offset === 0 ? 'Cuenta llena' : 'Por llenarse pronto';
+      const body = offset === 0
+        ? `${acc.name} alcanzó ${fmt.format(acc.maxPixels)} píxeles.`
+        : `${acc.name} estará llena en ${NOTIFY_OFFSET_LABELS[offset].replace(' antes', '')} o menos.`;
+      try {
+        new Notification(title, {
+          body,
+          icon: FAVICON_DATA_URI,
+          tag: `wplace-${acc.id}-${offset}`
+        });
+      } catch (err) {
+        console.warn('No se pudo mostrar la notificación.', err);
+      }
+    }
+
+    // Evita notificar apenas se carga/edita/importa un estado que YA cruzó
+    // algún umbral (solo queremos avisar cuando se cruza "en vivo", no de entrada).
+    function syncNotifiedBaseline() {
+      notifiedThresholds.clear();
+      const candidateIds = getNotifyCandidateIds(state.accounts);
+      const offsets = state.notifySettings.offsets;
+      candidateIds.forEach(id => {
+        const acc = state.accounts.find(a => a.id === id);
+        if (!acc) return;
+        const minutesToFull = getSecondsToFull(acc) / 60;
+        offsets.forEach(offset => {
+          if (minutesToFull <= offset) notifiedThresholds.add(`${id}:${offset}`);
+        });
+      });
+    }
+
+    function handleGlobalNotifyCheckbox(checkboxEl, offset) {
+      if (!checkboxEl.checked) {
+        state.notifySettings.offsets = state.notifySettings.offsets.filter(o => o !== offset);
+        Array.from(notifiedThresholds).forEach(key => { if (key.endsWith(`:${offset}`)) notifiedThresholds.delete(key); });
+        saveState();
+        updateGlobalNotifyUI();
+        return;
+      }
+
+      if (!('Notification' in window)) {
+        checkboxEl.checked = false;
+        alert('Tu navegador no soporta notificaciones.');
+        return;
+      }
+      if (Notification.permission === 'denied') {
+        checkboxEl.checked = false;
+        alert('Bloqueaste las notificaciones para esta página. Actívalas desde la configuración del navegador para usar esta función.');
+        return;
+      }
+
+      const applyChecked = () => {
+        state.notifySettings.offsets = [...new Set([...state.notifySettings.offsets, offset])];
+        // permite notificar de inmediato si la cuenta más próxima (o la recién llenada) ya corresponde a este umbral
+        getNotifyCandidateIds(state.accounts).forEach(id => notifiedThresholds.delete(`${id}:${offset}`));
+        saveState();
+        updateGlobalNotifyUI();
+      };
+
+      if (Notification.permission === 'granted') {
+        applyChecked();
+      } else {
+        Notification.requestPermission().then(permission => {
+          if (permission === 'granted') applyChecked();
+          else checkboxEl.checked = false;
+        });
+      }
+    }
+
+    // Construye el contenido del panel de opciones (una sola vez, al arrancar).
+    function buildGlobalNotifyPanel() {
+      els.globalNotifyBtn.querySelector('.notifyTriggerIcon').innerHTML = ICONS.bell;
+      els.globalNotifyPanel.innerHTML = `<div class="notifyPanelTitle">¿Cuándo avisar?</div>` +
+        NOTIFY_OFFSETS.map(o => `
+        <label class="notifyOption">
+          <input type="checkbox" ${state.notifySettings.offsets.includes(o.value) ? 'checked' : ''} onchange="handleGlobalNotifyCheckbox(this, ${o.value})" />
+          <span>${o.label}</span>
+        </label>`).join('') +
+        `<button type="button" class="notifyTestBtn" onclick="testNotification()">${ICONS.bell} Enviar aviso de prueba</button>`;
+    }
+
+    // Dispara una notificación de muestra al toque, sin esperar ningún
+    // umbral. Sirve para confirmar que el navegador realmente las muestra
+    // (permisos, sistema operativo en "No molestar", etc.) sin tener que
+    // esperar a que una cuenta se llene.
+    function testNotification() {
+      if (!('Notification' in window)) {
+        alert('Este navegador no soporta notificaciones.');
+        return;
+      }
+      if (Notification.permission === 'denied') {
+        alert('Las notificaciones están bloqueadas para esta página. Revisa los permisos del navegador (el ícono de candado/información junto a la URL).\n\nSi abriste este archivo con doble clic (file://) en vez de un sitio web, algunos navegadores no permiten notificaciones en ese caso: probá subirlo a un hosting simple.');
+        return;
+      }
+
+      const send = () => {
+        try {
+          new Notification('Aviso de prueba', {
+            body: 'Si ves esto, las notificaciones funcionan bien en este navegador.',
+            icon: FAVICON_DATA_URI,
+            tag: 'wplace-test'
+          });
+        } catch (err) {
+          alert('El navegador rechazó mostrar la notificación: ' + err.message);
+        }
+      };
+
+      if (Notification.permission === 'granted') {
+        send();
+      } else {
+        Notification.requestPermission().then(permission => {
+          if (permission === 'granted') send();
+          else alert('No se otorgó el permiso de notificaciones.');
+        });
+      }
+    }
+
+    // Refresca el estado visual (chip activo + texto resumen) del control global.
+    function updateGlobalNotifyUI() {
+      const offsets = state.notifySettings.offsets;
+      els.globalNotifyBtn.classList.toggle('active', offsets.length > 0);
+      els.globalNotifyLabel.textContent = offsets.length
+        ? `Avisos: ${offsets.slice().sort((a, b) => b - a).map(o => o === 0 ? 'al llenarse' : NOTIFY_OFFSET_LABELS[o].replace(' antes', '')).join(' · ')}`
+        : 'Avisos desactivados';
+    }
+
+    /* =========================================================
+       FORMULARIO
+       ========================================================= */
+    function resetForm(focusName = false) {
+      state.editingId = null;
+      els.name.value = '';
+      els.maxPixels.value = '';
+      els.currentPixels.value = '';
+      els.note.value = '';
+      els.saveBtn.innerHTML = `${ICONS.save}<span>Guardar</span>`;
+      if (focusName) els.name.focus();
+    }
+
+    function saveAccount() {
+      if (!els.name.value.trim()) {
+        alert('Ponle un nombre a la cuenta.');
+        els.name.focus();
+        return;
+      }
+
+      const payload = normalizeAccount({
+        id: state.editingId || uid(),
+        name: els.name.value,
+        maxPixels: els.maxPixels.value,
+        currentPixels: els.currentPixels.value,
+        note: els.note.value,
+        updatedAt: now()
+      });
+
+      if (state.editingId) {
+        state.accounts = state.accounts.map(acc => acc.id === state.editingId ? payload : acc);
+      } else {
+        state.accounts.unshift(payload);
+      }
+      resetForm(true);
+      syncNotifiedBaseline();
+      saveState();
+      render();
+    }
+
+    function editAccount(id) {
+      const acc = state.accounts.find(a => a.id === id);
+      if (!acc) return;
+      state.editingId = id;
+      els.name.value = acc.name;
+      els.maxPixels.value = acc.maxPixels;
+      els.currentPixels.value = getComputedCurrent(acc);
+      els.note.value = acc.note;
+      els.saveBtn.innerHTML = `${ICONS.check}<span>Actualizar</span>`;
+      els.name.focus();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function deleteAccount(id) {
+      state.accounts = state.accounts.filter(acc => acc.id !== id);
+      if (state.editingId === id) resetForm();
+      saveState();
+      render();
+    }
+
+    /* =========================================================
+       IMPORTAR / EXPORTAR / DEMO
+       ========================================================= */
+    function exportData() {
+      const blob = new Blob([JSON.stringify(state.accounts, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'wplace-accounts.json';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    function importData(file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const parsed = JSON.parse(reader.result);
+          if (!Array.isArray(parsed)) throw new Error('Formato inválido');
+          state.accounts = parsed.map(normalizeAccount);
+          resetForm();
+          syncNotifiedBaseline();
+          saveState();
+          render();
+        } catch (err) {
+          alert('No pude importar ese JSON.');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function loadDemo() {
+      state.accounts = [
+        { id: uid(), name: 'Main', maxPixels: 1200, currentPixels: 126, note: 'Cuenta principal', updatedAt: now() - 12 * 60000 },
+        { id: uid(), name: 'Alt Norte', maxPixels: 3000, currentPixels: 1180, note: 'Defensa mural', updatedAt: now() - 5 * 60000 },
+        { id: uid(), name: 'Alt Guild', maxPixels: 12000, currentPixels: 11340, note: 'Proyecto comunitario', updatedAt: now() - 28 * 60000 }
+      ].map(normalizeAccount);
+      syncNotifiedBaseline();
+      saveState();
+      render();
+    }
+
+    /* =========================================================
+       TEMA
+       ========================================================= */
+    function setTheme(next) {
+      state.theme = next;
+      document.documentElement.setAttribute('data-theme', next);
+      els.themeToggle.innerHTML = next === 'dark' ? ICONS.moon : ICONS.sun;
+      els.themeToggle.setAttribute('aria-label', next === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+      saveState();
+    }
+
+    /* =========================================================
+       POPOVERS (menú de acciones ⋯ y panel de avisos 🔔)
+       Ambos comparten el mismo mecanismo: el panel se reubica
+       temporalmente en <body> con position:fixed, calculando su
+       posición desde el botón que lo abrió. Esto evita que quede
+       recortado por el overflow/scroll de la lista de cuentas,
+       sin importar en qué parte de la lista esté la fila. Solo
+       un popover puede estar abierto a la vez.
+       ========================================================= */
+    function positionMenuPanel(panelEl, btnEl) {
+      const rect = btnEl.getBoundingClientRect();
+      const panelRect = panelEl.getBoundingClientRect();
+      const margin = 8;
+
+      let left = rect.right - panelRect.width;
+      left = clamp(left, margin, window.innerWidth - panelRect.width - margin);
+
+      let top = rect.bottom + 6;
+      if (top + panelRect.height > window.innerHeight - margin) {
+        top = rect.top - panelRect.height - 6; // no cabe abajo: se abre hacia arriba
+      }
+      top = clamp(top, margin, window.innerHeight - panelRect.height - margin);
+
+      panelEl.style.top = `${top}px`;
+      panelEl.style.left = `${left}px`;
+    }
+
+    function closeAllMenus() {
+      if (!openMenu) return;
+      const { panelEl, btnEl, originalParent } = openMenu;
+      panelEl.classList.remove('open');
+      panelEl.style.top = '';
+      panelEl.style.left = '';
+      if (originalParent && originalParent.isConnected) {
+        originalParent.appendChild(panelEl);
+      } else if (panelEl.isConnected) {
+        panelEl.remove(); // la fila ya no existe (se re-renderizó la lista)
+      }
+      if (btnEl) btnEl.setAttribute('aria-expanded', 'false');
+      openMenu = null;
+      window.removeEventListener('scroll', closeAllMenus, true);
+      window.removeEventListener('resize', closeAllMenus, true);
+    }
+
+    function openPopover(wrapId) {
+      const wasOpenForThisWrap = openMenu && openMenu.wrapId === wrapId;
+      closeAllMenus();
+      if (wasOpenForThisWrap) return;
+
+      const wrap = document.getElementById(wrapId);
+      if (!wrap) return;
+      const panelEl = wrap.querySelector('.menuPanel');
+      const btnEl = wrap.querySelector('button');
+      if (!panelEl || !btnEl) return;
+
+      const originalParent = wrap;
+      document.body.appendChild(panelEl);
+      panelEl.classList.add('open');
+      positionMenuPanel(panelEl, btnEl);
+      btnEl.setAttribute('aria-expanded', 'true');
+
+      openMenu = { wrapId, panelEl, btnEl, originalParent };
+      window.addEventListener('scroll', closeAllMenus, true);
+      window.addEventListener('resize', closeAllMenus, true);
+    }
+
+    function toggleAccountMenu(id) {
+      openPopover(`menu-${id}`);
+    }
+
+    /* =========================================================
+       EVENTOS
+       ========================================================= */
+    els.saveBtn.addEventListener('click', saveAccount);
+    els.demoBtn.addEventListener('click', loadDemo);
+    els.exportBtn.addEventListener('click', exportData);
+    els.importBtn.addEventListener('click', () => els.fileInput.click());
+    els.fileInput.addEventListener('change', e => {
+      const file = e.target.files?.[0];
+      if (file) importData(file);
+      e.target.value = '';
+    });
+    els.themeToggle.addEventListener('click', () => setTheme(state.theme === 'dark' ? 'light' : 'dark'));
+    document.addEventListener('click', event => {
+      if (!event.target.closest('.menuWrap') && !event.target.closest('.notifyWrap') && !event.target.closest('.menuPanel')) closeAllMenus();
+    });
+
+    window.editAccount = editAccount;
+    window.deleteAccount = deleteAccount;
+    window.toggleAccountMenu = toggleAccountMenu;
+    window.closeAllMenus = closeAllMenus;
+    window.openPopover = openPopover;
+    window.handleGlobalNotifyCheckbox = handleGlobalNotifyCheckbox;
+    window.testNotification = testNotification;
+
+    /* =========================================================
+       ARRANQUE
+       ========================================================= */
+    const saved = loadState();
+    if (saved) {
+      state.accounts = saved.accounts.map(normalizeAccount);
+      state.notifySettings.offsets = Array.isArray(saved.notifySettings?.offsets)
+        ? [...new Set(saved.notifySettings.offsets.map(Number).filter(n => Number.isFinite(n) && n >= 0))]
+        : [];
+      setTheme(saved.theme === 'light' ? 'light' : 'dark');
+    } else {
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setTheme(prefersDark ? 'dark' : 'light');
+    }
+    buildGlobalNotifyPanel();
+    updateGlobalNotifyUI();
+    syncNotifiedBaseline();
+    render();
+    setInterval(tick, 1000);
+
+    // Los navegadores frenan setInterval en pestañas inactivas, así que el
+    // reloj/las barras se ven "congeladas" al volver. El cálculo real (basado
+    // en Date.now() - updatedAt) siempre es correcto; esto solo refresca la
+    // pantalla al instante en vez de esperar al próximo tick del intervalo.
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) tick();
+    });
+  </script>
+</body>
+</html>
